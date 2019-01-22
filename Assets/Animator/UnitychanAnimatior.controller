@@ -206,7 +206,7 @@ BlendTree:
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 2
+  m_BlendType: 1
 --- !u!206 &206814995049414076
 BlendTree:
   m_ObjectHideFlags: 1
@@ -319,7 +319,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102840980951470774}
   m_Solo: 0
-  m_Mute: 1
+  m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0.25
@@ -529,7 +529,7 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
+  - m_ConditionMode: 4
     m_ConditionEvent: avater_AngleBetweenWall
     m_EventTreshold: 90
   - m_ConditionMode: 1
@@ -901,7 +901,7 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
+  - m_ConditionMode: 3
     m_ConditionEvent: avater_AngleBetweenWall
     m_EventTreshold: 90
   - m_ConditionMode: 1
@@ -913,9 +913,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.24999988
   m_TransitionOffset: 0
-  m_ExitTime: 0.8684211
+  m_ExitTime: 0.52776396
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1901,7 +1901,7 @@ AnimatorStateMachine:
     m_Position: {x: -300, y: 96, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102000085251326656}
-    m_Position: {x: 552, y: 588, z: 0}
+    m_Position: {x: 564, y: 576, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102426663578064620}
     m_Position: {x: 684, y: 204, z: 0}
@@ -1949,13 +1949,13 @@ AnimatorStateMachine:
     m_Position: {x: 312, y: -96, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102958025505192182}
-    m_Position: {x: 1008, y: 324, z: 0}
+    m_Position: {x: 840, y: 336, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102400071253946118}
     m_Position: {x: 1308, y: 480, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102340392535235968}
-    m_Position: {x: 1020, y: 588, z: 0}
+    m_Position: {x: 852, y: 600, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1101952516350494830}
