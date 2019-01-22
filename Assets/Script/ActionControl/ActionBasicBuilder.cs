@@ -261,7 +261,7 @@ namespace Assets.Script.ActionControl
             {
                 var dir =
                     camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
-                myAgent.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, moveSpeed);
+                myRig.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, moveSpeed);
             }
             var camPos = camera.transform.TransformDirection(Vector3.back);
             RotateTowardlerp(my.transform.position - camPos, rotSpeed);
@@ -273,7 +273,7 @@ namespace Assets.Script.ActionControl
             {
                 var dir =
                     camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
-                myAgent.velocity = Vector3.ClampMagnitude(dir.normalized * baseMultiper, moveSpeed);
+                myRig.velocity = Vector3.ClampMagnitude(dir.normalized * baseMultiper, moveSpeed);
             }
             var camPos = camera.transform.TransformDirection(Vector3.back);
             RotateTowardlerp(my.transform.position - camPos, rotSpeed);

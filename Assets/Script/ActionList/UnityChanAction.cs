@@ -106,16 +106,16 @@ namespace Assets.Script.ActionList
             {
                 NowVecter = myAgent.velocity;
             }
-            //Debug.Log(NowVecter);
             myAgent.enabled = false;
             myRig.isKinematic = false;
             myRig.useGravity = true;
             //myRig.AddForce(NowVecter+Vector3.up * 5f,ForceMode.Impulse); //目前最佳數值.不確定之前別砍
-            myRig.AddForce(NowVecter+Vector3.up * 10f,ForceMode.Impulse);
+            myRig.AddForce(NowVecter+Vector3.up * 7f,ForceMode.Impulse);
         }
         public bool jump(ActionStatus actionStatus)
         {
-            //FPSLikeRigMovement(3f,2f);
+            //應該適用AddForce故不能用FpsLike，或是只更新他的x,z軸
+            //FPSLikeRigMovement(.2f,.1f);
             return true;
         }
 
@@ -140,20 +140,6 @@ namespace Assets.Script.ActionList
             Debug.Log(colliders[0].name);//找到物件
             return true;
         }
-
-        public void Before_falling(ActionStatus actionStatus)
-        {
-            animator.SetBool("avater_can_jump",false);
-            myRig.useGravity = true;
-        }
-
-        public bool falling(ActionStatus actionStatus)
-        {
-            //myRig.isKinematic = true;
-            //myRig.velocity = my.transform.TransformVector(Vector3.forward);
-            //FPSLikeRigMovement(10f,2f);            
-            return true;
-        }
         #region 跑牆
         /// <summary>
         /// 2019-01-18新增
@@ -162,28 +148,49 @@ namespace Assets.Script.ActionList
         /// <returns></returns>
         public void Before_wallrunR(ActionStatus actionStatus)
         {
-            //導航器做法.現在先用純物理
-            myRig.useGravity = false;
+            myRig.useGravity = true;
+            //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
             animator.SetBool("avater_can_jump",true);
             var col = my.GetComponent<PlayerAvater>().col;
-            //得到碰撞物件的資料
+            //得到碰撞物件的資料,未來改為演員控管
             RaycastHit hit;
             Physics.Raycast(my.transform.position, col.transform.position-my.transform.position, out hit, 10);
-            //沿著Y軸轉90度
-            var rot = Quaternion.AngleAxis(90, Vector3.up) * hit.normal;
-            NowVecter = rot;         
+            //轉為世界向量
+            var rot = col.transform.TransformVector(hit.normal);  
+            //沿著Y軸轉90度    
+            NowVecter = Quaternion.AngleAxis(180,Vector3.up)*rot;
+            
+            myRig.velocity = NowVecter*3+Vector3.up*3;//NowVector已經是正規化的向量了
         }
 
         public bool wallrunR(ActionStatus actionStatus)
         {
             var col = my.GetComponent<PlayerAvater>().col;
+            #region 射線
+            /// <summary>
+            /// Debug區，看Scene時就可以看到射線
+            /// </summary>
+            /// <returns></returns>
+            /*
             Debug.DrawRay(my.transform.position, col.transform.position-my.transform.position,Color.yellow);
             Debug.DrawRay(my.transform.transform.position,NowVecter,Color.red);
             Debug.DrawLine(myRig.position,myRig.position+NowVecter,Color.green);
             Debug.Log(NowVecter);
+            */
+            #endregion
             //轉過去
-            RotateTowardSlerp(my.transform.position+NowVecter,10);
-            
+            var Q = Quaternion.LookRotation(NowVecter);
+            myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
+            if(Physics.BoxCast(myRig.position+Vector3.right*-.5f+Vector3.forward*-.5f,new Vector3(.2f,1,.5f)
+            ,my.transform.TransformDirection(Vector3.forward)))
+            {
+                Debug.Log("A wall");
+            }
+            else
+            {
+                //myRig.isKinematic = true;//Debug用
+                return false;
+            }
             return true;
         }
 

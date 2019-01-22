@@ -25,7 +25,7 @@ namespace Assets.Script.Test
             GameObject[] allObjects = UnityEngine.GameObject.FindGameObjectsWithTag("AI");
             foreach (GameObject go in allObjects)
             {
-                print("Now Time is " + Time.time + " and " + go.name + "`s position is " + go.transform.position + " and faced " + go.transform.eulerAngles);
+                //print("Now Time is " + Time.time + " and " + go.name + "`s position is " + go.transform.position + " and faced " + go.transform.eulerAngles);
             }
             yield return new WaitForSeconds(time);
         }

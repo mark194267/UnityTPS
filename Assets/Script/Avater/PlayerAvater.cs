@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Assets.Script.Avater
 {
@@ -22,7 +23,7 @@ namespace Assets.Script.Avater
             Init_Avater();
             //GetAnimaterParameter();
             
-            actionBasic.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
+            //actionBasic.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
             WeaponFactory weaponFactory = new WeaponFactory();
             weaponFactory.Init();
             var GunDic = weaponFactory.AllWeaponDictionary;
@@ -32,6 +33,11 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
             gameObject.GetComponent<Gun>().CreateWeaponByList();
+            
+            /// 未來可能在此增加射線管理員
+            /// 先保留於此
+            /// StartCoroutine(GetRayCast());
+            
             //GrabLedgePoint = transform.Find("GrabLedgePoint").transform;
             //gameObject.GetComponent<Gun>().ChangeWeapon(PlayerWeaponDictionary[0]);
             //gameObject.GetComponent<Gun>().ChangeWeapon("MG");
@@ -83,7 +89,17 @@ namespace Assets.Script.Avater
                 animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y);
             }
         }
-        
+        /// <summary>
+        /// 主射線，用子程式超載主檔的Ray ray;
+        /// </summary>
+        /// <returns></returns>
+        /*
+        IEnumerator GetRayCast()
+        {
+
+            yield return new WaitForSeconds(.05f); 
+        }
+        */
         void OnCollisionEnter(Collision collision)
         {   
             
@@ -107,7 +123,7 @@ namespace Assets.Script.Avater
             if(collision.gameObject.tag == "wall")
             {
                 //Debug.Log("hit");                
-                animator.SetTrigger("avatermain_parkour");//將動畫導向
+                animator.SetTrigger("avater_parkour");//將動畫導向
                 col = collision.gameObject;
             }
             
@@ -201,11 +217,11 @@ namespace Assets.Script.Avater
         {
             Gizmos.color = Color.blue;
             //抓取邊緣的箱子位置
-            Gizmos.DrawWireCube(transform.position+ transform.TransformVector(new Vector3(0,1.7f, 0.2f)), new Vector3(.2f,.1f,.5f));
-            Gizmos.DrawWireCube(transform.position+ transform.TransformVector(new Vector3(0.2f,1.6f,0.2f)), Vector3.one * .1f);
-            Gizmos.DrawWireCube(transform.position+ transform.TransformVector(new Vector3(-0.2f,1.6f,0.2f)), Vector3.one*.1f);
-            Gizmos.DrawCube(gameObject.GetComponent<Rigidbody>().position +transform.TransformVector(Vector3.right*0.5f), Vector3.one * .1f);
-            Gizmos.DrawCube(gameObject.GetComponent<Rigidbody>().position + transform.TransformVector(Vector3.left * 0.3f), Vector3.one * .1f);
+            //Gizmos.DrawWireCube(transform.position+ transform.TransformVector(new Vector3(0,1.7f, 0.2f)), new Vector3(.2f,.1f,.5f));
+            //Gizmos.DrawWireCube(transform.position+ transform.TransformVector(new Vector3(0.2f,1.6f,0.2f)), Vector3.one * .1f);
+            //Gizmos.DrawWireCube(transform.position+ transform.TransformVector(new Vector3(-0.2f,1.6f,0.2f)), Vector3.one*.1f);
+            //Gizmos.DrawCube(gameObject.GetComponent<Rigidbody>().position +transform.TransformVector(Vector3.right*0.5f), Vector3.one * .1f);
+            //Gizmos.DrawCube(gameObject.GetComponent<Rigidbody>().position + transform.TransformVector(Vector3.left * 0.3f), Vector3.one * .1f);
 
         }
     }
