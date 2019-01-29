@@ -86,7 +86,7 @@ namespace Assets.Script.ActionList
 
         public void Before_strafe(ActionStatus actionStatus)
         {
-            gun.ChangeWeapon("MG");
+            gun.ChangeWeapon("AK-47");
         }
 
         public bool strafe(ActionStatus actionStatus)

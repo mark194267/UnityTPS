@@ -32,6 +32,7 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["MG"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["AK-47"]);
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
             

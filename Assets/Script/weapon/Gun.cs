@@ -185,7 +185,7 @@ namespace Assets.Script.weapon
                 Quaternion q = UnityEngine.Random.rotationUniform;
                 var qv = bullet.transform.TransformVector(Vector3.forward) +
                 bullet.transform.TransformDirection(q.eulerAngles*.00001f/* 擴散係數 */);
-                Debug.Log(bullet.transform.TransformDirection(q.eulerAngles));
+                //Debug.Log(bullet.transform.TransformDirection(q.eulerAngles));
                 bullet.transform.rotation = Quaternion.LookRotation(qv);
                 
                 //tag來找尋子彈的"陣營"

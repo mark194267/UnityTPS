@@ -2495,13 +2495,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 615786079}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.013089679, y: -0.6207086, z: 0.022513771, w: 0.78360873}
+  m_LocalPosition: {x: -0.267, y: 0.086, z: 0.058}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1110638147}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.778, y: -76.740005, z: 1.092}
 --- !u!1 &656815779
 GameObject:
   m_ObjectHideFlags: 0
@@ -4365,6 +4365,7 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Bullet: {fileID: 0}
   target: {fileID: 0}
+  cam: {fileID: 0}
   canshoot: 1
 --- !u!195 &1090805464
 NavMeshAgent:
@@ -5079,6 +5080,7 @@ MonoBehaviour:
   yMaxLimit: 80
   distanceMin: 3
   distanceMax: 10
+  recoil: 0
   rigidbody: {fileID: 0}
 --- !u!81 &1274556666
 AudioListener:
@@ -8521,6 +8523,7 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Bullet: {fileID: 0}
   target: {fileID: 0}
+  cam: {fileID: 0}
   canshoot: 1
 --- !u!195 &2064829908
 NavMeshAgent:
