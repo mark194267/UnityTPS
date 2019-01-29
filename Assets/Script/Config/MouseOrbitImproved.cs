@@ -15,6 +15,8 @@ public class MouseOrbitImproved : MonoBehaviour {
 	public float distanceMin = .5f;
 	public float distanceMax = 15f;
 
+	public float recoil = 0;
+
 	public Rigidbody rigidbody;
 
 	float x = 0.0f;
@@ -38,6 +40,13 @@ public class MouseOrbitImproved : MonoBehaviour {
 
 	void LateUpdate () 
 	{
+		//後座力回復
+		//可能為開槍後N秒內下降，或是滑鼠大幅度動作		
+		if(recoil > 0)
+		{
+			recoil -= .15f;
+		}
+
 		if (target) 
 		{
 			x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
@@ -45,12 +54,12 @@ public class MouseOrbitImproved : MonoBehaviour {
 
 			y = ClampAngle(y, yMinLimit, yMaxLimit);
 
-			Quaternion rotation = Quaternion.Euler(y, x, 0);
+			Quaternion rotation = Quaternion.Euler(y - recoil, x, 0);
 
 			distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel")*5, distanceMin, distanceMax);
 
 			RaycastHit hit;
-			if (Physics.Linecast (target.position, transform.position, out hit)) 
+			if (Physics.Linecast (target.position, transform.position, out hit,1)) 
 			{
 				distance -=  hit.distance;
 			}

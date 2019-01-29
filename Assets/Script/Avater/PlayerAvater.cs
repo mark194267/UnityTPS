@@ -33,6 +33,7 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
             gameObject.GetComponent<Gun>().CreateWeaponByList();
+            gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
             
             /// 未來可能在此增加射線管理員
             /// 先保留於此
@@ -213,6 +214,11 @@ namespace Assets.Script.Avater
             #endregion
         }
         
+        //藉由動畫觸發avater_can_parkour來控制跑酷的開啟時段避免黏牆，動作未完成
+        void ParkourReciver(bool anim_flag)
+        {
+            animator.SetBool("anim_flag",anim_flag);
+        }
         void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;

@@ -150,7 +150,7 @@ namespace Assets.Script.ActionList
         {
             myRig.useGravity = true;
             //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
-            animator.SetBool("avater_can_jump",true);
+            //animator.SetBool("avater_can_jump",true);
             var col = my.GetComponent<PlayerAvater>().col;
             //得到碰撞物件的資料,未來改為演員控管
             RaycastHit hit;
@@ -181,6 +181,7 @@ namespace Assets.Script.ActionList
             //轉過去
             var Q = Quaternion.LookRotation(NowVecter);
             myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
+            //其實不需要每禎都抓
             if(Physics.BoxCast(myRig.position+Vector3.right*-.5f+Vector3.forward*-.5f,new Vector3(.2f,1,.5f)
             ,my.transform.TransformDirection(Vector3.forward)))
             {

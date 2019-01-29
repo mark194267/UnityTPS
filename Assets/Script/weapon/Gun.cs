@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Assets.Script.weapon
@@ -23,6 +20,8 @@ namespace Assets.Script.weapon
         public GameObject Weapon;
         public GameObject Bullet;
         public GameObject target;
+
+        public MouseOrbitImproved cam;
 
         public bool canshoot = true;
 
@@ -84,8 +83,10 @@ namespace Assets.Script.weapon
             if (canshoot && NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot >= 0)
             {
                 //發射一發
-                StartCoroutine(ShootBullet());
+                //StartCoroutine(ShootBullet());
+                StartCoroutine(ShootShotGunBullet());
                 //後座力區塊
+                //cam.Rotate(Random.RandomRange(-100f,100f),Random.RandomRange(0,100f),0f,Space.Self);<<轉為攝影機統一控管
                 //如果現在後座力為 < 目標後座力
                     //前三發後坐力
                 //如果現在後座力 > 目標後座力
@@ -167,6 +168,40 @@ namespace Assets.Script.weapon
             NowWeapon.BulletInMag = NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot;
             //print(gameObject.name+" 用 "+name+" 射擊! 而彈量為 "+ NowWeapon.BulletInMag);
             Destroy(bullet,3f);
+            yield return new WaitForSeconds(NowWeapon.rof);
+            canshoot = true;
+        }
+
+        IEnumerator ShootShotGunBullet()
+        {
+            if (NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot < 0) yield break;
+            canshoot = false;
+            //找到目前"槍口"的方向
+            for(int i = 0;i< 12/*散彈數*/;i++)
+            {
+                var bullet = (GameObject)Instantiate(NowWeapon.bullet,
+                NowWeapon.weapon.transform.position,NowWeapon.weapon.transform.rotation);
+                
+                Quaternion q = UnityEngine.Random.rotationUniform;
+                var qv = bullet.transform.TransformVector(Vector3.forward) +
+                bullet.transform.TransformDirection(q.eulerAngles*.00001f/* 擴散係數 */);
+                Debug.Log(bullet.transform.TransformDirection(q.eulerAngles));
+                bullet.transform.rotation = Quaternion.LookRotation(qv);
+                
+                //tag來找尋子彈的"陣營"
+                bullet.tag = gameObject.tag;
+                var b = bullet.GetComponent<BulletClass>();
+                //初始化子彈的數值--待改進
+                b.damage = NowWeapon.Damage;
+                b.blast = NowWeapon.blast;
+                //三秒之後移除
+                Destroy(bullet,3f);
+            }
+            //後座力
+            cam.recoil += 7f;
+            //可能是雙管之類的
+            NowWeapon.BulletInMag = NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot;
+            //print(gameObject.name+" 用 "+name+" 射擊! 而彈量為 "+ NowWeapon.BulletInMag);
             yield return new WaitForSeconds(NowWeapon.rof);
             canshoot = true;
         }
