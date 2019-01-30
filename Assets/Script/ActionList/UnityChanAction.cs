@@ -151,12 +151,9 @@ namespace Assets.Script.ActionList
             myRig.useGravity = true;
             //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
             //animator.SetBool("avater_can_jump",true);
-            var col = my.GetComponent<PlayerAvater>().col;
-            //得到碰撞物件的資料,未來改為演員控管
-            RaycastHit hit;
-            Physics.Raycast(my.transform.position, col.transform.position-my.transform.position, out hit, 10);
+            var hit = my.GetComponent<PlayerAvater>().hit;
             //轉為世界向量
-            var rot = col.transform.TransformVector(hit.normal);  
+            var rot = hit.transform.TransformVector(hit.normal);  
             //沿著Y軸轉90度    
             NowVecter = Quaternion.AngleAxis(180,Vector3.up)*rot;
             
@@ -165,7 +162,6 @@ namespace Assets.Script.ActionList
 
         public bool wallrunR(ActionStatus actionStatus)
         {
-            var col = my.GetComponent<PlayerAvater>().col;
             #region 射線
             /// <summary>
             /// Debug區，看Scene時就可以看到射線
@@ -182,10 +178,10 @@ namespace Assets.Script.ActionList
             var Q = Quaternion.LookRotation(NowVecter);
             myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
             //其實不需要每禎都抓
-            if(Physics.BoxCast(myRig.position+Vector3.right*-.5f+Vector3.forward*-.5f,new Vector3(.2f,1,.5f)
+            if(Physics.BoxCast(myRig.position+Vector3.right*-.5f+Vector3.up*.7f+Vector3.forward*0,new Vector3(.2f,.5f,.5f)
             ,my.transform.TransformDirection(Vector3.forward)))
             {
-                Debug.Log("A wall");
+                //Debug.Log("A wall");
             }
             else
             {
@@ -195,38 +191,43 @@ namespace Assets.Script.ActionList
             return true;
         }
 
+        public void Before_wallrunL(ActionStatus actionStatus)
+        {            
+            myRig.useGravity = true;
+            //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
+            //animator.SetBool("avater_can_jump",true);
+            var hit = my.GetComponent<PlayerAvater>().hit;
+            //轉為世界向量
+            var rot = hit.transform.TransformVector(hit.normal);  
+            //沿著Y軸轉90度    
+            NowVecter = Quaternion.AngleAxis(0,Vector3.up)*rot;            
+            myRig.velocity = NowVecter*3+Vector3.up*3;//NowVector已經是正規化的向量了            
+        }
         public bool wallrunL(ActionStatus actionStatus)
         {            
-            myAgent.velocity = my.transform.TransformVector(Vector3.left*3);
-            return true;
-        }
-        public bool wallrunU(ActionStatus actionStatus)
-        {
-            myAgent.velocity = my.transform.TransformVector(Vector3.up*3);
-            return true;
-        }
-        #endregion
-
-        #region TrangleJump
-
-        public bool Before_tranglejump()
-        {
-            animator.SetBool("avater_can_jump", false);
-            if (myAgent.agentTypeID != -334000983)
+            //轉過去
+            var Q = Quaternion.LookRotation(NowVecter);
+            myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
+            //其實不需要每禎都抓
+            if(Physics.BoxCast(myRig.position+Vector3.right*.5f+Vector3.up*.7f+Vector3.forward*0,new Vector3(.2f,.5f,.5f)
+            ,my.transform.TransformDirection(Vector3.forward)))
             {
-                NowVecter = myAgent.velocity;
+                //Debug.Log("A wall");
             }
-            Debug.Log(NowVecter);
-            myAgent.enabled = false;
-            myRig.isKinematic = false;
-            myRig.useGravity = true;
-            //myRig.AddForce(NowVecter+Vector3.up * 5f,ForceMode.Impulse); //目前最佳數值.不確定之前別砍
-            myRig.AddForce(NowVecter + Vector3.up * 10f, ForceMode.Impulse);
+            else
+            {
+                //myRig.isKinematic = true;//Debug用
+                return false;
+            }
+            return true;
+    
+        }
+        #endregion
+        
+        public bool PanicMelee(ActionStatus actionStatus)
+        {
             return true;
         }
-
-
-        #endregion
 
     }
 }

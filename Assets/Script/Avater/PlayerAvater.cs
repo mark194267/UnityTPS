@@ -11,11 +11,11 @@ namespace Assets.Script.Avater
     class PlayerAvater : AvaterMain
     {
         private float alarm;    
-        public bool cangrab;
+        public bool cangrab;        
         private Vector3 DrawPoint = new Vector3();
         public Transform GrabLedgePoint{get;set;}
 
-        public GameObject col;
+        public RaycastHit hit;
         public Dictionary<int,string> PlayerWeaponDictionary;
         void Start()
         {
@@ -42,7 +42,6 @@ namespace Assets.Script.Avater
             
             //GrabLedgePoint = transform.Find("GrabLedgePoint").transform;
             //gameObject.GetComponent<Gun>().ChangeWeapon(PlayerWeaponDictionary[0]);
-            //gameObject.GetComponent<Gun>().ChangeWeapon("MG");
         }
         void Update()
         {
@@ -118,107 +117,58 @@ namespace Assets.Script.Avater
                 GetComponent<Rigidbody>().isKinematic = true;
                 GetComponent<NavMeshAgent>().enabled = true;
             }
-            
+            /*
             /// 新增2019/01/16
             /// 跑酷物理量
             /// 在不解除NavMeshAgent的情況下碰不到碰撞，故一定需要跳躍
-            if(collision.gameObject.tag == "wall")
+            if(collision.collider.gameObject.tag == "wall"&&!animator.GetBool("avater_can_jump"))
             {
                 //Debug.Log("hit");                
                 animator.SetTrigger("avater_parkour");//將動畫導向
-                col = collision.gameObject;
             }
             
 
-            /// 2019/01/17 
+            /// 2019/01/30
             /// 判斷夾角
-            var vec = collision.relativeVelocity;
-            var front = transform.TransformDirection(transform.forward);
-            //var angle = Vector3.Angle(transform.TransformDirection(transform.forward),vec);
-             var angle = Vector2.Angle(
-                new Vector2(front.x,front.z),new Vector2(vec.x,vec.z));
+            if(Physics.Raycast(transform.position,
+            collision.contacts[0].point-transform.position,out hit))
+            {
+                //var vec = collision.relativeVelocity;
+                var vec = collision.transform.TransformVector(hit.normal);
+                var q = Quaternion.AngleAxis(0,Vector3.up)*vec;
 
-            animator.SetFloat("avater_AngleBetweenWall",angle);
-            //print(angle);
+                var front = transform.TransformVector(Vector3.forward);
+                var angle = Vector2.Angle(
+                    new Vector2(front.x,front.z),new Vector2(q.x,q.z));
+                animator.SetFloat("avater_AngleBetweenWall",angle);
+                print(angle);
+            } 
+        */
         }
 
-        void OnCollisionStay(Collision collision)
+        private void OnTriggerEnter(Collider collider) 
         {
-            #region 跑牆
-            /// 2019/01/17 跑酷
-            /// 改以觸發器偵測
-            /*
-            if (collision.gameObject.tag == "wall")
+            if(collider.gameObject.tag == "wall"&&!animator.GetBool("avater_can_jump"))
             {
-                foreach (ContactPoint item in collision)
+                if(Physics.Raycast(transform.position,
+                collider.transform.position-transform.position,out hit))
                 {
-                    Debug.Log(item.point);
-                }
-                //DrawPoint = collision.collider.ClosestPoint(transform.TransformPoint(GrabLedgePoint));
-                //DrawPoint = transform.TransformPoint(GrabLedgePoint);
-                //DrawPoint = collision.collider.ClosestPointOnBounds(transform.position);                
-                //DrawPoint = gameObject.GetComponentInChildren<Renderer>().bounds.ClosestPoint(DrawPoint);
-                GetComponent<Rigidbody>().isKinematic = true;
-            }
-            */  
-            #endregion
+                    var vec = collider.transform.TransformVector(hit.normal);
+                    var q = Quaternion.AngleAxis(0,Vector3.up)*vec;
 
-            #region 掛豬肉
-            /// 2019/01/17 掛豬肉
-            /// 
-            if(collision.gameObject.tag == "wall")
-            {
-                if(!Physics.CheckBox(transform.position+new Vector3(-0.2f,1.7f,0),new Vector3(.05f,.05f,.3f)))
-                {
-                    if(Physics.CheckBox(transform.position+new Vector3(-0.2f,1.6f,.2f),new Vector3(.05f,.05f,.05f)) &&
-                        Physics.CheckBox(transform.position+new Vector3(-0.2f,1.6f,-.2f),new Vector3(.05f,.05f,.05f)))
-                    {
-                        //可以掛
-                    }
-                    //GetComponent<Rigidbody>().isKinematic = true;
-                }
-                //檢查頭頂前的方盒是否有東西
-                //檢查頭頂+右邊值向前的方盒是否有東西
-                //檢查頭頂+左邊值向前的方盒是否有東西
+                    var front = transform.TransformVector(Vector3.forward);
+                    var angle = Vector2.Angle(
+                        new Vector2(front.x,front.z),new Vector2(q.x,q.z));
+                    
+                    animator.SetFloat("avater_AngleBetweenWall",angle);
+                    print(angle);
+                } 
+                animator.SetTrigger("avater_parkour");//將動畫導向
             }
-            #endregion       
-            
-            #region 踢壁跳
-            if(collision.transform.tag == "wall")
-            {
-                if(Physics.CheckBox(transform.position+new Vector3(-0.2f,1.6f,0),new Vector3(.05f,.05f,.05f)))
-                {
-                    //可以踢
-                }
-            }
-            #endregion
-            
-            #region 撿物件
-            if(collision.transform.tag == "Pickup")
-            {
-                if(Input.GetButtonDown("use"))
-                {
-                    //撿起物品
-                }
-
-            }
-
-            if(collision.transform.tag == "weapon")
-            {
-                //在GUI顯示即將撿起的武器名稱
-                if(Input.GetButtonDown("use"))
-                {
-                    //改變動畫為交換武器
-                    //增加武器到清單
-                }
-            }
-            #endregion
         }
-        
-        //藉由動畫觸發avater_can_parkour來控制跑酷的開啟時段避免黏牆，動作未完成
-        void ParkourReciver(bool anim_flag)
+        void GetAnimationFlag(int anim_flag)
         {
-            animator.SetBool("anim_flag",anim_flag);
+            animator.SetInteger("anim_flag",anim_flag);
         }
         void OnDrawGizmos()
         {
@@ -229,7 +179,6 @@ namespace Assets.Script.Avater
             //Gizmos.DrawWireCube(transform.position+ transform.TransformVector(new Vector3(-0.2f,1.6f,0.2f)), Vector3.one*.1f);
             //Gizmos.DrawCube(gameObject.GetComponent<Rigidbody>().position +transform.TransformVector(Vector3.right*0.5f), Vector3.one * .1f);
             //Gizmos.DrawCube(gameObject.GetComponent<Rigidbody>().position + transform.TransformVector(Vector3.left * 0.3f), Vector3.one * .1f);
-
         }
     }
 }

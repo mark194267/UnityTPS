@@ -15,7 +15,9 @@ public class MouseOrbitImproved : MonoBehaviour {
 	public float distanceMin = .5f;
 	public float distanceMax = 15f;
 
-	public float recoil = 0;
+	public float Vrecoil = 0;
+	public float Hrecoil = 0;
+	public float FireTime = 0;
 
 	public Rigidbody rigidbody;
 
@@ -41,20 +43,23 @@ public class MouseOrbitImproved : MonoBehaviour {
 	void LateUpdate () 
 	{
 		//後座力回復
-		//可能為開槍後N秒內下降，或是滑鼠大幅度動作		
-		if(recoil > 0)
+		//可能為開槍後N秒內下降，或是滑鼠大幅度動作
+		
+		if(Vrecoil > 0 && FireTime > 0)
 		{
-			recoil -= .15f;
+			Vrecoil -= .15f;
+			FireTime -= Time.deltaTime;
 		}
-
+		
 		if (target) 
 		{
 			x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
 			y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 
 			y = ClampAngle(y, yMinLimit, yMaxLimit);
-
-			Quaternion rotation = Quaternion.Euler(y - recoil, x, 0);
+			
+			//後座力主要超載這邊
+			Quaternion rotation = Quaternion.Euler(y - Vrecoil, x + Hrecoil, 0);
 
 			distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel")*5, distanceMin, distanceMax);
 

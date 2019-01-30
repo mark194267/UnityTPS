@@ -60,11 +60,12 @@ namespace Assets.Script.Config
 
             Animator.SetFloat("input_ws", ws);
             Animator.SetFloat("input_ad", ad);
-            /*
-            if(Input.GetButton("skill1"))
+            
+            if(Input.GetButton("Melee"))
             {
-                Animator.SetTrigger("input_skill1");
+                Animator.SetTrigger("avatermain_panicmelee");
             }
+            /*
             if(Input.GetButton("dodge"))
             {
                 Animator.SetTrigger("input_dodge");

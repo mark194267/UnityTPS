@@ -1,2 +1,6 @@
 Temp/
 Library/*
+*.log
+*.info
+*.cache
+WebApplication2.sln

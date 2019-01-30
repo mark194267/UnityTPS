@@ -30,7 +30,7 @@ namespace Assets.Script.weapon
         {
             Dictionary<string, WeaponBasic> weapondictionary = new Dictionary<string, WeaponBasic>();
             XmlDocument doc = new XmlDocument();
-            doc.Load("data\\weapon\\weapon.xml");
+            doc.Load("Assets\\data\\weapon\\weapon.xml");
             XmlNodeList weapontypeNode = doc.SelectNodes("weapon/" + close_or_range + "/" + weapontype);
             XmlNodeList nodeList = weapontypeNode[0].ChildNodes;
             foreach (XmlNode node in nodeList)
