@@ -89,6 +89,7 @@ namespace Assets.Script.Avater
             {
                 animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y);
             }
+            
         }
         /// <summary>
         /// 主射線，用子程式超載主檔的Ray ray;
@@ -112,6 +113,7 @@ namespace Assets.Script.Avater
             // 跳躍復原
             if (!animator.GetBool("avater_can_jump") && collision.gameObject.layer == 1)
             {
+                animator.SetInteger("anim_flag",0);
                 animator.SetBool("avater_can_jump",true);
                 GetComponent<Rigidbody>().useGravity = false;
                 GetComponent<Rigidbody>().isKinematic = true;
@@ -145,17 +147,18 @@ namespace Assets.Script.Avater
             } 
         */
         }
-
-        private void OnTriggerEnter(Collider collider) 
+        /*
+        private void OnCollisionStay(Collision collision) 
         {
-            if(collider.gameObject.tag == "wall"&&!animator.GetBool("avater_can_jump"))
+            if(collision.gameObject.tag == "wall"&&!animator.GetBool("avater_can_jump"))
             {
                 if(Physics.Raycast(transform.position,
-                collider.transform.position-transform.position,out hit))
+                collision.contacts[0].point-transform.position,out hit))
                 {
-                    var vec = collider.transform.TransformVector(hit.normal);
+                    var vec = hit.transform.TransformVector(hit.normal);
                     var q = Quaternion.AngleAxis(0,Vector3.up)*vec;
-
+                    Debug.DrawLine(transform.position,collision.contacts[0].point,Color.red);
+                    Debug.DrawRay(hit.transform.position,q);
                     var front = transform.TransformVector(Vector3.forward);
                     var angle = Vector2.Angle(
                         new Vector2(front.x,front.z),new Vector2(q.x,q.z));
@@ -166,6 +169,39 @@ namespace Assets.Script.Avater
                 animator.SetTrigger("avater_parkour");//將動畫導向
             }
         }
+        */
+        
+        private void OnTriggerStay(Collider collider) 
+        {
+            if(collider.gameObject.tag == "wall"&&!animator.GetBool("avater_can_jump"))
+            {
+                if(Physics.Raycast(transform.position,
+                collider.ClosestPoint(transform.position)-transform.position,out hit))
+                {
+
+                    var vec = hit.normal;
+                    var q = Quaternion.AngleAxis(90,Vector3.up)*vec;
+                    
+                    Debug.DrawLine(transform.position,collider.ClosestPoint(transform.position),Color.red);
+                    Debug.DrawRay(hit.transform.position,q,Color.blue);
+                    Debug.DrawRay(hit.point,vec,Color.green);
+
+                    //如果腳下有東西就是著地--而且是優先
+
+                    
+                    //如果前面有東西就是三角跳--第二優先
+                    //側邊有東西就是跑牆
+                    var front = transform.TransformVector(Vector3.forward);
+                    var angle = Vector3.Angle(
+                        new Vector3(front.x,0,front.z),new Vector3(q.x,0,q.z));
+                    
+                    animator.SetFloat("avater_AngleBetweenWall",angle);
+                    print(angle);
+                } 
+                animator.SetTrigger("avater_parkour");//將動畫導向
+            }
+        }
+        
         void GetAnimationFlag(int anim_flag)
         {
             animator.SetInteger("anim_flag",anim_flag);

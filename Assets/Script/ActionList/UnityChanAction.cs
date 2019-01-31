@@ -76,7 +76,7 @@ namespace Assets.Script.ActionList
             if (Input.anyKey)
             {
                 var camPos = camera.transform.TransformDirection(Vector3.back *input.ws+Vector3.left*input.ad);
-                RotateTowardlerp(my.transform.position-camPos);
+                RotateTowardlerp(my.transform.position-camPos,5f);
                 myAgent.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
             }
 
@@ -153,11 +153,11 @@ namespace Assets.Script.ActionList
             //animator.SetBool("avater_can_jump",true);
             var hit = my.GetComponent<PlayerAvater>().hit;
             //轉為世界向量
-            var rot = hit.transform.TransformVector(hit.normal);  
+            var rot = hit.normal;
             //沿著Y軸轉90度    
-            NowVecter = Quaternion.AngleAxis(180,Vector3.up)*rot;
+            NowVecter = Quaternion.AngleAxis(-90,Vector3.up)*rot;
             
-            myRig.velocity = NowVecter*3+Vector3.up*3;//NowVector已經是正規化的向量了
+            myRig.velocity = NowVecter*6+Vector3.up*3;//NowVector已經是正規化的向量了
         }
 
         public bool wallrunR(ActionStatus actionStatus)
@@ -198,10 +198,9 @@ namespace Assets.Script.ActionList
             //animator.SetBool("avater_can_jump",true);
             var hit = my.GetComponent<PlayerAvater>().hit;
             //轉為世界向量
-            var rot = hit.transform.TransformVector(hit.normal);  
-            //沿著Y軸轉90度    
-            NowVecter = Quaternion.AngleAxis(0,Vector3.up)*rot;            
-            myRig.velocity = NowVecter*3+Vector3.up*3;//NowVector已經是正規化的向量了            
+            var rot = hit.normal;     
+            NowVecter = Quaternion.AngleAxis(90,Vector3.up)*rot;      
+            myRig.velocity = NowVecter*6+Vector3.up*3;//NowVector已經是正規化的向量了            
         }
         public bool wallrunL(ActionStatus actionStatus)
         {            
@@ -223,9 +222,30 @@ namespace Assets.Script.ActionList
     
         }
         #endregion
+
+        public void Before_tranglejump(ActionStatus actionStatus)
+        {
+            myRig.useGravity = true;
+            //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
+            //animator.SetBool("avater_can_jump",true);
+            var hit = my.GetComponent<PlayerAvater>().hit;
+            //轉為世界向量
+            NowVecter = hit.transform.TransformVector(hit.normal);  
+            //沿著Y軸轉90度    
+            myRig.velocity = NowVecter*2+Vector3.up*3;//NowVector已經是正規化的向量了 
+        }
+
+        public bool tranglejump(ActionStatus actionStatus)
+        {
+            Debug.Log("Me!");
+            var Q = Quaternion.LookRotation(NowVecter);
+            myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
+            return true;
+        }
         
         public bool PanicMelee(ActionStatus actionStatus)
         {
+
             return true;
         }
 
