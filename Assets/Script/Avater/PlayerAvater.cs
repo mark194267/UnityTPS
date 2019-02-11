@@ -119,14 +119,13 @@ namespace Assets.Script.Avater
         {
             if (collision.collider.gameObject.layer == 1)
             {
-                animator.SetBool("avater_IsLanded",false);
+                
             }
         }
         
-        private void OnTriggerStay(Collider collider) 
+        private void OnTriggerEnter(Collider collider) 
         {
                         // 跳躍復原
-
             if(!animator.GetBool("avater_IsLanded")&&collider.gameObject.tag == "wall")
             {
                 RaycastHit temphit;
@@ -148,9 +147,7 @@ namespace Assets.Script.Avater
                     //黃線代表著轉90度後的的向量
                     Debug.DrawRay(transform.position,q,Color.yellow);
                     //綠線代表著法線
-                    Debug.DrawRay(hit.point,vec,Color.green);
-
-                    
+                    Debug.DrawRay(hit.point,vec,Color.green);                    
                     //如果前面有東西就是三角跳--第二優先
                     //側邊有東西就是跑牆
                     var front = transform.TransformVector(Vector3.forward);
@@ -159,6 +156,7 @@ namespace Assets.Script.Avater
                     
                     animator.SetFloat("avater_AngleBetweenWall",angle);
                     animator.SetTrigger("avater_parkour");//將動畫導向
+                    Debug.Log("Hit");
                 } 
 
             }

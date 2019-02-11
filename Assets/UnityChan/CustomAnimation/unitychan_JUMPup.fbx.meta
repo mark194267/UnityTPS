@@ -324,7 +324,7 @@ ModelImporter:
     4300010: EYE_DEF
     4300012: EL_DEF
     4300014: BLW_DEF
-    7400000: Take 001
+    7400000: jump
     9500000: //RootNode
     13700000: BLW_DEF
     13700002: EL_DEF
@@ -359,9 +359,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: jump
       takeName: Take 001
-      firstFrame: -1
+      firstFrame: 0
       lastFrame: 56
       wrapMode: 0
       orientationOffsetY: 0
@@ -383,13 +383,6 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: GetAnimationFlag
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.24472573
         functionName: GetAnimationFlag
         data: 
         objectReferenceParameter: {instanceID: 0}

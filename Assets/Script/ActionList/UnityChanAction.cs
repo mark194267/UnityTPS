@@ -165,16 +165,18 @@ namespace Assets.Script.ActionList
             var Q = Quaternion.LookRotation(NowVecter);
             myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
             //其實不需要每禎都抓
+            /*
             if(Physics.BoxCast(myRig.position+Vector3.right*-.5f+Vector3.up*.7f+Vector3.forward*0,new Vector3(.2f,.5f,.5f)
             ,my.transform.TransformDirection(Vector3.forward)))
             {
-                //Debug.Log("A wall");
+                Debug.Log("A wall");
             }
             else
             {
-                //myRig.isKinematic = true;//Debug用
-                //return false;
+                myRig.isKinematic = true;//Debug用
+                return false;
             }
+            */
             return true;
         }
 
@@ -195,6 +197,7 @@ namespace Assets.Script.ActionList
             var Q = Quaternion.LookRotation(NowVecter);
             myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
             //其實不需要每禎都抓
+            /*
             if(Physics.BoxCast(myRig.position+Vector3.right*.5f+Vector3.up*.7f+Vector3.forward*0,new Vector3(.2f,.5f,.5f)
             ,my.transform.TransformDirection(Vector3.forward)))
             {
@@ -205,6 +208,7 @@ namespace Assets.Script.ActionList
                 //myRig.isKinematic = true;//Debug用
                 //return false;
             }
+            */
             return true;
     
         }
@@ -218,7 +222,7 @@ namespace Assets.Script.ActionList
             var hit = my.GetComponent<PlayerAvater>().hit;
             var q = Quaternion.AngleAxis(180,Vector3.up)*hit.normal;
             //轉為世界向量
-            NowVecter = q;  
+            NowVecter = q;
             //沿著Y軸轉90度    
             myRig.velocity = NowVecter*2+Vector3.up*10;//NowVector已經是正規化的向量了 
         }
@@ -241,7 +245,10 @@ namespace Assets.Script.ActionList
             FPSLikeMovement(5f,10f);
             return true;
         }
-
+        public bool land(ActionStatus actionStatus)
+        {
+            return true;
+        }
         public void Before_land(ActionStatus actionStatus)
         {
             animator.SetInteger("anim_flag",0);
