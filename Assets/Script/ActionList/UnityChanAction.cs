@@ -67,7 +67,7 @@ namespace Assets.Script.ActionList
         {
             //var camPos = camera.transform.TransformDirection(Vector3.back *input.ws+Vector3.left*input.ad);
             //RotateTowardlerp(my.transform.position-camPos);
-            myAgent.velocity = Vector3.Lerp(myAgent.velocity, Vector3.zero, 0.5f);
+            //myRig.velocity = Vector3.Lerp(myRig.velocity, Vector3.zero, 0.5f);
             return true;
         }
 
@@ -77,10 +77,15 @@ namespace Assets.Script.ActionList
             {
                 var camPos = camera.transform.TransformDirection(Vector3.back *input.ws+Vector3.left*input.ad);
                 RotateTowardlerp(my.transform.position-camPos,5f);
-                myAgent.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
+                myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
             }
-
-            //gun.fire();
+            /// <summary>
+            /// 用來測試BOX，用於跑酷
+            /// </summary>
+            ///if(Physics.CheckBox(my.transform.TransformPoint(new Vector3(.5f,.7f,0)),Vector3.one*.05f,my.transform.rotation))
+            ///{
+            ///    Debug.Log("That a box");
+            ///}
             return true;
         }
 
@@ -91,7 +96,7 @@ namespace Assets.Script.ActionList
 
         public bool strafe(ActionStatus actionStatus)
         {
-            FPSLikeMovement(5f,10f);
+            FPSLikeRigMovement(5f,10f);
             if(Input.GetButton("Fire1"))
             {
                 return gun.fire();
@@ -104,11 +109,11 @@ namespace Assets.Script.ActionList
             animator.SetBool("avater_can_jump",false);
             animator.SetBool("avater_IsLanded",false);
 
-            NowVecter = myAgent.velocity;
+            NowVecter = myRig.velocity;
 
-            myAgent.enabled = false;
-            myRig.isKinematic = false;
-            myRig.useGravity = true;
+            //myAgent.enabled = false;
+            //myRig.isKinematic = false;
+            //myRig.useGravity = true;
             myRig.AddForce(NowVecter+Vector3.up * 7f,ForceMode.Impulse);
         }
         public bool jump(ActionStatus actionStatus)
@@ -147,44 +152,41 @@ namespace Assets.Script.ActionList
         /// <returns></returns>
         public void Before_wallrunR(ActionStatus actionStatus)
         {
-            myRig.useGravity = true;
+            //myRig.useGravity = true;
             //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
-            //animator.SetBool("avater_can_jump",true);
             var hit = my.GetComponent<PlayerAvater>().hit;
             //轉為世界向量
             var rot = hit.normal;
             //沿著Y軸轉90度    
             NowVecter = Quaternion.AngleAxis(-90,Vector3.up)*rot;
             
-            myRig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
         }
 
         public bool wallrunR(ActionStatus actionStatus)
         {
+            //給定速度
+            myRig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
             //轉過去
             var Q = Quaternion.LookRotation(NowVecter);
             myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
-            //其實不需要每禎都抓
-            /*
-            if(Physics.BoxCast(myRig.position+Vector3.right*-.5f+Vector3.up*.7f+Vector3.forward*0,new Vector3(.2f,.5f,.5f)
-            ,my.transform.TransformDirection(Vector3.forward)))
+            
+            if(!Physics.CheckBox(my.transform.TransformPoint(new Vector3(-.5f,.8f,.2f)),Vector3.one*.05f,my.transform.rotation))
             {
-                Debug.Log("A wall");
-            }
-            else
-            {
-                myRig.isKinematic = true;//Debug用
+                //myRig.isKinematic = true;
                 return false;
-            }
-            */
+            }            
             return true;
         }
-
+        /*
+        public void After_wallrunR(ActionStatus actionStatus)
+        {
+            myRig.AddForce(my.transform.TransformVector(Vector3.right)*3,ForceMode.VelocityChange);
+        }
+        */
         public void Before_wallrunL(ActionStatus actionStatus)
         {            
-            myRig.useGravity = true;
+            //myRig.useGravity = true;
             //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
-            //animator.SetBool("avater_can_jump",true);
             var hit = my.GetComponent<PlayerAvater>().hit;
             //轉為世界向量
             var rot = hit.normal;     
@@ -192,31 +194,23 @@ namespace Assets.Script.ActionList
             myRig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了            
         }
         public bool wallrunL(ActionStatus actionStatus)
-        {            
+        {
             //轉過去
             var Q = Quaternion.LookRotation(NowVecter);
             myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
-            //其實不需要每禎都抓
-            /*
-            if(Physics.BoxCast(myRig.position+Vector3.right*.5f+Vector3.up*.7f+Vector3.forward*0,new Vector3(.2f,.5f,.5f)
-            ,my.transform.TransformDirection(Vector3.forward)))
+          
+            if(!Physics.CheckBox(my.transform.TransformPoint(new Vector3(.5f,.8f,.2f)),Vector3.one*.05f,my.transform.rotation))
             {
-                //Debug.Log("A wall");
-            }
-            else
-            {
-                //myRig.isKinematic = true;//Debug用
-                //return false;
-            }
-            */
+                //myRig.isKinematic = true;
+                return false;
+            }              
             return true;
-    
         }
         #endregion
 
         public void Before_tranglejump(ActionStatus actionStatus)
         {
-            myRig.useGravity = true;
+            //myRig.useGravity = true;
             //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
             //animator.SetBool("avater_can_jump",true);
             var hit = my.GetComponent<PlayerAvater>().hit;
@@ -229,9 +223,11 @@ namespace Assets.Script.ActionList
 
         public bool tranglejump(ActionStatus actionStatus)
         {
-            //Debug.Log("Me!");
-            //var Q = Quaternion.LookRotation(NowVecter);
-            //myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
+            if(!Physics.CheckBox(my.transform.TransformPoint(new Vector3(0,.7f,.8f)),Vector3.one*.05f,my.transform.rotation))
+            {
+                //myRig.isKinematic = true;
+                return false;
+            }       
             return true;
         }
         
@@ -242,20 +238,21 @@ namespace Assets.Script.ActionList
         }
         public bool falling(ActionStatus actionStatus)
         {
-            FPSLikeMovement(5f,10f);
+            //FPSLikeMovement(5f,.5f);
             return true;
         }
         public bool land(ActionStatus actionStatus)
         {
+            myRig.velocity = Vector3.zero;
             return true;
         }
         public void Before_land(ActionStatus actionStatus)
         {
-            animator.SetInteger("anim_flag",0);
-            my.GetComponent<Rigidbody>().useGravity = false;
-            my.GetComponent<Rigidbody>().isKinematic = true;
-            my.GetComponent<NavMeshAgent>().enabled = true;
+            //my.GetComponent<Rigidbody>().useGravity = false;
+            //my.GetComponent<Rigidbody>().isKinematic = true;
+            //落地檢查
+            
+            //my.GetComponent<NavMeshAgent>().enabled = true;
         }
-
     }
 }

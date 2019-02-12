@@ -16,6 +16,9 @@ namespace Assets.Script.Avater
         public Transform GrabLedgePoint{get;set;}
 
         public RaycastHit hit;
+        public Vector3 Pos;
+        public Vector3 col;
+        public Vector3 col2;
         public Dictionary<int,string> PlayerWeaponDictionary;
         void Start()
         {
@@ -111,8 +114,17 @@ namespace Assets.Script.Avater
             }
             if (collision.collider.gameObject.layer == 1)
             {
+
+            }
+            if(transform.position.y - collision.contacts[0].point.y >=-.1f)
+            {
+                Debug.Log("Ground");
                 animator.SetBool("avater_IsLanded",true);
             }
+            col2 = collision.contacts[0].point;
+            print(col2);
+            print(transform.position);
+            //animator.SetBool("avater_IsLanded",true);
         }
 
         private void OnCollisionExit(Collision collision) 
@@ -138,7 +150,11 @@ namespace Assets.Script.Avater
                     //取得法線
                     hit = temphit;
                     var vec = hit.normal;
-                    print(hit.normal);
+
+                    col = collider.ClosestPointOnBounds(hit.point);
+                    Pos = transform.position;
+
+                    //print(hit.normal);
                     //轉90度--找夾角
                     var q = Quaternion.AngleAxis(90,Vector3.up)*vec;
                     
@@ -168,6 +184,10 @@ namespace Assets.Script.Avater
         }
         void OnDrawGizmos()
         {
+            
+            //Gizmos.DrawSphere(hit.point,.3f);
+            //Gizmos.DrawSphere(Pos,.3f);
+            //Gizmos.DrawSphere(col2,3);
         }
     }
 }
