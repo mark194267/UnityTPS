@@ -10,15 +10,9 @@ namespace Assets.Script.Avater
 {
     class PlayerAvater : AvaterMain
     {
-        private float alarm;    
-        public bool cangrab;        
-        private Vector3 DrawPoint = new Vector3();
-        public Transform GrabLedgePoint{get;set;}
-
+        public Collision contactThing;
+        public Collider triggerThing;
         public RaycastHit hit;
-        public Vector3 Pos;
-        public Vector3 col;
-        public Vector3 col2;
         public Dictionary<int,string> PlayerWeaponDictionary;
         void Start()
         {
@@ -48,11 +42,6 @@ namespace Assets.Script.Avater
         }
         void Update()
         {
-            RaycastHit hit;
-            Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit,1);
-
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right));
-            //Debug.DrawRay(hit.point, Quaternion.AngleAxis(90f, Vector3.up)*hit.normal,Color.yellow);
             //在字典內找尋該動作的數值(待廢除)
             foreach (var actionStatuse in actionStatusDictionary.AllActionStatusDictionary)
             {
@@ -108,6 +97,7 @@ namespace Assets.Script.Avater
         void OnCollisionEnter(Collision collision)
         {   
             
+
             if(collision.transform.tag == "item")
             {
                 //道具
@@ -116,15 +106,36 @@ namespace Assets.Script.Avater
             {
 
             }
-            if(transform.position.y - collision.contacts[0].point.y >=-.1f)
+            //Debug.Log("foot: "+transform.position.y+" Ground: "+collision.contacts[0].point.y);
+            if( collision.gameObject.layer == 1 )
             {
-                Debug.Log("Ground");
+                Debug.Log("Grounded!");                
                 animator.SetBool("avater_IsLanded",true);
             }
-            col2 = collision.contacts[0].point;
-            print(col2);
-            print(transform.position);
-            //animator.SetBool("avater_IsLanded",true);
+            if(!animator.GetBool("avater_IsLanded")&&collision.collider.gameObject.tag == "wall")
+            {
+                RaycastHit temphit;
+                //如果碰撞點不是在腳下就可以跑庫
+                //向碰撞點射出雷射
+                if(Physics.Raycast(transform.position,
+                collision.collider.ClosestPoint(transform.position)-transform.position,out temphit))
+                {             
+                    //if(temphit.normal.y == 0) return;       
+                    //取得法線
+                    hit = temphit;
+                    //轉90度--找夾角
+                    var q = Quaternion.AngleAxis(90,Vector3.up)*hit.normal;
+
+                    var front = transform.TransformVector(Vector3.forward);
+                    var angle = Vector3.Angle(
+                        new Vector3(front.x,0,front.z),new Vector3(q.x,0,q.z));
+                    
+                    animator.SetFloat("avater_AngleBetweenWall",angle);
+                    animator.SetTrigger("avater_parkour");//將動畫導向
+                    //animator.SetBool("avater_can_parkour",true);
+                    Debug.Log("Hit");
+                } 
+            }
         }
 
         private void OnCollisionExit(Collision collision) 
@@ -137,54 +148,15 @@ namespace Assets.Script.Avater
         
         private void OnTriggerEnter(Collider collider) 
         {
-                        // 跳躍復原
-            if(!animator.GetBool("avater_IsLanded")&&collider.gameObject.tag == "wall")
-            {
-                RaycastHit temphit;
-                //如果碰撞點不是在腳下就可以跑庫
-                //向碰撞點射出雷射
-                if(Physics.Raycast(transform.position,
-                collider.ClosestPoint(transform.position)-transform.position,out temphit))
-                {             
-                    //if(temphit.normal.y == 0) return;       
-                    //取得法線
-                    hit = temphit;
-                    var vec = hit.normal;
 
-                    col = collider.ClosestPointOnBounds(hit.point);
-                    Pos = transform.position;
-
-                    //print(hit.normal);
-                    //轉90度--找夾角
-                    var q = Quaternion.AngleAxis(90,Vector3.up)*vec;
-                    
-                    //紅線代表著碰到的點
-                    Debug.DrawLine(transform.position,collider.ClosestPoint(transform.position),Color.red);
-                    //黃線代表著轉90度後的的向量
-                    Debug.DrawRay(transform.position,q,Color.yellow);
-                    //綠線代表著法線
-                    Debug.DrawRay(hit.point,vec,Color.green);                    
-                    //如果前面有東西就是三角跳--第二優先
-                    //側邊有東西就是跑牆
-                    var front = transform.TransformVector(Vector3.forward);
-                    var angle = Vector3.Angle(
-                        new Vector3(front.x,0,front.z),new Vector3(q.x,0,q.z));
-                    
-                    animator.SetFloat("avater_AngleBetweenWall",angle);
-                    animator.SetTrigger("avater_parkour");//將動畫導向
-                    Debug.Log("Hit");
-                } 
-
-            }
-        }
-        
+        }        
         void GetAnimationFlag(int anim_flag)
         {
             animator.SetInteger("anim_flag",anim_flag);
         }
         void OnDrawGizmos()
         {
-            
+            Gizmos.DrawLine(transform.position,transform.TransformPoint(Vector3.left));
             //Gizmos.DrawSphere(hit.point,.3f);
             //Gizmos.DrawSphere(Pos,.3f);
             //Gizmos.DrawSphere(col2,3);

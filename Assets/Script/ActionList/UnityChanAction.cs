@@ -159,7 +159,9 @@ namespace Assets.Script.ActionList
             var rot = hit.normal;
             //沿著Y軸轉90度    
             NowVecter = Quaternion.AngleAxis(-90,Vector3.up)*rot;
-            
+
+            myRig.rotation = Quaternion.LookRotation(NowVecter);
+            animator.SetBool("avater_IsParkour",true);
         }
 
         public bool wallrunR(ActionStatus actionStatus)
@@ -167,22 +169,27 @@ namespace Assets.Script.ActionList
             //給定速度
             myRig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
             //轉過去
-            var Q = Quaternion.LookRotation(NowVecter);
-            myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
+            //var Q = Quaternion.LookRotation(NowVecter);
+            //myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
+            //myRig.rotation = Q;
             
-            if(!Physics.CheckBox(my.transform.TransformPoint(new Vector3(-.5f,.8f,.2f)),Vector3.one*.05f,my.transform.rotation))
+            if(!Physics.CheckBox(my.transform.TransformPoint(-.5f,.7f,0),Vector3.one*.05f,my.transform.rotation))
             {
+                //如果踩空牆壁...目前全面停用
+                Debug.Log("OutNow!");
                 //myRig.isKinematic = true;
-                return false;
+                //return false;
             }            
             return true;
         }
-        /*
-        public void After_wallrunR(ActionStatus actionStatus)
+        
+        public bool After_wallrunR(ActionStatus actionStatus)
         {
             myRig.AddForce(my.transform.TransformVector(Vector3.right)*3,ForceMode.VelocityChange);
+            animator.SetBool("avater_IsParkour",false);
+            return true;
         }
-        */
+        
         public void Before_wallrunL(ActionStatus actionStatus)
         {            
             //myRig.useGravity = true;
@@ -199,6 +206,8 @@ namespace Assets.Script.ActionList
             var Q = Quaternion.LookRotation(NowVecter);
             myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
           
+            myRig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
+
             if(!Physics.CheckBox(my.transform.TransformPoint(new Vector3(.5f,.8f,.2f)),Vector3.one*.05f,my.transform.rotation))
             {
                 //myRig.isKinematic = true;
@@ -218,12 +227,14 @@ namespace Assets.Script.ActionList
             //轉為世界向量
             NowVecter = q;
             //沿著Y軸轉90度    
-            myRig.velocity = NowVecter*2+Vector3.up*10;//NowVector已經是正規化的向量了 
+            //myRig.velocity = NowVecter*2+Vector3.up*10;//NowVector已經是正規化的向量了 
         }
 
         public bool tranglejump(ActionStatus actionStatus)
         {
-            if(!Physics.CheckBox(my.transform.TransformPoint(new Vector3(0,.7f,.8f)),Vector3.one*.05f,my.transform.rotation))
+            myRig.velocity = Vector3.up*3;//NowVector已經是正規化的向量了
+
+            if(!Physics.CheckBox(my.transform.TransformPoint(new Vector3(0,.7f,.5f)),Vector3.one*.05f,my.transform.rotation))
             {
                 //myRig.isKinematic = true;
                 return false;
@@ -234,6 +245,10 @@ namespace Assets.Script.ActionList
         public bool PanicMelee(ActionStatus actionStatus)
         {
 
+            return true;
+        }
+        public bool Before_falling(ActionStatus actionStatus)
+        {
             return true;
         }
         public bool falling(ActionStatus actionStatus)

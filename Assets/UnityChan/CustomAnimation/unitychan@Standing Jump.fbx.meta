@@ -361,8 +361,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Standing Jump
       takeName: mixamo.com
-      firstFrame: 42
-      lastFrame: 64
+      firstFrame: 23
+      lastFrame: 53
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
