@@ -96,8 +96,6 @@ namespace Assets.Script.Avater
         */
         void OnCollisionEnter(Collision collision)
         {   
-            
-
             if(collision.transform.tag == "item")
             {
                 //道具
@@ -107,18 +105,22 @@ namespace Assets.Script.Avater
 
             }
             //Debug.Log("foot: "+transform.position.y+" Ground: "+collision.contacts[0].point.y);
-            if( collision.gameObject.layer == 1 )
+            if( Physics.Raycast(transform.position,Vector3.down,.5f) )
             {
                 Debug.Log("Grounded!");                
                 animator.SetBool("avater_IsLanded",true);
             }
-            if(!animator.GetBool("avater_IsLanded")&&collision.collider.gameObject.tag == "wall")
+        }        
+        private void OnTriggerEnter(Collider collider) 
+        {
+            print(collider.name);
+            if(!animator.GetBool("avater_IsLanded")&&collider.gameObject.tag == "wall")
             {
                 RaycastHit temphit;
                 //如果碰撞點不是在腳下就可以跑庫
                 //向碰撞點射出雷射
                 if(Physics.Raycast(transform.position,
-                collision.collider.ClosestPoint(transform.position)-transform.position,out temphit))
+                collider.ClosestPointOnBounds(transform.position)-transform.position,out temphit))
                 {             
                     //if(temphit.normal.y == 0) return;       
                     //取得法線
@@ -136,19 +138,6 @@ namespace Assets.Script.Avater
                     Debug.Log("Hit");
                 } 
             }
-        }
-
-        private void OnCollisionExit(Collision collision) 
-        {
-            if (collision.collider.gameObject.layer == 1)
-            {
-                
-            }
-        }
-        
-        private void OnTriggerEnter(Collider collider) 
-        {
-
         }        
         void GetAnimationFlag(int anim_flag)
         {

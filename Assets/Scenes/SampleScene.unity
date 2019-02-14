@@ -1585,6 +1585,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 405626599}
+  - component: {fileID: 405626600}
   m_Layer: 8
   m_Name: Character1_Neck
   m_TagString: Untagged
@@ -1607,6 +1608,18 @@ Transform:
   m_Father: {fileID: 977495799}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &405626600
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 405626598}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 0.15, z: 0.2}
+  m_Center: {x: -0.15, y: 0, z: 0}
 --- !u!1 &411719917
 GameObject:
   m_ObjectHideFlags: 0
@@ -8832,6 +8845,7 @@ GameObject:
   - component: {fileID: 2064829909}
   - component: {fileID: 2064829908}
   - component: {fileID: 2064829907}
+  - component: {fileID: 2064829914}
   m_Layer: 8
   m_Name: UnityChan
   m_TagString: MainCamera
@@ -8973,6 +8987,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2064829914
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2064829906}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1 &2090078541
 GameObject:
   m_ObjectHideFlags: 0
