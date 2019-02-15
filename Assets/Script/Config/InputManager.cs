@@ -44,6 +44,7 @@ namespace Assets.Script.Config
             {
                 Animator.SetBool("input_fire", true);
                 Animator.SetTrigger("input_melee");
+                Animator.SetTrigger("avater_parkour");
             }
 
             if (Input.GetButtonUp("Fire1"))

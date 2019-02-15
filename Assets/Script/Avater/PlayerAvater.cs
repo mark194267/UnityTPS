@@ -12,6 +12,7 @@ namespace Assets.Script.Avater
     {
         public Collision contactThing;
         public Collider triggerThing;
+        public Ray ray;
         public RaycastHit hit;
         public Dictionary<int,string> PlayerWeaponDictionary;
         void Start()
@@ -96,6 +97,8 @@ namespace Assets.Script.Avater
         */
         void OnCollisionEnter(Collision collision)
         {   
+            print("Enter!");
+            //print(collision.gameObject.name);
             if(collision.transform.tag == "item")
             {
                 //道具
@@ -104,28 +107,42 @@ namespace Assets.Script.Avater
             {
 
             }
-            //Debug.Log("foot: "+transform.position.y+" Ground: "+collision.contacts[0].point.y);
-            if( Physics.Raycast(transform.position,Vector3.down,.5f) )
+            if(animator.GetCurrentAnimatorStateInfo(0).IsTag("falling"))
             {
-                Debug.Log("Grounded!");                
+                print(collision.gameObject.name);
+            }
+            //Debug.Log("foot: "+transform.position.y+" Ground: "+collision.contacts[0].point.y);
+
+        }
+        private void OnTriggerStay(Collider other) 
+        {
+            if(!animator.GetBool("avater_IsParkour") && Physics.CheckBox(transform.position-Vector3.down*.1f,new Vector3(.001f,.2f,.001f),transform.rotation,-1,QueryTriggerInteraction.Ignore) )
+            {
+                Debug.Log("Grounded!");  
+                print(other.gameObject.name);              
                 animator.SetBool("avater_IsLanded",true);
             }
-        }        
+            else
+            {
+                animator.SetBool("avater_IsLanded",false);
+            }
+        }
         private void OnTriggerEnter(Collider collider) 
         {
             print(collider.name);
-            if(!animator.GetBool("avater_IsLanded")&&collider.gameObject.tag == "wall")
+            if(collider.gameObject.tag == "wall")
             {
+                ray.origin = transform.position;
+                ray.direction = transform.position-collider.ClosestPoint(transform.position);
                 RaycastHit temphit;
                 //如果碰撞點不是在腳下就可以跑庫
                 //向碰撞點射出雷射
-                if(Physics.Raycast(transform.position,
-                collider.ClosestPointOnBounds(transform.position)-transform.position,out temphit))
+                triggerThing = collider;
+                if(Physics.Raycast(transform.position,transform.TransformVector(Vector3.forward),out temphit))
                 {             
-                    //if(temphit.normal.y == 0) return;       
                     //取得法線
                     hit = temphit;
-                    //轉90度--找夾角
+                    //射線轉90度--找夾角
                     var q = Quaternion.AngleAxis(90,Vector3.up)*hit.normal;
 
                     var front = transform.TransformVector(Vector3.forward);
@@ -135,17 +152,23 @@ namespace Assets.Script.Avater
                     animator.SetFloat("avater_AngleBetweenWall",angle);
                     animator.SetTrigger("avater_parkour");//將動畫導向
                     //animator.SetBool("avater_can_parkour",true);
-                    Debug.Log("Hit");
+                    //print("Hitpoint"+collider.ClosestPoint(transform.position));
                 } 
-            }
-        }        
+                print(temphit.normal);
+            } 
+        }
         void GetAnimationFlag(int anim_flag)
         {
             animator.SetInteger("anim_flag",anim_flag);
         }
         void OnDrawGizmos()
         {
-            Gizmos.DrawLine(transform.position,transform.TransformPoint(Vector3.left));
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position,triggerThing.ClosestPoint(transform.position));
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(triggerThing.ClosestPoint(transform.position),.2f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(hit.point,Quaternion.AngleAxis(90,Vector3.up)*hit.normal);
             //Gizmos.DrawSphere(hit.point,.3f);
             //Gizmos.DrawSphere(Pos,.3f);
             //Gizmos.DrawSphere(col2,3);

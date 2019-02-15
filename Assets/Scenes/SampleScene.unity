@@ -8923,7 +8923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionElapsedTime: 0
   IsEndNormal: 1
-  triggerThing: {fileID: 0}
+  triggerThing: {fileID: 656815781}
 --- !u!95 &2064829911
 Animator:
   serializedVersion: 3
@@ -8997,7 +8997,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1 &2090078541
 GameObject:

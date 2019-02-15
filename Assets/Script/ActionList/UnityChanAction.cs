@@ -167,16 +167,16 @@ namespace Assets.Script.ActionList
         public bool wallrunR(ActionStatus actionStatus)
         {
             //給定速度
-            myRig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
+            myRig.velocity = NowVecter.normalized*3+Vector3.up*1;//NowVector已經是正規化的向量了
             //轉過去
             //var Q = Quaternion.LookRotation(NowVecter);
             //myRig.rotation = Quaternion.Lerp(my.transform.rotation,Q,.1f);
             //myRig.rotation = Q;
             
-            if(!Physics.CheckBox(my.transform.TransformPoint(-.5f,.7f,0),Vector3.one*.05f,my.transform.rotation))
+            if(!Physics.CheckBox(my.transform.TransformPoint(-.8f,.7f,0),Vector3.one*.1f,my.transform.rotation,-1,QueryTriggerInteraction.Ignore))
             {
                 //如果踩空牆壁...目前全面停用
-                Debug.Log("OutNow!");
+                Debug.Log("Hit");
                 //myRig.isKinematic = true;
                 //return false;
             }            
@@ -256,9 +256,17 @@ namespace Assets.Script.ActionList
             //FPSLikeMovement(5f,.5f);
             return true;
         }
+        public bool After_falling(ActionStatus actionStatus)
+        {
+            if(!Physics.Raycast(my.transform.position,Vector3.down,.5f))
+            {
+                //myRig.isKinematic = true;
+            }
+            return true;
+        }
         public bool land(ActionStatus actionStatus)
         {
-            myRig.velocity = Vector3.zero;
+            //myRig.velocity = Vector3.zero;
             return true;
         }
         public void Before_land(ActionStatus actionStatus)
@@ -266,7 +274,7 @@ namespace Assets.Script.ActionList
             //my.GetComponent<Rigidbody>().useGravity = false;
             //my.GetComponent<Rigidbody>().isKinematic = true;
             //落地檢查
-            
+            Debug.Log("land");
             //my.GetComponent<NavMeshAgent>().enabled = true;
         }
     }
