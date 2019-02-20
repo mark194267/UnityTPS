@@ -69,6 +69,7 @@
      <Compile Include="Assets\Script\AIGroup\AIConstructer.cs" />
      <Compile Include="Assets\Script\AIGroup\NavGrid.cs" />
      <Compile Include="Assets\Script\AIGroup\NavPoint.cs" />
+     <Compile Include="Assets\Script\Avater\Addon\ParkourCollision.cs" />
      <Compile Include="Assets\Script\Avater\AINodeBase.cs" />
      <Compile Include="Assets\Script\Avater\AvaterMain.cs" />
      <Compile Include="Assets\Script\Avater\AvaterStatus.cs" />

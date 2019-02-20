@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Assets.Script.Avater
 {
-    class AvaterMain:MonoBehaviour
+    public class AvaterMain:MonoBehaviour
     {
         protected ActionBasicBuilder actionBasicBuilder = new ActionBasicBuilder();
         protected ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();

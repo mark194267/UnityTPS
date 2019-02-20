@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Script.ActionControl;
 using Assets.Script.Avater;
+using Assets.Script.Avater.Addon;
 using Assets.Script.Config;
 using Assets.Script.weapon;
 using UnityEngine;
@@ -154,7 +155,7 @@ namespace Assets.Script.ActionList
         {
             //myRig.useGravity = true;
             //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
-            var hit = my.GetComponent<PlayerAvater>().hit;
+            var hit = my.GetComponent<ParkourCollision>().hit;
             //轉為世界向量
             var rot = hit.normal;
             //沿著Y軸轉90度    
@@ -176,7 +177,7 @@ namespace Assets.Script.ActionList
             if(!Physics.CheckBox(my.transform.TransformPoint(-.8f,.7f,0),Vector3.one*.1f,my.transform.rotation,-1,QueryTriggerInteraction.Ignore))
             {
                 //如果踩空牆壁...目前全面停用
-                Debug.Log("Hit");
+                //Debug.Log("Hit");
                 //myRig.isKinematic = true;
                 //return false;
             }            
@@ -194,7 +195,7 @@ namespace Assets.Script.ActionList
         {            
             //myRig.useGravity = true;
             //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
-            var hit = my.GetComponent<PlayerAvater>().hit;
+            var hit = my.GetComponent<ParkourCollision>().hit;
             //轉為世界向量
             var rot = hit.normal;     
             NowVecter = Quaternion.AngleAxis(90,Vector3.up)*rot;      
@@ -222,7 +223,7 @@ namespace Assets.Script.ActionList
             //myRig.useGravity = true;
             //myRig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
             //animator.SetBool("avater_can_jump",true);
-            var hit = my.GetComponent<PlayerAvater>().hit;
+            var hit = my.GetComponent<ParkourCollision>().hit;
             var q = Quaternion.AngleAxis(180,Vector3.up)*hit.normal;
             //轉為世界向量
             NowVecter = q;

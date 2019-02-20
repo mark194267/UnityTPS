@@ -1,0 +1,12 @@
+A title
+
+A high level paragraph summarizing the game. This paragraph is your "elevator pitch" to potential game publishers.
+Identify the genre of the game. Eg: Is it a first person shooter, a puzzle game, some hybrid genre that you just made up?
+
+A single representative image that shows what the game might look like. This does not need to be programmed. It can be drawn by hand and scanned, or done in any drawing program of your choice if you'd like, for example.
+
+A description of the "world" in which the game takes place.
+
+A description of the "narrative" of the game. In story terms, what is the progression of the game from the player's perspective?
+
+A listing of each of the progressive levels of the game. For each level, clearly describe the skills required for a player to master that level.

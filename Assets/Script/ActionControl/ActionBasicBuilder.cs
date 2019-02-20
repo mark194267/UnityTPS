@@ -12,7 +12,7 @@ using UnityEngine.AI;
 
 namespace Assets.Script.ActionControl
 {
-    class ActionBasicBuilder
+    public class ActionBasicBuilder
     {
         public ActionBasic GetActionBaseByName(string ActionName)
         {

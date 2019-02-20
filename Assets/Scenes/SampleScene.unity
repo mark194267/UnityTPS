@@ -8756,7 +8756,7 @@ GameObject:
   - component: {fileID: 2012630790}
   m_Layer: 1
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8840,12 +8840,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2064829913}
   - component: {fileID: 2064829912}
-  - component: {fileID: 2064829911}
-  - component: {fileID: 2064829910}
-  - component: {fileID: 2064829909}
-  - component: {fileID: 2064829908}
-  - component: {fileID: 2064829907}
   - component: {fileID: 2064829914}
+  - component: {fileID: 2064829911}
+  - component: {fileID: 2064829908}
+  - component: {fileID: 2064829909}
+  - component: {fileID: 2064829910}
+  - component: {fileID: 2064829915}
+  - component: {fileID: 2064829907}
   m_Layer: 8
   m_Name: UnityChan
   m_TagString: MainCamera
@@ -8923,7 +8924,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionElapsedTime: 0
   IsEndNormal: 1
-  triggerThing: {fileID: 656815781}
 --- !u!95 &2064829911
 Animator:
   serializedVersion: 3
@@ -8997,8 +8997,22 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 1.1
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &2064829915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2064829906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c268387310855b64bbdab47763a93e54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionElapsedTime: 0
+  IsEndNormal: 1
+  triggerThing: {fileID: 0}
 --- !u!1 &2090078541
 GameObject:
   m_ObjectHideFlags: 0

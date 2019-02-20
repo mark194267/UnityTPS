@@ -8,3 +8,7 @@ WebApplication2.sln
 *.cache
 *.json
 *.info
+*.json
+*.cache
+*.log
+Library/shadercompiler-UnityShaderCompiler.exe0.log
