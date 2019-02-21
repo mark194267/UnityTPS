@@ -17,6 +17,8 @@ namespace Assets.Script.Avater
 
         public Vector3 formationPoint;
 
+        public Collider HotThing;
+
         public float NowTime;
         public bool IsDecided;
         public bool IsAwake;
@@ -47,11 +49,13 @@ namespace Assets.Script.Avater
         {
             if(!IsAwake)
             {
+                //這裡用測距，之後會改良為觸發盒
                 if(Vector3.Distance(gameObject.transform.position,AiBase.target.transform.position) < 10)
                 {
                     if(Vector3.Angle(gameObject.transform.TransformDirection(Vector3.forward),AiBase.target.transform.position) < 15)
                     {
                         RaycastHit hits;
+                        //檢查是否看的到
                         if(Physics.Raycast(gameObject.transform.position,AiBase.target.transform.position-gameObject.transform.position,out hits,10))
                         {
                             IsAwake = true;
@@ -70,10 +74,14 @@ namespace Assets.Script.Avater
             }
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 >= 0.99)
             {
+                //決定方針
                 NowCommand = AiBase.DistanceBasicAI(3, 7);
+                //觸發動作
                 animator.SetTrigger("AI_" + NowCommand);
-                actionBasic.SetupBeforeAction();
+                //初始化動作數值
+                actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);
                 actionBasic.BeforeCustomAction(NowActionStatus);
+                //關閉不能進入的狀態
                 RefreshAnimaterParameter();
                 if (NowActionStatus.ignorelist != null)
                 {
@@ -86,6 +94,14 @@ namespace Assets.Script.Avater
             OldActionStatus = NowActionStatus;
             IsEndNormal = actionBasic.CustomAction(NowActionStatus);
             animator.SetBool("avater_IsEndNormal", IsEndNormal);
+        }
+
+        private void OnTriggerEnter(Collider other) {
+            if(other.tag != "player")
+            {
+                HotThing = other;
+                actionBasic.ChangeHeat();
+            }
         }
 
         //劃出路線-參考以下

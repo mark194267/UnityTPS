@@ -17,7 +17,9 @@ namespace Assets.Script.ActionList
         public void Before_walk(ActionStatus actionStatus)
         {
             myAgent.updateRotation = false;
-            myAgent.SetDestination(takecover());
+            //myAgent.SetDestination(takecover());
+            myAgent.SetDestination(target.transform.position);
+            
         }
 
         public bool walk(ActionStatus actionStatus)

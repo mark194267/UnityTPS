@@ -36,14 +36,12 @@ namespace Assets.Script.ActionControl
         protected NavMeshAgent myAgent;
         protected Vector3 targetPos;
         protected Vector3 NowVecter;
-        protected Vector3 CamFront;
         protected InputManager input;
 
         protected Camera camera;
 
         protected Gun gun;
 
-        protected float actionStartTime;
         protected float actionElapsedTime;
 
         public bool doOnlyOnce;
@@ -65,7 +63,6 @@ namespace Assets.Script.ActionControl
             if(my.transform.Find("Camera"))
             {
                 camera = my.transform.Find("Camera").GetComponent<Camera>();
-                CamFront = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, camera.nearClipPlane));
             }
 
             actionElapsedTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
@@ -102,12 +99,29 @@ namespace Assets.Script.ActionControl
         }
 
         #endregion
-        public void SetupBeforeAction()
+        public void SetupBeforeAction(string myName,string myAction)
         {
             //targetAgent.FindClosestEdge(out coverPos);
             doOnlyOnce = true;
-            actionStartTime = Time.time;
+            //只有AI才會更新熱圖
+            if(my.tag == "AI")
+            {
+                //將名子和動作傳給熱圖控制
+            }
         }
+        public void ChangeHeat()
+        {
+            if(my.GetComponent<AINodeBase>().HotThing)
+            {
+                var HotThing = my.GetComponent<AINodeBase>().HotThing;
+                HotThing.GetComponent<HotArea>().GettingHot(10);
+            }
+            else
+            {
+                //Vulcan.BurnHere(my.transform.position);
+            }
+        }
+
         #region RotateTowardSlerp
         protected void RotateTowardSlerp(Transform target)
         {
