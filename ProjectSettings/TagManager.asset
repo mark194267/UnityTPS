@@ -8,6 +8,7 @@ TagManager:
   - AI
   - bullet
   - wall
+  - heat
   layers:
   - Default
   - TransparentFX

@@ -97,7 +97,7 @@ namespace Assets.Script.Avater
         }
 
         private void OnTriggerEnter(Collider other) {
-            if(other.tag != "player")
+            if(other.tag == "heat")
             {
                 HotThing = other;
                 actionBasic.ChangeHeat();

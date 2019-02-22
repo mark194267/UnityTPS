@@ -28,7 +28,7 @@ namespace Assets.Script.ActionControl
     public class ActionBasic
     {
         public Animator animator;
-
+        public GameObject Vulcan;
         public GameObject my;
         public GameObject target;
 
@@ -64,7 +64,7 @@ namespace Assets.Script.ActionControl
             {
                 camera = my.transform.Find("Camera").GetComponent<Camera>();
             }
-
+            Vulcan = GameObject.Find("Vulcan");
             actionElapsedTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
         }
         #region CustomAction
@@ -107,6 +107,7 @@ namespace Assets.Script.ActionControl
             if(my.tag == "AI")
             {
                 //將名子和動作傳給熱圖控制
+                ChangeHeat();
             }
         }
         public void ChangeHeat()
@@ -118,7 +119,7 @@ namespace Assets.Script.ActionControl
             }
             else
             {
-                //Vulcan.BurnHere(my.transform.position);
+                Vulcan.GetComponent<Vulcan>().BurnGround(my.transform.position);
             }
         }
 

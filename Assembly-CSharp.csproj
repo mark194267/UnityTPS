@@ -68,8 +68,11 @@
      <Compile Include="Assets\Script\AIGroup\AICommander.cs" />
      <Compile Include="Assets\Script\AIGroup\AIConstructer.cs" />
      <Compile Include="Assets\Script\AIGroup\HotArea.cs" />
+     <Compile Include="Assets\Script\AIGroup\LocalNavMeshBuilder.cs" />
      <Compile Include="Assets\Script\AIGroup\NavGrid.cs" />
+     <Compile Include="Assets\Script\AIGroup\NavMeshSourceTag.cs" />
      <Compile Include="Assets\Script\AIGroup\NavPoint.cs" />
+     <Compile Include="Assets\Script\AIGroup\Vulcan.cs" />
      <Compile Include="Assets\Script\Avater\Addon\ParkourCollision.cs" />
      <Compile Include="Assets\Script\Avater\AINodeBase.cs" />
      <Compile Include="Assets\Script\Avater\AvaterMain.cs" />
