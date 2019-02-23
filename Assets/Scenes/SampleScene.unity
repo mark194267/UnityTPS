@@ -162,7 +162,6 @@ GameObject:
   m_Component:
   - component: {fileID: 304}
   - component: {fileID: 301}
-  - component: {fileID: 302}
   m_Layer: 0
   m_Name: CommandCube
   m_TagString: Untagged
@@ -182,20 +181,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsAwake: 1
---- !u!114 &302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50ce2144c38c8ed45a7f3f38ab4c722b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Tracked: {fileID: 0}
-  AgentID: 0
-  m_Size: {x: 80, y: 20, z: 80}
 --- !u!4 &304
 Transform:
   m_ObjectHideFlags: 0
@@ -218,6 +203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6445948}
+  - component: {fileID: 6445949}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -246,6 +232,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6445949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 6445947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df27b9289d1e8c4fb82e0df4f4673ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.1
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: 9f2a2a255a6280748b9c43f4d190fe47, type: 2}
 --- !u!1 &32085794
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,7 +1005,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 209105628}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3df27b9289d1e8c4fb82e0df4f4673ba, type: 3}
   m_Name: 
@@ -2720,8 +2734,8 @@ GameObject:
   m_Component:
   - component: {fileID: 618330390}
   - component: {fileID: 618330389}
-  - component: {fileID: 618330388}
   - component: {fileID: 618330391}
+  - component: {fileID: 618330388}
   - component: {fileID: 618330387}
   m_Layer: 0
   m_Name: Cube
@@ -2809,7 +2823,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Tracked: {fileID: 0}
-  AgentID: 0
   m_Size: {x: 80, y: 20, z: 80}
 --- !u!1 &656815779
 GameObject:

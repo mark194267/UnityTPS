@@ -6,7 +6,7 @@ using NavMeshBuilder = UnityEngine.AI.NavMeshBuilder;
  
 // Build and update a localized navmesh from the sources marked by NavMeshSourceTag
 [DefaultExecutionOrder(-102)]
-public class My_LocalNavMeshBuilder : MonoBehaviour
+public class LocalNavMeshBuilder : MonoBehaviour
 {
     // The center of the build
     public Transform m_Tracked;
