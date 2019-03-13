@@ -13,6 +13,7 @@ public class NavGrid
     //https://forum.unity.com/threads/solved-random-wander-ai-using-navmesh.327950/
     //動態改變AreaCost
     //https://forum.unity.com/threads/navmesh-modifier-or-navmesh-modifier-volume-at-run-time.487632/
+    //https://forum.unity.com/threads/update-navmesh-at-runtime.475237/
     public void GetGrid()
     {
         NavMeshHit hit;
