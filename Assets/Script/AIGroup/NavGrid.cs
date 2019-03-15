@@ -5,7 +5,6 @@ public class NavGrid
 {
     public List<Vector3> gridPos = new List<Vector3>();
     public List<Vector3> vaildPos = new List<Vector3>();
-    public List<NavPoint> navPoints = new List<NavPoint>();
 
     public int box_size = 5;
 
