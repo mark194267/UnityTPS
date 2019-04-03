@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections;
 using Assets.Script.ActionControl;
 using Assets.Script.Avater;
 using Assets.Script.weapon;
@@ -17,8 +13,9 @@ namespace Assets.Script.AIGroup
         private GameObject target;
 
         public bool IsAwake;
-
         public NavGrid NavGrid = new NavGrid();
+        public NavMeshPath path;
+
         private ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();
         private ActionBasicBuilder actionConstructer = new ActionBasicBuilder();
         private AIConstructer aiConstructer = new AIConstructer();
@@ -27,6 +24,7 @@ namespace Assets.Script.AIGroup
         void Awake()
         {
             //初期化
+            path = new NavMeshPath();
             allMyAi = GameObject.FindGameObjectsWithTag("AI");
             target = GameObject.Find("UnityChan");
             weaponFactory.Init();
@@ -43,23 +41,35 @@ namespace Assets.Script.AIGroup
         void Start()
         {
             //是否有巡邏路線
-            NavGrid.GetGrid();
+            //var agent = GetComponent<NavMeshAgent>();
+            //agent.CalculatePath(target.transform.position, path);
+        }
+
+        void OnEnable()
+        {
+            var agent = GetComponent<NavMeshAgent>();
+            agent.CalculatePath(target.transform.position, path);
         }
 
         void Update()
         {
             //調整時間後再重新思考
-            //StartCoroutine(ChangeTactic(10000));
+            //StartCoroutine(ChangeTactic(30));
+
+
         }
 
         void OnDrawGizmos()
         {
-            //NavGrid.DrawGizmos();
+            NavGrid.DrawGizmos();
         }
 
         IEnumerator ChangeTactic(float waittime)
         {
+            var agent = GetComponent<NavMeshAgent>();
+            agent.CalculatePath(target.transform.position, path);
             //print("Change!");
+            /*
             for (int i = 0; i < allMyAi.Length; i++)
             {
                 if (!IsAwake)
@@ -70,6 +80,7 @@ namespace Assets.Script.AIGroup
 
                 if (IsAwake)
                 {
+                    
                     var RandPoint = RandomPosition(
                                         target.transform.position,
                                             Vector2.Distance(
@@ -79,15 +90,17 @@ namespace Assets.Script.AIGroup
                                         );
                         
                     allMyAi[i].GetComponent<NavMeshAgent>().SetDestination(RandPoint);
+                    
                 }
             }
+            */
             yield return new WaitForSeconds(waittime);
         }
 
         public Vector3 RandomPosition(Vector3 origin, float radius)
         {
             //var randDirection = UnityEngine.Random.insideUnitSphere * radius;
-            var randDirection = UnityEngine.Random.onUnitSphere * radius;
+            var randDirection = Random.onUnitSphere * radius;
             randDirection += origin;
             NavMeshHit navHit;
             NavMesh.SamplePosition(randDirection, out navHit, radius, -1);

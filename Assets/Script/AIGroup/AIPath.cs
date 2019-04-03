@@ -5,7 +5,7 @@ using UnityEngine.AI;
 /// <summary>
 /// 負責路線，巡路管理
 /// </summary>
-public class Vulcan : MonoBehaviour {
+public class AIPath : MonoBehaviour {
     
     public GameObject navBlocker;
     public int MaxHotArea{get;set;}
@@ -44,7 +44,7 @@ public class Vulcan : MonoBehaviour {
     /// <summary>
     /// 檢查事件區域是否已有其他事件，並更新該事件
     /// </summary>
-    public bool CheckCollsion(int hot,int areaSize,Vector3 pos)
+    private bool CheckCollsion(int hot,int areaSize,Vector3 pos)
     {
         RaycastHit hit;
         if (Physics.BoxCast(pos, Vector3.one * areaSize, Vector3.forward,out hit,Quaternion.Euler(0,0,0),0,0, QueryTriggerInteraction.Collide/*Mask還沒寫入*/))

@@ -45,7 +45,7 @@ public class LocalNavMeshBuilder : MonoBehaviour
         m_Instance.Remove();
     }
  
-    void UpdateNavMesh(bool asyncUpdate = false)
+    void UpdateNavMesh(bool asyncUpdate = true)
     {
         NavMeshSourceTag.CollectMeshes(ref m_Sources);
         NavMeshSourceTag.CollectModifierVolumes(LayerMask.GetMask("Default"), ref m_Sources);

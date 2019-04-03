@@ -14,9 +14,7 @@ namespace Assets.Script.Avater
     class AINodeBase:AvaterMain
     {
         public AIBase AiBase;
-
         public Vector3 formationPoint;
-
         public Collider HotThing;
 
         public float NowTime;
@@ -43,6 +41,7 @@ namespace Assets.Script.Avater
             animator = this.gameObject.GetComponent<Animator>();
             //有無被叫醒
             //IsAwake = true;
+            actionBasic.myPath = transform.GetComponentInParent<AICommander>().path;
         }
 
         void Update()
@@ -75,11 +74,11 @@ namespace Assets.Script.Avater
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 >= 0.99)
             {
                 //決定方針
-                NowCommand = AiBase.DistanceBasicAI(3, 7);
+                NowCommand = AiBase.DistanceBasicAI(1, 2);
                 //觸發動作
                 animator.SetTrigger("AI_" + NowCommand);
                 //初始化動作數值
-                actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);
+                //actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);
                 actionBasic.BeforeCustomAction(NowActionStatus);
                 //關閉不能進入的狀態
                 RefreshAnimaterParameter();
@@ -100,13 +99,13 @@ namespace Assets.Script.Avater
             if(other.tag == "heat")
             {
                 HotThing = other;
-                actionBasic.ChangeHeat();
+                //actionBasic.ChangeHeat();
             }
         }
 
         //劃出路線-參考以下
         //https://answers.unity.com/questions/361810/draw-path-along-navmesh-agent-path.html
-        public void OnDrawGizmosSelected()
+        public void OnDrawGizmos()
         {        
             var nav = GetComponent<NavMeshAgent>();
             if( nav == null || nav.path == null )

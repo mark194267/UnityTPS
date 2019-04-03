@@ -57,7 +57,7 @@ namespace Assets.Script.Avater
                 //觸發下個動作之前
                 actionBasic.BeforeCustomAction(NowActionStatus);
                 //撥開通用開關(可能會移除)
-                actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);
+                //actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);
                 //讀取該動作是否可進入其他動畫
                 RefreshAnimaterParameter();
                 if (NowActionStatus.ignorelist != null)
