@@ -18,16 +18,21 @@ namespace Assets.Script.ActionList
         {
             //myAgent.updateRotation = false;
             //myAgent.SetDestination(takecover());
-            //myAgent.SetDestination(target.transform.position);
+            myAgent.SetDestination(target.transform.position);
             //Debug.Log(myAgent.path.corners.Length);
-            myAgent.SetPath(myPath);
-            Debug.Log(myPath.corners.Length);
-
+            
+            /*
+            if (myAgent.path != myPath)
+            {
+                myAgent.SetPath(myPath);
+                Debug.Log(myPath.corners.Length);
+            }
+            */
         }
 
         public bool walk(ActionStatus actionStatus)
         {
-            RotateTowardSlerp(targetPos);
+            //RotateTowardSlerp(targetPos);
             return true;
         }
 

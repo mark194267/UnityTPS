@@ -12,6 +12,7 @@ namespace Assets.Script.Avater
         protected ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();
         protected ActionBasic actionBasic = new ActionBasic();
         protected Animator animator;
+        public AvaterStatus avaterStatus { get; set; }
 
         public ActionStatus OldActionStatus;
         public ActionStatus NowActionStatus;
@@ -48,9 +49,19 @@ namespace Assets.Script.Avater
             }
         }
 
-        public void OnHit()
+        public void OnHit(int atk,double stun)
         {
-            animator.SetTrigger("avatermain_stun");
+            //先扣寫
+            avaterStatus.Hp -= atk;
+            //增加頓值
+            avaterStatus.NowStun += stun;
+            //如果頓值大於可以承受的頓值
+            if(avaterStatus.NowStun >= avaterStatus.MaxStun /* and 倒下時不會加頓值 */)
+            {
+                //倒下
+                animator.SetTrigger("avatermain_stun");
+                avaterStatus.NowStun = 0;
+            }
         }
 
         public void OnSpecial(string Name,float value)

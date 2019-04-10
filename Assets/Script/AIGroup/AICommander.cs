@@ -20,6 +20,8 @@ namespace Assets.Script.AIGroup
         private ActionBasicBuilder actionConstructer = new ActionBasicBuilder();
         private AIConstructer aiConstructer = new AIConstructer();
         private WeaponFactory weaponFactory = new WeaponFactory();
+        private AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
+        private AvaterStatus avaterStatus = new AvaterStatus();
 
         void Awake()
         {
@@ -28,13 +30,14 @@ namespace Assets.Script.AIGroup
             allMyAi = GameObject.FindGameObjectsWithTag("AI");
             target = GameObject.Find("UnityChan");
             weaponFactory.Init();
+            avaterStatus = avaterDataLoader.LoadStatus("Imp");
             foreach (GameObject ai in allMyAi)
             {
                 var aimain = ai.gameObject.GetComponent<AINodeBase>();
                 aimain.AiBase = aiConstructer.GetAI();
                 aimain.AiBase.Init(ai, target);
-
-                aimain.Init_Avater();               
+                aimain.Init_Avater();
+                aimain.avaterStatus = avaterStatus;
             }
         }
 
@@ -45,16 +48,10 @@ namespace Assets.Script.AIGroup
             //agent.CalculatePath(target.transform.position, path);
         }
 
-        void OnEnable()
-        {
-            var agent = GetComponent<NavMeshAgent>();
-            agent.CalculatePath(target.transform.position, path);
-        }
-
         void Update()
         {
             //調整時間後再重新思考
-            //StartCoroutine(ChangeTactic(30));
+            StartCoroutine(ChangeTactic(30));
 
 
         }

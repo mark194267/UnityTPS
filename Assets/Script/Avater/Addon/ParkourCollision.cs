@@ -34,21 +34,7 @@ namespace Assets.Script.Avater.Addon
             //Debug.Log("foot: "+transform.position.y+" Ground: "+collision.contacts[0].point.y);
 
         }
-        private void OnTriggerStay(Collider other) 
-        {
-            int layermask = LayerMask.GetMask("PostProcessing");
-            layermask = ~layermask;
-            if(!animator.GetBool("avater_IsParkour") && Physics.CheckBox(transform.position-Vector3.down*.1f,new Vector3(.001f,.2f,.001f),transform.rotation,layermask,QueryTriggerInteraction.Ignore) )
-            {
-                //Debug.Log("Grounded!");  
-                //print(other.gameObject.name);              
-                animator.SetBool("avater_IsLanded",true);
-            }
-            else
-            {
-                animator.SetBool("avater_IsLanded",false);
-            }
-        }
+
         private void OnTriggerEnter(Collider collider) 
         {
             //print(collider.name);

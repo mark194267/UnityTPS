@@ -11,6 +11,7 @@ namespace Assets.Script.weapon
     class BulletClass:MonoBehaviour
     {        
         public int damage;
+        public int stun;
         public float blast;
 
         void Start()
@@ -21,11 +22,11 @@ namespace Assets.Script.weapon
         
         void OnCollisionEnter(Collision collision)
         {
-            if (collision.rigidbody != null && collision.gameObject.tag != tag && collision.gameObject.GetComponent<AvaterMain>())
+            if (collision.rigidbody != null && collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponent<AvaterMain>()/*是演員*/)
             {
                 var hit = collision.gameObject;
                 //執行"被打中"
-                hit.GetComponent<AvaterMain>().OnHit();
+                hit.GetComponent<AvaterMain>().OnHit(damage,stun);
                 Destroy(gameObject);
             }
         }

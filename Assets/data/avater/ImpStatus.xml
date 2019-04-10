@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Imp>
+  <hp value ="10" />
+  <maxstun value ="10" />
+  <nowstun value ="0" />
+  <atk value="10" />
+</Imp>

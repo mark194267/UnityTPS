@@ -44,7 +44,7 @@ namespace Assets.Script.ActionControl
         {
             Dictionary<string, ActionStatus> actDictionary = new Dictionary<string, ActionStatus>();
             XmlDocument doc = new XmlDocument();
-            doc.Load("Assets\\data\\actionstatus\\" + Charactername + "Status.xml");
+            doc.Load("Assets\\data\\actions\\" + Charactername + "Action.xml");
             XmlNodeList nodeList = doc.SelectNodes(Charactername + "/" + type);
 
             foreach (XmlNode node in nodeList)

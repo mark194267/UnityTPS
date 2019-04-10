@@ -8,6 +8,9 @@ using System.Collections;
 
 namespace Assets.Script.Avater
 {
+    /// <summary>
+    /// 此為核心元件，非必要時別動這邊
+    /// </summary>
     class PlayerAvater : AvaterMain
     {
 
@@ -81,17 +84,27 @@ namespace Assets.Script.Avater
             }
             
         }
-        /// <summary>
-        /// 主射線，用子程式超載主檔的Ray ray;
-        /// </summary>
-        /// <returns></returns>
-        /*
-        IEnumerator GetRayCast()
-        {
 
-            yield return new WaitForSeconds(.05f); 
+        /// <summary>
+        /// 落地檢查
+        /// </summary>
+        /// <param name="other"></param>
+        private void OnTriggerStay(Collider other)
+        {
+            //忽略自己
+            int layermask = LayerMask.GetMask("PostProcessing");
+            layermask = ~layermask;
+            if (!animator.GetBool("avater_IsParkour") && Physics.CheckBox(transform.position - Vector3.down * .1f, new Vector3(.001f, .2f, .001f), transform.rotation, layermask, QueryTriggerInteraction.Ignore))
+            {
+                Debug.Log("Grounded!");  
+                //print(other.gameObject.name);              
+                animator.SetBool("avater_IsLanded", true);
+            }
+            else
+            {
+                animator.SetBool("avater_IsLanded", false);
+            }
         }
-        */
 
         void GetAnimationFlag(int anim_flag)
         {
