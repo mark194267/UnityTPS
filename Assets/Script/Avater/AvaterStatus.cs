@@ -9,8 +9,6 @@ namespace Assets.Script.Avater
     {
         public int Hp { get; set; }
         public int Atk { get; set; }
-
-        public double MaxStun { get; set; }
-        public double NowStun { get; set; }
+        public double Stun { get; set; }
     }
 }

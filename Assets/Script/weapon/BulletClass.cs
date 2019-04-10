@@ -20,9 +20,10 @@ namespace Assets.Script.weapon
             gameObject.GetComponent<Rigidbody>().AddForce(frontTransformDirection.normalized*100);
         }
         
-        void OnCollisionEnter(Collision collision)
+        void OnTriggerEnter(Collider collision)
         {
-            if (collision.rigidbody != null && collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponent<AvaterMain>()/*是演員*/)
+            //print("hit");
+            if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponent<AvaterMain>()/*是演員*/)
             {
                 var hit = collision.gameObject;
                 //執行"被打中"

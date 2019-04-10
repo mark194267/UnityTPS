@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Assets.Script.Avater
 {
-    public class AvaterMain:MonoBehaviour
+    public class AvaterMain : MonoBehaviour
     {
         protected ActionBasicBuilder actionBasicBuilder = new ActionBasicBuilder();
         protected ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();
@@ -21,13 +21,20 @@ namespace Assets.Script.Avater
         public float ActionElapsedTime;
         public bool IsEndNormal = true;
 
+        protected int Hp { get; set; }
+        protected double Stun { get; set; }
+        protected int Atk { get; set; }
+
         public void Init_Avater()
         {
             actionStatusDictionary.Init(gameObject.name);
             actionBasic = actionBasicBuilder.GetActionBaseByName(gameObject.name);
             actionBasic.Init(gameObject);
-
             animator = gameObject.GetComponent<Animator>();
+
+            Hp = avaterStatus.Hp;
+            Stun = 0;
+            Atk = avaterStatus.Atk;
         }
 
         public void GetAnimaterParameter()
@@ -45,26 +52,49 @@ namespace Assets.Script.Avater
         {
             foreach (var ignore in candolist)
             {
-                animator.SetBool(ignore,true);
+                animator.SetBool(ignore, true);
             }
         }
 
-        public void OnHit(int atk,double stun)
+        public void OnDead()
         {
-            //先扣寫
-            avaterStatus.Hp -= atk;
-            //增加頓值
-            avaterStatus.NowStun += stun;
-            //如果頓值大於可以承受的頓值
-            if(avaterStatus.NowStun >= avaterStatus.MaxStun /* and 倒下時不會加頓值 */)
-            {
-                //倒下
-                animator.SetTrigger("avatermain_stun");
-                avaterStatus.NowStun = 0;
-            }
+
         }
 
-        public void OnSpecial(string Name,float value)
+        public void OnHit(int atk, double stun)
+        {
+            //先扣血
+            Hp -= atk;
+            if (Hp < 1)
+            {
+                print("i`m Dead!");
+                animator.SetTrigger("avatermain_dead");
+
+                //死了
+                //取消路徑
+                GetComponent<NavMeshAgent>().enabled = false;
+                //關閉武器
+                //GetComponent<Gun>().NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+                //開啟Rigibody
+                GetComponent<Rigidbody>().isKinematic = false;
+                //Destroy(gameObject, 3f);
+            }
+
+            //增加頓值
+            Stun += stun;
+            //如果頓值大於可以承受的頓值
+            if (Stun >= avaterStatus.Stun /* and 倒下時不會加頓值 */)
+            {
+                //倒下並且重置頓值
+                //重置路徑禁止行動
+                GetComponent<NavMeshAgent>().ResetPath();
+                animator.SetTrigger("avatermain_stun");
+                Stun = 0;
+            }
+            //print(avaterStatus.Hp);
+        }
+
+        public void OnSpecial(string Name, float value)
         {
             animator.CrossFade(Name, 0);
             actionBasic.doOnlyOnce = true;

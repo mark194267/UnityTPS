@@ -24,7 +24,7 @@ namespace Assets.Script.weapon
             {
                 var hit = collision.gameObject;
                 //執行"被打中"
-                hit.GetComponent<AvaterMain>().OnHit();
+                //hit.GetComponent<AvaterMain>().OnHit();
             }
         }
     }

@@ -36,8 +36,8 @@ namespace Assets.Script.AIGroup
                 var aimain = ai.gameObject.GetComponent<AINodeBase>();
                 aimain.AiBase = aiConstructer.GetAI();
                 aimain.AiBase.Init(ai, target);
-                aimain.Init_Avater();
                 aimain.avaterStatus = avaterStatus;
+                aimain.Init_Avater();
             }
         }
 

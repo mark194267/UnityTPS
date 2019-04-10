@@ -292,6 +292,7 @@ namespace Assets.Script.ActionControl
             {
                 var dir =
                     camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
+                dir.y = 0;
                 myRig.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, maxSpeed);
             }
             var camPos = camera.transform.TransformDirection(Vector3.back);

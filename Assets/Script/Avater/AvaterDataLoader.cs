@@ -15,8 +15,7 @@ namespace Assets.Script.Avater
             doc.Load("Assets\\data\\avater\\" + avaterName + "Status.xml");
             XmlNode node = doc.SelectSingleNode(avaterName);
             avaterStatus.Hp = Convert.ToInt16(node.SelectSingleNode("hp").Attributes.GetNamedItem("value").Value);
-            avaterStatus.MaxStun = Convert.ToDouble(node.SelectSingleNode("maxstun").Attributes.GetNamedItem("value").Value);
-            avaterStatus.MaxStun = Convert.ToDouble(node.SelectSingleNode("nowstun").Attributes.GetNamedItem("value").Value);
+            avaterStatus.Stun = Convert.ToDouble(node.SelectSingleNode("stun").Attributes.GetNamedItem("value").Value);
             avaterStatus.Atk = Convert.ToInt16(node.SelectSingleNode("atk").Attributes.GetNamedItem("value").Value);
             return avaterStatus;
         }

@@ -177,7 +177,7 @@ namespace Assets.Script.weapon
             if (NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot < 0) yield break;
             canshoot = false;
             //找到目前"槍口"的方向
-            for(int i = 0;i< 12/*散彈數*/;i++)
+            for(int i = 0;i< NowWeapon.BulletUsedPerShot/*散彈數*/;i++)
             {
                 var bullet = (GameObject)Instantiate(NowWeapon.bullet,
                 NowWeapon.weapon.transform.position,NowWeapon.weapon.transform.rotation);

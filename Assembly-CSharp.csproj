@@ -101,6 +101,7 @@
     <None Include="Assets\data\actions\PlayerAction.xml" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\data\actions\ShotgunguyAction.xml" />
+    <None Include="Assets\data\avater\UnityChanStatus.xml" />
     <None Include="Assets\data\actions\UnityChanAction.xml" />
     <None Include="Assets\UnityChan\license.txt" />
     <None Include="Assets\data\actions\TofuAction.xml" />

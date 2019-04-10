@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  stun: 0
   blast: 0
 --- !u!135 &135965233338242920
 SphereCollider:
