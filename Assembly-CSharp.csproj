@@ -105,6 +105,7 @@
     <None Include="Assets\data\actions\UnityChanAction.xml" />
     <None Include="Assets\UnityChan\license.txt" />
     <None Include="Assets\data\actions\TofuAction.xml" />
+    <None Include="Assets\data\actions\CommonAction.xml" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku_ds.shader" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />
     <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />

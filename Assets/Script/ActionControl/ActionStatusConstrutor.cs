@@ -32,15 +32,23 @@ namespace Assets.Script.ActionControl
         public void Init(string charactername)
         {
             this.Charactername = charactername;
-            this.MoveDictionary = LoadAttributesDictionary("move");
-            this.CloseRangeDictionary = LoadAttributesDictionary("close");
-            this.LongRangeDictionary = LoadAttributesDictionary("long");
-            this.AllActionStatusDictionary = MoveDictionary.Concat(CloseRangeDictionary).Concat(LongRangeDictionary)
+
+            var CommonMoveDictionary = LoadAttributesDictionary("move", "Common");
+            var CommonCloseRangeDictionary = LoadAttributesDictionary("close", "Common");
+            var CommonLongRangeDictionary = LoadAttributesDictionary("long", "Common");
+
+            this.MoveDictionary = LoadAttributesDictionary("move",Charactername);
+            this.CloseRangeDictionary = LoadAttributesDictionary("close", Charactername);
+            this.LongRangeDictionary = LoadAttributesDictionary("long", Charactername);
+
+            this.AllActionStatusDictionary = 
+                MoveDictionary.Concat(CloseRangeDictionary).Concat(LongRangeDictionary)
+                .Concat(CommonMoveDictionary).Concat(CommonCloseRangeDictionary).Concat(CommonLongRangeDictionary)
                 .GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
         }
 
         //將XML的值載入人物的各動作表(數值)
-        private Dictionary<string,ActionStatus> LoadAttributesDictionary(string type)
+        private Dictionary<string,ActionStatus> LoadAttributesDictionary(string type,string Charactername)
         {
             Dictionary<string, ActionStatus> actDictionary = new Dictionary<string, ActionStatus>();
             XmlDocument doc = new XmlDocument();

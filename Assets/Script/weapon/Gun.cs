@@ -110,7 +110,7 @@ namespace Assets.Script.weapon
             }
         }
 
-        public virtual void reload()
+        public virtual bool reload()
         {
             //如果彈夾內的子彈 < 彈夾大小，或是剩下彈藥大於 0
             if (NowWeapon.BulletInMag <= NowWeapon.MagSize && NowWeapon.nowammo > 0)
@@ -124,8 +124,6 @@ namespace Assets.Script.weapon
                     NowWeapon.nowammo -= NowWeapon.MagSize;
                     //彈夾殘彈 = 彈夾容量
                     NowWeapon.BulletInMag = NowWeapon.MagSize;
-
-                    Debug.Log("reload");
                 }
                 //如果持有彈量 < 彈夾容量
                 if (NowWeapon.nowammo <= NowWeapon.MagSize)
@@ -134,13 +132,14 @@ namespace Assets.Script.weapon
                     NowWeapon.BulletInMag = NowWeapon.nowammo;
                     //持有彈量歸零
                     NowWeapon.nowammo = 0;
-                    Debug.Log("ad");
                 }
 
                 weaponname = NowWeapon.name;
                 ammo = NowWeapon.nowammo;
                 bulletinmag = NowWeapon.BulletInMag;
+                return true;
             }
+            return false;
         }
 
         public void StartSlash(float lenght)

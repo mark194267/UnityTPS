@@ -2094,6 +2094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionElapsedTime: 0
   IsEndNormal: 1
+  anim_flag: 0
   formationPoint: {x: 0, y: 0, z: 0}
   HotThing: {fileID: 0}
   NowTime: 0
@@ -2282,7 +2283,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 5}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &443197130
 MeshRenderer:
@@ -2355,7 +2356,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 2064829913}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &448523641
 BoxCollider:
@@ -2775,7 +2776,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 2064829913}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &584505158
 BoxCollider:
@@ -4173,6 +4174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionElapsedTime: 0
   IsEndNormal: 1
+  anim_flag: 0
   formationPoint: {x: 0, y: 0, z: 0}
   HotThing: {fileID: 0}
   NowTime: 0
@@ -4361,7 +4363,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 5}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &862803590
 MeshRenderer:
@@ -5040,6 +5042,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1.0000002, z: 1.0000001}
   m_Children:
   - {fileID: 1132720720}
+  - {fileID: 1077350201}
   m_Father: {fileID: 165109795}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5194,13 +5197,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1077350200}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.10831463, y: 0.6750638, z: 0.10117264, w: 0.7227179}
+  m_LocalPosition: {x: -0.348, y: -0.068, z: -0.049}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2064829913}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1034747549}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -17.047, y: 86.095, z: 0}
 --- !u!1 &1083112142
 GameObject:
   m_ObjectHideFlags: 0
@@ -5340,7 +5343,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 5}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1090805467
 MeshRenderer:
@@ -5511,6 +5514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionElapsedTime: 0
   IsEndNormal: 1
+  anim_flag: 0
   formationPoint: {x: 0, y: 0, z: 0}
   HotThing: {fileID: 0}
   NowTime: 0
@@ -5871,7 +5875,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2064829913}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1158868583
 BoxCollider:
@@ -8825,7 +8829,7 @@ Transform:
   m_LocalScale: {x: 0.10000004, y: 0.1, z: 0.10000004}
   m_Children: []
   m_Father: {fileID: 2064829913}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1872798591
 BoxCollider:
@@ -9423,8 +9427,8 @@ GameObject:
   - component: {fileID: 2064829909}
   - component: {fileID: 2064829910}
   - component: {fileID: 2064829907}
-  - component: {fileID: 2064829916}
   - component: {fileID: 2064829917}
+  - component: {fileID: 2064829915}
   m_Layer: 8
   m_Name: UnityChan
   m_TagString: Player
@@ -9502,6 +9506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionElapsedTime: 0
   IsEndNormal: 1
+  anim_flag: 0
 --- !u!95 &2064829911
 Animator:
   serializedVersion: 3
@@ -9557,7 +9562,6 @@ Transform:
   - {fileID: 1679209922}
   - {fileID: 1722762779}
   - {fileID: 1842970434}
-  - {fileID: 1077350201}
   - {fileID: 448523640}
   - {fileID: 584505157}
   - {fileID: 1872798590}
@@ -9577,7 +9581,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.1
   m_Center: {x: 0, y: 0.7, z: 0}
---- !u!114 &2064829916
+--- !u!114 &2064829915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9585,9 +9589,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2064829906}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67f6a66ba06af9e43afa3cccf1d3d21b, type: 3}
+  m_Script: {fileID: 11500000, guid: c268387310855b64bbdab47763a93e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 2064829911}
 --- !u!114 &2064829917
 MonoBehaviour:
   m_ObjectHideFlags: 0

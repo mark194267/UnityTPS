@@ -37,14 +37,26 @@ namespace Assets.Script.Config
 
             if (Input.GetButtonDown("Jump"))
             {
-                Animator.SetTrigger("avatermain_jump");
+                Animator.SetBool("avatermain_jump",true);
+            }
+            else
+            {
+                Animator.SetBool("avatermain_jump", false);
             }
 
             if (Input.GetButtonDown("Fire1"))
             {
                 Animator.SetBool("input_fire", true);
                 Animator.SetTrigger("input_melee");
-                Animator.SetTrigger("avater_parkour");
+            }
+
+            if (Input.GetButtonDown("dodge"))
+            {
+                Animator.SetBool("input_dodge",true);
+            }
+            else
+            {
+                Animator.SetBool("input_dodge", false);
             }
 
             if (Input.GetButtonUp("Fire1"))
@@ -66,12 +78,6 @@ namespace Assets.Script.Config
             {
                 Animator.SetTrigger("avatermain_panicmelee");
             }
-            /*
-            if(Input.GetButton("dodge"))
-            {
-                Animator.SetTrigger("input_dodge");
-            }
-            */
         }
     }
 }

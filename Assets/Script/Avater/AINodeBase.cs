@@ -71,7 +71,7 @@ namespace Assets.Script.Avater
                     NowActionStatus = actionStatuse.Value;
                 }
             }
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 >= 0.99)
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 >= 0.99 || OldActionStatus != NowActionStatus)
             {
                 //決定方針
                 NowCommand = AiBase.DistanceBasicAI(1, 2);

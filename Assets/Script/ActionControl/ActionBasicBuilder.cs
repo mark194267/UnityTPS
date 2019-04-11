@@ -106,11 +106,6 @@ namespace Assets.Script.ActionControl
 
         #endregion
 
-        public void AddCostArea()
-        {
-            aiPathManager.BurnGround(10, 5, myRig.position);
-        }
-
         #region 多型緩和迴轉
 
         /// <summary>
@@ -178,15 +173,6 @@ namespace Assets.Script.ActionControl
         }
         #endregion
 
-        /// <summary>
-        /// AI通用的切換目標，保持用此函式來切換目標
-        /// </summary>
-        /// <param name="targetGameObject"></param>
-        public void ChangeTarget(GameObject targetGameObject)
-        {
-            this.target = targetGameObject;
-        }
-
         #region 轉角檢測+路線
         /// <summary>
         /// 只做轉角檢測的進攻路線
@@ -226,27 +212,73 @@ namespace Assets.Script.ActionControl
 
         #endregion
 
-        /*
-        public virtual bool stun(ActionStatus actionStatus)
+        /// <summary>
+        /// AI通用的切換目標，保持用此函式來切換目標
+        /// </summary>
+        /// <param name="targetGameObject"></param>
+        public void ChangeTarget(GameObject targetGameObject)
         {
-            if (doOnlyOnce)
-            {
-                myAgent.enabled = false;
-                doOnlyOnce = false;
-                gun.NowWeapon.weapon.GetComponent<Collider>().enabled = false;
-            }
+            this.target = targetGameObject;
+        }
+
+
+
+        #region 基礎，通用動作
+
+        public virtual void Before_idle(ActionStatus actionStatus)
+        {
+            myAgent.ResetPath();
+        }
+
+        public virtual bool idle(ActionStatus actionStatus)
+        {
             return true;
         }
-        public virtual bool recover(ActionStatus actionStatus)
+
+        public virtual void Before_move(ActionStatus actionStatus)
         {
-            if (doOnlyOnce)
-            {
-                myAgent.enabled = true;
-                doOnlyOnce = false;
-            }
+            myAgent.SetDestination(target.transform.position);
+        }
+
+        public virtual bool move(ActionStatus actionStatus)
+        {
             return true;
         }
-        */
+
+        public virtual void Before_shoot(ActionStatus actionStatus)
+        {
+            myAgent.ResetPath();
+        }
+
+        public virtual bool shoot(ActionStatus actionStatus)
+        {
+            gun.fire();
+            return true;
+        }
+
+        public virtual void Before_reload(ActionStatus actionStatus)
+        {
+            myAgent.ResetPath();
+        }
+
+        public virtual bool reload(ActionStatus actionStatus)
+        {
+            return true;
+        }
+
+        public virtual void Before_dead(ActionStatus actionStatus)
+        {
+            myAgent.enabled = false;
+            myRig.isKinematic = false;
+            gun.NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+        }
+
+        public virtual bool dead(ActionStatus actionStatus)
+        {
+            return true;
+        }
+
+        #endregion
 
         #region 第一/第三人稱式移動
 
@@ -318,6 +350,11 @@ namespace Assets.Script.ActionControl
             RotateTowardlerp(my.transform.position - camPos, rotSpeed);
         }
         #endregion
+
+        public void AddCostArea()
+        {
+            aiPathManager.BurnGround(10, 5, myRig.position);
+        }
 
     }
 

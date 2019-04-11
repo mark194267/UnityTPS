@@ -72,13 +72,7 @@ namespace Assets.Script.Avater
                 animator.SetTrigger("avatermain_dead");
 
                 //死了
-                //取消路徑
-                GetComponent<NavMeshAgent>().enabled = false;
-                //關閉武器
-                //GetComponent<Gun>().NowWeapon.weapon.GetComponent<Collider>().enabled = false;
-                //開啟Rigibody
-                GetComponent<Rigidbody>().isKinematic = false;
-                //Destroy(gameObject, 3f);
+                Destroy(gameObject, 3f);
             }
 
             //增加頓值

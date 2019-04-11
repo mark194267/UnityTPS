@@ -40,8 +40,22 @@ namespace Assets.Script.ActionList
             return true;
         }
 
+        public void Before_slash2(ActionStatus actionStatus)
+        {
+        }
 
         public bool slash2(ActionStatus actionStatus)
+        {
+            gun.Swing(main.anim_flag);
+            return true;
+        }
+
+        public void Before_slash3(ActionStatus actionStatus)
+        {
+            
+        }
+
+        public bool slash3(ActionStatus actionStatus)
         {
             gun.Swing(main.anim_flag);
             return true;
@@ -64,12 +78,20 @@ namespace Assets.Script.ActionList
             return true;
         }
 
+        public override void Before_idle(ActionStatus actionStatus)
+        {
+        }
+
         public bool idle(ActionStatus actionStatus)
         {
             //var camPos = camera.transform.TransformDirection(Vector3.back *input.ws+Vector3.left*input.ad);
             //RotateTowardlerp(my.transform.position-camPos);
             //myRig.velocity = Vector3.Lerp(myRig.velocity, Vector3.zero, 0.5f);
             return true;
+        }
+
+        public override void Before_move(ActionStatus actionStatus)
+        {
         }
 
         public bool move(ActionStatus actionStatus)
@@ -277,6 +299,18 @@ namespace Assets.Script.ActionList
             //落地檢查
             Debug.Log("land");
             //my.GetComponent<NavMeshAgent>().enabled = true;
+        }
+
+
+        public void Before_slide(ActionStatus actionStatus)
+        {
+            var vec = my.transform.TransformDirection(Vector3.forward);
+            vec.y = 0;
+            myRig.AddForce(vec*300f);
+        }
+        public void After_slide(ActionStatus actionStatus)
+        {
+            animator.SetBool("input_dodge", false);
         }
     }
 }

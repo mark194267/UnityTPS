@@ -8,32 +8,10 @@ namespace Assets.Script.ActionList
 {
     class ImpAction: ActionBasic
     {
-        public bool idle(ActionStatus actionStatus)
+        public override void Before_idle(ActionStatus actionStatus)
         {
-            RotateTowardSlerp(targetPos);
-            return true;
-        }
-
-        public void Before_walk(ActionStatus actionStatus)
-        {
-            //myAgent.updateRotation = false;
-            //myAgent.SetDestination(takecover());
-            myAgent.SetDestination(target.transform.position);
-            //Debug.Log(myAgent.path.corners.Length);
-            
-            /*
-            if (myAgent.path != myPath)
-            {
-                myAgent.SetPath(myPath);
-                Debug.Log(myPath.corners.Length);
-            }
-            */
-        }
-
-        public bool walk(ActionStatus actionStatus)
-        {
-            //RotateTowardSlerp(targetPos);
-            return true;
+            base.Before_idle(actionStatus);
+            gun.ChangeWeapon("MG");
         }
 
         public void Before_fireball(ActionStatus actionStatus)
@@ -44,15 +22,6 @@ namespace Assets.Script.ActionList
 
         public bool fireball(ActionStatus actionStatus)
         {
-            /*
-            if (doOnlyOnce)
-            {
-                //myAgent.SetDestination(target.transform.position);
-                myAgent.ResetPath();
-                gun.ChangeWeapon("MG");
-                doOnlyOnce = false;
-            }
-            */
             if (gun.NowWeapon.BulletInMag > 0)
             {
                 if (Vector3.Angle(my.transform.TransformDirection(Vector3.forward),
@@ -66,19 +35,6 @@ namespace Assets.Script.ActionList
                 return false;
             }
             RotateTowardlerp(target.transform);
-            return true;
-        }
-
-        public bool reload(ActionStatus actionStatus)
-        {
-            if (actionElapsedTime > actionStatus.Time1)
-            {
-                if (doOnlyOnce)
-                {
-                    gun.reload();
-                    doOnlyOnce = false;
-                }
-            }
             return true;
         }
 
