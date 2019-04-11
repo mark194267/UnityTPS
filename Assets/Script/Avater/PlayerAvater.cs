@@ -108,9 +108,5 @@ namespace Assets.Script.Avater
             }
         }
 
-        void GetAnimationFlag(int anim_flag)
-        {
-            animator.SetInteger("anim_flag",anim_flag);
-        }
     }
 }

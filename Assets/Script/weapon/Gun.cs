@@ -72,9 +72,20 @@ namespace Assets.Script.weapon
             NowWeapon = WeaponSlot.Find(x => x.name == weaponName);
             NowWeapon.weapon.SetActive(true);
 
-            if (NowWeapon.acc > 0)//肉搏武器的準度為負數
+            //射擊武器
+            if (NowWeapon.acc > 0)
             {
                 NowWeapon.bullet = Resources.Load("Prefabs/" + NowWeapon.type) as GameObject;
+                var bullet = NowWeapon.bullet.GetComponent<BulletClass>();
+                bullet.damage = NowWeapon.Damage;
+                bullet.stun = NowWeapon.stun;
+            }
+            //肉搏武器
+            else
+            {
+                var melee = NowWeapon.weapon.GetComponent<MeleeClass>();
+                melee.damage = NowWeapon.Damage;
+                melee.stun = NowWeapon.stun;
             }
             //canshoot = true;
         }
@@ -140,6 +151,11 @@ namespace Assets.Script.weapon
                 StartCoroutine(Slash(lenght));
             }
         }
+        public void Swing(int timeflag)
+        {
+            if (timeflag == 1) NowWeapon.weapon.GetComponent<Collider>().enabled = true;
+            else NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+        }
 
         IEnumerator Slash(float lenght)
         {
@@ -161,9 +177,10 @@ namespace Assets.Script.weapon
             //tag來找尋子彈的"陣營"
             bullet.tag = gameObject.tag;
             var b = bullet.GetComponent<BulletClass>();
-            //初始化子彈的數值--待改進
-            b.damage = NowWeapon.Damage;
-            b.blast = NowWeapon.blast;
+            //在生成時因Buff改變子彈數值
+            //b.damage = NowWeapon.Damage;
+            //b.blast = NowWeapon.blast;
+
             //可能是雙管之類的
             NowWeapon.BulletInMag = NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot;
             //print(gameObject.name+" 用 "+name+" 射擊! 而彈量為 "+ NowWeapon.BulletInMag);

@@ -44,7 +44,7 @@ namespace Assets.Script.ActionControl
         protected Gun gun;
 
         protected float actionElapsedTime;
-
+        protected AvaterMain main;
         public bool doOnlyOnce;
 
         public void Init(GameObject my)
@@ -55,7 +55,7 @@ namespace Assets.Script.ActionControl
             this.gun = my.GetComponent<Gun>();
             this.animator = my.GetComponent<Animator>();
             this.myRig = my.GetComponent<Rigidbody>();
-
+            this.main = my.GetComponent<AvaterMain>();
             if (my.GetComponent<InputManager>())
             {
                 input = my.GetComponent<InputManager>();
@@ -226,6 +226,7 @@ namespace Assets.Script.ActionControl
 
         #endregion
 
+        /*
         public virtual bool stun(ActionStatus actionStatus)
         {
             if (doOnlyOnce)
@@ -245,6 +246,7 @@ namespace Assets.Script.ActionControl
             }
             return true;
         }
+        */
 
         #region 第一/第三人稱式移動
 
@@ -316,6 +318,7 @@ namespace Assets.Script.ActionControl
             RotateTowardlerp(my.transform.position - camPos, rotSpeed);
         }
         #endregion
+
     }
 
 

@@ -46,12 +46,13 @@ namespace Assets.Script.weapon
 
                 float charge = (float)Convert.ToDouble(node.Attributes["charge"].Value);
                 float acc = (float)Convert.ToDouble(node.Attributes["acc"].Value);
-                float stun = (float)Convert.ToDouble(node.Attributes["stun"].Value);
                 float rof = (float)Convert.ToDouble(node.Attributes["rof"].Value);
                 float dropoff = (float)Convert.ToDouble(node.Attributes["dropoff"].Value);
                 float speed = (float)Convert.ToDouble(node.Attributes["speed"].Value);
                 float recoil = (float)Convert.ToDouble(node.Attributes["recoil"].Value);
                 float blast = (float)Convert.ToDouble(node.Attributes["blast"].Value);
+
+                double stun = Convert.ToDouble(node.Attributes["stun"].Value);
 
                 GameObject weaponGameObject = Resources.Load("Prefabs/" + name) as GameObject;
 
@@ -82,12 +83,13 @@ namespace Assets.Script.weapon
 
         public float charge;
         public float acc;
-        public float stun;
         public float rof;
         public float dropoff;
         public float speed;
         public float recoil;
         public float blast;
+
+        public double stun;
 
         public GameObject weapon;
         public GameObject bullet;

@@ -41,6 +41,14 @@
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</close>
+  <close name = "meleeready">
+    <time value = "0.0"/>
+    <time2 value = "0.0"/>
+    <pos value = "0"/>
+    <speed value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "0"/>
+  </close>
 	<long name = "jump">
 		<time value = "0"/>
 		<time2 value = "0"/>

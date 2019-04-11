@@ -18,15 +18,14 @@ namespace Assets.Script.ActionList
             return true;
         }
 
-        public void Before_shoot(ActionStatus actionStatus)
+        public void Before_meleeready(ActionStatus actionStatus)
         {
-            gun.ChangeWeapon("MG");
+            gun.ChangeWeapon("katana");
         }
 
-        public bool shoot(ActionStatus actionStatus)
+        public bool meleeready(ActionStatus actionStatus)
         {
-            RotateTowardSlerp(target.transform.position);
-            gun.fire();
+            FPSLikeRigMovement(5f, 10f);
             return true;
         }
 
@@ -35,16 +34,17 @@ namespace Assets.Script.ActionList
             gun.ChangeWeapon("katana");
         }
 
-        public void slash1(ActionStatus actionStatus)
+        public bool slash1(ActionStatus actionStatus)
         {
-            if (actionElapsedTime > actionStatus.Time1)
-            {
-                if (doOnlyOnce)
-                {
-                    gun.StartSlash(actionStatus.Time2);
-                    doOnlyOnce = false;
-                }
-            }
+            gun.Swing(main.anim_flag);
+            return true;
+        }
+
+
+        public bool slash2(ActionStatus actionStatus)
+        {
+            gun.Swing(main.anim_flag);
+            return true;
         }
 
         public void Before_heavyslash(ActionStatus actionStatus)

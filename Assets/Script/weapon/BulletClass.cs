@@ -11,7 +11,7 @@ namespace Assets.Script.weapon
     class BulletClass:MonoBehaviour
     {        
         public int damage;
-        public int stun;
+        public double stun;
         public float blast;
 
         void Start()

@@ -20,6 +20,7 @@ namespace Assets.Script.Avater
 
         public float ActionElapsedTime;
         public bool IsEndNormal = true;
+        public int anim_flag;
 
         protected int Hp { get; set; }
         protected double Stun { get; set; }
@@ -105,6 +106,11 @@ namespace Assets.Script.Avater
         {
             gameObject.GetComponent<Gun>().NowWeapon.weapon.GetComponent<Collider>().enabled = false;
             gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        }
+
+        public void GetAnimationFlag(int flag)
+        {
+            anim_flag = flag;
         }
     }
 }
