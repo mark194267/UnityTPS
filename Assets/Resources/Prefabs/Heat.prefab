@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2777bba7e4e7c6f4681e3ea77eef5438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 5, y: 5, z: 5}
   m_Center: {x: 0, y: 1, z: 0}
   m_Area: 3
   m_AffectedAgents: ffffffff
@@ -67,6 +67,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c6be61d98b1e746814be0aa6ede99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: {x: 0, y: 0, z: 0}
-  Heat: 0
-  ExistTime: 0

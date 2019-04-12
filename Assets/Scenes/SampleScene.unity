@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 304}
   - component: {fileID: 301}
   - component: {fileID: 302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CommandCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -935,7 +935,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1ff3aad593f724e8dd566d073f7784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navBlocker: {fileID: 1726051443476728, guid: 3acf99ed5194b23468008ddb54fc36d9, type: 2}
+  navBlocker: {fileID: 0}
+  nav1Blocker: {fileID: 0}
+  nav2Blocker: {fileID: 0}
 --- !u!4 &209105630
 Transform:
   m_ObjectHideFlags: 0

@@ -268,6 +268,7 @@ namespace Assets.Script.ActionControl
 
         public virtual void Before_dead(ActionStatus actionStatus)
         {
+            AddCostArea();
             myAgent.enabled = false;
             myRig.isKinematic = false;
             gun.NowWeapon.weapon.GetComponent<Collider>().enabled = false;

@@ -8,15 +8,21 @@ using UnityEngine.AI;
 public class AIPath : MonoBehaviour {
     
     public GameObject navBlocker;
+    public GameObject nav1Blocker;
+    public GameObject nav2Blocker;
+
     public int MaxHotArea{get;set;}
     private NavMeshSurface navMeshSurface;
     private NavMeshData navMeshData;
     private List<HotArea> hotAreaList; 
 
-    private void OnStart() {
+    void Start() {
         //GetNavMeshBuilder
         //navBlocker = (GameObject)Resources.Load("Prefabs/Heat");
         navMeshSurface = GetComponent<NavMeshSurface>();
+        navBlocker = Resources.Load("Prefabs/Heat") as GameObject;
+        hotAreaList = new List<HotArea>();
+        MaxHotArea = 100;
     }
     /// <summary>
     /// 事件發生時，更新該區域的MASK寫入HotAreaList
@@ -25,11 +31,11 @@ public class AIPath : MonoBehaviour {
     public void BurnGround(int hot,int areasize,Vector3 pos)
     {
         //檢查位置上是否已有事件了
-        if (CheckCollsion(hot, areasize, pos))
+        /*if (CheckCollsion(hot, areasize, pos))
         {
             return;
         }
-        else if (hotAreaList.Count < MaxHotArea)
+        else */if (hotAreaList.Count < MaxHotArea)
         {
             var heat = Instantiate(navBlocker, pos, Quaternion.LookRotation(Vector3.forward));
             hotAreaList.Add(heat.GetComponent<HotArea>());

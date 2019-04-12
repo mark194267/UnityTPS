@@ -150,7 +150,12 @@ namespace Assets.Script.weapon
                 StartCoroutine(Slash(lenght));
             }
         }
-        public void Swing(int timeflag)
+        /// <summary>
+        /// 開啟肉搏判定的HITBOX,
+        /// 請在動作動畫內加入 AnimationEvent 輸入至 GetAnimationFlag
+        /// </summary>
+        /// <param name="timeflag"></param>
+        public void Swing(int timeflag,int motionDamage,double motionStun)
         {
             if (timeflag == 1) NowWeapon.weapon.GetComponent<Collider>().enabled = true;
             else NowWeapon.weapon.GetComponent<Collider>().enabled = false;

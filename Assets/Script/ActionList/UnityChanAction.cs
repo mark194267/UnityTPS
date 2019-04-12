@@ -36,7 +36,7 @@ namespace Assets.Script.ActionList
 
         public bool slash1(ActionStatus actionStatus)
         {
-            gun.Swing(main.anim_flag);
+            gun.Swing(main.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
             return true;
         }
 
@@ -46,7 +46,7 @@ namespace Assets.Script.ActionList
 
         public bool slash2(ActionStatus actionStatus)
         {
-            gun.Swing(main.anim_flag);
+            gun.Swing(main.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
         }
 
@@ -57,7 +57,7 @@ namespace Assets.Script.ActionList
 
         public bool slash3(ActionStatus actionStatus)
         {
-            gun.Swing(main.anim_flag);
+            gun.Swing(main.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
         }
 
@@ -201,7 +201,7 @@ namespace Assets.Script.ActionList
                 //如果踩空牆壁...目前全面停用
                 //Debug.Log("Hit");
                 //myRig.isKinematic = true;
-                //return false;
+                return false;
             }            
             return true;
         }
@@ -209,7 +209,7 @@ namespace Assets.Script.ActionList
         public bool After_wallrunR(ActionStatus actionStatus)
         {
             myRig.AddForce(my.transform.TransformVector(Vector3.right)*3,ForceMode.VelocityChange);
-            animator.SetBool("avater_IsParkour",false);
+            animator.SetBool("avater_can_parkour", false);
             return true;
         }
         
@@ -237,6 +237,10 @@ namespace Assets.Script.ActionList
                 return false;
             }              
             return true;
+        }
+        public void After_wallrunL(ActionStatus actionStatus)
+        {
+            animator.SetBool("avater_can_parkour", false);
         }
         #endregion
 

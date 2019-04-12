@@ -64,10 +64,12 @@ namespace Assets.Script.Avater.Addon
                         new Vector3(front.x,0,front.z),new Vector3(q.x,0,q.z));
                     
                     animator.SetFloat("avater_AngleBetweenWall",angle);
-                    animator.SetTrigger("avater_parkour");//將動畫導向
-                    //animator.SetBool("avater_can_parkour",true);
+                    //animator.SetTrigger("avater_parkour");//將動畫導向
+                    animator.SetBool("avater_can_parkour",true);
                     //print("Hitpoint"+collider.ClosestPoint(transform.position));
                 } 
+                else
+                    animator.SetBool("avater_can_parkour", false);
                 //print(temphit.normal);
             }
         }

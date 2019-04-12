@@ -13,6 +13,10 @@ namespace Assets.Script.weapon
         public double stun;
         public float blast;
 
+        public int motionDamage { get; set; }
+        public double motionStun { get; set; }
+        public float motionBlast { get; set; }
+
         void OnTriggerEnter(Collider collision)
         {
             print("hit");
@@ -20,7 +24,7 @@ namespace Assets.Script.weapon
             {
                 var hit = collision.gameObject;
                 //執行"被打中"
-                hit.GetComponent<AvaterMain>().OnHit(damage, stun);
+                hit.GetComponent<AvaterMain>().OnHit(damage + motionDamage, stun + motionStun);
                 //Destroy(gameObject);
             }
         }
