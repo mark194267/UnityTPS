@@ -31,38 +31,54 @@ namespace Assets.Script.ActionList
 
         public void Before_slash1(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(5f, 20f);
             gun.ChangeWeapon("katana");
         }
 
         public bool slash1(ActionStatus actionStatus)
         {
+            var camPos = camera.transform.TransformDirection(Vector3.forward);
+            RotateTowardlerp(my.transform.position + camPos, 3f);
+
             gun.Swing(main.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
             return true;
         }
 
         public void Before_slash2(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(5f, 20f);
         }
 
         public bool slash2(ActionStatus actionStatus)
         {
+            var camPos = camera.transform.TransformDirection(Vector3.forward);
+            RotateTowardlerp(my.transform.position + camPos, 3f);
+
             gun.Swing(main.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
         }
 
         public void Before_slash3(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(5f, 20f);
         }
 
         public bool slash3(ActionStatus actionStatus)
         {
+            var camPos = camera.transform.TransformDirection(Vector3.forward);
+            RotateTowardlerp(my.transform.position + camPos, 3f);
+
             gun.Swing(main.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
         }
 
+        public void Before_jumpAtk(ActionStatus actionStatus)
+        {
+            gun.ChangeWeapon("katana");
+        }
+
+        public bool jumpAtk(ActionStatus actionStatus)
+        {
+            gun.Swing(main.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
+            return true;
+        }
         public void Before_heavyslash(ActionStatus actionStatus)
         {
             gun.NowWeapon.charge = animator.GetFloat("charge");
@@ -140,6 +156,10 @@ namespace Assets.Script.ActionList
             //FPSLikeRigMovement(.2f,.1f);
             return true;
         }
+        public void After_jump(ActionStatus actionStatus)
+        {
+            NowVecter = myRig.velocity;
+        }
 
         public void Before_dodge(ActionStatus actionStatus)
         {
@@ -162,6 +182,7 @@ namespace Assets.Script.ActionList
             Debug.Log(colliders[0].name);//找到物件
             return true;
         }
+
         #region 跑牆
         /// <summary>
         /// 2019-01-18新增
@@ -271,6 +292,7 @@ namespace Assets.Script.ActionList
         }
         public bool Before_falling(ActionStatus actionStatus)
         {
+            myRig.velocity = NowVecter;
             return true;
         }
         public bool falling(ActionStatus actionStatus)

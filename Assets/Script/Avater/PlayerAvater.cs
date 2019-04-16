@@ -97,7 +97,7 @@ namespace Assets.Script.Avater
             layermask = ~layermask;
             if (/*!animator.GetBool("avater_IsParkour") &&*/ Physics.CheckBox(transform.position - Vector3.down * .1f, new Vector3(.001f, .2f, .001f), transform.rotation, layermask, QueryTriggerInteraction.Ignore))
             {
-                Debug.Log("Grounded!");  
+                //Debug.Log("Grounded!");  
                 //print(other.gameObject.name);              
                 animator.SetBool("avater_IsLanded", true);
             }
