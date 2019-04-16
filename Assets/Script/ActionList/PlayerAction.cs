@@ -35,7 +35,7 @@ namespace Assets.Script.ActionList
             gun.ChangeWeapon("katana");
             return true;
         }
-
+        /*
         public bool slash1(ActionStatus actionStatus)
         {
             if (actionElapsedTime > actionStatus.Time1)
@@ -48,7 +48,7 @@ namespace Assets.Script.ActionList
             }
             return true;
         }
-
+        */
         public bool Before_heavyslash(ActionStatus actionStatus)
         {
             gun.NowWeapon.charge = animator.GetFloat("charge");

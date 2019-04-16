@@ -31,6 +31,7 @@ namespace Assets.Script.ActionList
 
         public void Before_slash1(ActionStatus actionStatus)
         {
+            FPSLikeRigMovement(5f, 20f);
             gun.ChangeWeapon("katana");
         }
 
@@ -42,6 +43,7 @@ namespace Assets.Script.ActionList
 
         public void Before_slash2(ActionStatus actionStatus)
         {
+            FPSLikeRigMovement(5f, 20f);
         }
 
         public bool slash2(ActionStatus actionStatus)
@@ -52,7 +54,7 @@ namespace Assets.Script.ActionList
 
         public void Before_slash3(ActionStatus actionStatus)
         {
-            
+            FPSLikeRigMovement(5f, 20f);
         }
 
         public bool slash3(ActionStatus actionStatus)
@@ -82,7 +84,7 @@ namespace Assets.Script.ActionList
         {
         }
 
-        public bool idle(ActionStatus actionStatus)
+        public override bool idle(ActionStatus actionStatus)
         {
             //var camPos = camera.transform.TransformDirection(Vector3.back *input.ws+Vector3.left*input.ad);
             //RotateTowardlerp(my.transform.position-camPos);
@@ -94,7 +96,7 @@ namespace Assets.Script.ActionList
         {
         }
 
-        public bool move(ActionStatus actionStatus)
+        public override bool move(ActionStatus actionStatus)
         {
             if (Input.anyKey)
             {
@@ -102,13 +104,6 @@ namespace Assets.Script.ActionList
                 RotateTowardlerp(my.transform.position-camPos,5f);
                 myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
             }
-            /// <summary>
-            /// 用來測試BOX，用於跑酷
-            /// </summary>
-            ///if(Physics.CheckBox(my.transform.TransformPoint(new Vector3(.5f,.7f,0)),Vector3.one*.05f,my.transform.rotation))
-            ///{
-            ///    Debug.Log("That a box");
-            ///}
             return true;
         }
 

@@ -83,8 +83,7 @@ namespace Assets.Script.Avater
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {
                 animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y);
-            }
-            
+            }            
         }
 
         /// <summary>

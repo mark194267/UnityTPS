@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  m_AmbientSkyColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   m_AmbientEquatorColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_AmbientGroundColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -1442,7 +1442,7 @@ Transform:
   m_Children:
   - {fileID: 300821949}
   m_Father: {fileID: 1110638147}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &332330816
 GameObject:
@@ -2975,7 +2975,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1110638147}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 2.778, y: -76.740005, z: 1.092}
 --- !u!1 &618330386
 GameObject:
@@ -5044,7 +5044,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1.0000002, z: 1.0000001}
   m_Children:
   - {fileID: 1132720720}
-  - {fileID: 1077350201}
   m_Father: {fileID: 165109795}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5199,13 +5198,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1077350200}
-  m_LocalRotation: {x: -0.10831463, y: 0.6750638, z: 0.10117264, w: 0.7227179}
-  m_LocalPosition: {x: -0.348, y: -0.068, z: -0.049}
+  m_LocalRotation: {x: 0.7033646, y: 0.059831355, z: -0.060549982, w: 0.7057139}
+  m_LocalPosition: {x: -0.046503883, y: 0.4490596, z: 0.00653376}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1034747549}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -17.047, y: 86.095, z: 0}
+  m_Father: {fileID: 1110638147}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1083112142
 GameObject:
   m_ObjectHideFlags: 0
@@ -5235,7 +5234,7 @@ Transform:
   m_Children:
   - {fileID: 1680010122}
   m_Father: {fileID: 1110638147}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1090805460
 GameObject:
@@ -5609,6 +5608,7 @@ Transform:
   m_LocalPosition: {x: -0.16248012, y: -0.0000006606469, z: 0.000001726818}
   m_LocalScale: {x: 1.0000001, y: 0.99999976, z: 0.9999999}
   m_Children:
+  - {fileID: 1077350201}
   - {fileID: 319699986}
   - {fileID: 1772976610}
   - {fileID: 1295366042}
@@ -6280,7 +6280,7 @@ Transform:
   m_Children:
   - {fileID: 60960623}
   m_Father: {fileID: 1110638147}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1333843535
 GameObject:
@@ -8173,7 +8173,7 @@ Transform:
   m_Children:
   - {fileID: 163876416}
   m_Father: {fileID: 1110638147}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1801908028
 GameObject:
@@ -9102,7 +9102,7 @@ Transform:
   m_Children:
   - {fileID: 1136167922}
   m_Father: {fileID: 1110638147}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1959583861
 GameObject:
@@ -9522,14 +9522,9 @@ Animator:
   m_Controller: {fileID: 9100000, guid: d5fe0c3fc0a6e754c98837ff37f9873c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed by
-    Humanoid clips.\n\tTransform 'J_L_HairFront_00'\n\tTransform 'J_L_HairSide_00'\n\tTransform
-    'J_R_HairSide_00'\n\tTransform 'J_L_HairFront_00'\n\tTransform 'J_L_HairSide_00'\n\tTransform
-    'J_R_HairSide_00'\n\tTransform 'J_L_HairFront_00'\n\tTransform 'J_L_HairSide_00'\n\tTransform
-    'J_R_HairSide_00'\n\tFrom animation clip 'RUN00_F'\n\tFrom animation clip 'WAIT04'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0

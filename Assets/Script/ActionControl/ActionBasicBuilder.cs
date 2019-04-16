@@ -221,30 +221,28 @@ namespace Assets.Script.ActionControl
             this.target = targetGameObject;
         }
 
-
-
         #region 基礎，通用動作
 
         public virtual void Before_idle(ActionStatus actionStatus)
         {
             myAgent.ResetPath();
         }
-
+        
         public virtual bool idle(ActionStatus actionStatus)
         {
             return true;
         }
-
+        
         public virtual void Before_move(ActionStatus actionStatus)
         {
             myAgent.SetDestination(target.transform.position);
         }
-
+        
         public virtual bool move(ActionStatus actionStatus)
         {
             return true;
         }
-
+        
         public virtual void Before_shoot(ActionStatus actionStatus)
         {
             myAgent.ResetPath();
@@ -260,12 +258,12 @@ namespace Assets.Script.ActionControl
         {
             myAgent.ResetPath();
         }
-
+        
         public virtual bool reload(ActionStatus actionStatus)
         {
             return true;
         }
-
+        
         public virtual void Before_dead(ActionStatus actionStatus)
         {
             AddCostArea();
@@ -278,7 +276,7 @@ namespace Assets.Script.ActionControl
         {
             return true;
         }
-
+        
         #endregion
 
         #region 第一/第三人稱式移動

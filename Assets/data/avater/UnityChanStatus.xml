@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <UnityChan>
-  <hp value="100"/>
+  <hp value="9999"/>
   <stun value ="100"/>
   <atk value ="100"/>
 </UnityChan>

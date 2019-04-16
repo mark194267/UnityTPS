@@ -142,14 +142,6 @@ namespace Assets.Script.weapon
             return false;
         }
 
-        public void StartSlash(float lenght)
-        {
-            if (NowWeapon.BulletInMag > 0)
-            {
-                NowWeapon.BulletInMag = 0;
-                StartCoroutine(Slash(lenght));
-            }
-        }
         /// <summary>
         /// 開啟肉搏判定的HITBOX,
         /// 請在動作動畫內加入 AnimationEvent 輸入至 GetAnimationFlag
@@ -159,38 +151,6 @@ namespace Assets.Script.weapon
         {
             if (timeflag == 1) NowWeapon.weapon.GetComponent<Collider>().enabled = true;
             else NowWeapon.weapon.GetComponent<Collider>().enabled = false;
-        }
-
-        IEnumerator Slash(float lenght)
-        {
-            NowWeapon.weapon.GetComponent<Collider>().enabled = true;
-            yield return new WaitForSeconds(lenght);
-            NowWeapon.weapon.GetComponent<Collider>().enabled = false;
-            print("slash");
-        }
-
-        IEnumerator ShootBullet()
-        {
-            if (NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot < 0) yield break;
-            canshoot = false;
-            //找到目前"槍口"的方向
-            Quaternion playerQuaternion = gameObject.transform.rotation;
-            //var bullet = (GameObject)Instantiate(NowWeapon.bullet, this.gameObject.transform.position, playerQuaternion);
-            var bullet = (GameObject)Instantiate(NowWeapon.bullet, NowWeapon.weapon.transform.position, NowWeapon.weapon.transform.rotation);
-
-            //tag來找尋子彈的"陣營"
-            bullet.tag = gameObject.tag;
-            var b = bullet.GetComponent<BulletClass>();
-            //在生成時因Buff改變子彈數值
-            //b.damage = NowWeapon.Damage;
-            //b.blast = NowWeapon.blast;
-
-            //可能是雙管之類的
-            NowWeapon.BulletInMag = NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot;
-            //print(gameObject.name+" 用 "+name+" 射擊! 而彈量為 "+ NowWeapon.BulletInMag);
-            Destroy(bullet,3f);
-            yield return new WaitForSeconds(NowWeapon.rof);
-            canshoot = true;
         }
 
         IEnumerator ShootShotGunBullet()

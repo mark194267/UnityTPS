@@ -40,17 +40,7 @@ namespace Assets.Script.ActionList
 
         public bool jumpslash(ActionStatus actionStatus)
         {
-            if (doOnlyOnce)
-            {
-                myAgent.SetDestination(target.transform.position);
-                gun.ChangeWeapon("katana");
-                gun.NowWeapon.BulletInMag = 1;
-                doOnlyOnce = false;
-            }
-            if (actionElapsedTime > actionStatus.Time1)
-            {
-                gun.StartSlash(actionStatus.Time2);
-            }
+
             //RotateTowardlerp(target.transform);
             return true;
         }
