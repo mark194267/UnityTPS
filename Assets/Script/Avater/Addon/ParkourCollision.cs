@@ -29,7 +29,7 @@ namespace Assets.Script.Avater.Addon
             }
             if(animator.GetCurrentAnimatorStateInfo(0).IsTag("falling"))
             {
-                print(collision.gameObject.name);
+                //print(collision.gameObject.name);
             }
             //Debug.Log("foot: "+transform.position.y+" Ground: "+collision.contacts[0].point.y);
 
@@ -54,8 +54,8 @@ namespace Assets.Script.Avater.Addon
                 {             
                     //取得法線
                     hit = temphit;
-                    print(hit.point-transform.position);
-                    print(hit.transform.name);
+                    //print(hit.point-transform.position);
+                    //print(hit.transform.name);
                     //射線轉90度--找夾角
                     var q = Quaternion.AngleAxis(90,Vector3.up)*hit.normal;
 

@@ -82,7 +82,7 @@ namespace Assets.Script.Avater
             //檢查掉落速度
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {
-                animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y);
+                animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
             }            
         }
 

@@ -44,11 +44,26 @@ namespace Assets.Script.Config
                 Animator.SetBool("avatermain_jump", false);
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButton("Fire1"))
             {
                 Animator.SetBool("input_fire", true);
-                Animator.SetTrigger("input_melee");
             }
+            else
+            {
+                Animator.SetBool("input_fire", false);
+            }
+
+            #region 蓄力
+            if (Input.GetButtonUp("Fire1"))
+            {
+                Animator.SetFloat("input_charge", charge);
+                charge = 0;
+            }
+            if (Input.GetButton("Fire1"))
+            {
+                charge += Time.deltaTime;
+            }
+            #endregion
 
             if (Input.GetButtonDown("dodge"))
             {
@@ -59,23 +74,13 @@ namespace Assets.Script.Config
                 Animator.SetBool("input_dodge", false);
             }
 
-            if (Input.GetButtonUp("Fire1"))
-            {
-                Animator.SetFloat("input_charge", charge);
-                Animator.SetBool("input_fire", false);
-                charge = 0;
-            }
-
-            if (Input.GetButton("Fire1"))
-            {
-                charge += Time.deltaTime;
-            }
 
             Animator.SetFloat("input_ws", ws);
             Animator.SetFloat("input_ad", ad);
             
-            if(Input.GetButton("Melee"))
+            if(Input.GetButton("Fire2"))
             {
+                Animator.SetTrigger("input_melee");
                 Animator.SetTrigger("avatermain_panicmelee");
             }
         }

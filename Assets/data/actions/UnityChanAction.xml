@@ -17,6 +17,14 @@
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</move>
+  <move name = "meleeDodge">
+    <time value = "0.3"/>
+    <time2 value = "0.75"/>
+    <pos value = "6"/>
+    <speed value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "0"/>
+  </move>
 	<move name = "strafe">
 		<time value = "0.3"/>
 		<time2 value = "0.75"/>

@@ -31,13 +31,13 @@ namespace Assets.Script.ActionList
 
         public void Before_slash1(ActionStatus actionStatus)
         {
-            gun.ChangeWeapon("katana");
+            myRig.velocity = Vector3.zero;
         }
 
         public bool slash1(ActionStatus actionStatus)
         {
             var camPos = camera.transform.TransformDirection(Vector3.forward);
-            RotateTowardlerp(my.transform.position + camPos, 3f);
+            RotateTowardlerp(my.transform.position + camPos, 7f);
 
             gun.Swing(main.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
             return true;
@@ -45,6 +45,9 @@ namespace Assets.Script.ActionList
 
         public void Before_slash2(ActionStatus actionStatus)
         {
+            var vec = my.transform.TransformDirection(Vector3.forward * 7f);
+            vec.y = 0;
+            myRig.velocity = vec;
         }
 
         public bool slash2(ActionStatus actionStatus)
@@ -58,6 +61,9 @@ namespace Assets.Script.ActionList
 
         public void Before_slash3(ActionStatus actionStatus)
         {
+            var vec = my.transform.TransformDirection(Vector3.forward * 10f);
+            vec.y = 0;
+            myRig.velocity = vec;
         }
 
         public bool slash3(ActionStatus actionStatus)
@@ -93,6 +99,21 @@ namespace Assets.Script.ActionList
                 Debug.Log("your power is "+gun.NowWeapon.charge); 
                 doOnlyOnce = false;   
             }
+            return true;
+        }
+
+        public void Before_meleeDodge(ActionStatus actionStatus)
+        {
+            var ws = animator.GetFloat("input_ws");
+            var ad = animator.GetFloat("input_ad");
+            //如果直接按下就會往前
+            if (ws * ws + ad * ad <= 0) ws = -1;
+            var vec = my.transform.TransformDirection(new Vector3(ad, 0, ws));
+            myRig.velocity = Vector3.ClampMagnitude(vec * 15, 10f);
+        }
+
+        public bool meleeDodge(ActionStatus actionStatus)
+        {
             return true;
         }
 
@@ -290,38 +311,33 @@ namespace Assets.Script.ActionList
 
             return true;
         }
-        public bool Before_falling(ActionStatus actionStatus)
+        public void Before_falling(ActionStatus actionStatus)
         {
-            myRig.velocity = NowVecter;
-            return true;
+            //myRig.velocity = NowVecter;
         }
         public bool falling(ActionStatus actionStatus)
         {
             //FPSLikeMovement(5f,.5f);
             return true;
         }
-        public bool After_falling(ActionStatus actionStatus)
+        public void After_falling(ActionStatus actionStatus)
         {
-            if(!Physics.Raycast(my.transform.position,Vector3.down,.5f))
-            {
-                //myRig.isKinematic = true;
-            }
-            return true;
         }
+        public void Before_land(ActionStatus actionStatus)
+        {
+            //var vec_old = NowVecter; 
+            var vec = my.transform.TransformDirection(Vector3.forward);
+            myRig.velocity = vec*10;
+            //落地檢查
+            Debug.Log(vec);
+            //my.GetComponent<NavMeshAgent>().enabled = true;
+        }
+
         public bool land(ActionStatus actionStatus)
         {
             //myRig.velocity = Vector3.zero;
             return true;
         }
-        public void Before_land(ActionStatus actionStatus)
-        {
-            //my.GetComponent<Rigidbody>().useGravity = false;
-            //my.GetComponent<Rigidbody>().isKinematic = true;
-            //落地檢查
-            Debug.Log("land");
-            //my.GetComponent<NavMeshAgent>().enabled = true;
-        }
-
 
         public void Before_slide(ActionStatus actionStatus)
         {

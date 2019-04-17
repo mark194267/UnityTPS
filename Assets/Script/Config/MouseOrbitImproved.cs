@@ -19,7 +19,7 @@ public class MouseOrbitImproved : MonoBehaviour {
 	public float Hrecoil = 0;
 	public float FireTime = 0;
 
-	public Rigidbody rigidbody;
+	public Rigidbody rb;
 
 	float x = 0.0f;
 	float y = 0.0f;
@@ -31,35 +31,26 @@ public class MouseOrbitImproved : MonoBehaviour {
 		x = angles.y;
 		y = angles.x;
 
-		rigidbody = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody>();
 
 		// Make the rigid body not change rotation
-		if (rigidbody != null)
+		if (rb != null)
 		{
-			rigidbody.freezeRotation = true;
+			rb.freezeRotation = true;
 		}
 	}
 
 	void LateUpdate () 
-	{
-		//後座力回復
-		//可能為開槍後N秒內下降，或是滑鼠大幅度動作
-		
-		if(Vrecoil > 0 && FireTime > 0)
-		{
-			Vrecoil -= .15f;
-			FireTime -= Time.deltaTime;
-		}
-		
+	{		
 		if (target) 
 		{
 			x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
-			y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+			y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f ;
 
-			y = ClampAngle(y, yMinLimit, yMaxLimit);
+			y = ClampAngle(y - Vrecoil, yMinLimit, yMaxLimit);
 			
 			//後座力主要超載這邊
-			Quaternion rotation = Quaternion.Euler(y - Vrecoil, x + Hrecoil, 0);
+			Quaternion rotation = Quaternion.Euler(y , x + Hrecoil, 0);
 
 			distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel")*5, distanceMin, distanceMax);
 
@@ -78,7 +69,16 @@ public class MouseOrbitImproved : MonoBehaviour {
 			transform.rotation = rotation;
 			transform.position = position+Vector3.up*1.7f;
 		}
-	}
+
+        //後座力回復
+        //可能為開槍後N秒內下降，或是滑鼠大幅度動作
+
+        if (Vrecoil > 0 && FireTime > 0)
+        {
+            Vrecoil = 0f;
+            FireTime -= Time.deltaTime;
+        }
+    }
 
 	public static float ClampAngle(float angle, float min, float max)
 	{
