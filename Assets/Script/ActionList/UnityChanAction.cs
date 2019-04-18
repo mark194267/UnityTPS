@@ -211,6 +211,7 @@ namespace Assets.Script.ActionList
             var camPos = camera.transform.TransformDirection(new Vector3(ad, 0, ws));
             RotateTowardlerp(my.transform.position + camPos, 100f);
 
+            myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 5f), ForceMode.Impulse);
             myRig.AddForce(NowVecter+Vector3.up * 7f,ForceMode.Impulse);
         }
         public bool jump(ActionStatus actionStatus)
