@@ -1,6 +1,6 @@
 ﻿using Assets.Script.ActionControl;
 using Assets.Script.weapon;
-using Boo.Lang;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -104,6 +104,7 @@ namespace Assets.Script.Avater
 
         public void GetAnimationFlag(int flag)
         {
+            animator.SetInteger("anim_flag", flag);
             anim_flag = flag;
         }
     }

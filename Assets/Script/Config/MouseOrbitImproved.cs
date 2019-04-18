@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Script.Config;
 
 [AddComponentMenu("Camera-Control/Mouse Orbit with zoom")]
 public class MouseOrbitImproved : MonoBehaviour {
@@ -24,8 +25,16 @@ public class MouseOrbitImproved : MonoBehaviour {
 	float x = 0.0f;
 	float y = 0.0f;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+
+    //透明化參數
+    public float DistanceToPlayer = 5.0f;
+    public Material TransparentMaterial = null;
+    public float FadeInTimeout = 0.6f;
+    public float FadeOutTimeout = 0.2f;
+    public float TargetTransparency = 0.3f;
+
+    void Start () 
 	{
 		Vector3 angles = transform.eulerAngles;
 		x = angles.y;
@@ -54,12 +63,45 @@ public class MouseOrbitImproved : MonoBehaviour {
 
 			distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel")*5, distanceMin, distanceMax);
 
+            /*
 			RaycastHit hit;
 			if (Physics.Linecast (target.position, transform.position, out hit,1)) 
 			{
 				distance -=  hit.distance;
 			}
-			Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
+            */
+
+            #region 透明化
+
+            RaycastHit[] hits; // you can also use CapsuleCastAll() 
+                               // TODO: setup your layermask it improve performance and filter your hits. 
+            int layermask = LayerMask.GetMask("PostProcessing");
+            hits = Physics.RaycastAll(transform.position, transform.forward, distance-1f, ~layermask);
+            foreach (RaycastHit hit in hits)
+            {
+                Renderer R = hit.collider.GetComponent<Renderer>();
+                if (R == null)
+                {
+                    continue;
+                }
+                // no renderer attached? go to next hit 
+                // TODO: maybe implement here a check for GOs that should not be affected like the player
+                AutoTransparent AT = R.GetComponent<AutoTransparent>();
+                if (AT == null) // if no script is attached, attach one
+                {
+                    AT = R.gameObject.AddComponent<AutoTransparent>();
+                    AT.TransparentMaterial = TransparentMaterial;
+                    AT.FadeInTimeout = FadeInTimeout;
+                    AT.FadeOutTimeout = FadeOutTimeout;
+                    AT.TargetTransparency = TargetTransparency;
+                }
+                AT.BeTransparent(); // get called every frame to reset the falloff
+            }
+
+            #endregion
+
+
+            Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
 			//要去的位置
 			Vector3 position = rotation * negDistance + target.position;
 			//移動，動作偏量

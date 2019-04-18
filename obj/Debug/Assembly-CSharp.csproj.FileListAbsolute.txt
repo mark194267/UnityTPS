@@ -9,8 +9,6 @@ C:\Users\mark_shih\Documents\WebApplication1\Temp\bin\Debug\System.Xml.dll
 C:\Users\mark_shih\Documents\WebApplication1\Temp\bin\Debug\System.Xml.Linq.dll
 C:\Users\mark_shih\Documents\WebApplication1\Temp\bin\Debug\Unity.Locator.dll
 C:\Users\mark_shih\Documents\WebApplication1\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
-C:\Users\mark_shih\Documents\WebApplication1\Temp\bin\Debug\Unity.TextMeshPro.dll
-C:\Users\mark_shih\Documents\WebApplication1\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
 C:\Users\mark_shih\Documents\WebApplication1\Temp\bin\Debug\UnityEditor.dll
 C:\Users\mark_shih\Documents\WebApplication1\Temp\bin\Debug\UnityEditor.StandardEvents.dll
 C:\Users\mark_shih\Documents\WebApplication1\Temp\bin\Debug\UnityEngine.AccessibilityModule.dll

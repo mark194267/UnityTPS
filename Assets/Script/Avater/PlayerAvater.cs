@@ -13,8 +13,9 @@ namespace Assets.Script.Avater
     /// </summary>
     class PlayerAvater : AvaterMain
     {
+        //武器欄
+        //public Dictionary<int,string> PlayerWeaponDictionary;
 
-        public Dictionary<int,string> PlayerWeaponDictionary;
         public AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
         void Start()
         {
@@ -95,7 +96,7 @@ namespace Assets.Script.Avater
             //忽略自己
             int layermask = LayerMask.GetMask("PostProcessing");
             layermask = ~layermask;
-            if (/*!animator.GetBool("avater_IsParkour") &&*/ Physics.CheckBox(transform.position - Vector3.down * .1f, new Vector3(.001f, .2f, .001f), transform.rotation, layermask, QueryTriggerInteraction.Ignore))
+            if (/*!animator.GetBool("avater_IsParkour") &&*/ Physics.CheckBox(transform.position - Vector3.down * .1f, new Vector3(.001f, .2f, .001f), transform.rotation/*, layermask, QueryTriggerInteraction.Ignore*/))
             {
                 //Debug.Log("Grounded!");  
                 //print(other.gameObject.name);              

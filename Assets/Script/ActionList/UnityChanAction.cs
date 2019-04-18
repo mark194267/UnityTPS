@@ -28,6 +28,48 @@ namespace Assets.Script.ActionList
             FPSLikeRigMovement(5f, 10f);
             return true;
         }
+        public void Before_MoveNslash(ActionStatus actionStatus)
+        {
+            gun.ChangeWeapon("katana");
+        }
+
+        public bool MoveNslash(ActionStatus actionStatus)
+        {
+            var camPos = camera.transform.TransformDirection(Vector3.forward);
+            RotateTowardlerp(my.transform.position + camPos, 7f);
+            var myVec = my.transform.TransformVector(Vector3.forward);
+            
+            if (Physics.Raycast(my.transform.position,myVec,3f))
+            {
+                Debug.Log(myVec);
+                return false;
+            }
+            myRig.velocity = my.transform.TransformDirection(Vector3.forward*7f);
+            return true;
+        }
+
+        public void After_MoveNslash(ActionStatus actionStatus)
+        {
+            NowVecter = myRig.velocity;
+        }
+
+        public void Before_slash(ActionStatus actionStatus)
+        {
+            myRig.velocity = NowVecter;
+            myRig.velocity += my.transform.TransformDirection(Vector3.up * 5f);
+
+        }
+
+        public bool slash(ActionStatus actionStatus)
+        {
+            //Debug.Log("lal111");
+
+            var camPos = camera.transform.TransformDirection(Vector3.forward);
+            RotateTowardlerp(my.transform.position + camPos, 7f);
+
+            gun.Swing(main.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
+            return true;
+        }
 
         public void Before_slash1(ActionStatus actionStatus)
         {
@@ -135,12 +177,10 @@ namespace Assets.Script.ActionList
 
         public override bool move(ActionStatus actionStatus)
         {
-            if (Input.anyKey)
-            {
-                var camPos = camera.transform.TransformDirection(Vector3.back *input.ws+Vector3.left*input.ad);
-                RotateTowardlerp(my.transform.position-camPos,5f);
-                myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
-            }
+            var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
+            RotateTowardSlerp(my.transform.position - camPos, 5f);
+            myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
+
             return true;
         }
 
@@ -166,15 +206,18 @@ namespace Assets.Script.ActionList
 
             NowVecter = myRig.velocity;
 
-            //myAgent.enabled = false;
-            //myRig.isKinematic = false;
-            //myRig.useGravity = true;
+            var ws = animator.GetFloat("input_ws");
+            var ad = animator.GetFloat("input_ad");
+            var camPos = camera.transform.TransformDirection(new Vector3(ad, 0, ws));
+            RotateTowardlerp(my.transform.position + camPos, 100f);
+
             myRig.AddForce(NowVecter+Vector3.up * 7f,ForceMode.Impulse);
         }
         public bool jump(ActionStatus actionStatus)
         {
             //應該適用AddForce故不能用FpsLike，或是只更新他的x,z軸
             //FPSLikeRigMovement(.2f,.1f);
+
             return true;
         }
         public void After_jump(ActionStatus actionStatus)

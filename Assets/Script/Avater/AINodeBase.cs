@@ -14,10 +14,9 @@ namespace Assets.Script.Avater
     class AINodeBase:AvaterMain
     {
         public AIBase AiBase;
-        public Vector3 formationPoint;
+        //public Vector3 formationPoint;
         public Collider HotThing;
 
-        public float NowTime;
         public bool IsDecided;
         public bool IsAwake;
         public string NowCommand;

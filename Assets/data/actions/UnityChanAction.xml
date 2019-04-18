@@ -49,6 +49,22 @@
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</close>
+  <close name = "MoveNslash">
+    <time value = "0.3"/>
+    <time2 value = "0.75"/>
+    <pos value = "6"/>
+    <speed value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "0"/>
+  </close>
+  <close name = "slash">
+    <time value = "0.3"/>
+    <time2 value = "0.75"/>
+    <pos value = "6"/>
+    <speed value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "0"/>
+  </close>
 	<close name = "slash1">
 		<time value = "0.3"/>
 		<time2 value = "0.75"/>

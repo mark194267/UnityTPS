@@ -81,7 +81,7 @@ namespace Assets.Script.Config
             if(Input.GetButton("Fire2"))
             {
                 Animator.SetTrigger("input_melee");
-                Animator.SetTrigger("avatermain_panicmelee");
+                //Animator.SetTrigger("avatermain_panicmelee");
             }
         }
     }
