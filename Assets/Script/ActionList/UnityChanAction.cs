@@ -191,7 +191,7 @@ namespace Assets.Script.ActionList
 
         public bool strafe(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(5f,10f);
+            FPSLikeRigMovement(3f,10f);
             if(Input.GetButton("Fire1"))
             {
                 return gun.fire();
@@ -211,7 +211,7 @@ namespace Assets.Script.ActionList
             var camPos = camera.transform.TransformDirection(new Vector3(ad, 0, ws));
             RotateTowardlerp(my.transform.position + camPos, 100f);
 
-            myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 5f), ForceMode.Impulse);
+            myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 3f), ForceMode.Impulse);
             myRig.AddForce(NowVecter+Vector3.up * 7f,ForceMode.Impulse);
         }
         public bool jump(ActionStatus actionStatus)
@@ -392,6 +392,18 @@ namespace Assets.Script.ActionList
         public void After_slide(ActionStatus actionStatus)
         {
             animator.SetBool("input_dodge", false);
+        }
+        public bool reload(ActionStatus actionStatus)
+        {
+            var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
+            RotateTowardSlerp(my.transform.position - camPos, 5f);
+            myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
+
+            return true;
+        }
+        public void After_reload(ActionStatus actionStatus)
+        {
+            gun.reload();
         }
     }
 }
