@@ -69,6 +69,7 @@
     <Compile Include="Assets\Script\ActionControl\ActionBasicBuilder.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionStatus.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionStatusConstrutor.cs" />
+    <Compile Include="Assets\Script\ActionControl\MotionStatusBuilder.cs" />
     <Compile Include="Assets\Script\ActionList\ImpAction.cs" />
     <Compile Include="Assets\Script\ActionList\UnityChanAction.cs" />
     <Compile Include="Assets\Script\AIGroup\AICommander.cs" />
@@ -101,6 +102,7 @@
     <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\data\avater\UnityChanStatus.xml" />
     <None Include="Assets\data\actions\UnityChanAction.xml" />
+    <None Include="Assets\data\StatusByAniName\UnityChanStatusByAniName.xml" />
     <None Include="Assets\Resources\UnityChan\license.txt" />
     <None Include="Assets\data\actions\CommonAction.xml" />
     <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku_ds.shader" />

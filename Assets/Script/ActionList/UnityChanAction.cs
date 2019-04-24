@@ -25,7 +25,7 @@ namespace Assets.Script.ActionList
 
         public bool meleeready(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(5f, 10f);
+            FPSLikeRigMovement(main.NowMotionStatus.motionSpd, 10f);
             return true;
         }
         public void Before_MoveNslash(ActionStatus actionStatus)
@@ -63,7 +63,7 @@ namespace Assets.Script.ActionList
         public bool slash(ActionStatus actionStatus)
         {
             //Debug.Log("lal111");
-
+            
             var camPos = camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(my.transform.position + camPos, 7f);
 
@@ -393,11 +393,16 @@ namespace Assets.Script.ActionList
         {
             animator.SetBool("input_dodge", false);
         }
-        public bool reload(ActionStatus actionStatus)
+
+        public override void Before_reload(ActionStatus actionStatus)
+        {
+        }
+        public override bool reload(ActionStatus actionStatus)
         {
             var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
             RotateTowardSlerp(my.transform.position - camPos, 5f);
-            myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
+            var vec = Vector3.ClampMagnitude(Vector3.forward * new Vector3(input.ad,0,input.ws).magnitude*10f,10f);
+            myRig.velocity = my.transform.TransformDirection(vec);
 
             return true;
         }

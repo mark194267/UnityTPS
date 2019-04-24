@@ -17,11 +17,15 @@ namespace Assets.Script.Avater
         //public Dictionary<int,string> PlayerWeaponDictionary;
 
         public AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
+        private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
+
         void Start()
         {
             avaterStatus = avaterDataLoader.LoadStatus("UnityChan");
             //暫時，初始化到時會交出去
             Init_Avater();
+            //獲取腳色動作值
+            motionStatusDir = statusBuilder.GetMotionList("UnityChan");
             //GetAnimaterParameter();
             
             //actionBasic.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
@@ -54,6 +58,15 @@ namespace Assets.Script.Avater
                     NowActionStatus = actionStatuse.Value;
                 }
             }
+
+            foreach (var motionStatus in motionStatusDir)
+            {
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName(motionStatus.Key))
+                {
+                    NowMotionStatus = motionStatus.Value;
+                }
+            }
+
             //動作變了
             if (OldActionStatus != null && OldActionStatus != NowActionStatus)
             {

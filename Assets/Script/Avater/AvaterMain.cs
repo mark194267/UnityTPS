@@ -8,12 +8,15 @@ namespace Assets.Script.Avater
 {
     public class AvaterMain : MonoBehaviour
     {
+        //2019-04-24 增加動作值字典
+        protected Dictionary<string, MotionStatus> motionStatusDir = new Dictionary<string, MotionStatus>();
         protected ActionBasicBuilder actionBasicBuilder = new ActionBasicBuilder();
         protected ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();
         protected ActionBasic actionBasic = new ActionBasic();
         protected Animator animator;
         public AvaterStatus avaterStatus { get; set; }
-
+        //2019-04-24 增加動作值
+        public MotionStatus NowMotionStatus;
         public ActionStatus OldActionStatus;
         public ActionStatus NowActionStatus;
         private List<string> candolist = new List<string>();
@@ -25,6 +28,8 @@ namespace Assets.Script.Avater
         protected int Hp { get; set; }
         protected double Stun { get; set; }
         protected int Atk { get; set; }
+
+        protected string[] AnimationString { get; set; }
 
         public void Init_Avater()
         {
@@ -106,6 +111,11 @@ namespace Assets.Script.Avater
         {
             animator.SetInteger("anim_flag", flag);
             anim_flag = flag;
+        }
+
+        public void GetAnimationIntMatrix(string intstring)
+        {
+            AnimationString = intstring.Split(',');            
         }
     }
 }

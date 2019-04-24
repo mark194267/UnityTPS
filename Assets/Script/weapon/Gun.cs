@@ -109,7 +109,10 @@ namespace Assets.Script.weapon
                 return false;
             }
         }
-
+        /// <summary>
+        /// 換彈，請在"完成換彈"後使用
+        /// </summary>
+        /// <returns></returns>
         public virtual bool reload()
         {
             //如果彈夾內的子彈 < 彈夾大小，或是剩下彈藥大於 0
@@ -134,9 +137,10 @@ namespace Assets.Script.weapon
                     NowWeapon.nowammo = 0;
                 }
 
-                weaponname = NowWeapon.name;
-                ammo = NowWeapon.nowammo;
-                bulletinmag = NowWeapon.BulletInMag;
+                //測試區
+                //weaponname = NowWeapon.name;
+                //ammo = NowWeapon.nowammo;
+                //bulletinmag = NowWeapon.BulletInMag;
                 return true;
             }
             return false;
@@ -150,6 +154,44 @@ namespace Assets.Script.weapon
         public void Swing(int timeflag,int motionDamage,double motionStun)
         {
             if (timeflag == 1) NowWeapon.weapon.GetComponent<Collider>().enabled = true;
+            else NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+        }
+        /// <summary>
+        /// 開啟肉搏判定的HITBOX,
+        /// 請在動作動畫內加入 AnimationEvent 輸入至 GetAnimationFlag
+        /// </summary>
+        /// <param name="timeflag">動作旗標，在動畫修改旗標時間</param>
+        /// <param name="motionDamage">動作傷害補正</param>
+        /// <param name="motionStun">動作氣絕值補正</param>
+        /// <param name="force">力道方向*相對於腳色</param>
+
+        public void Swing(int timeflag, int motionDamage, double motionStun, Vector3 force)
+        {
+            if (timeflag == 1)
+            {
+                NowWeapon.weapon.GetComponent<Collider>().enabled = true;
+                var trans = this.GetComponentInParent<Transform>();
+                this.GetComponentInParent<Rigidbody>().AddForce(trans.TransformVector(force));
+            }
+            else NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+        }
+        /// <summary>
+        /// 開啟肉搏判定的HITBOX,
+        /// 請在動作動畫內加入 AnimationEvent 輸入至 GetAnimationFlag
+        /// </summary>
+        /// <param name="timeflag">動作旗標，在動畫修改旗標時間</param>
+        /// <param name="motionDamage">動作傷害補正</param>
+        /// <param name="motionStun">動作氣絕值補正</param>
+        /// <param name="force">力道方向*相對於腳色</param>
+        /// <param name="mode">力道模式</param>
+        public void Swing(int timeflag, int motionDamage, double motionStun, Vector3 force,ForceMode mode)
+        {
+            if (timeflag == 1)
+            {
+                NowWeapon.weapon.GetComponent<Collider>().enabled = true;
+                var trans = this.GetComponentInParent<Transform>();
+                this.GetComponentInParent<Rigidbody>().AddForce(trans.TransformVector(force), mode);
+            }
             else NowWeapon.weapon.GetComponent<Collider>().enabled = false;
         }
 
