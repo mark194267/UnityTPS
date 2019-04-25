@@ -111,6 +111,7 @@ namespace Assets.Script.Avater
         {
             animator.SetInteger("anim_flag", flag);
             anim_flag = flag;
+            Debug.Log("hi");
         }
 
         public void GetAnimationIntMatrix(string intstring)

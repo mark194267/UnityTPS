@@ -78,10 +78,24 @@ namespace Assets.Script.Config
             Animator.SetFloat("input_ws", ws);
             Animator.SetFloat("input_ad", ad);
             
+            /*
             if(Input.GetButton("Fire2"))
             {
                 Animator.SetTrigger("input_melee");
                 //Animator.SetTrigger("avatermain_panicmelee");
+            }
+            */
+
+            if (Input.GetButtonDown("Fire2"))
+            {
+                Animator.SetTrigger("input_melee");
+                //Animator.SetTrigger("avatermain_panicmelee");
+                var anifloat = Animator.GetFloat("input_meleelevel");
+                if (anifloat < 10)
+                {
+                    Animator.SetFloat("input_meleelevel", anifloat + 1);
+                }
+                else Animator.SetFloat("input_meleelevel", 1);
             }
         }
     }

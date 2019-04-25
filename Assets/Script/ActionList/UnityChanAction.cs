@@ -399,10 +399,13 @@ namespace Assets.Script.ActionList
         }
         public override bool reload(ActionStatus actionStatus)
         {
-            var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
-            RotateTowardSlerp(my.transform.position - camPos, 5f);
-            var vec = Vector3.ClampMagnitude(Vector3.forward * new Vector3(input.ad,0,input.ws).magnitude*10f,10f);
-            myRig.velocity = my.transform.TransformDirection(vec);
+            if (Input.anyKey)
+            {
+                var camPos = camera.transform.TransformVector(new Vector3(input.ad, 0, input.ws));
+                RotateTowardSlerp(my.transform.position + camPos, 5f);
+                var vec = Vector3.ClampMagnitude(Vector3.forward * new Vector3(input.ad, 0, input.ws).magnitude * 5f, 10f);
+                myRig.velocity = my.transform.TransformDirection(vec);
+            }
 
             return true;
         }

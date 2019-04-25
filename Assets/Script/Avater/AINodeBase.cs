@@ -73,7 +73,7 @@ namespace Assets.Script.Avater
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 >= 0.99 || OldActionStatus != NowActionStatus)
             {
                 //決定方針
-                NowCommand = AiBase.DistanceBasicAI(1, 2);
+                NowCommand = AiBase.DistanceBasicAI(2, 5);
                 //觸發動作
                 animator.SetTrigger("AI_" + NowCommand);
                 //初始化動作數值
