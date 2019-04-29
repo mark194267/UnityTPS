@@ -241,6 +241,7 @@ namespace Assets.Script.ActionControl
 
         public virtual bool move(ActionStatus actionStatus)
         {
+            Debug.Log(actionStatus.f1);
             if (my.GetComponent<AINodeBase>().TargetDis < actionStatus.f1)
             {
                 return false;

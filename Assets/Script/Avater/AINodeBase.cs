@@ -86,6 +86,10 @@ namespace Assets.Script.Avater
                 animator.SetTrigger("AI_" + NowCommand);
                 //初始化動作數值
                 //actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);
+                if (OldActionStatus != null)
+                {
+                    actionBasic.AfterCustomAction(OldActionStatus);
+                }
                 actionBasic.BeforeCustomAction(NowActionStatus);
                 //關閉不能進入的狀態
                 RefreshAnimaterParameter();
