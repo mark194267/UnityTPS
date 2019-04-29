@@ -394,12 +394,9 @@ namespace Assets.Script.ActionList
             animator.SetBool("input_dodge", false);
         }
 
-        public override void Before_reload(ActionStatus actionStatus)
-        {
-        }
         public override bool reload(ActionStatus actionStatus)
         {
-            if (Input.anyKey)
+            if (input.ad != 0 || input.ws != 0)
             {
                 var camPos = camera.transform.TransformVector(new Vector3(input.ad, 0, input.ws));
                 RotateTowardSlerp(my.transform.position + camPos, 5f);

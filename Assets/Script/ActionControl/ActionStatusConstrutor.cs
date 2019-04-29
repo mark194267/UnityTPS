@@ -58,10 +58,10 @@ namespace Assets.Script.ActionControl
             foreach (XmlNode node in nodeList)
             {
                 string actname = node.Attributes["name"].Value;
-                float time1 = (float)Convert.ToDouble(node.SelectSingleNode("time").Attributes.GetNamedItem("value").Value);
-                float time2 = (float)Convert.ToDouble(node.SelectSingleNode("time2").Attributes.GetNamedItem("value").Value);
-                float chance = (float)Convert.ToDouble(node.SelectSingleNode("pos").Attributes.GetNamedItem("value").Value);
-                float speed = (float)Convert.ToDouble(node.SelectSingleNode("speed").Attributes.GetNamedItem("value").Value);
+                float f1 = (float)Convert.ToDouble(node.SelectSingleNode("f1").Attributes.GetNamedItem("value").Value);
+                float f2 = (float)Convert.ToDouble(node.SelectSingleNode("f2").Attributes.GetNamedItem("value").Value);
+                float f3 = (float)Convert.ToDouble(node.SelectSingleNode("f3").Attributes.GetNamedItem("value").Value);
+                float f4 = (float)Convert.ToDouble(node.SelectSingleNode("f4").Attributes.GetNamedItem("value").Value);
                 float x = (float)Convert.ToDouble(node.SelectSingleNode("vector3").Attributes.GetNamedItem("x").Value);
                 float y = (float)Convert.ToDouble(node.SelectSingleNode("vector3").Attributes.GetNamedItem("y").Value);
                 float z = (float)Convert.ToDouble(node.SelectSingleNode("vector3").Attributes.GetNamedItem("z").Value);
@@ -69,7 +69,13 @@ namespace Assets.Script.ActionControl
                 string[] ignorelist = ignore.Split(',');
 
                 ActionStatus ac = new ActionStatus();
-                ac.Init(actname, time1, time2, chance, speed, new Vector3(x, y, z));
+
+                ac.ActionName = actname;
+                ac.f1 = f1;
+                ac.f2 = f2;
+                ac.f3 = f3;
+                ac.f4 = f4;
+
                 if (ignore != "0")
                 {
                     ac.ignorelist = ignorelist;
@@ -93,5 +99,19 @@ namespace Assets.Script.ActionControl
 
             return null;
         }
+    }
+
+    /// <summary>
+    /// 動作列表，未來加上一個virturltype在上面作為工廠模式原始
+    /// </summary>
+    public class ActionStatus
+    {
+        public string ActionName { get; set; }
+        public float f1 { get; set; }
+        public float f2 { get; set; }
+        public float f3 { get; set; }
+        public float f4 { get; set; }
+        public Vector3 Vector3 { get; set; }
+        public string[] ignorelist { get; set; }
     }
 }

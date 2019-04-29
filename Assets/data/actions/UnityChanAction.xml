@@ -2,162 +2,162 @@
 
 <UnityChan>
 	<move name = "idle">
-		<time value = "0.3"/>
-		<time2 value = "0.75"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0.3"/>
+		<f2 value = "0.75"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x = "0" y = "0" z = "1"/>
 		<ignore list = "dodge,jump"/>
 	</move>
 	<move name = "move">
-		<time value = "0.3"/>
-		<time2 value = "0.75"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0.3"/>
+		<f2 value = "0.75"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</move>
   <move name = "meleeDodge">
-    <time value = "0.3"/>
-    <time2 value = "0.75"/>
-    <pos value = "6"/>
-    <speed value = "10"/>
+    <f1 value = "0.3"/>
+    <f2 value = "0.75"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "0"/>
   </move>
 	<move name = "strafe">
-		<time value = "0.3"/>
-		<time2 value = "0.75"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0.3"/>
+		<f2 value = "0.75"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</move>
   <move name = "slide">
-    <time value = "0"/>
-    <time2 value = "0"/>
-    <pos value = "0"/>
-    <speed value = "0"/>
+    <f1 value = "0"/>
+    <f2 value = "0"/>
+    <f3 value = "0"/>
+    <f4 value = "0"/>
     <vector3 x="0" y="0" z="0"/>
     <ignore list = "jump"/>
   </move>
 	<close name = "heavyslash">
-		<time value = "0.3"/>
-		<time2 value = "0.75"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0.3"/>
+		<f2 value = "0.75"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</close>
   <close name = "MoveNslash">
-    <time value = "0.3"/>
-    <time2 value = "0.75"/>
-    <pos value = "6"/>
-    <speed value = "10"/>
+    <f1 value = "0.3"/>
+    <f2 value = "0.75"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "0"/>
   </close>
   <close name = "slash">
-    <time value = "0.3"/>
-    <time2 value = "0.75"/>
-    <pos value = "6"/>
-    <speed value = "10"/>
+    <f1 value = "0.3"/>
+    <f2 value = "0.75"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "0"/>
   </close>
 	<close name = "slash1">
-		<time value = "0.3"/>
-		<time2 value = "0.75"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0.3"/>
+		<f2 value = "0.75"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</close>
   <close name = "slash2">
-    <time value = "0.3"/>
-    <time2 value = "0.75"/>
-    <pos value = "6"/>
-    <speed value = "10"/>
+    <f1 value = "0.3"/>
+    <f2 value = "0.75"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "0"/>
   </close>
   <close name = "slash3">
-    <time value = "0.3"/>
-    <time2 value = "0.75"/>
-    <pos value = "6"/>
-    <speed value = "10"/>
+    <f1 value = "0.3"/>
+    <f2 value = "0.75"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "0"/>
   </close>
   <close name = "meleeready">
-    <time value = "0.0"/>
-    <time2 value = "0.0"/>
-    <pos value = "0"/>
-    <speed value = "10"/>
+    <f1 value = "0.0"/>
+    <f2 value = "0.0"/>
+    <f3 value = "0"/>
+    <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "0"/>
   </close>
 	<long name = "jump">
-		<time value = "0"/>
-		<time2 value = "0"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0"/>
+		<f2 value = "0"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</long>
   <long name = "jumpAtk">
-    <time value = "0"/>
-    <time2 value = "0"/>
-    <pos value = "6"/>
-    <speed value = "10"/>
+    <f1 value = "0"/>
+    <f2 value = "0"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "0"/>
   </long>
 	<long name = "shoot">
-		<time value = "0"/>
-		<time2 value = "0"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0"/>
+		<f2 value = "0"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</long>
 	<long name = "wallrunR">
-		<time value = "0"/>
-		<time2 value = "0"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0"/>
+		<f2 value = "0"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</long>
 	<long name = "wallrunL">
-		<time value = "0"/>
-		<time2 value = "0"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0"/>
+		<f2 value = "0"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</long>
 	<long name = "tranglejump">
-		<time value = "0"/>
-		<time2 value = "0"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0"/>
+		<f2 value = "0"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</long>
 	<long name = "falling">
-		<time value = "0"/>
-		<time2 value = "0"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0"/>
+		<f2 value = "0"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</long>
 	<long name = "land">
-		<time value = "0"/>
-		<time2 value = "0"/>
-		<pos value = "6"/>
-		<speed value = "10"/>
+		<f1 value = "0"/>
+		<f2 value = "0"/>
+		<f3 value = "6"/>
+		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</long>

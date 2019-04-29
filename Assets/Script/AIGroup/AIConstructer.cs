@@ -27,10 +27,11 @@ namespace Assets.Script.AIGroup
         /// </summary>
         /// <param name="meleerange">肉搏最遠距離</param>
         /// <returns></returns>
-        public string DistanceBasicAI(float meleerange,float shootrange)
+        public string DistanceBasicAI(float targetDis,float meleerange,float shootrange)
         {
             RaycastHit hit;
             float distance = GetDistanceVector3();
+
             if (distance < meleerange)
             {
                 return "close";

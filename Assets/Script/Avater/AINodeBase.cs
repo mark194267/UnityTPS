@@ -20,12 +20,16 @@ namespace Assets.Script.Avater
         public bool IsDecided;
         public bool IsAwake;
         public string NowCommand;
+        public float TargetDis { get; set; }
 
         void Start()
         {
             WeaponFactory weaponFactory = new WeaponFactory();
             weaponFactory.Init();
             var GunDic = weaponFactory.AllWeaponDictionary;
+            
+            //簡單的初始化，等待改寫
+
             actionBasic.target = GameObject.Find("UnityChan");
 
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
@@ -45,10 +49,12 @@ namespace Assets.Script.Avater
 
         void Update()
         {
-            if(!IsAwake)
+            TargetDis = Vector3.Distance(gameObject.transform.position, AiBase.target.transform.position);
+
+            if (!IsAwake)
             {
                 //這裡用測距，之後會改良為觸發盒
-                if(Vector3.Distance(gameObject.transform.position,AiBase.target.transform.position) < 10)
+                if(TargetDis < 10)
                 {
                     if(Vector3.Angle(gameObject.transform.TransformDirection(Vector3.forward),AiBase.target.transform.position) < 15)
                     {
@@ -73,8 +79,10 @@ namespace Assets.Script.Avater
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 >= 0.99 || OldActionStatus != NowActionStatus)
             {
                 //決定方針
-                NowCommand = AiBase.DistanceBasicAI(2, 5);
-                //觸發動作
+                NowCommand = AiBase.DistanceBasicAI(TargetDis,3, 7);
+                //擲骰子,觸發動作
+                var num = UnityEngine.Random.Range(0, 100);
+                animator.SetInteger("AI_Dice", num);
                 animator.SetTrigger("AI_" + NowCommand);
                 //初始化動作數值
                 //actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);

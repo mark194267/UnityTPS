@@ -67,10 +67,10 @@
     <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshModifierVolume.cs" />
     <Compile Include="Assets\NavMeshComponents\Scripts\NavMeshSurface.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionBasicBuilder.cs" />
-    <Compile Include="Assets\Script\ActionControl\ActionStatus.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionStatusConstrutor.cs" />
     <Compile Include="Assets\Script\ActionControl\MotionStatusBuilder.cs" />
     <Compile Include="Assets\Script\ActionList\ImpAction.cs" />
+    <Compile Include="Assets\Script\ActionList\SkeletonAction.cs" />
     <Compile Include="Assets\Script\ActionList\UnityChanAction.cs" />
     <Compile Include="Assets\Script\AIGroup\AICommander.cs" />
     <Compile Include="Assets\Script\AIGroup\AIConstructer.cs" />
@@ -107,6 +107,7 @@
     <None Include="Assets\data\actions\CommonAction.xml" />
     <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku_ds.shader" />
     <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />
+    <None Include="Assets\data\actions\SkeletonAction.xml" />
     <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
     <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_akarami_blend.shader" />
     <None Include="Assets\data\actions\ImpAction.xml" />

@@ -38,6 +38,7 @@ namespace Assets.Script.AIGroup
                 aimain.AiBase.Init(ai, target);
                 aimain.avaterStatus = avaterStatus;
                 aimain.Init_Avater();
+                aimain.IsAwake = true;
             }
         }
 

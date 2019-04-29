@@ -51,7 +51,7 @@ namespace Assets.Script.ActionControl
         {
             this.my = my;
             //this.myAgent = this.my.GetComponent<NavMeshAgent>();
-            this.myAgent = this.my.GetComponentInChildren<NavMeshAgent>();
+            this.myAgent = this.my.GetComponent<NavMeshAgent>();
             this.gun = my.GetComponent<Gun>();
             this.animator = my.GetComponent<Animator>();
             this.myRig = my.GetComponent<Rigidbody>();
@@ -235,28 +235,53 @@ namespace Assets.Script.ActionControl
         
         public virtual void Before_move(ActionStatus actionStatus)
         {
+            Debug.Log("hi");
             myAgent.SetDestination(target.transform.position);
         }
-        
+
         public virtual bool move(ActionStatus actionStatus)
         {
+            if (my.GetComponent<AINodeBase>().TargetDis < actionStatus.f1)
+            {
+                return false;
+            }
             return true;
         }
-        
-        public virtual void Before_shoot(ActionStatus actionStatus)
+        public virtual void After_move(ActionStatus actionStatus)
         {
-            myAgent.ResetPath();
+            Debug.Log("stop");
+            myAgent.updatePosition = false;
         }
 
         public virtual bool shoot(ActionStatus actionStatus)
         {
-            gun.fire();
+            if (gun.NowWeapon.BulletInMag > 0)
+            {
+                if (Vector3.Angle(my.transform.TransformDirection(Vector3.forward),
+                        target.transform.position - my.transform.position) < 5)
+                {
+                    gun.fire();
+                }
+            }
+            else
+            {
+                return false;
+            }
+            RotateTowardlerp(target.transform);
             return true;
         }
 
-        public virtual void Before_reload(ActionStatus actionStatus)
+        public virtual bool slash(ActionStatus actionStatus)
         {
-            myAgent.ResetPath();
+            if (main.anim_flag == 0 )//還沒揮刀時可以轉
+            {
+                RotateTowardlerp(target.transform);
+            }
+            else
+            {
+                gun.Swing(main.anim_flag,1,1);
+            }
+            return true;
         }
         
         public virtual bool reload(ActionStatus actionStatus)
