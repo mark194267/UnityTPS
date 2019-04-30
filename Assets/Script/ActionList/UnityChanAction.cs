@@ -53,14 +53,14 @@ namespace Assets.Script.ActionList
             NowVecter = myRig.velocity;
         }
 
-        public void Before_slash(ActionStatus actionStatus)
+        public override void Before_slash(ActionStatus actionStatus)
         {
             myRig.velocity = NowVecter;
             myRig.velocity += my.transform.TransformDirection(Vector3.up * 5f);
 
         }
 
-        public bool slash(ActionStatus actionStatus)
+        public override bool slash(ActionStatus actionStatus)
         {
             //Debug.Log("lal111");
             
@@ -214,8 +214,8 @@ namespace Assets.Script.ActionList
             var ad = animator.GetFloat("input_ad");
             var camPos = camera.transform.TransformDirection(new Vector3(ad, 0, ws));
             RotateTowardlerp(my.transform.position + camPos, 100f);
-            myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 3f), ForceMode.Impulse);
-            myRig.AddForce(NowVecter+Vector3.up * 7f,ForceMode.Impulse);
+            myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 1f), ForceMode.Impulse);
+            myRig.AddForce(NowVecter+Vector3.up * 5f,ForceMode.Impulse);
         }
         public bool jump(ActionStatus actionStatus)
         {

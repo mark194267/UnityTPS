@@ -16,7 +16,6 @@ namespace Assets.Script.Avater
         public AIBase AiBase;
         //public Vector3 formationPoint;
         public Collider HotThing;
-        public StateMachine stateMachine { get; set; }
 
         public bool IsDecided;
         public bool IsAwake;
@@ -46,9 +45,6 @@ namespace Assets.Script.Avater
             //有無被叫醒
             //IsAwake = true;
             actionBasic.myPath = transform.GetComponentInParent<AICommander>().path;
-            stateMachine = animator.GetBehaviour<StateMachine>();
-            stateMachine.me = this.gameObject;
-            stateMachine.action = actionBasic;
         }
 
         void Update()
@@ -72,33 +68,9 @@ namespace Assets.Script.Avater
                 }
                 return;
             }
-            
-            if (NowActionStatus == null || !animator.GetCurrentAnimatorStateInfo(0).IsTag(NowActionStatus.ActionName))
-            {
-                NowCommand = AiBase.DistanceBasicAI(TargetDis, 3, 7);
-                animator.SetTrigger("AI_" + NowCommand);
-                foreach (var actionStatuse in actionStatusDictionary.AllActionStatusDictionary)
-                {
-                    if (animator.GetCurrentAnimatorStateInfo(0).IsTag(actionStatuse.Key))
-                    {
-                        NowActionStatus = actionStatuse.Value;
-                        stateMachine.status = NowActionStatus;
-                    }
-                }
-                Debug.Log(NowActionStatus.ActionName);
-            }
-
-
-            /*
-            foreach (var actionStatuse in actionStatusDictionary.AllActionStatusDictionary)
-            {
-                if (animator.GetCurrentAnimatorStateInfo(0).IsTag(actionStatuse.Key))
-                {
-                    NowActionStatus = actionStatuse.Value;
-                }
-            }
-
-            
+            NowCommand = AiBase.DistanceBasicAI(TargetDis, 0, 7);
+            animator.SetTrigger("AI_" + NowCommand);
+            /*            
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 > 0.99 || OldActionStatus != NowActionStatus)
             //if(animator.GetNextAnimatorStateInfo(0).IsTag(NowActionStatus.ActionName))
             {

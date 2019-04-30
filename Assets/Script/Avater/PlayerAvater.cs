@@ -50,6 +50,7 @@ namespace Assets.Script.Avater
         }
         void Update()
         {
+            /*
             //在字典內找尋該動作的數值(待廢除)
             foreach (var actionStatuse in actionStatusDictionary.AllActionStatusDictionary)
             {
@@ -58,7 +59,7 @@ namespace Assets.Script.Avater
                     NowActionStatus = actionStatuse.Value;
                 }
             }
-
+            */
             foreach (var motionStatus in motionStatusDir)
             {
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName(motionStatus.Key))
@@ -66,7 +67,7 @@ namespace Assets.Script.Avater
                     NowMotionStatus = motionStatus.Value;
                 }
             }
-
+            /*
             //動作變了
             if (OldActionStatus != NowActionStatus)
             {
@@ -92,7 +93,7 @@ namespace Assets.Script.Avater
 
             IsEndNormal = actionBasic.CustomAction(NowActionStatus);
             animator.SetBool("avater_IsEndNormal", IsEndNormal);
-
+            */
             //檢查掉落速度
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {

@@ -72,10 +72,17 @@ namespace Assets.Script.ActionControl
         #region 自訂狀態機
         public void BeforeCustomAction(ActionStatus actionStatus)
         {
+            MethodInfo methodInfo;
             Type actionbaseType = GetType();
-            MethodInfo methodInfo = actionbaseType.GetMethod("Before_" + actionStatus.ActionName);
-            if (methodInfo != null)
+            if (actionbaseType.GetMethod("Before_" + actionStatus.ActionName) == null)
+            {
+                Debug.Log(actionStatus.ActionName+"has No Before");
+            }
+            else
+            {
+                methodInfo = actionbaseType.GetMethod("Before_" + actionStatus.ActionName);
                 methodInfo.Invoke(this, new object[] { actionStatus }/*放入actionStatus*/);
+            }
         }
         /// <summary>
         /// 自訂狀態機，預設的狀態機在ActionBasic裡面
@@ -91,10 +98,17 @@ namespace Assets.Script.ActionControl
 
         public void AfterCustomAction(ActionStatus actionStatus)
         {
+            MethodInfo methodInfo;
             Type actionbaseType = GetType();
-            MethodInfo methodInfo = actionbaseType.GetMethod("After_"+actionStatus.ActionName);
-            if (methodInfo != null)
+            if (actionbaseType.GetMethod("After_" + actionStatus.ActionName) == null)
+            {
+                Debug.Log(actionStatus.ActionName + "has No After");
+            }
+            else
+            {
+                methodInfo = actionbaseType.GetMethod("After_" + actionStatus.ActionName);
                 methodInfo.Invoke(this, new object[] { actionStatus }/*放入actionStatus*/);
+            }
         }
         public bool CustomAction(string actionName)
         {
@@ -237,8 +251,8 @@ namespace Assets.Script.ActionControl
         
         public virtual void Before_move(ActionStatus actionStatus)
         {
-//            Debug.Log("start");
-            myAgent.isStopped = false;
+            //Debug.Log("BeforeMove");
+            //myAgent.isStopped = false;
             myAgent.SetDestination(target.transform.position);
         }
 
@@ -252,8 +266,9 @@ namespace Assets.Script.ActionControl
         }
         public virtual void After_move(ActionStatus actionStatus)
         {
-            //Debug.Log("stop");
-            myAgent.isStopped = true;
+            //Debug.Log("AfterMove");
+            //myAgent.isStopped = true;
+            myAgent.ResetPath();
         }
 
         public virtual bool shoot(ActionStatus actionStatus)

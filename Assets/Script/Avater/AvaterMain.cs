@@ -11,7 +11,7 @@ namespace Assets.Script.Avater
         //2019-04-24 增加動作值字典
         protected Dictionary<string, MotionStatus> motionStatusDir = new Dictionary<string, MotionStatus>();
         protected ActionBasicBuilder actionBasicBuilder = new ActionBasicBuilder();
-        protected ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();
+        public ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();
         protected Animator animator;
 
         public ActionBasic actionBasic = new ActionBasic();
@@ -25,6 +25,7 @@ namespace Assets.Script.Avater
         public float ActionElapsedTime;
         public bool IsEndNormal = true;
         public int anim_flag;
+        public StateMachine stateMachine { get; set; }
 
         protected int Hp { get; set; }
         protected double Stun { get; set; }
@@ -42,6 +43,11 @@ namespace Assets.Script.Avater
             Hp = avaterStatus.Hp;
             Stun = 0;
             Atk = avaterStatus.Atk;
+
+            stateMachine = animator.GetBehaviour<StateMachine>();
+            stateMachine.me = gameObject;
+            stateMachine.action = actionBasic;
+            stateMachine.main = this;
         }
 
         public void OnDead()
