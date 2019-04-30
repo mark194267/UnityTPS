@@ -8,7 +8,6 @@ namespace Assets.Script.ActionList
         
         public void Before_slash(ActionStatus actionStatus)
         {
-            Debug.Log("Yes");
             gun.ChangeWeapon("katana");
         }
         

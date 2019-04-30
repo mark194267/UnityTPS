@@ -183,6 +183,10 @@ namespace Assets.Script.ActionList
 
             return true;
         }
+        public override void After_move(ActionStatus actionStatus)
+        {
+            
+        }
 
         public void Before_strafe(ActionStatus actionStatus)
         {
@@ -210,7 +214,6 @@ namespace Assets.Script.ActionList
             var ad = animator.GetFloat("input_ad");
             var camPos = camera.transform.TransformDirection(new Vector3(ad, 0, ws));
             RotateTowardlerp(my.transform.position + camPos, 100f);
-
             myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 3f), ForceMode.Impulse);
             myRig.AddForce(NowVecter+Vector3.up * 7f,ForceMode.Impulse);
         }
@@ -373,7 +376,7 @@ namespace Assets.Script.ActionList
             var vec = my.transform.TransformDirection(Vector3.forward);
             myRig.velocity = vec*10;
             //落地檢查
-            Debug.Log(vec);
+            //Debug.Log(vec);
             //my.GetComponent<NavMeshAgent>().enabled = true;
         }
 

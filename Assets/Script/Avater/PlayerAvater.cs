@@ -68,17 +68,17 @@ namespace Assets.Script.Avater
             }
 
             //動作變了
-            if (OldActionStatus != null && OldActionStatus != NowActionStatus)
+            if (OldActionStatus != NowActionStatus)
             {
                 //觸發動作結束
                 //Debug.Log(OldActionStatus.ActionName);
-                actionBasic.AfterCustomAction(OldActionStatus);
+                if(OldActionStatus != null)
+                    actionBasic.AfterCustomAction(OldActionStatus);
                 //觸發下個動作之前
                 actionBasic.BeforeCustomAction(NowActionStatus);
                 //撥開通用開關(可能會移除)
                 //actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);
                 //讀取該動作是否可進入其他動畫
-                RefreshAnimaterParameter();
                 if (NowActionStatus.ignorelist != null)
                 {
                     foreach (var cando in NowActionStatus.ignorelist)
@@ -86,10 +86,10 @@ namespace Assets.Script.Avater
                         animator.SetBool("avater_can_" + cando, false);
                     }
                 }
+                //狀態更新+執行新狀態
+                OldActionStatus = NowActionStatus;
             }
-            
-            //狀態更新+執行新狀態
-            OldActionStatus = NowActionStatus;
+
             IsEndNormal = actionBasic.CustomAction(NowActionStatus);
             animator.SetBool("avater_IsEndNormal", IsEndNormal);
 

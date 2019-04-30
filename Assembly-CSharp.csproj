@@ -98,6 +98,7 @@
     <Compile Include="Assets\Script\weapon\Gun.cs" />
     <Compile Include="Assets\Script\weapon\GunFactory.cs" />
     <Compile Include="Assets\Script\weapon\MeleeClass.cs" />
+    <Compile Include="Assets\StateMachine.cs" />
     <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
     <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\data\avater\UnityChanStatus.xml" />

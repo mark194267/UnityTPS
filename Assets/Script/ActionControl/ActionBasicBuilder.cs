@@ -73,7 +73,7 @@ namespace Assets.Script.ActionControl
         public void BeforeCustomAction(ActionStatus actionStatus)
         {
             Type actionbaseType = GetType();
-            MethodInfo methodInfo = actionbaseType.GetMethod("Before_"+actionStatus.ActionName);
+            MethodInfo methodInfo = actionbaseType.GetMethod("Before_" + actionStatus.ActionName);
             if (methodInfo != null)
                 methodInfo.Invoke(this, new object[] { actionStatus }/*放入actionStatus*/);
         }
@@ -135,13 +135,15 @@ namespace Assets.Script.ActionControl
         /// </summary>
         /// <param name="target">轉向目標，方法為lookRotation</param>
         /// <param name="speed">轉向速度</param>
-        protected void RotateTowardSlerp(Vector3 target,float speed)
+        protected void RotateTowardSlerp(Vector3 target, float speed)
         {
-            Vector3 direction = (target - my.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            my.transform.rotation = Quaternion.Slerp(my.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
+            if (input.ws != 0 || input.ad != 0)
+            {
+                Vector3 direction = (target - my.transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+                my.transform.rotation = Quaternion.Slerp(my.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
+            }
         }
-
         /// <summary>
         /// 緩和旋轉，大多可用SLerp取代，預設速度為 1.7f*deltatime
         /// </summary>
@@ -235,13 +237,13 @@ namespace Assets.Script.ActionControl
         
         public virtual void Before_move(ActionStatus actionStatus)
         {
-            Debug.Log("hi");
+//            Debug.Log("start");
+            myAgent.isStopped = false;
             myAgent.SetDestination(target.transform.position);
         }
 
         public virtual bool move(ActionStatus actionStatus)
         {
-            Debug.Log(actionStatus.f1);
             if (my.GetComponent<AINodeBase>().TargetDis < actionStatus.f1)
             {
                 return false;
@@ -250,8 +252,8 @@ namespace Assets.Script.ActionControl
         }
         public virtual void After_move(ActionStatus actionStatus)
         {
-            Debug.Log("stop");
-            myAgent.updatePosition = false;
+            //Debug.Log("stop");
+            myAgent.isStopped = true;
         }
 
         public virtual bool shoot(ActionStatus actionStatus)
@@ -270,6 +272,10 @@ namespace Assets.Script.ActionControl
             }
             RotateTowardlerp(target.transform);
             return true;
+        }
+
+        public virtual void Before_slash(ActionStatus actionStatus)
+        {
         }
 
         public virtual bool slash(ActionStatus actionStatus)

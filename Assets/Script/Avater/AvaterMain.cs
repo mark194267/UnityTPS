@@ -12,8 +12,9 @@ namespace Assets.Script.Avater
         protected Dictionary<string, MotionStatus> motionStatusDir = new Dictionary<string, MotionStatus>();
         protected ActionBasicBuilder actionBasicBuilder = new ActionBasicBuilder();
         protected ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();
-        protected ActionBasic actionBasic = new ActionBasic();
         protected Animator animator;
+
+        public ActionBasic actionBasic = new ActionBasic();
         public AvaterStatus avaterStatus { get; set; }
         //2019-04-24 增加動作值
         public MotionStatus NowMotionStatus;
@@ -41,25 +42,6 @@ namespace Assets.Script.Avater
             Hp = avaterStatus.Hp;
             Stun = 0;
             Atk = avaterStatus.Atk;
-        }
-
-        public void GetAnimaterParameter()
-        {
-            foreach (var animaterparameter in animator.parameters)
-            {
-                if (animaterparameter.name.StartsWith("avater_can"))
-                {
-                    candolist.Add(animaterparameter.name);
-                }
-            }
-        }
-
-        public void RefreshAnimaterParameter()
-        {
-            foreach (var ignore in candolist)
-            {
-                animator.SetBool(ignore, true);
-            }
         }
 
         public void OnDead()
@@ -109,7 +91,7 @@ namespace Assets.Script.Avater
 
         public void GetAnimationFlag(int flag)
         {
-            animator.SetInteger("anim_flag", flag);
+            //animator.SetInteger("anim_flag", flag);
             anim_flag = flag;
             //Debug.Log("hi");
         }
