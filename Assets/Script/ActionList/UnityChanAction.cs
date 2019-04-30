@@ -179,13 +179,16 @@ namespace Assets.Script.ActionList
         {
             var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
             RotateTowardSlerp(my.transform.position - camPos, 5f);
-            myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
-
+            //myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
+            //myRig.AddForce(my.transform.TransformDirection(Vector3.forward).normalized * 50f);
+            if (myRig.velocity.magnitude > actionStatus.f1)
+                myRig.velocity = myRig.velocity.normalized * actionStatus.f1;
+            else
+                myRig.AddRelativeForce(Vector3.forward * 50f);
             return true;
         }
         public override void After_move(ActionStatus actionStatus)
         {
-            
         }
 
         public void Before_strafe(ActionStatus actionStatus)
@@ -208,25 +211,29 @@ namespace Assets.Script.ActionList
             animator.SetBool("avater_can_jump",false);
             animator.SetBool("avater_IsLanded",false);
 
-            NowVecter = myRig.velocity;
-
+            /*
             var ws = animator.GetFloat("input_ws");
             var ad = animator.GetFloat("input_ad");
             var camPos = camera.transform.TransformDirection(new Vector3(ad, 0, ws));
             RotateTowardlerp(my.transform.position + camPos, 100f);
-            myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 1f), ForceMode.Impulse);
-            myRig.AddForce(NowVecter+Vector3.up * 5f,ForceMode.Impulse);
+            //myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 3f), ForceMode.Impulse);
+            myRig.AddForce(Vector3.up * 7f,ForceMode.Impulse);
+            */
         }
         public bool jump(ActionStatus actionStatus)
         {
             //應該適用AddForce故不能用FpsLike，或是只更新他的x,z軸
             //FPSLikeRigMovement(.2f,.1f);
-
+            if (main.anim_flag == 1)
+            {
+                main.anim_flag = 0;
+                myRig.AddForce(Vector3.up * 7f, ForceMode.Impulse);
+            }
             return true;
         }
         public void After_jump(ActionStatus actionStatus)
         {
-            NowVecter = myRig.velocity;
+            //NowVecter = myRig.velocity;
         }
 
         public void Before_dodge(ActionStatus actionStatus)
