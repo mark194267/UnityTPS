@@ -9866,7 +9866,13 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed by
+    Humanoid clips.\n\tTransform 'Character1_Reference'\n\tTransform 'Character1_RightFoot'\n\tTransform
+    'Character1_LeftFoot'\n\tTransform 'Character1_RightHandThumb1'\n\tTransform 'Character1_LeftHandIndex1'\n\tTransform
+    'Character1_RightHandRing2'\n\tTransform 'Character1_RightHand'\n\tTransform 'Character1_Spine1'\n\tTransform
+    'Character1_LeftShoulder'\n\tTransform 'Character1_RightHandRing1'\n\tand more
+    ...\n\tFrom animation clip 'Running Slide'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0

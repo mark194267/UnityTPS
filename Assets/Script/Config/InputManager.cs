@@ -25,6 +25,11 @@ namespace Assets.Script.Config
             ws = Input.GetAxis("ws");
             ad = Input.GetAxis("ad");
 
+            var maxWSAD = Mathf.Max(Math.Abs(ws),Math.Abs(ad));
+            Animator.SetFloat("input_wsad", maxWSAD);
+            Animator.SetFloat("input_ws", ws);
+            Animator.SetFloat("input_ad", ad);
+
             
             if (ws*ws+ad*ad != 0)
             {
@@ -74,9 +79,6 @@ namespace Assets.Script.Config
                 Animator.SetBool("input_dodge", false);
             }
 
-
-            Animator.SetFloat("input_ws", ws);
-            Animator.SetFloat("input_ad", ad);
             
             /*
             if(Input.GetButton("Fire2"))

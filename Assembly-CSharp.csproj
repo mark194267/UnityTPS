@@ -112,9 +112,6 @@
      <None Include="Assets\data\avater\ImpStatus.xml" />
      <None Include="Assets\Resources\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada_blend.shader" />
      <None Include="Assets\Resources\Weapons Pack(LOW POLY)\Weapons Pack info.txt" />
- <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>D:/GitHub/WebApplication2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
- </Reference>
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/GitHub/WebApplication2/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
@@ -123,6 +120,9 @@
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/GitHub/WebApplication2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.PackageManagerUI.Editor">
+ <HintPath>D:/GitHub/WebApplication2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
  <HintPath>D:/GitHub/WebApplication2/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>

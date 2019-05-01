@@ -179,7 +179,10 @@ namespace Assets.Script.ActionList
         {
             var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
             RotateTowardSlerp(my.transform.position - camPos, 5f);
-            myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
+            //myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
+            var endspeed = my.transform.TransformDirection(Vector3.forward).normalized * actionStatus.f1;
+            myRig.velocity = Vector3.Lerp(myRig.velocity,endspeed,1f);
+            
             //myRig.AddForce(my.transform.TransformDirection(Vector3.forward).normalized * 50f);
             /*
             if (myRig.velocity.magnitude > actionStatus.f1)
