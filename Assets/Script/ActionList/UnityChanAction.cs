@@ -179,16 +179,19 @@ namespace Assets.Script.ActionList
         {
             var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
             RotateTowardSlerp(my.transform.position - camPos, 5f);
-            //myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
+            myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
             //myRig.AddForce(my.transform.TransformDirection(Vector3.forward).normalized * 50f);
+            /*
             if (myRig.velocity.magnitude > actionStatus.f1)
                 myRig.velocity = myRig.velocity.normalized * actionStatus.f1;
             else
-                myRig.AddRelativeForce(Vector3.forward * 50f);
+                myRig.AddRelativeForce(Vector3.forward * 15f);
+            */
             return true;
         }
         public override void After_move(ActionStatus actionStatus)
         {
+            NowVecter = myRig.velocity;
         }
 
         public void Before_strafe(ActionStatus actionStatus)
@@ -208,8 +211,8 @@ namespace Assets.Script.ActionList
 
         public void Before_jump(ActionStatus actionStatus)
         {
-            animator.SetBool("avater_can_jump",false);
-            animator.SetBool("avater_IsLanded",false);
+            //animator.SetBool("avater_can_jump",false);
+            //animator.SetBool("avater_IsLanded",false);
 
             /*
             var ws = animator.GetFloat("input_ws");
@@ -219,15 +222,20 @@ namespace Assets.Script.ActionList
             //myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 3f), ForceMode.Impulse);
             myRig.AddForce(Vector3.up * 7f,ForceMode.Impulse);
             */
+            myRig.AddRelativeForce(Vector3.forward * 5f);
+
         }
         public bool jump(ActionStatus actionStatus)
         {
             //應該適用AddForce故不能用FpsLike，或是只更新他的x,z軸
             //FPSLikeRigMovement(.2f,.1f);
+            
+            //myRig.velocity = NowVecter*10;
             if (main.anim_flag == 1)
             {
                 main.anim_flag = 0;
-                myRig.AddForce(Vector3.up * 7f, ForceMode.Impulse);
+                //myRig.AddForce(Vector3.up * 10f, ForceMode.Impulse);
+                myRig.AddRelativeForce(Vector3.forward * 5f+Vector3.up* 5,ForceMode.Impulse);
             }
             return true;
         }

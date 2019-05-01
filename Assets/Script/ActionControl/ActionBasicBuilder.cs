@@ -102,7 +102,7 @@ namespace Assets.Script.ActionControl
             Type actionbaseType = GetType();
             if (actionbaseType.GetMethod("After_" + actionStatus.ActionName) == null)
             {
-                Debug.Log(actionStatus.ActionName + "has No After");
+                //Debug.Log(actionStatus.ActionName + "has No After");
             }
             else
             {

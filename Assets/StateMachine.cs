@@ -20,7 +20,7 @@ public class StateMachine : StateMachineBehaviour
             {
                 if (stateInfo.IsTag(actionStatuse.Key))
                 {
-                    Debug.Log("OnStateEnter" + actionStatuse.Value.ActionName);
+//                    Debug.Log("OnStateEnter" + actionStatuse.Value.ActionName);
                     action.BeforeCustomAction(actionStatuse.Value);
                     _actionStatus = actionStatuse.Value;
                 }
@@ -46,7 +46,7 @@ public class StateMachine : StateMachineBehaviour
             {
                 if (stateInfo.IsTag(actionStatuse.Key))
                 {
-                    Debug.Log("OnStateExit" + actionStatuse.Value.ActionName);
+//                    Debug.Log("OnStateExit" + actionStatuse.Value.ActionName);
                     action.AfterCustomAction(actionStatuse.Value);
                 }
             }
