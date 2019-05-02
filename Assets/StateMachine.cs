@@ -10,6 +10,7 @@ public class StateMachine : StateMachineBehaviour
     public ActionBasic action { get; set; }
     public AvaterMain main { get; set; }
     private ActionStatus _actionStatus { get; set; }
+    private MotionStatus _motionStatus { get; set; }
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -23,6 +24,16 @@ public class StateMachine : StateMachineBehaviour
 //                    Debug.Log("OnStateEnter" + actionStatuse.Value.ActionName);
                     action.BeforeCustomAction(actionStatuse.Value);
                     _actionStatus = actionStatuse.Value;
+                }
+            }
+            if (main.motionStatusDir != null)
+            {
+                foreach (var motionStatus in main.motionStatusDir)
+                {
+                    if (stateInfo.IsName(motionStatus.Key))
+                    {
+                        main.NowMotionStatus = motionStatus.Value;
+                    }
                 }
             }
         }

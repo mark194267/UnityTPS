@@ -10,7 +10,7 @@ namespace Assets.Script.Config
     {
         public float ws;
         public float ad;
-
+        public float maxWSAD;
         public float charge;//蓄力
 
         public Animator Animator;
@@ -25,7 +25,7 @@ namespace Assets.Script.Config
             ws = Input.GetAxis("ws");
             ad = Input.GetAxis("ad");
 
-            var maxWSAD = Mathf.Max(Math.Abs(ws),Math.Abs(ad));
+            maxWSAD = Mathf.Max(Math.Abs(ws),Math.Abs(ad));
             Animator.SetFloat("input_wsad", maxWSAD);
             Animator.SetFloat("input_ws", ws);
             Animator.SetFloat("input_ad", ad);

@@ -153,8 +153,8 @@ namespace Assets.Script.weapon
         /// <param name="timeflag"></param>
         public void Swing(int timeflag,int motionDamage,double motionStun)
         {
-            if (timeflag == 1) NowWeapon.weapon.GetComponent<Collider>().enabled = true;
-            else NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+            if (timeflag == 1) NowWeapon.weapon.GetComponentInChildren<Collider>().enabled = true;
+            else NowWeapon.weapon.GetComponentInChildren<Collider>().enabled = false;
         }
         /// <summary>
         /// 開啟肉搏判定的HITBOX,

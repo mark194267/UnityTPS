@@ -10,13 +10,21 @@
 		<ignore list = "dodge,jump"/>
 	</move>
 	<move name = "move">
-		<f1 value = "10"/>
+		<f1 value = "7"/>
 		<f2 value = "0"/>
 		<f3 value = "0"/>
 		<f4 value = "0"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</move>
+  <move name = "reload">
+    <f1 value = "7"/>
+    <f2 value = "0"/>
+    <f3 value = "0"/>
+    <f4 value = "0"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "0"/>
+  </move>
   <move name = "meleeDodge">
     <f1 value = "0"/>
     <f2 value = "0"/>
@@ -34,7 +42,7 @@
 		<ignore list = "0"/>
 	</move>
   <move name = "slide">
-    <f1 value = "0"/>
+    <f1 value = "5"/>
     <f2 value = "0"/>
     <f3 value = "0"/>
     <f4 value = "0"/>
@@ -146,10 +154,10 @@
 		<ignore list = "0"/>
 	</long>
 	<long name = "falling">
-		<f1 value = "0"/>
+		<f1 value = "3"/>
 		<f2 value = "0"/>
-		<f3 value = "6"/>
-		<f4 value = "10"/>
+		<f3 value = "0"/>
+		<f4 value = "0"/>
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "0"/>
 	</long>

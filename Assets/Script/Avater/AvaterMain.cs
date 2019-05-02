@@ -9,7 +9,7 @@ namespace Assets.Script.Avater
     public class AvaterMain : MonoBehaviour
     {
         //2019-04-24 增加動作值字典
-        protected Dictionary<string, MotionStatus> motionStatusDir = new Dictionary<string, MotionStatus>();
+        public Dictionary<string, MotionStatus> motionStatusDir = new Dictionary<string, MotionStatus>();
         protected ActionBasicBuilder actionBasicBuilder = new ActionBasicBuilder();
         public ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();
         protected Animator animator;

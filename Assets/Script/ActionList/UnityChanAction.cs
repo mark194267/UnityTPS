@@ -20,7 +20,7 @@ namespace Assets.Script.ActionList
 
         public void Before_meleeready(ActionStatus actionStatus)
         {
-            gun.ChangeWeapon("katana");
+            gun.ChangeWeapon("Wakizashi");
         }
 
         public bool meleeready(ActionStatus actionStatus)
@@ -179,17 +179,8 @@ namespace Assets.Script.ActionList
         {
             var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
             RotateTowardSlerp(my.transform.position - camPos, 5f);
-            //myRig.velocity = my.transform.TransformDirection(Vector3.forward).normalized * 5f;
-            var endspeed = my.transform.TransformDirection(Vector3.forward).normalized * actionStatus.f1;
+            var endspeed = my.transform.TransformDirection(Vector3.forward*input.maxWSAD).normalized * actionStatus.f1;
             myRig.velocity = Vector3.Lerp(myRig.velocity,endspeed,1f);
-            
-            //myRig.AddForce(my.transform.TransformDirection(Vector3.forward).normalized * 50f);
-            /*
-            if (myRig.velocity.magnitude > actionStatus.f1)
-                myRig.velocity = myRig.velocity.normalized * actionStatus.f1;
-            else
-                myRig.AddRelativeForce(Vector3.forward * 15f);
-            */
             return true;
         }
         public override void After_move(ActionStatus actionStatus)
@@ -225,7 +216,7 @@ namespace Assets.Script.ActionList
             //myRig.AddForce(my.transform.TransformDirection(Vector3.forward * 3f), ForceMode.Impulse);
             myRig.AddForce(Vector3.up * 7f,ForceMode.Impulse);
             */
-            myRig.AddRelativeForce(Vector3.forward * 5f);
+            //myRig.AddRelativeForce(Vector3.forward * 5f);
 
         }
         public bool jump(ActionStatus actionStatus)
@@ -238,7 +229,7 @@ namespace Assets.Script.ActionList
             {
                 main.anim_flag = 0;
                 //myRig.AddForce(Vector3.up * 10f, ForceMode.Impulse);
-                myRig.AddRelativeForce(Vector3.forward * 5f+Vector3.up* 5,ForceMode.Impulse);
+                myRig.AddRelativeForce(Vector3.forward * 30+Vector3.up* 60,ForceMode.Impulse);
             }
             return true;
         }
@@ -382,7 +373,14 @@ namespace Assets.Script.ActionList
         }
         public bool falling(ActionStatus actionStatus)
         {
-            //FPSLikeMovement(5f,.5f);
+            /*
+            var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
+            RotateTowardSlerp(my.transform.position - camPos, 5f);
+            var endspeed = my.transform.TransformDirection(Vector3.forward * input.maxWSAD).normalized * actionStatus.f1;
+            var NoneYspeed = Vector3.Lerp(myRig.velocity, endspeed, .7f);
+            NoneYspeed.y = 0;
+            myRig.velocity = NoneYspeed+Vector3.down * 9.8f;
+            */
             return true;
         }
         public void After_falling(ActionStatus actionStatus)
@@ -408,22 +406,30 @@ namespace Assets.Script.ActionList
         {
             var vec = my.transform.TransformDirection(Vector3.forward);
             vec.y = 0;
-            myRig.AddForce(vec*300f);
+            myRig.AddForce(vec*3000f);
+        }
+        public bool slide(ActionStatus actionStatus)
+        {
+            if (main.anim_flag == 1)
+            {
+                var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
+                RotateTowardSlerp(my.transform.position - camPos, 5f);
+                var endspeed = my.transform.TransformDirection(Vector3.forward * input.maxWSAD).normalized * actionStatus.f1;
+                myRig.velocity = Vector3.Lerp(myRig.velocity, endspeed, .7f);
+            }
+            return true;
         }
         public void After_slide(ActionStatus actionStatus)
         {
-            animator.SetBool("input_dodge", false);
+            main.anim_flag = 0;
         }
 
         public override bool reload(ActionStatus actionStatus)
         {
-            if (input.ad != 0 || input.ws != 0)
-            {
-                var camPos = camera.transform.TransformVector(new Vector3(input.ad, 0, input.ws));
-                RotateTowardSlerp(my.transform.position + camPos, 5f);
-                var vec = Vector3.ClampMagnitude(Vector3.forward * new Vector3(input.ad, 0, input.ws).magnitude * 5f, 10f);
-                myRig.velocity = my.transform.TransformDirection(vec);
-            }
+            var camPos = camera.transform.TransformDirection(Vector3.back * input.ws + Vector3.left * input.ad);
+            RotateTowardSlerp(my.transform.position - camPos, 5f);
+            var endspeed = my.transform.TransformDirection(Vector3.forward * input.maxWSAD).normalized * actionStatus.f1;
+            myRig.velocity = Vector3.Lerp(myRig.velocity, endspeed, 1f);
 
             return true;
         }

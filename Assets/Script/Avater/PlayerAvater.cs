@@ -38,6 +38,7 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["AK-47"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
             
@@ -60,6 +61,7 @@ namespace Assets.Script.Avater
                 }
             }
             */
+            /*
             foreach (var motionStatus in motionStatusDir)
             {
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName(motionStatus.Key))
@@ -67,6 +69,7 @@ namespace Assets.Script.Avater
                     NowMotionStatus = motionStatus.Value;
                 }
             }
+            */
             /*
             //動作變了
             if (OldActionStatus != NowActionStatus)

@@ -16,7 +16,7 @@ namespace Assets.Script.ActionControl
     {
         public ActionBasic GetActionBaseByName(string ActionName)
         {
-            Type t = Type.GetType("Assets.Script.ActionList." + ActionName+"Action");
+            Type t = Type.GetType("Assets.Script.ActionList." + ActionName + "Action");
             ActionBasic actionBase = new ActionBasic();
             actionBase = (ActionBasic)Activator.CreateInstance(t);
             return actionBase;
@@ -61,14 +61,14 @@ namespace Assets.Script.ActionControl
                 input = my.GetComponent<InputManager>();
             }
 
-            if(my.transform.Find("Camera"))
+            if (my.transform.Find("Camera"))
             {
                 camera = my.transform.Find("Camera").GetComponent<Camera>();
             }
             aiPathManager = GameObject.Find("Vulcan").GetComponent<AIPath>();
             actionElapsedTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
         }
-        
+
         #region 自訂狀態機
         public void BeforeCustomAction(ActionStatus actionStatus)
         {
@@ -76,7 +76,7 @@ namespace Assets.Script.ActionControl
             Type actionbaseType = GetType();
             if (actionbaseType.GetMethod("Before_" + actionStatus.ActionName) == null)
             {
-                Debug.Log(actionStatus.ActionName+"has No Before");
+                Debug.Log(actionStatus.ActionName + "has No Before");
             }
             else
             {
@@ -200,7 +200,7 @@ namespace Assets.Script.ActionControl
             myAgent.CalculatePath(target.transform.position, path);
 
             int i = path.corners.Length;
-            while ( i-3 > 0)
+            while (i - 3 > 0)
             {
                 //得到倒數2個轉角的位置
                 Vector3 point1 = path.corners[i - 2];
@@ -243,21 +243,32 @@ namespace Assets.Script.ActionControl
         {
             myAgent.ResetPath();
         }
-        
+
         public virtual bool idle(ActionStatus actionStatus)
         {
             return true;
         }
-        
+
         public virtual void Before_move(ActionStatus actionStatus)
         {
             //Debug.Log("BeforeMove");
             //myAgent.isStopped = false;
-            myAgent.SetDestination(target.transform.position);
+
+            //2019-05-02 官方建議每秒更新
+            //myAgent.SetDestination(target.transform.position);
         }
 
         public virtual bool move(ActionStatus actionStatus)
         {
+            myAgent.SetDestination(target.transform.position);
+
+            //2019-05-02 官方建議每秒更新
+            /*
+            if (!myAgent.pathPending && !myAgent.hasPath)
+            {
+                myAgent.SetDestination(target.transform.position);
+            }
+            */
             if (my.GetComponent<AINodeBase>().TargetDis < actionStatus.f1)
             {
                 return false;
@@ -295,22 +306,22 @@ namespace Assets.Script.ActionControl
 
         public virtual bool slash(ActionStatus actionStatus)
         {
-            if (main.anim_flag == 0 )//還沒揮刀時可以轉
+            if (main.anim_flag == 0)//還沒揮刀時可以轉
             {
                 RotateTowardlerp(target.transform);
             }
             else
             {
-                gun.Swing(main.anim_flag,1,1);
+                gun.Swing(main.anim_flag, 1, 1);
             }
             return true;
         }
-        
+
         public virtual bool reload(ActionStatus actionStatus)
         {
             return true;
         }
-        
+
         public virtual void Before_dead(ActionStatus actionStatus)
         {
             AddCostArea();
@@ -323,7 +334,7 @@ namespace Assets.Script.ActionControl
         {
             return true;
         }
-        
+
         #endregion
 
         #region 第一/第三人稱式移動
@@ -333,16 +344,16 @@ namespace Assets.Script.ActionControl
         /// </summary>
         /// <param name="moveSpeed"></param>
         /// <param name="rotSpeed"></param>
-        public void FPSLikeMovement(float moveSpeed,float rotSpeed)
+        public void FPSLikeMovement(float moveSpeed, float rotSpeed)
         {
-            if(Input.anyKey)
-            {
-                var dir = 
-                    camera.transform.TransformDirection(Vector3.right*input.ad+Vector3.forward*input.ws);
-                myAgent.velocity = Vector3.ClampMagnitude(dir.normalized*7f,moveSpeed);
-            }
+
+            var dir =
+                camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
+            //myAgent.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, moveSpeed);
+            myAgent.velocity = Vector3.Lerp(myAgent.velocity, dir.normalized * moveSpeed, 1f);
+
             var camPos = camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(my.transform.position-camPos,rotSpeed);
+            RotateTowardlerp(my.transform.position - camPos, rotSpeed);
         }
         /// <summary>
         /// 第一人稱式移動，移動的主體是NavAgent，若沒Agent請改用FPSLikeRigMovement
@@ -350,16 +361,15 @@ namespace Assets.Script.ActionControl
         /// <param name="baseSpeed"></param>
         /// <param name="maxSpeed"></param>
         /// <param name="rotSpeed"></param>
-        public void FPSLikeMovement(float baseSpeed,float maxSpeed,float rotSpeed)
+        public void FPSLikeMovement(float baseSpeed, float maxSpeed, float rotSpeed)
         {
-            if(Input.anyKey)
-            {
-                var dir = 
-                    camera.transform.TransformDirection(Vector3.right*input.ad+Vector3.forward*input.ws);
-                myAgent.velocity = Vector3.ClampMagnitude(dir.normalized*baseSpeed,maxSpeed);
-            }
+
+            var dir =
+                camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
+            myAgent.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
+
             var camPos = camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(my.transform.position-camPos,rotSpeed);
+            RotateTowardlerp(my.transform.position - camPos, rotSpeed);
         }
         /// <summary>
         /// 第一人稱式移動，預設速度為7f
@@ -368,13 +378,12 @@ namespace Assets.Script.ActionControl
         /// <param name="rotSpeed"></param>
         public void FPSLikeRigMovement(float maxSpeed, float rotSpeed)
         {
-            if (Input.anyKey)
-            {
-                var dir =
-                    camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
-                dir.y = 0;
-                myRig.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, maxSpeed);
-            }
+            var dir =
+                camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
+            dir.y = 0;
+            //myRig.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, maxSpeed);
+            myRig.velocity = Vector3.Lerp(myRig.velocity, dir.normalized * input.maxWSAD * maxSpeed, 1f);
+
             var camPos = camera.transform.TransformDirection(Vector3.back);
             RotateTowardlerp(my.transform.position - camPos, rotSpeed);
         }
@@ -386,12 +395,12 @@ namespace Assets.Script.ActionControl
         /// <param name="rotSpeed"></param>
         public void FPSLikeRigMovement(float baseSpeed, float maxSpeed, float rotSpeed)
         {
-            if (Input.anyKey)
-            {
-                var dir =
-                    camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
-                myRig.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
-            }
+            var dir =
+                camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
+            //myRig.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
+            myRig.velocity = Vector3.Lerp(myRig.velocity, dir.normalized * input.maxWSAD * maxSpeed, baseSpeed);
+
+
             var camPos = camera.transform.TransformDirection(Vector3.back);
             RotateTowardlerp(my.transform.position - camPos, rotSpeed);
         }

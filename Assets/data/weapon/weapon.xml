@@ -12,7 +12,7 @@
 	<close>
 		<sword>
 			<katana name ="katana" type ="sword" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" maxammo = "300" nowammo = "999" stun = "1" blast = "10" charge = "0"/>
-			<katana name ="mace" type ="sword" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" maxammo = "300" nowammo = "999" stun = "1" blast = "10" charge = "0"/>
+			<katana name ="Wakizashi" type ="sword" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" maxammo = "300" nowammo = "999" stun = "1" blast = "10" charge = "0"/>
   </sword>
 	</close>
 </weapon>
