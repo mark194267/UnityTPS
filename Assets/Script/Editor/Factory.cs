@@ -5,12 +5,12 @@ namespace Assets.Script.Editor
 {
     public class GunFactory
     {
-        public IGuntype GetGun(string gun)
+        public IGuntype GetGun(string Gun)
         {
-            if (gun == null){return null;}
+            if (Gun == null){return null;}
 
-            if (gun == "Gun"){ return new Gun();}
-            else if (gun == "Rocket") {return  new Rocket();}
+            if (Gun == "Gun"){ return new Gun();}
+            else if (Gun == "Rocket") {return  new Rocket();}
 
             else return null;
         }

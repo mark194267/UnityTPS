@@ -2,7 +2,7 @@ Shader "UnityChan/Eyelash - Transparent"
 {
 	Properties
 	{
-		_Color ("Main Color", Color) = (1, 1, 1, 1)
+		_Color ("AvaterMain Color", Color) = (1, 1, 1, 1)
 		_ShadowColor ("Shadow Color", Color) = (0.8, 0.8, 1, 1)
 	
 		_MainTex ("Diffuse", 2D) = "white" {}

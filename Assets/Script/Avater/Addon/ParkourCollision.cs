@@ -8,12 +8,12 @@ namespace Assets.Script.Avater.Addon
         //public Collision contactThing;
         //public Collider triggerThing;
 
-        public Animator animator;
+        public Animator Animator;
         public Ray ray;
         public RaycastHit hit;
         private void Start() 
         {
-            animator = GetComponent<Animator>();
+            Animator = GetComponent<Animator>();
         }
         void OnCollisionEnter(Collision collision)
         {   
@@ -27,7 +27,7 @@ namespace Assets.Script.Avater.Addon
             {
 
             }
-            if(animator.GetCurrentAnimatorStateInfo(0).IsTag("falling"))
+            if(Animator.GetCurrentAnimatorStateInfo(0).IsTag("falling"))
             {
                 //print(collision.gameObject.name);
             }
@@ -63,20 +63,20 @@ namespace Assets.Script.Avater.Addon
                     var angle = Vector3.Angle(
                         new Vector3(front.x,0,front.z),new Vector3(q.x,0,q.z));
                     
-                    animator.SetFloat("avater_AngleBetweenWall",angle);
-                    //animator.SetTrigger("avater_parkour");//將動畫導向
-                    animator.SetBool("avater_can_parkour",true);
+                    Animator.SetFloat("avater_AngleBetweenWall",angle);
+                    //Animator.SetTrigger("avater_parkour");//將動畫導向
+                    Animator.SetBool("avater_can_parkour",true);
                     //print("Hitpoint"+collider.ClosestPoint(transform.position));
                 } 
                 else
-                    animator.SetBool("avater_can_parkour", false);
+                    Animator.SetBool("avater_can_parkour", false);
                 //print(temphit.normal);
             }
         }
         private void OnTriggerExit(Collider collider) {
             if(collider.gameObject.tag == "wall")
             {
-                //animator.SetTrigger("avater_exit");
+                //Animator.SetTrigger("avater_exit");
             }
         }
         /*

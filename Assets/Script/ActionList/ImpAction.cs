@@ -6,42 +6,42 @@ using UnityEngine.AI;
 
 namespace Assets.Script.ActionList
 {
-    class ImpAction: ActionBasic
+    class ImpAction: ActionScript
     {
         public override void Before_idle(ActionStatus actionStatus)
         {
             base.Before_idle(actionStatus);
-            gun.ChangeWeapon("MG");
+            Gun.ChangeWeapon("MG");
         }
 
         public void Before_fireball(ActionStatus actionStatus)
         {
-            myAgent.ResetPath();
-            gun.ChangeWeapon("MG");
+            Agent.ResetPath();
+            Gun.ChangeWeapon("MG");
         }
 
         public bool fireball(ActionStatus actionStatus)
         {
-            if (gun.NowWeapon.BulletInMag > 0)
+            if (Gun.NowWeapon.BulletInMag > 0)
             {
-                if (Vector3.Angle(my.transform.TransformDirection(Vector3.forward),
-                        target.transform.position - my.transform.position) < 5)
+                if (Vector3.Angle(Me.transform.TransformDirection(Vector3.forward),
+                        Target.transform.position - Me.transform.position) < 5)
                 {
-                    gun.fire();
+                    Gun.fire();
                 }
             }
             else
             {
                 return false;
             }
-            RotateTowardlerp(target.transform);
+            RotateTowardlerp(Target.transform);
             return true;
         }
 
         public bool jumpslash(ActionStatus actionStatus)
         {
 
-            //RotateTowardlerp(target.transform);
+            //RotateTowardlerp(Target.transform);
             return true;
         }
     }

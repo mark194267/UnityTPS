@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Script.Config
 {
-    public class InputManager:MonoBehaviour
+    public class InputManager : MonoBehaviour
     {
         public float ws;
         public float ad;

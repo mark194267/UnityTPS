@@ -11,16 +11,16 @@ using UnityEngine.AI;
 
 namespace Assets.Script.Avater
 {
-    class AINodeBase:AvaterMain
+    public class AIAvaterMain:AvaterMain
     {
-        public AIBase AiBase;
+        public AIBase AIBase;
+        public TargetInfo targetInfo { get; set; }
         //public Vector3 formationPoint;
         public Collider HotThing;
 
         public bool IsDecided;
         public bool IsAwake;
-        public string NowCommand;
-        public float TargetDis { get; set; }
+        public string NowCommand { get; set; }
 
         void Start()
         {
@@ -30,7 +30,7 @@ namespace Assets.Script.Avater
             
             //簡單的初始化，等待改寫
 
-            actionBasic.target = GameObject.Find("UnityChan");
+            ActionScript.Target = GameObject.Find("UnityChan");
 
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);
@@ -39,16 +39,14 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             gameObject.GetComponent<Gun>().ChangeWeapon("MG");
 
-            //gameObject.GetComponent<Gun>().ChangeWeapon("bazooka");
-            AiBase.target = GameObject.Find("UnityChan");
-            animator = this.gameObject.GetComponent<Animator>();
+            //Animator = this.gameObject.GetComponent<Animator>();
             //有無被叫醒
             //IsAwake = true;
-            actionBasic.myPath = transform.GetComponentInParent<AICommander>().path;
         }
 
         void Update()
         {
+            /*
             TargetDis = Vector3.Distance(gameObject.transform.position, AiBase.target.transform.position);
 
             if (!IsAwake)
@@ -68,38 +66,40 @@ namespace Assets.Script.Avater
                 }
                 return;
             }
-            NowCommand = AiBase.DistanceBasicAI(TargetDis, 0, 7);
-            animator.SetTrigger("AI_" + NowCommand);
+            NowCommand = AiBase.DistanceBasicAI(TargetDis, 0, 20);
+            Animator.SetTrigger("AI_" + NowCommand);
+
+            */
             /*            
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 > 0.99 || OldActionStatus != NowActionStatus)
-            //if(animator.GetNextAnimatorStateInfo(0).IsTag(NowActionStatus.ActionName))
+            if (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 > 0.99 || OldActionStatus != NowActionStatus)
+            //if(Animator.GetNextAnimatorStateInfo(0).IsTag(NowActionStatus.ActionName))
             {
                 Debug.Log("tick");
                 //決定方針
                 NowCommand = AiBase.DistanceBasicAI(TargetDis,3, 7);
                 //擲骰子,觸發動作
                 var num = UnityEngine.Random.Range(0, 100);
-                animator.SetInteger("AI_Dice", num);
-                animator.SetTrigger("AI_" + NowCommand);
+                Animator.SetInteger("AI_Dice", num);
+                Animator.SetTrigger("AI_" + NowCommand);
                 //初始化動作數值
-                //actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);
+                //ActionScript.SetupBeforeAction(this.name,NowActionStatus.ActionName);
                 if (OldActionStatus != null)
                 {
-                    actionBasic.AfterCustomAction(OldActionStatus);
+                    ActionScript.AfterCustomAction(OldActionStatus);
                 }
-                actionBasic.BeforeCustomAction(NowActionStatus);
+                ActionScript.BeforeCustomAction(NowActionStatus);
                 //關閉不能進入的狀態
                 if (NowActionStatus.ignorelist != null)
                 {
                     foreach (var cando in NowActionStatus.ignorelist)
                     {
-                        animator.SetBool("avater_can_" + cando, false);
+                        Animator.SetBool("avater_can_" + cando, false);
                     }
                 }
                 OldActionStatus = NowActionStatus;
             }
-            IsEndNormal = actionBasic.CustomAction(NowActionStatus);
-            animator.SetBool("avater_IsEndNormal", IsEndNormal);
+            IsEndNormal = ActionScript.CustomAction(NowActionStatus);
+            Animator.SetBool("avater_IsEndNormal", IsEndNormal);
             */
         }
 
@@ -107,7 +107,7 @@ namespace Assets.Script.Avater
             if(other.tag == "heat")
             {
                 HotThing = other;
-                //actionBasic.ChangeHeat();
+                //ActionScript.ChangeHeat();
             }
         }
 

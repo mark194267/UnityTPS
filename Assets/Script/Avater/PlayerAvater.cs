@@ -28,7 +28,7 @@ namespace Assets.Script.Avater
             motionStatusDir = statusBuilder.GetMotionList("UnityChan");
             //GetAnimaterParameter();
             
-            //actionBasic.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
+            //ActionScript.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
             WeaponFactory weaponFactory = new WeaponFactory();
             weaponFactory.Init();
             var GunDic = weaponFactory.AllWeaponDictionary;
@@ -55,7 +55,7 @@ namespace Assets.Script.Avater
             //在字典內找尋該動作的數值(待廢除)
             foreach (var actionStatuse in actionStatusDictionary.AllActionStatusDictionary)
             {
-                if (animator.GetCurrentAnimatorStateInfo(0).IsTag(actionStatuse.Key))
+                if (Animator.GetCurrentAnimatorStateInfo(0).IsTag(actionStatuse.Key))
                 {
                     NowActionStatus = actionStatuse.Value;
                 }
@@ -64,7 +64,7 @@ namespace Assets.Script.Avater
             /*
             foreach (var motionStatus in motionStatusDir)
             {
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName(motionStatus.Key))
+                if (Animator.GetCurrentAnimatorStateInfo(0).IsName(motionStatus.Key))
                 {
                     NowMotionStatus = motionStatus.Value;
                 }
@@ -77,30 +77,30 @@ namespace Assets.Script.Avater
                 //觸發動作結束
                 //Debug.Log(OldActionStatus.ActionName);
                 if(OldActionStatus != null)
-                    actionBasic.AfterCustomAction(OldActionStatus);
+                    ActionScript.AfterCustomAction(OldActionStatus);
                 //觸發下個動作之前
-                actionBasic.BeforeCustomAction(NowActionStatus);
+                ActionScript.BeforeCustomAction(NowActionStatus);
                 //撥開通用開關(可能會移除)
-                //actionBasic.SetupBeforeAction(this.name,NowActionStatus.ActionName);
+                //ActionScript.SetupBeforeAction(this.name,NowActionStatus.ActionName);
                 //讀取該動作是否可進入其他動畫
                 if (NowActionStatus.ignorelist != null)
                 {
                     foreach (var cando in NowActionStatus.ignorelist)
                     {
-                        animator.SetBool("avater_can_" + cando, false);
+                        Animator.SetBool("avater_can_" + cando, false);
                     }
                 }
                 //狀態更新+執行新狀態
                 OldActionStatus = NowActionStatus;
             }
 
-            IsEndNormal = actionBasic.CustomAction(NowActionStatus);
-            animator.SetBool("avater_IsEndNormal", IsEndNormal);
+            IsEndNormal = ActionScript.CustomAction(NowActionStatus);
+            Animator.SetBool("avater_IsEndNormal", IsEndNormal);
             */
             //檢查掉落速度
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {
-                animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
+                Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
             }            
         }
 
@@ -113,15 +113,15 @@ namespace Assets.Script.Avater
             //忽略自己
             int layermask = LayerMask.GetMask("PostProcessing");
             layermask = ~layermask;
-            if (/*!animator.GetBool("avater_IsParkour") &&*/ Physics.CheckBox(transform.position - Vector3.down * .1f, new Vector3(.001f, .2f, .001f), transform.rotation, layermask, QueryTriggerInteraction.Ignore))
+            if (/*!Animator.GetBool("avater_IsParkour") &&*/ Physics.CheckBox(transform.position - Vector3.down * .1f, new Vector3(.001f, .2f, .001f), transform.rotation, layermask, QueryTriggerInteraction.Ignore))
             {
                 //Debug.Log("Grounded!");  
                 //print(other.gameObject.name);              
-                animator.SetBool("avater_IsLanded", true);
+                Animator.SetBool("avater_IsLanded", true);
             }
             else
             {
-                animator.SetBool("avater_IsLanded", false);
+                Animator.SetBool("avater_IsLanded", false);
             }
         }
 

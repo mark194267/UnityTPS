@@ -12,61 +12,60 @@ using UnityEngine.AI;
 
 namespace Assets.Script.ActionControl
 {
-    public class ActionBasicBuilder
+    public class ActionScriptBuilder
     {
-        public ActionBasic GetActionBaseByName(string ActionName)
+        public ActionScript GetActionBaseByName(string ActionName)
         {
             Type t = Type.GetType("Assets.Script.ActionList." + ActionName + "Action");
-            ActionBasic actionBase = new ActionBasic();
-            actionBase = (ActionBasic)Activator.CreateInstance(t);
+            ActionScript actionBase = new ActionScript();
+            actionBase = (ActionScript)Activator.CreateInstance(t);
             return actionBase;
         }
     }
     /// <summary>
     /// 這裡負責關於人物的面向，移動，動作
     /// </summary>
-    public class ActionBasic
+    public class ActionScript
     {
-        public Animator animator;
-        public AIPath aiPathManager;
-        public GameObject my;
-        public GameObject target;
-        public NavMeshPath myPath;
-
-        protected Rigidbody myRig;
-        protected NavMeshAgent myAgent;
-        protected Vector3 targetPos;
+        public Animator Animator;
+        public GameObject Me;
+        public GameObject Target;
+        protected Camera Camera;
+        protected Rigidbody Rig;
+        protected NavMeshAgent Agent;
         protected Vector3 NowVecter;
-        protected InputManager input;
 
-        protected Camera camera;
+        protected InputManager InputManager;
 
-        protected Gun gun;
+        protected AvaterMain AvaterMain;
+        protected Gun Gun;
+        //protected AIBase AI;
+        public AIPath aiPathManager;
+        protected TargetInfo Targetinfo;
 
-        protected float actionElapsedTime;
-        protected AvaterMain main;
-        public bool doOnlyOnce;
 
-        public void Init(GameObject my)
+        public void Init(GameObject Me)
         {
-            this.my = my;
-            //this.myAgent = this.my.GetComponent<NavMeshAgent>();
-            this.myAgent = this.my.GetComponent<NavMeshAgent>();
-            this.gun = my.GetComponent<Gun>();
-            this.animator = my.GetComponent<Animator>();
-            this.myRig = my.GetComponent<Rigidbody>();
-            this.main = my.GetComponent<AvaterMain>();
-            if (my.GetComponent<InputManager>())
+            this.Me = Me;
+            //this.Agent = this.Me.GetComponent<NavMeshAgent>();
+            this.Agent = this.Me.GetComponent<NavMeshAgent>();
+            this.Gun = Me.GetComponent<Gun>();
+            this.Animator = Me.GetComponent<Animator>();
+            this.Rig = Me.GetComponent<Rigidbody>();
+            this.AvaterMain = Me.GetComponent<AvaterMain>();
+            InputManager = Me.GetComponent<InputManager>();
+
+            if (Me.GetComponent<AIAvaterMain>())
             {
-                input = my.GetComponent<InputManager>();
+                Debug.Log("hihi");
+                this.Targetinfo = Me.GetComponent<AIAvaterMain>().targetInfo;
             }
 
-            if (my.transform.Find("Camera"))
+            if (Me.transform.Find("Camera"))
             {
-                camera = my.transform.Find("Camera").GetComponent<Camera>();
+                Camera = Me.transform.Find("Camera").GetComponent<Camera>();
             }
             aiPathManager = GameObject.Find("Vulcan").GetComponent<AIPath>();
-            actionElapsedTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
         }
 
         #region 自訂狀態機
@@ -85,7 +84,7 @@ namespace Assets.Script.ActionControl
             }
         }
         /// <summary>
-        /// 自訂狀態機，預設的狀態機在ActionBasic裡面
+        /// 自訂狀態機，預設的狀態機在ActionScript裡面
         /// </summary>
         /// <param name="actionStatus">狀態參數</param>
         /// <returns></returns>
@@ -125,67 +124,65 @@ namespace Assets.Script.ActionControl
         /// <summary>
         /// 緩和旋轉，預設速度為 1.7f*deltatime
         /// </summary>
-        /// <param name="target">轉向目標，方法為lookRotation</param>
-        protected void RotateTowardSlerp(Transform target)
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
+        protected void RotateTowardSlerp(Transform Target)
         {
-            Vector3 direction = (target.position - my.transform.position).normalized;
+            Vector3 direction = (Target.position - Me.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            my.transform.rotation = Quaternion.Slerp(my.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
+            Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
         }
 
         /// <summary>
         /// 緩和旋轉，預設速度為 1.7f*deltatime
         /// </summary>
-        /// <param name="target">轉向目標，方法為lookRotation</param>
-        protected void RotateTowardSlerp(Vector3 target)
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
+        protected void RotateTowardSlerp(Vector3 Target)
         {
-            Vector3 direction = (target - my.transform.position).normalized;
+            Vector3 direction = (Target - Me.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            my.transform.rotation = Quaternion.Slerp(my.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
+            Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
         }
 
         /// <summary>
         /// 緩和旋轉，自訂速度
         /// </summary>
-        /// <param name="target">轉向目標，方法為lookRotation</param>
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
         /// <param name="speed">轉向速度</param>
-        protected void RotateTowardSlerp(Vector3 target, float speed)
+        protected void RotateTowardSlerp(Vector3 Target, float speed)
         {
-            if (input.ws != 0 || input.ad != 0)
-            {
-                Vector3 direction = (target - my.transform.position).normalized;
-                Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-                my.transform.rotation = Quaternion.Slerp(my.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
-            }
+            Vector3 direction = (Target - Me.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
+
         }
         /// <summary>
         /// 緩和旋轉，大多可用SLerp取代，預設速度為 1.7f*deltatime
         /// </summary>
-        /// <param name="target">轉向目標，方法為lookRotation</param>
-        protected void RotateTowardlerp(Transform target)
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
+        protected void RotateTowardlerp(Transform Target)
         {
-            Vector3 direction = (target.position - my.transform.position).normalized;
+            Vector3 direction = (Target.position - Me.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            my.transform.rotation = Quaternion.Lerp(my.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
+            Me.transform.rotation = Quaternion.Lerp(Me.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
         }
 
         /// <summary>
         /// 緩和旋轉，大多可用SLerp取代，預設速度為 1.7f*deltatime
         /// </summary>
-        /// <param name="target">轉向目標，方法為lookRotation</param>
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
         /// 
-        protected void RotateTowardlerp(Vector3 target)
+        protected void RotateTowardlerp(Vector3 Target)
         {
-            Vector3 direction = (target - my.transform.position).normalized;
+            Vector3 direction = (Target - Me.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            my.transform.rotation = Quaternion.Lerp(my.transform.rotation, lookRotation, Time.deltaTime * 3f/*rotationSpeed*/);
+            Me.transform.rotation = Quaternion.Lerp(Me.transform.rotation, lookRotation, Time.deltaTime * 3f/*rotationSpeed*/);
         }
 
-        protected void RotateTowardlerp(Vector3 target, float speed)
+        protected void RotateTowardlerp(Vector3 Target, float speed)
         {
-            Vector3 direction = (target - my.transform.position).normalized;
+            Vector3 direction = (Target - Me.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            my.transform.rotation = Quaternion.Lerp(my.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
+            Me.transform.rotation = Quaternion.Lerp(Me.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
         }
         #endregion
 
@@ -197,7 +194,7 @@ namespace Assets.Script.ActionControl
         protected Vector3 takecover()
         {
             NavMeshPath path = new NavMeshPath();
-            myAgent.CalculatePath(target.transform.position, path);
+            Agent.CalculatePath(Target.transform.position, path);
 
             int i = path.corners.Length;
             while (i - 3 > 0)
@@ -208,14 +205,14 @@ namespace Assets.Script.ActionControl
                 //得到最後一條往轉角的路徑
                 Vector3 ToLastCorner = point1 - point2;
                 //在獲取目標到轉角的向量
-                Vector3 TargetToCorner = target.transform.position - point1;
+                Vector3 TargetToCorner = Target.transform.position - point1;
                 //如果兩向量夾角太小，距離太近，就不會過第二個轉角
                 if (Vector2.Angle(
                         new Vector2(ToLastCorner.x, ToLastCorner.z),
                         new Vector2(TargetToCorner.x, TargetToCorner.z)) > 45
                     && Vector3.Distance(point1, point2) > .5)
                 {
-                    //myAgent.SetDestination(point1);
+                    //Agent.SetDestination(point1);
                     return point1;
                 }
                 else
@@ -234,14 +231,14 @@ namespace Assets.Script.ActionControl
         /// <param name="targetGameObject"></param>
         public void ChangeTarget(GameObject targetGameObject)
         {
-            this.target = targetGameObject;
+            this.Target = targetGameObject;
         }
 
         #region 基礎，通用動作
 
         public virtual void Before_idle(ActionStatus actionStatus)
         {
-            myAgent.ResetPath();
+            Agent.ResetPath();
         }
 
         public virtual bool idle(ActionStatus actionStatus)
@@ -252,67 +249,80 @@ namespace Assets.Script.ActionControl
         public virtual void Before_move(ActionStatus actionStatus)
         {
             //Debug.Log("BeforeMove");
-            //myAgent.isStopped = false;
+            //Agent.isStopped = false;
 
             //2019-05-02 官方建議每秒更新
-            //myAgent.SetDestination(target.transform.position);
+            //Agent.SetDestination(Target.transform.position);
         }
 
         public virtual bool move(ActionStatus actionStatus)
         {
-            myAgent.SetDestination(target.transform.position);
+            Agent.SetDestination(Target.transform.position);
 
             //2019-05-02 官方建議每秒更新
             /*
-            if (!myAgent.pathPending && !myAgent.hasPath)
+            if (!Agent.pathPending && !Agent.hasPath)
             {
-                myAgent.SetDestination(target.transform.position);
+                Agent.SetDestination(Target.transform.position);
             }
             */
-            if (my.GetComponent<AINodeBase>().TargetDis < actionStatus.f1)
+            Debug.Log(Me.name);
+            if (actionStatus.f1 > 10f)
             {
+                
                 return false;
             }
+            
             return true;
         }
         public virtual void After_move(ActionStatus actionStatus)
         {
             //Debug.Log("AfterMove");
-            //myAgent.isStopped = true;
-            myAgent.ResetPath();
+            //Agent.isStopped = true;
+            Agent.ResetPath();
         }
 
         public virtual bool shoot(ActionStatus actionStatus)
         {
-            if (gun.NowWeapon.BulletInMag > 0)
+            if (Gun.NowWeapon.BulletInMag > 0)
             {
-                if (Vector3.Angle(my.transform.TransformDirection(Vector3.forward),
-                        target.transform.position - my.transform.position) < 5)
+                if (Targetinfo.GetTargetAngle() < 5)
                 {
-                    gun.fire();
+                    Gun.fire();
                 }
             }
             else
             {
                 return false;
             }
-            RotateTowardlerp(target.transform);
+            RotateTowardlerp(Target.transform);
             return true;
         }
 
+        public virtual void Before_sightcheck(ActionStatus actionStatus)
+        {
+
+        }
+        /*
+        public virtual bool sightcheck(ActionStatus actionStatus)
+        {
+            if(AvaterMain.)
+            return true;
+        }
+        */
         public virtual void Before_slash(ActionStatus actionStatus)
         {
         }
 
         public virtual bool slash(ActionStatus actionStatus)
         {
-            if (main.anim_flag == 0)//還沒揮刀時可以轉
+            if (AvaterMain.anim_flag == 0)//還沒揮刀時可以轉
             {
-                RotateTowardlerp(target.transform);
+                RotateTowardlerp(Target.transform);
             }
             else
             {
-                gun.Swing(main.anim_flag, 1, 1);
+                Gun.Swing(AvaterMain.anim_flag, 1, 1);
             }
             return true;
         }
@@ -325,9 +335,9 @@ namespace Assets.Script.ActionControl
         public virtual void Before_dead(ActionStatus actionStatus)
         {
             AddCostArea();
-            myAgent.enabled = false;
-            myRig.isKinematic = false;
-            gun.NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+            Agent.enabled = false;
+            Rig.isKinematic = false;
+            Gun.NowWeapon.weapon.GetComponent<Collider>().enabled = false;
         }
 
         public virtual bool dead(ActionStatus actionStatus)
@@ -348,12 +358,12 @@ namespace Assets.Script.ActionControl
         {
 
             var dir =
-                camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
-            //myAgent.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, moveSpeed);
-            myAgent.velocity = Vector3.Lerp(myAgent.velocity, dir.normalized * moveSpeed, 1f);
+                Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
+            //Agent.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, moveSpeed);
+            Agent.velocity = Vector3.Lerp(Agent.velocity, dir.normalized * moveSpeed, 1f);
 
-            var camPos = camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(my.transform.position - camPos, rotSpeed);
+            var camPos = Camera.transform.TransformDirection(Vector3.back);
+            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
         }
         /// <summary>
         /// 第一人稱式移動，移動的主體是NavAgent，若沒Agent請改用FPSLikeRigMovement
@@ -365,11 +375,11 @@ namespace Assets.Script.ActionControl
         {
 
             var dir =
-                camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
-            myAgent.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
+                Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
+            Agent.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
 
-            var camPos = camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(my.transform.position - camPos, rotSpeed);
+            var camPos = Camera.transform.TransformDirection(Vector3.back);
+            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
         }
         /// <summary>
         /// 第一人稱式移動，預設速度為7f
@@ -379,13 +389,13 @@ namespace Assets.Script.ActionControl
         public void FPSLikeRigMovement(float maxSpeed, float rotSpeed)
         {
             var dir =
-                camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
+                Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
             dir.y = 0;
-            //myRig.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, maxSpeed);
-            myRig.velocity = Vector3.Lerp(myRig.velocity, dir.normalized * input.maxWSAD * maxSpeed, 1f);
+            //Rig.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, maxSpeed);
+            Rig.velocity = Vector3.Lerp(Rig.velocity, dir.normalized * InputManager.maxWSAD * maxSpeed, 1f);
 
-            var camPos = camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(my.transform.position - camPos, rotSpeed);
+            var camPos = Camera.transform.TransformDirection(Vector3.back);
+            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
         }
         /// <summary>
         /// 第一人稱式移動，自訂速度
@@ -396,19 +406,19 @@ namespace Assets.Script.ActionControl
         public void FPSLikeRigMovement(float baseSpeed, float maxSpeed, float rotSpeed)
         {
             var dir =
-                camera.transform.TransformDirection(Vector3.right * input.ad + Vector3.forward * input.ws);
-            //myRig.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
-            myRig.velocity = Vector3.Lerp(myRig.velocity, dir.normalized * input.maxWSAD * maxSpeed, baseSpeed);
+                Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
+            //Rig.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
+            Rig.velocity = Vector3.Lerp(Rig.velocity, dir.normalized * InputManager.maxWSAD * maxSpeed, baseSpeed);
 
 
-            var camPos = camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(my.transform.position - camPos, rotSpeed);
+            var camPos = Camera.transform.TransformDirection(Vector3.back);
+            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
         }
         #endregion
 
         public void AddCostArea()
         {
-            aiPathManager.BurnGround(10, 5, myRig.position);
+            aiPathManager.BurnGround(10, 5, Rig.position);
         }
 
     }

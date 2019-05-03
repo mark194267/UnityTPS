@@ -12,7 +12,7 @@ namespace Assets.Script.ActionControl
         //初始化
         private string Charactername;
         //1.工廠模式返回 2.字典集
-        private ActionBasic ActionBasic;
+        private ActionScript ActionScript;
 
         private List<ActionStatus> _moveList;
         private List<ActionStatus> _attackList;

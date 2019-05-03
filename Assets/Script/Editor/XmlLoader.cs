@@ -16,10 +16,10 @@ namespace Assets.Script.Editor
 
             doc.Load(fileName);
             //格式請遵照 XXX.xml傳入
-            XmlNode main = doc.SelectSingleNode(nodePath);
+            XmlNode AvaterMain = doc.SelectSingleNode(nodePath);
             //格式為AAAA/BBBB
-            if (main == null) return null;
-            XmlElement element = (XmlElement)main;
+            if (AvaterMain == null) return null;
+            XmlElement element = (XmlElement)AvaterMain;
             XmlAttribute attribute = element.GetAttributeNode("value");
             return attribute.Value;
             

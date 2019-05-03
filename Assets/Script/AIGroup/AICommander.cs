@@ -17,7 +17,7 @@ namespace Assets.Script.AIGroup
         public NavMeshPath path;
 
         private ActionStatusDictionary actionStatusDictionary = new ActionStatusDictionary();
-        private ActionBasicBuilder actionConstructer = new ActionBasicBuilder();
+        private ActionScriptBuilder actionConstructer = new ActionScriptBuilder();
         private AIConstructer aiConstructer = new AIConstructer();
         private WeaponFactory weaponFactory = new WeaponFactory();
         private AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
@@ -33,12 +33,13 @@ namespace Assets.Script.AIGroup
             avaterStatus = avaterDataLoader.LoadStatus("Imp");
             foreach (GameObject ai in allMyAi)
             {
-                var aimain = ai.gameObject.GetComponent<AINodeBase>();
-                aimain.AiBase = aiConstructer.GetAI();
-                aimain.AiBase.Init(ai, target);
+                var aimain = ai.gameObject.GetComponent<AIAvaterMain>();
                 aimain.avaterStatus = avaterStatus;
                 aimain.Init_Avater();
                 aimain.IsAwake = true;
+                aimain.targetInfo = new TargetInfo() { Me = ai, Target = target };
+                aimain.stateMachine.AIBase = aiConstructer.GetAI(aimain.targetInfo);
+                //Debug.Log(aimain.stateMachine.AIBase);
             }
         }
 
@@ -72,7 +73,7 @@ namespace Assets.Script.AIGroup
             {
                 if (!IsAwake)
                 {
-                    var nodeAi = allMyAi[i].GetComponent<AINodeBase>();
+                    var nodeAi = allMyAi[i].GetComponent<AIAvaterMain>();
                     nodeAi.formationPoint = gameObject.transform.TransformVector(Vector3.right*i);//offsetPoint
                 }
 

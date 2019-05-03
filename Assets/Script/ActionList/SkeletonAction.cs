@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Assets.Script.ActionList
 {
-    class SkeletonAction : ActionBasic
+    class SkeletonAction : ActionScript
     {
         public void Before_shoot(ActionStatus actionStatus)
         {
-            gun.ChangeWeapon("MG");
+            Gun.ChangeWeapon("MG");
         }
         public override void Before_slash(ActionStatus actionStatus)
         {
-            gun.ChangeWeapon("katana");
+            Gun.ChangeWeapon("katana");
             base.Before_slash(actionStatus);
         }
     }

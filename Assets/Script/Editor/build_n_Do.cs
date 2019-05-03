@@ -26,7 +26,7 @@ namespace Assets.Script.Editor
     [InitializeOnLoad]
     class Doit : MonoBehaviour
     {
-        public static void Main()
+        public static void AvaterMain()
         {
             Buildit buildit = new Buildit();
             XmlController xmlController = new XmlController(){Filename = "PlayerStatus",Role = "Player"};
@@ -36,9 +36,9 @@ namespace Assets.Script.Editor
             buildit.SetObject("Gun","Foot");
             
             //傳遞區
-            var gun = buildit.Guntype;
+            var Gun = buildit.Guntype;
             var move = buildit.MoveType;
-            gun.Fire(xmlController.GetFloatXml("Fire","Atk"),xmlController.GetFloatXml("Fire","Rof"));
+            Gun.Fire(xmlController.GetFloatXml("Fire","Atk"),xmlController.GetFloatXml("Fire","Rof"));
             Debug.Log("Ahhhh");            
         }
     }

@@ -12,7 +12,7 @@ namespace Assets.Script.Editor.UnitTest
     [ExecuteInEditMode]
     class EnterPoint
     {
-        public static void Main()
+        public static void AvaterMain()
         {            
             EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
             EditorApplication.isPlaying = true;

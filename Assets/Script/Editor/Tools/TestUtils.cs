@@ -44,14 +44,14 @@ namespace Assets.Script.Editor.Tools
         }
 
         /// <summary>
-        /// Creates a camera and adds the MainCamera tag to it
+        /// Creates a Camera and adds the MainCamera tag to it
         /// </summary>
-        /// <returns>The created camera</returns>
+        /// <returns>The created Camera</returns>
         public static Camera CreateMainCamera()
         {
-            var camera = new GameObject().AddComponent<Camera>();
-            camera.gameObject.tag = "MainCamera";
-            return camera;
+            var Camera = new GameObject().AddComponent<Camera>();
+            Camera.gameObject.tag = "MainCamera";
+            return Camera;
         }
 
         /// <summary>

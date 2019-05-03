@@ -4,7 +4,7 @@ using System.Collections;
 
 /// <summary>
 /// 透明化
-/// 參考網址:https://answers.unity.com/questions/44815/make-object-transparent-when-between-camera-and-pl.html 
+/// 參考網址:https://answers.unity.com/questions/44815/make-object-transparent-when-between-Camera-and-pl.html 
 /// USSR之解答
 /// </summary>
 namespace Assets.Script.Config
