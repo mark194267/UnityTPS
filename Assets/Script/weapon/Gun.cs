@@ -11,6 +11,7 @@ namespace Assets.Script.weapon
     {
         public List<WeaponBasic> WeaponSlot = new List<WeaponBasic>();
         public WeaponBasic NowWeapon;
+        public WeaponBasic NowWeaponOrign;
 
         public string weaponname;
 
@@ -71,7 +72,8 @@ namespace Assets.Script.weapon
             //找到新武器
             NowWeapon = WeaponSlot.Find(x => x.name == weaponName);
             NowWeapon.weapon.SetActive(true);
-
+            //用來改變狀態
+            NowWeaponOrign = NowWeapon;
             //射擊武器
             if (NowWeapon.acc > 0)
             {
@@ -91,17 +93,20 @@ namespace Assets.Script.weapon
         }
         public virtual bool fire()
         {
-            if (canshoot && NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot >= 0)
+            if (NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot >= 0)
             {
-                //發射一發
-                //StartCoroutine(ShootBullet());
-                StartCoroutine(ShootShotGunBullet());
-                //後座力區塊
-                //cam.Rotate(Random.RandomRange(-100f,100f),Random.RandomRange(0,100f),0f,Space.Self);<<轉為攝影機統一控管
-                //如果現在後座力為 < 目標後座力
+                if (canshoot)
+                {
+                    //發射一發
+                    //StartCoroutine(ShootBullet());
+                    StartCoroutine(ShootShotGunBullet());
+                    //後座力區塊
+                    //cam.Rotate(Random.RandomRange(-100f,100f),Random.RandomRange(0,100f),0f,Space.Self);<<轉為攝影機統一控管
+                    //如果現在後座力為 < 目標後座力
                     //前三發後坐力
-                //如果現在後座力 > 目標後座力
+                    //如果現在後座力 > 目標後座力
                     //後N發後坐力
+                }
                 return true;
             }
             else

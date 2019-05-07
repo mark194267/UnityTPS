@@ -44,9 +44,11 @@ namespace Assets.Script.Avater
             //IsAwake = true;
         }
 
+        #region Update()
+        /*
         void Update()
         {
-            /*
+            
             TargetDis = Vector3.Distance(gameObject.transform.position, AiBase.target.transform.position);
 
             if (!IsAwake)
@@ -68,9 +70,7 @@ namespace Assets.Script.Avater
             }
             NowCommand = AiBase.DistanceBasicAI(TargetDis, 0, 20);
             Animator.SetTrigger("AI_" + NowCommand);
-
-            */
-            /*            
+          
             if (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 > 0.99 || OldActionStatus != NowActionStatus)
             //if(Animator.GetNextAnimatorStateInfo(0).IsTag(NowActionStatus.ActionName))
             {
@@ -100,8 +100,10 @@ namespace Assets.Script.Avater
             }
             IsEndNormal = ActionScript.CustomAction(NowActionStatus);
             Animator.SetBool("avater_IsEndNormal", IsEndNormal);
-            */
+            
         }
+        */
+        #endregion
 
         private void OnTriggerEnter(Collider other) {
             if(other.tag == "heat")

@@ -57,7 +57,6 @@ namespace Assets.Script.ActionControl
 
             if (Me.GetComponent<AIAvaterMain>())
             {
-                Debug.Log("hihi");
                 this.Targetinfo = Me.GetComponent<AIAvaterMain>().targetInfo;
             }
 
@@ -151,9 +150,12 @@ namespace Assets.Script.ActionControl
         protected void RotateTowardSlerp(Vector3 Target, float speed)
         {
             Vector3 direction = (Target - Me.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
-
+            var dir = new Vector3(direction.x, 0, direction.z);
+            if (dir != Vector3.zero)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(dir);    // flattens the vector3
+                Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
+            }
         }
         /// <summary>
         /// 緩和旋轉，大多可用SLerp取代，預設速度為 1.7f*deltatime
@@ -266,10 +268,8 @@ namespace Assets.Script.ActionControl
                 Agent.SetDestination(Target.transform.position);
             }
             */
-            Debug.Log(Me.name);
-            if (actionStatus.f1 > 10f)
-            {
-                
+            if (actionStatus.f1 > Vector3.Distance(Target.transform.position,Me.transform.position))
+            {                
                 return false;
             }
             

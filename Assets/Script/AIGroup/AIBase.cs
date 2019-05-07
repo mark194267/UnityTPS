@@ -24,13 +24,13 @@ namespace Assets.Script.AIGroup
         public string DistanceBasicAI(float targetDis,float meleerange,float shootrange)
         {
             float distance = TargetInfo.GetTargetDis();
-
+            TargetInfo.ToTargetSight(shootrange);
             if (distance < meleerange)
             {
                 return "close";
             }
             //如果在距離內，又看的到目標，衝刺攻擊也算遠距離攻擊。
-            if (TargetInfo.ToTargetSight(shootrange).rigidbody != null)
+            if (TargetInfo.TargetSightHit.rigidbody != null)
             {
                 //如果沒有彈藥就優先換彈
                 // 2019-05-03 改用Gun.fire 回傳false在Animator內觸發
@@ -43,7 +43,10 @@ namespace Assets.Script.AIGroup
                 if (TargetInfo.TargetSightHit.transform.CompareTag("Player"))
                     return "long";
                 else
-                    return "changePos";
+                {
+                    //Debug.Log(TargetInfo.TargetSightHit.transform.name);
+                    return "SpreadOut";
+                }
             }
             //雖說是move卻指的是在射擊距離外
             return "move";
@@ -74,7 +77,13 @@ namespace Assets.Script.AIGroup
         public RaycastHit ToTargetSight(float range)
         {
             RaycastHit hit;
-            Physics.Raycast(Me.transform.position, Target.transform.position - Me.transform.position, out hit, range);
+            int mask = ~LayerMask.GetMask("PostProcessing");
+            var MyPos = Me.transform.TransformPoint(Vector3.up);
+            var TargetPos = Target.transform.TransformPoint(Vector3.up);
+
+            //Physics.Raycast(Me.transform.position, Target.transform.position - Me.transform.position, out hit, range,-1,QueryTriggerInteraction.Ignore);
+            Physics.BoxCast(MyPos,Vector3.one*.5f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
+
             TargetSightHit = hit;
             return hit;
         }
