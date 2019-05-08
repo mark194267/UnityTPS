@@ -42,7 +42,7 @@ public class StateMachine : StateMachineBehaviour
             //如果是AI
             if (AIBase != null)
             {
-                Animator.SetTrigger("AI_" + AIBase.DistanceBasicAI(AIBase.TargetInfo.GetTargetDis(), 3, 10));
+                Animator.SetTrigger("AI_" + AIBase.DistanceBasicAI(AIBase.TargetInfo.GetTargetDis(), 3, 50));
             }
         }
     }

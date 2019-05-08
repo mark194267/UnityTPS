@@ -10,24 +10,21 @@ namespace Assets.Script.ActionList
 {
     class MechGrantAction :ActionScript
     {
-        public override void Before_move(ActionStatus actionStatus)
-        {
-            Agent.updateRotation = false;
-            Agent.stoppingDistance = .5f;
-        }
 
         public override bool move(ActionStatus actionStatus)
         {
-            //之後改用路徑請求
+            UpdateWSAD_ToAnimator();
             Agent.SetDestination(Target.transform.position);
 
-            var dir = Me.transform.InverseTransformDirection(Agent.velocity.normalized);
-            Animator.SetFloat("AI_ws",dir.z);
-            Animator.SetFloat("AI_ad", dir.x);
-
-            RotateTowardSlerp(Target.transform.position,3f);
-
-
+            var MyPos = Me.transform.position + Vector3.up;
+            var TargetPos = Me.transform.TransformDirection(Vector3.forward);
+            RaycastHit hit;
+            Physics.BoxCast(MyPos, Vector3.one * .1f, TargetPos, out hit, Me.transform.rotation);
+            if (hit.rigidbody != null)
+            {
+                Debug.Log(hit.transform.name);
+                return false;
+            }
             return true;
         }
 
@@ -40,15 +37,9 @@ namespace Assets.Script.ActionList
 
         public override bool shoot(ActionStatus actionStatus)
         {
-            var dir = Me.transform.InverseTransformDirection(Agent.velocity.normalized);
-            Animator.SetFloat("AI_ws", dir.z);
-            Animator.SetFloat("AI_ad", dir.x);
-
-            var Max = Mathf.Max(Mathf.Abs(dir.z), Mathf.Abs(dir.x));
-            Animator.SetFloat("AI_speed", Max);
+            UpdateWSAD_ToAnimator();
 
             RotateTowardSlerp(Target.transform.position,3f);
-
             var angle = Vector3.Angle(Me.transform.TransformDirection(Vector3.forward),
                     Target.transform.position - Me.transform.position);
 
@@ -65,7 +56,7 @@ namespace Assets.Script.ActionList
                 var MyPos = Me.transform.position + Vector3.up;
                 var TargetPos = Target.transform.position + Vector3.up;
                 RaycastHit hit;
-                Physics.BoxCast(MyPos, Vector3.one*.5f, TargetPos - MyPos, out hit, Me.transform.rotation);
+                Physics.BoxCast(MyPos, Vector3.one*.1f, TargetPos - MyPos, out hit, Me.transform.rotation);
                 if (hit.transform.CompareTag("Player"))
                 {
                     Gun.fire();
@@ -79,22 +70,33 @@ namespace Assets.Script.ActionList
         }
         public void Before_SpreadOut(ActionStatus actionStatus)
         {
+            Agent.updateRotation = false;
             NowVecter = Vector3.zero;
             var MyPos = Me.transform.position + Vector3.up;
             var TargetPos = Target.transform.position + Vector3.up;
             RaycastHit hit;
-            Physics.BoxCast(MyPos, Vector3.one*.5f, TargetPos - MyPos, out hit, Me.transform.rotation);
+            Physics.BoxCast(MyPos, Vector3.one*.1f, TargetPos - MyPos, out hit, Me.transform.rotation);
 
+            /*
             //得到障礙和自身的夾角
-            //var randDirection = Vector3.Reflect(hit.transform.position, Me.transform.TransformVector(Vector3.forward));
-            //Debug.Log(randDirection);
             var r = Vector3.SignedAngle(Target.transform.position - Me.transform.position, hit.point - Me.transform.position,Vector3.up);
-            //Debug.Log(r);
             var rot = Me.transform.TransformDirection(Vector3.forward);
-            var fin  = Quaternion.AngleAxis(r, Vector3.up) * rot;
+            //隨機散開角度由.5-3倍，其實角度會和距離成反比 可用自然數改良
+            var fin  = Quaternion.AngleAxis(Random.Range(.5f,3f)*-r, Vector3.up) * rot;
             var randDirection = Me.transform.position+fin.normalized*3;//NowVector已經是正規化的向量了    
-            //var randDirection = Random.onUnitSphere * Vector3.Distance(hit.point, Me.transform.position);
-            //randDirection += Me.transform.position;
+            */
+            //遮蔽物離目標越近，移動幅度要越大，越遠角度要越開
+            var step = hit.distance / Vector3.Distance(MyPos,TargetPos);
+
+            Debug.Log(step);
+
+            var randDirection = 
+                SetSpreadOutPoint(Target.transform.position, hit.point,
+                //Random.Range(3, 7), Random.Range(3f*step, 5f*step)
+                //12f * step+10, 5f * step+2f
+                Random.Range(18f * step+10f, 20f * step+12f), Random.Range(1f * step +2f, 1f * step+8f)
+                );
+
 
             NavMeshHit navMeshHit;
             //檢查是否能移動到上面
@@ -119,14 +121,11 @@ namespace Assets.Script.ActionList
             var MyPos = Me.transform.position + Vector3.up;
             var TargetPos = Target.transform.position + Vector3.up;
             RaycastHit hit;
-            Physics.BoxCast(MyPos, Vector3.one*.5f, TargetPos - MyPos, out hit, Me.transform.rotation);
-            /*
-             * 確認前面有隊友之後
-             * 隨機往左或右邊移動
-             */
-            if (!Me.transform.CompareTag(hit.transform.tag) || Agent.remainingDistance < 1f)
+            Physics.BoxCast(MyPos, Vector3.one*.1f, TargetPos - MyPos, out hit, Me.transform.rotation);
+
+            if (hit.transform.CompareTag("Player") || Agent.remainingDistance < 1f)
             {
-                Debug.Log(hit.transform.name);
+                //Debug.Log(hit.transform.name);
                 return false;
             }
             return true;

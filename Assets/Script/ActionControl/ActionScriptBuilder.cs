@@ -240,7 +240,7 @@ namespace Assets.Script.ActionControl
 
         public virtual void Before_idle(ActionStatus actionStatus)
         {
-            Agent.ResetPath();
+            //Agent.ResetPath();
         }
 
         public virtual bool idle(ActionStatus actionStatus)
@@ -299,17 +299,6 @@ namespace Assets.Script.ActionControl
             return true;
         }
 
-        public virtual void Before_sightcheck(ActionStatus actionStatus)
-        {
-
-        }
-        /*
-        public virtual bool sightcheck(ActionStatus actionStatus)
-        {
-            if(AvaterMain.)
-            return true;
-        }
-        */
         public virtual void Before_slash(ActionStatus actionStatus)
         {
         }
@@ -416,6 +405,41 @@ namespace Assets.Script.ActionControl
         }
         #endregion
 
+        #region 散開腳本
+        /// <summary>
+        /// 散開，面對某個方向
+        /// </summary>
+        /// <param name="TargetPos"></param>
+        /// <param name="barrier"></param>
+        /// <param name="AxisMultiper"></param>
+        /// <param name="StepLenght"></param>
+        /// <returns></returns>
+        public Vector3 SetSpreadOutPoint(Vector3 TargetPos,Vector3 barrier,float AxisMultiper,float StepLenght)
+        {
+            //得到障礙和自身的夾角
+            var r = Vector3.SignedAngle(TargetPos - Me.transform.position, barrier - Me.transform.position, Vector3.up);
+            var rot = Me.transform.TransformDirection(Vector3.forward);
+            //隨機散開角度由.5-3倍，其實角度會和距離成反比 可用自然數改良
+            var fin = Quaternion.AngleAxis(AxisMultiper * -r, Vector3.up) * rot;
+            return Me.transform.position + fin.normalized * StepLenght;//NowVector已經是正規化的向量了    
+        }
+
+        #endregion
+
+        #region 更新人物的移動狀態
+        /// <summary>
+        /// 更新人物的移動狀態，請先於Animator加入AI_ws, AI_ad, AI_speed
+        /// </summary>
+        public void UpdateWSAD_ToAnimator()
+        {
+            var dir = Me.transform.InverseTransformDirection(Agent.velocity.normalized);
+            Animator.SetFloat("AI_ws", dir.z);
+            Animator.SetFloat("AI_ad", dir.x);
+
+            var Max = Mathf.Max(Mathf.Abs(dir.z), Mathf.Abs(dir.x));
+            Animator.SetFloat("AI_speed", Max);
+        }
+        #endregion
         public void AddCostArea()
         {
             aiPathManager.BurnGround(10, 5, Rig.position);

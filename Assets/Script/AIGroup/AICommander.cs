@@ -53,7 +53,7 @@ namespace Assets.Script.AIGroup
         void Update()
         {
             //調整時間後再重新思考
-            StartCoroutine(ChangeTactic(30));
+            //StartCoroutine(ChangeTactic(30));
 
 
         }

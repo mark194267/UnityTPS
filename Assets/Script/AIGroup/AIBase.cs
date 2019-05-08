@@ -25,10 +25,6 @@ namespace Assets.Script.AIGroup
         {
             float distance = TargetInfo.GetTargetDis();
             TargetInfo.ToTargetSight(shootrange);
-            if (distance < meleerange)
-            {
-                return "close";
-            }
             //如果在距離內，又看的到目標，衝刺攻擊也算遠距離攻擊。
             if (TargetInfo.TargetSightHit.rigidbody != null)
             {
@@ -41,7 +37,16 @@ namespace Assets.Script.AIGroup
                 }
                 */
                 if (TargetInfo.TargetSightHit.transform.CompareTag("Player"))
-                    return "long";
+                {
+                    if (distance < meleerange)
+                    {
+                        return "close";
+                    }
+                    else
+                    {
+                        return "long";
+                    }
+                }
                 else
                 {
                     //Debug.Log(TargetInfo.TargetSightHit.transform.name);
@@ -82,7 +87,7 @@ namespace Assets.Script.AIGroup
             var TargetPos = Target.transform.TransformPoint(Vector3.up);
 
             //Physics.Raycast(Me.transform.position, Target.transform.position - Me.transform.position, out hit, range,-1,QueryTriggerInteraction.Ignore);
-            Physics.BoxCast(MyPos,Vector3.one*.5f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
+            Physics.BoxCast(MyPos,Vector3.one*.1f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
 
             TargetSightHit = hit;
             return hit;
