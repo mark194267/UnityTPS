@@ -35,6 +35,7 @@ public class StateMachine : StateMachineBehaviour
                     if (stateInfo.IsName(motionStatus.Key))
                     {
                         AvaterMain.MotionStatus = motionStatus.Value;
+                        //Debug.Log(AvaterMain.MotionStatus.motionSpd);
                     }
                 }
             }

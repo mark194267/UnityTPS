@@ -75,7 +75,7 @@ public class MouseOrbitImproved : MonoBehaviour {
 
             RaycastHit[] hits; // you can also use CapsuleCastAll() 
                                // TODO: setup your layermask it improve performance and filter your hits. 
-            int layermask = LayerMask.GetMask("PostProcessing");
+            int layermask = LayerMask.GetMask("Player");
             hits = Physics.RaycastAll(transform.position, transform.forward, distance-1f, ~layermask);
             foreach (RaycastHit hit in hits)
             {

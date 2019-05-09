@@ -414,13 +414,19 @@ namespace Assets.Script.ActionControl
         /// <param name="AxisMultiper"></param>
         /// <param name="StepLenght"></param>
         /// <returns></returns>
-        public Vector3 SetSpreadOutPoint(Vector3 TargetPos,Vector3 barrier,float AxisMultiper,float StepLenght)
+        public Vector3 SetSpreadOutPoint(Vector3 TargetPos,Vector3 barrier/*,float AxisMultiper*/,float StepLenght)
         {
             //得到障礙和自身的夾角
             var r = Vector3.SignedAngle(TargetPos - Me.transform.position, barrier - Me.transform.position, Vector3.up);
             var rot = Me.transform.TransformDirection(Vector3.forward);
+            Vector3 fin;
+            if(r > 0)
+                fin = Quaternion.AngleAxis(-90, Vector3.up) * rot;
+            else
+                fin = Quaternion.AngleAxis(90, Vector3.up) * rot;
+//            fin = Quaternion.AngleAxis(AxisMultiper * -r, Vector3.up) * rot;
+
             //隨機散開角度由.5-3倍，其實角度會和距離成反比 可用自然數改良
-            var fin = Quaternion.AngleAxis(AxisMultiper * -r, Vector3.up) * rot;
             return Me.transform.position + fin.normalized * StepLenght;//NowVector已經是正規化的向量了    
         }
 

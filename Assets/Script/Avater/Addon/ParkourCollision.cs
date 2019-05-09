@@ -9,7 +9,6 @@ namespace Assets.Script.Avater.Addon
         //public Collider triggerThing;
 
         public Animator Animator;
-        public Ray ray;
         public RaycastHit hit;
         private void Start() 
         {
@@ -40,14 +39,12 @@ namespace Assets.Script.Avater.Addon
             //print(collider.name);
             if(collider.gameObject.tag == "wall")
             {
-                ray.origin = transform.position;
-                ray.direction = transform.position-collider.ClosestPoint(transform.position);
                 RaycastHit temphit;
                 //如果碰撞點不是在腳下就可以跑庫
                 //向碰撞點射出雷射
                 //triggerThing = collider;
                 //忽略掉自己
-                int layermask = LayerMask.GetMask("PostProcessing");
+                int layermask = LayerMask.GetMask("Player");
                 layermask = ~layermask;
                 //忽略掉自己+觸發物件
                 if(Physics.Raycast(transform.position+Vector3.up*.5f,transform.TransformVector(Vector3.forward),out temphit,5f,layermask,QueryTriggerInteraction.Ignore))

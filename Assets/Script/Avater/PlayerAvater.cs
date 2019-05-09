@@ -111,7 +111,7 @@ namespace Assets.Script.Avater
         private void OnTriggerStay(Collider other)
         {
             //忽略自己
-            int layermask = LayerMask.GetMask("PostProcessing");
+            int layermask = LayerMask.GetMask("Player");
             layermask = ~layermask;
             if (/*!Animator.GetBool("avater_IsParkour") &&*/ Physics.CheckBox(transform.position - Vector3.down * .1f, new Vector3(.001f, .2f, .001f), transform.rotation, layermask, QueryTriggerInteraction.Ignore))
             {

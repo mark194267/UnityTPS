@@ -25,7 +25,9 @@ namespace Assets.Script.ActionList
 
         public bool meleeready(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(AvaterMain.MotionStatus.motionSpd, 10f);
+            FPSLikeRigMovement(5f, 10f);
+
+            //FPSLikeRigMovement(5f/*AvaterMain.MotionStatus.motionSpd*/, 10f);
             return true;
         }
         public void Before_MoveNslash(ActionStatus actionStatus)
@@ -192,7 +194,7 @@ namespace Assets.Script.ActionList
 
         public void Before_strafe(ActionStatus actionStatus)
         {
-            Gun.ChangeWeapon("AK-47");
+            Gun.ChangeWeapon("MG");
         }
 
         public bool strafe(ActionStatus actionStatus)
@@ -279,22 +281,22 @@ namespace Assets.Script.ActionList
             NowVecter = Quaternion.AngleAxis(-90,Vector3.up)*rot;
 
             Rig.rotation = Quaternion.LookRotation(NowVecter);
-            Animator.SetBool("avater_IsParkour",true);
+            //Animator.SetBool("avater_IsParkour",true);
         }
 
         public bool wallrunR(ActionStatus actionStatus)
         {
             //給定速度
-            Rig.velocity = NowVecter.normalized*3+Vector3.up*1;//NowVector已經是正規化的向量了
+            Rig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
             //轉過去
             //var Q = Quaternion.LookRotation(NowVecter);
             //Rig.rotation = Quaternion.Lerp(Me.transform.rotation,Q,.1f);
             //Rig.rotation = Q;
             
-            if(!Physics.CheckBox(Me.transform.TransformPoint(-.8f,.7f,0),Vector3.one*.1f,Me.transform.rotation,-1,QueryTriggerInteraction.Ignore))
+            if(!Physics.CheckBox(Me.transform.TransformPoint(-.5f,.7f,.2f),Vector3.one*.05f,Me.transform.rotation,-1,QueryTriggerInteraction.Ignore))
             {
                 //如果踩空牆壁...目前全面停用
-                //Debug.Log("Hit");
+                Debug.Log("wallR");
                 //Rig.isKinematic = true;
                 return false;
             }            
@@ -326,8 +328,9 @@ namespace Assets.Script.ActionList
           
             Rig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
 
-            if(!Physics.CheckBox(Me.transform.TransformPoint(new Vector3(.5f,.8f,.2f)),Vector3.one*.05f,Me.transform.rotation))
+            if(!Physics.CheckBox(Me.transform.TransformVector(new Vector3(.5f,.7f,.2f)),Vector3.one*.05f,Me.transform.rotation))
             {
+                Debug.Log("wallL");
                 //Rig.isKinematic = true;
                 return false;
             }              
@@ -335,6 +338,7 @@ namespace Assets.Script.ActionList
         }
         public void After_wallrunL(ActionStatus actionStatus)
         {
+            Rig.AddForce(Me.transform.TransformVector(Vector3.left) * 3, ForceMode.VelocityChange);
             Animator.SetBool("avater_can_parkour", false);
         }
         #endregion
@@ -356,7 +360,7 @@ namespace Assets.Script.ActionList
         {
             Rig.velocity = Vector3.up*3;//NowVector已經是正規化的向量了
 
-            if(!Physics.CheckBox(Me.transform.TransformPoint(new Vector3(0,.7f,.5f)),Vector3.one*.05f,Me.transform.rotation))
+            if(!Physics.CheckBox(Me.transform.TransformVector(new Vector3(0,.7f,.5f)),Vector3.one*.05f,Me.transform.rotation))
             {
                 //Rig.isKinematic = true;
                 return false;

@@ -10,19 +10,22 @@ namespace Assets.Script.ActionList
 {
     class MechGrantAction :ActionScript
     {
-
+        public override void Before_move(ActionStatus actionStatus)
+        {
+            Agent.updateRotation = true;
+        }
         public override bool move(ActionStatus actionStatus)
         {
             UpdateWSAD_ToAnimator();
             Agent.SetDestination(Target.transform.position);
 
             var MyPos = Me.transform.position + Vector3.up;
-            var TargetPos = Me.transform.TransformDirection(Vector3.forward);
+            var TargetPos = Target.transform.position + Vector3.up;
             RaycastHit hit;
-            Physics.BoxCast(MyPos, Vector3.one * .1f, TargetPos, out hit, Me.transform.rotation);
+            Physics.BoxCast(MyPos, Vector3.one * .1f, TargetPos - MyPos, out hit, Me.transform.rotation);
             if (hit.rigidbody != null)
             {
-                Debug.Log(hit.transform.name);
+//                Debug.Log(hit.transform.name);
                 return false;
             }
             return true;
@@ -88,13 +91,12 @@ namespace Assets.Script.ActionList
             //遮蔽物離目標越近，移動幅度要越大，越遠角度要越開
             var step = hit.distance / Vector3.Distance(MyPos,TargetPos);
 
-            Debug.Log(step);
-
             var randDirection = 
                 SetSpreadOutPoint(Target.transform.position, hit.point,
                 //Random.Range(3, 7), Random.Range(3f*step, 5f*step)
                 //12f * step+10, 5f * step+2f
-                Random.Range(18f * step+10f, 20f * step+12f), Random.Range(1f * step +2f, 1f * step+8f)
+                //Random.Range(10f * step+10f, 13f * step+12f),
+                Random.Range(1f * step +1f, 1f * step+5f)
                 );
 
 
@@ -109,6 +111,8 @@ namespace Assets.Script.ActionList
         }
         public bool SpreadOut(ActionStatus actionStatus)
         {
+            RotateTowardSlerp(Target.transform.position, 5f);
+
             //動畫參數
             var dir = Me.transform.InverseTransformDirection(Agent.velocity.normalized);
             Animator.SetFloat("AI_ws", dir.z);
@@ -123,16 +127,13 @@ namespace Assets.Script.ActionList
             RaycastHit hit;
             Physics.BoxCast(MyPos, Vector3.one*.1f, TargetPos - MyPos, out hit, Me.transform.rotation);
 
-            if (hit.transform.CompareTag("Player") || Agent.remainingDistance < 1f)
+            if (!hit.transform.CompareTag("AI") || Agent.remainingDistance < 1f)
             {
                 //Debug.Log(hit.transform.name);
+                Agent.ResetPath();
                 return false;
             }
             return true;
-        }
-        public void After_SpreadOut(ActionStatus actionStatus)
-        {
-
         }
     }
 }
