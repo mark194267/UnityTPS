@@ -19,7 +19,7 @@ namespace Assets.Script.weapon
 
         void OnTriggerEnter(Collider collision)
         {
-            print("hit");
+            print("meleehit");
             if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponent<AvaterMain>()/*是演員*/)
             {
                 var hit = collision.gameObject;

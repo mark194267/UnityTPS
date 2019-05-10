@@ -225,14 +225,14 @@ namespace Assets.Script.weapon
                 Destroy(bullet,3f);
             }
             //後座力
-            /*
+            
             if (gameObject.CompareTag("Player"))
             {
                 cam.Vrecoil += 3f;
                 cam.Hrecoil = Random.Range(-.5f, .5f);
                 cam.FireTime = 1f;
             }
-            */
+            
             //可能是雙管之類的
             NowWeapon.BulletInMag = NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot;
             //print(gameObject.name+" 用 "+name+" 射擊! 而彈量為 "+ NowWeapon.BulletInMag);

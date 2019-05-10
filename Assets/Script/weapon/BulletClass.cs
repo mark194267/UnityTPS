@@ -17,17 +17,16 @@ namespace Assets.Script.weapon
         void Start()
         {
             var frontTransformDirection = gameObject.transform.TransformDirection(Vector3.forward);
-            gameObject.GetComponent<Rigidbody>().AddForce(frontTransformDirection.normalized*100);
+            gameObject.GetComponent<Rigidbody>().AddForce(frontTransformDirection.normalized*50,ForceMode.VelocityChange);
         }
         
         void OnTriggerEnter(Collider collision)
         {
-            //print("hit");
-            if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponent<AvaterMain>()/*是演員*/)
+            if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponentInParent<AvaterMain>()/*是演員*/)
             {
                 var hit = collision.gameObject;
                 //執行"被打中"
-                hit.GetComponent<AvaterMain>().OnHit(damage,stun);
+                hit.GetComponentInParent<AvaterMain>().OnHit(damage,stun);
                 Destroy(gameObject);
             }
         }
@@ -41,7 +40,7 @@ namespace Assets.Script.weapon
                 {
                     var rb = hit.attachedRigidbody;
                     if (rb != null)
-                        rb.AddExplosionForce(5f, transform.position, blast);
+                        rb.AddExplosionForce(5f, transform.position, blast,0,ForceMode.VelocityChange);
                 }
             }        
         }

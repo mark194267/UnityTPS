@@ -19,8 +19,8 @@ namespace Assets.Script.ActionList
             UpdateWSAD_ToAnimator();
             Agent.SetDestination(Target.transform.position);
 
-            var MyPos = Me.transform.position + Vector3.up;
-            var TargetPos = Target.transform.position + Vector3.up;
+            var MyPos = Me.transform.position;
+            var TargetPos = Target.transform.position;
             RaycastHit hit;
             Physics.BoxCast(MyPos, Vector3.one * .1f, TargetPos - MyPos, out hit, Me.transform.rotation);
             if (hit.rigidbody != null)
@@ -56,8 +56,8 @@ namespace Assets.Script.ActionList
                 Debug.Log(f / Gun.NowWeaponOrign.rof);
                 Gun.NowWeapon.rof = f/Gun.NowWeaponOrign.rof;
                 */
-                var MyPos = Me.transform.position + Vector3.up;
-                var TargetPos = Target.transform.position + Vector3.up;
+                var MyPos = Me.transform.position;
+                var TargetPos = Target.transform.position;
                 RaycastHit hit;
                 Physics.BoxCast(MyPos, Vector3.one*.1f, TargetPos - MyPos, out hit, Me.transform.rotation);
                 if (hit.transform.CompareTag("Player"))
@@ -75,8 +75,8 @@ namespace Assets.Script.ActionList
         {
             Agent.updateRotation = false;
             NowVecter = Vector3.zero;
-            var MyPos = Me.transform.position + Vector3.up;
-            var TargetPos = Target.transform.position + Vector3.up;
+            var MyPos = Me.transform.position;
+            var TargetPos = Target.transform.position;
             RaycastHit hit;
             Physics.BoxCast(MyPos, Vector3.one*.1f, TargetPos - MyPos, out hit, Me.transform.rotation);
 
@@ -122,8 +122,8 @@ namespace Assets.Script.ActionList
             Animator.SetFloat("AI_speed", Max);
 
             //散開腳本
-            var MyPos = Me.transform.position + Vector3.up;
-            var TargetPos = Target.transform.position + Vector3.up;
+            var MyPos = Me.transform.position;
+            var TargetPos = Target.transform.position;
             RaycastHit hit;
             Physics.BoxCast(MyPos, Vector3.one*.1f, TargetPos - MyPos, out hit, Me.transform.rotation);
 

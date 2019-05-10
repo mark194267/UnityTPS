@@ -113,7 +113,7 @@ namespace Assets.Script.Avater
             //忽略自己
             int layermask = LayerMask.GetMask("Player");
             layermask = ~layermask;
-            if (/*!Animator.GetBool("avater_IsParkour") &&*/ Physics.CheckBox(transform.position - Vector3.down * .1f, new Vector3(.001f, .2f, .001f), transform.rotation, layermask, QueryTriggerInteraction.Ignore))
+            if (/*!Animator.GetBool("avater_IsParkour") &&*/ Physics.CheckBox(transform.position + Vector3.down * .1f, new Vector3(.1f, .1f, .1f), transform.rotation, layermask, QueryTriggerInteraction.Ignore))
             {
                 //Debug.Log("Grounded!");  
                 //print(other.gameObject.name);              

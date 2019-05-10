@@ -20,6 +20,7 @@ namespace Assets.Script.ActionList
 
         public void Before_meleeready(ActionStatus actionStatus)
         {
+            Animator.SetBool("avater_can_jump", true);
             Gun.ChangeWeapon("Wakizashi");
         }
 
@@ -43,7 +44,6 @@ namespace Assets.Script.ActionList
             
             if (Physics.Raycast(Me.transform.position,myVec,3f))
             {
-                Debug.Log(myVec);
                 return false;
             }
             Rig.velocity = Me.transform.TransformDirection(Vector3.forward*7f);
@@ -177,6 +177,7 @@ namespace Assets.Script.ActionList
 
         public override void Before_move(ActionStatus actionStatus)
         {
+            Animator.SetBool("avater_can_jump", true);
         }
 
         public override bool move(ActionStatus actionStatus)
@@ -194,7 +195,7 @@ namespace Assets.Script.ActionList
 
         public void Before_strafe(ActionStatus actionStatus)
         {
-            Gun.ChangeWeapon("MG");
+            Gun.ChangeWeapon("AK-47");
         }
 
         public bool strafe(ActionStatus actionStatus)
@@ -209,7 +210,7 @@ namespace Assets.Script.ActionList
 
         public void Before_jump(ActionStatus actionStatus)
         {
-            //Animator.SetBool("avater_can_jump",false);
+            Animator.SetBool("avater_can_jump",false);
             //Animator.SetBool("avater_IsLanded",false);
 
             /*
@@ -390,19 +391,37 @@ namespace Assets.Script.ActionList
             return true;
         }
         public void After_falling(ActionStatus actionStatus)
-        {
-        }
-        public void Before_land(ActionStatus actionStatus)
-        {
-            //var vec_old = NowVecter; 
-            var vec = Me.transform.TransformDirection(Vector3.forward);
-            Rig.velocity = vec*10;
-            //落地檢查
-            //Debug.Log(vec);
-            //Me.GetComponent<NavMeshAgent>().enabled = true;
+        { 
         }
 
-        public bool land(ActionStatus actionStatus)
+        public void Before_softland(ActionStatus actionStatus)
+        {
+            Rig.AddRelativeForce(Vector3.forward * 7, ForceMode.VelocityChange);
+        }
+
+        public bool softland(ActionStatus actionStatus)
+        {
+            if (AvaterMain.anim_flag == 1)
+            {
+                AvaterMain.anim_flag = 0;
+                //Rig.AddForce(Vector3.up * 10f, ForceMode.Impulse);
+                Rig.AddRelativeForce(Vector3.forward * 15, ForceMode.VelocityChange);
+            }
+            return true;
+        }
+
+        public void Before_hardland(ActionStatus actionStatus)
+        {
+            //var vec_old = NowVecter; 
+            //Rig.velocity = vec*10;
+
+            var vec = Me.transform.TransformDirection(Vector3.forward);
+            vec.y = 0;
+
+            Rig.AddForce(vec * 15f,ForceMode.VelocityChange);
+        }
+
+        public bool hardland(ActionStatus actionStatus)
         {
             //Rig.velocity = Vector3.zero;
             return true;
@@ -412,7 +431,7 @@ namespace Assets.Script.ActionList
         {
             var vec = Me.transform.TransformDirection(Vector3.forward);
             vec.y = 0;
-            Rig.AddForce(vec*3000f);
+            Rig.AddForce(vec * 15f, ForceMode.VelocityChange);
         }
         public bool slide(ActionStatus actionStatus)
         {

@@ -55,24 +55,31 @@ namespace Assets.Script.Avater
 
         public void OnHit(int atk, double stun)
         {
+            print(gameObject.name + " say:i`m hit!");
+
             //先扣血
             Hp -= atk;
-            if (Hp < 1)
-            {
-                print("i`m Dead!");
-                Animator.SetTrigger("avatermain_dead");
-
-                //死了
-                Destroy(gameObject, 3f);
-            }
 
             //增加頓值
             Stun += stun;
+            if (Hp < 1)
+            {
+                print("i`m Dead!");
+                //Animator.SetTrigger("avatermain_dead");
+
+                Animator.enabled = false;
+                GetComponent<NavMeshAgent>().enabled = false;
+                GetComponent<Rigidbody>().isKinematic = false;
+                GetComponent<Gun>().NowWeapon.weapon.SetActive(false);
+                //死了
+                Destroy(gameObject, 30f);
+            }
             //如果頓值大於可以承受的頓值
-            if (Stun >= avaterStatus.Stun /* and 倒下時不會加頓值 */)
+            else if (Stun >= avaterStatus.Stun /* and 倒下時不會加頓值 */)
             {
                 //倒下並且重置頓值
                 //重置路徑禁止行動
+                print("i`m stun!");
                 GetComponent<NavMeshAgent>().ResetPath();
                 Animator.SetTrigger("avatermain_stun");
                 Stun = 0;
