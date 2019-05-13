@@ -97,33 +97,27 @@ namespace Assets.Script.Avater
             IsEndNormal = ActionScript.CustomAction(NowActionStatus);
             Animator.SetBool("avater_IsEndNormal", IsEndNormal);
             */
+            
+            //忽略自己
+            int layermask = LayerMask.GetMask("Player");
+            layermask = ~layermask;
+            if (/*!Animator.GetBool("avater_IsParkour") &&*/ Physics.Linecast(transform.position + Vector3.up*.5f, transform.position + Vector3.down * .2f, layermask, QueryTriggerInteraction.Ignore))
+            {
+                //Debug.Log("Grounded!");  
+                //print(other.gameObject.name);              
+                Animator.SetBool("avater_IsLanded", true);
+                Animator.SetBool("avater_can_parkour", false);
+            }
+            else
+            {
+                Animator.SetBool("avater_IsLanded", false);
+            }
+
             //檢查掉落速度
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {
                 Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
             }            
         }
-
-        /// <summary>
-        /// 落地檢查
-        /// </summary>
-        /// <param name="other"></param>
-        private void OnTriggerStay(Collider other)
-        {
-            //忽略自己
-            int layermask = LayerMask.GetMask("Player");
-            layermask = ~layermask;
-            if (/*!Animator.GetBool("avater_IsParkour") &&*/ Physics.CheckBox(transform.position + Vector3.down * .1f, new Vector3(.1f, .1f, .1f), transform.rotation, layermask, QueryTriggerInteraction.Ignore))
-            {
-                //Debug.Log("Grounded!");  
-                //print(other.gameObject.name);              
-                Animator.SetBool("avater_IsLanded", true);
-            }
-            else
-            {
-                Animator.SetBool("avater_IsLanded", false);
-            }
-        }
-
     }
 }

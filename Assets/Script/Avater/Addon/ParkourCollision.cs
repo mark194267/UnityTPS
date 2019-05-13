@@ -26,15 +26,11 @@ namespace Assets.Script.Avater.Addon
             {
 
             }
-            if(Animator.GetCurrentAnimatorStateInfo(0).IsTag("falling"))
-            {
-                //print(collision.gameObject.name);
-            }
             //Debug.Log("foot: "+transform.position.y+" Ground: "+collision.contacts[0].point.y);
 
         }
 
-        private void OnTriggerEnter(Collider collider) 
+        private void OnTriggerStay(Collider collider) 
         {
             //print(collider.name);
             if(collider.gameObject.tag == "wall")
@@ -44,10 +40,10 @@ namespace Assets.Script.Avater.Addon
                 //向碰撞點射出雷射
                 //triggerThing = collider;
                 //忽略掉自己
-                int layermask = LayerMask.GetMask("Player");
+                int layermask = LayerMask.GetMask("Player","AI");
                 layermask = ~layermask;
                 //忽略掉自己+觸發物件
-                if(Physics.Raycast(transform.position+Vector3.up*.5f,transform.TransformVector(Vector3.forward),out temphit,5f,layermask,QueryTriggerInteraction.Ignore))
+                if(Physics.Raycast(transform.position+Vector3.up*.5f,transform.TransformVector(Vector3.forward),out temphit,2f,layermask,QueryTriggerInteraction.Ignore))
                 {             
                     //取得法線
                     hit = temphit;

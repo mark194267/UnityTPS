@@ -271,76 +271,67 @@ namespace Assets.Script.ActionList
         /// </summary>
         /// <param name="actionStatus"></param>
         /// <returns></returns>
-        public void Before_wallrunR(ActionStatus actionStatus)
+        public void Before_wallrun(ActionStatus actionStatus)
         {
-            //Rig.useGravity = true;
-            //Rig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
+            float angle;
+            if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
+            {
+                angle = -90;
+            }
+            else
+            {
+                angle = 90;
+            }
+
             var hit = Me.GetComponent<ParkourCollision>().hit;
             //轉為世界向量
             var rot = hit.normal;
             //沿著Y軸轉90度    
-            NowVecter = Quaternion.AngleAxis(-90,Vector3.up)*rot;
+            NowVecter = Quaternion.AngleAxis(angle,Vector3.up)*rot;
 
             Rig.rotation = Quaternion.LookRotation(NowVecter);
-            //Animator.SetBool("avater_IsParkour",true);
         }
 
-        public bool wallrunR(ActionStatus actionStatus)
+        public bool wallrun(ActionStatus actionStatus)
         {
             //給定速度
             Rig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
             //轉過去
-            //var Q = Quaternion.LookRotation(NowVecter);
-            //Rig.rotation = Quaternion.Lerp(Me.transform.rotation,Q,.1f);
-            //Rig.rotation = Q;
+            float pos;
+            if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
+            {
+                pos = -.5f;
+            }
+            else
+            {
+                pos = .5f;
+            }
             
-            if(!Physics.CheckBox(Me.transform.TransformPoint(-.5f,.7f,.2f),Vector3.one*.05f,Me.transform.rotation,-1,QueryTriggerInteraction.Ignore))
+            if(!Physics.CheckBox(Me.transform.TransformPoint(pos,.7f,.2f),Vector3.one*.05f,Me.transform.rotation,-1,QueryTriggerInteraction.Ignore))
             {
                 //如果踩空牆壁...目前全面停用
-                Debug.Log("wallR");
+                Debug.Log("wall");
                 //Rig.isKinematic = true;
                 return false;
             }            
             return true;
         }
         
-        public bool After_wallrunR(ActionStatus actionStatus)
+        public bool After_wallrun(ActionStatus actionStatus)
         {
-            Rig.AddForce(Me.transform.TransformVector(Vector3.right)*3,ForceMode.VelocityChange);
-            Animator.SetBool("avater_can_parkour", false);
-            return true;
-        }
-        
-        public void Before_wallrunL(ActionStatus actionStatus)
-        {            
-            //Rig.useGravity = true;
-            //Rig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
-            var hit = Me.GetComponent<ParkourCollision>().hit;
-            //轉為世界向量
-            var rot = hit.normal;     
-            NowVecter = Quaternion.AngleAxis(90,Vector3.up)*rot;      
-            Rig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了            
-        }
-        public bool wallrunL(ActionStatus actionStatus)
-        {
-            //轉過去
-            var Q = Quaternion.LookRotation(NowVecter);
-            Rig.rotation = Quaternion.Lerp(Me.transform.rotation,Q,.1f);
-          
-            Rig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
-
-            if(!Physics.CheckBox(Me.transform.TransformVector(new Vector3(.5f,.7f,.2f)),Vector3.one*.05f,Me.transform.rotation))
+            float pos;
+            if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
             {
-                Debug.Log("wallL");
-                //Rig.isKinematic = true;
-                return false;
-            }              
-            return true;
-        }
-        public void After_wallrunL(ActionStatus actionStatus)
-        {
-            Rig.AddForce(Me.transform.TransformVector(Vector3.left) * 3, ForceMode.VelocityChange);
+                pos = 1;
+            }
+            else
+            {
+                pos = -1;
+            }
+
+            Rig.AddForce(Me.transform.TransformVector(Vector3.right*pos)*3,ForceMode.VelocityChange);
             Animator.SetBool("avater_can_parkour", false);
+            return true;
         }
         #endregion
 
@@ -418,7 +409,7 @@ namespace Assets.Script.ActionList
             var vec = Me.transform.TransformDirection(Vector3.forward);
             vec.y = 0;
 
-            Rig.AddForce(vec * 15f,ForceMode.VelocityChange);
+            Rig.AddForce(vec * 10f,ForceMode.VelocityChange);
         }
 
         public bool hardland(ActionStatus actionStatus)
