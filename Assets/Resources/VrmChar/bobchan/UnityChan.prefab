@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 452411891082691590}
   - component: {fileID: 452411891082691591}
   m_Layer: 8
-  m_Name: UnityChan 1
+  m_Name: UnityChan
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6101,13 +6101,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8118567968897924073}
-  m_LocalRotation: {x: 0.49996537, y: 0.50003463, z: 0.5791999, w: 0.40561986}
-  m_LocalPosition: {x: 0.171, y: 0.002, z: 0.095}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalRotation: {x: 0.45068637, y: 0.54486877, z: 0.5384548, w: 0.45832995}
+  m_LocalPosition: {x: 0.167, y: 0.024, z: 0.095}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children: []
   m_Father: {fileID: 1116753604841687270}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -10, y: 90, z: 90100}
+  m_LocalEulerAnglesHint: {x: -10, y: 90.00001, z: 90089.19}
 --- !u!1 &8118567969173514654
 GameObject:
   m_ObjectHideFlags: 0
