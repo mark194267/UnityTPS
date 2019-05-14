@@ -3195,7 +3195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meta: {fileID: -2070307475707515776}
+  Meta: {fileID: -5805841839916219383}
 --- !u!114 &2157577778096487827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3208,8 +3208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3869812175467a143ab9cd865752b4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: -1051708814494268214}
-  Description: {fileID: 2215315669383372044}
+  Avatar: {fileID: 7353967206188348204}
+  Description: {fileID: -411735867308646334}
 --- !u!95 &805361056284964610
 Animator:
   serializedVersion: 3
@@ -3219,7 +3219,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5779402082357251695}
   m_Enabled: 1
-  m_Avatar: {fileID: -1051708814494268214}
+  m_Avatar: {fileID: 7353967206188348204}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -6171,7 +6171,7 @@ Transform:
   m_Father: {fileID: 6537013441661604714}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2070307475707515776
+--- !u!114 &-5805841839916219383
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6197,7 +6197,406 @@ MonoBehaviour:
   OtherPermissionUrl: 
   LicenseType: 0
   OtherLicenseUrl: 
---- !u!90 &-1051708814494268214
+--- !u!114 &-411735867308646334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976e99d37c093ce4c9b249c81c2cbdd5, type: 3}
+  m_Name: AvatarDescription
+  m_EditorClassIdentifier: 
+  armStretch: 0.05
+  legStretch: 0.05
+  upperArmTwist: 0.5
+  lowerArmTwist: 0.5
+  upperLegTwist: 0.5
+  lowerLegTwist: 0.5
+  feetSpacing: 0
+  hasTranslationDoF: 0
+  human:
+  - humanBone: 0
+    boneName: J_Bip_C_Hips
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 1
+    boneName: J_Bip_L_UpperLeg
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 2
+    boneName: J_Bip_R_UpperLeg
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 3
+    boneName: J_Bip_L_LowerLeg
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 4
+    boneName: J_Bip_R_LowerLeg
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 5
+    boneName: J_Bip_L_Foot
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 6
+    boneName: J_Bip_R_Foot
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 7
+    boneName: J_Bip_C_Spine
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 8
+    boneName: J_Bip_C_Chest
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 9
+    boneName: J_Bip_C_Neck
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 10
+    boneName: J_Bip_C_Head
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 11
+    boneName: J_Bip_L_Shoulder
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 12
+    boneName: J_Bip_R_Shoulder
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 13
+    boneName: J_Bip_L_UpperArm
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 14
+    boneName: J_Bip_R_UpperArm
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 15
+    boneName: J_Bip_L_LowerArm
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 16
+    boneName: J_Bip_R_LowerArm
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 17
+    boneName: J_Bip_L_Hand
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 18
+    boneName: J_Bip_R_Hand
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 19
+    boneName: J_Bip_L_ToeBase
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 20
+    boneName: J_Bip_R_ToeBase
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 21
+    boneName: J_Adj_L_FaceEye
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 22
+    boneName: J_Adj_R_FaceEye
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 24
+    boneName: J_Bip_L_Thumb1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 25
+    boneName: J_Bip_L_Thumb2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 26
+    boneName: J_Bip_L_Thumb3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 27
+    boneName: J_Bip_L_Index1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 28
+    boneName: J_Bip_L_Index2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 29
+    boneName: J_Bip_L_Index3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 30
+    boneName: J_Bip_L_Middle1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 31
+    boneName: J_Bip_L_Middle2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 32
+    boneName: J_Bip_L_Middle3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 33
+    boneName: J_Bip_L_Ring1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 34
+    boneName: J_Bip_L_Ring2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 35
+    boneName: J_Bip_L_Ring3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 36
+    boneName: J_Bip_L_Little1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 37
+    boneName: J_Bip_L_Little2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 38
+    boneName: J_Bip_L_Little3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 39
+    boneName: J_Bip_R_Thumb1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 40
+    boneName: J_Bip_R_Thumb2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 41
+    boneName: J_Bip_R_Thumb3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 42
+    boneName: J_Bip_R_Index1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 43
+    boneName: J_Bip_R_Index2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 44
+    boneName: J_Bip_R_Index3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 45
+    boneName: J_Bip_R_Middle1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 46
+    boneName: J_Bip_R_Middle2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 47
+    boneName: J_Bip_R_Middle3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 48
+    boneName: J_Bip_R_Ring1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 49
+    boneName: J_Bip_R_Ring2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 50
+    boneName: J_Bip_R_Ring3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 51
+    boneName: J_Bip_R_Little1
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 52
+    boneName: J_Bip_R_Little2
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 53
+    boneName: J_Bip_R_Little3
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+  - humanBone: 54
+    boneName: J_Bip_C_UpperChest
+    useDefaultValues: 1
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    center: {x: 0, y: 0, z: 0}
+    axisLength: 0
+--- !u!90 &7353967206188348204
 Avatar:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7505,32 +7904,32 @@ Avatar:
               m_AxesId: 53
             m_ID: 225d62609d3199dd6c437bfc6aa7f758f98f454f5e8a346cdb80d4868d143ce82411f3c16f2a150db1bfbdb6c5b4c55ecae523ea923cbdba4a833eb531fe27b0e5cb220738a36b08e8e332d03bbc4efe4d5f36674128bc468f249158b1f21d0c27e34a42d55f236980d8b9bb4d81b4d689e62bf0b3352da49e05a2678974ebf32f75a51ad9ea7a7c70b13c50ff1165117343a317a18909d1d54300753981d8970842874761dbdfd3c52cf3fc2dbcec8c17961bc68d532e450cceaf36933c6ce6f8d5e5bb0b1f70b9da23f984fb107ad29de05c9150ae178099b2319d11274adcee45c762
             m_AxesArray:
-            - m_PreQ: {x: 0.4520641, y: 0.54372615, z: -0.45206416, w: -0.543726}
-              m_PostQ: {x: 0.4520641, y: 0.54372615, z: -0.45206416, w: -0.543726}
+            - m_PreQ: {x: 0.45206407, y: 0.54372615, z: -0.45206413, w: -0.543726}
+              m_PostQ: {x: 0.45206407, y: 0.54372615, z: -0.45206413, w: -0.543726}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: -0.6981317, y: -0.6981317, z: -0.6981317}
                 m_Max: {x: 0.6981317, y: 0.6981317, z: 0.6981317}
               m_Length: 0.053818136
               m_Type: 1
-            - m_PreQ: {x: 0.46814632, y: 0.5299426, z: -0.46814638, w: -0.5299426}
-              m_PostQ: {x: 0.46814632, y: 0.5299426, z: -0.46814638, w: -0.5299426}
+            - m_PreQ: {x: 0.46814626, y: 0.5299425, z: -0.46814632, w: -0.5299425}
+              m_PostQ: {x: 0.46814626, y: 0.5299425, z: -0.46814632, w: -0.5299425}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: -0.6981317, y: -0.6981317, z: -0.6981317}
                 m_Max: {x: 0.6981317, y: 0.6981317, z: 0.6981317}
               m_Length: 0.11486503
               m_Type: 1
-            - m_PreQ: {x: 0.5266107, y: 0.47189122, z: -0.5266106, w: -0.47189125}
-              m_PostQ: {x: 0.5266107, y: 0.47189122, z: -0.5266106, w: -0.47189125}
+            - m_PreQ: {x: 0.5266106, y: 0.47189113, z: -0.52661055, w: -0.47189116}
+              m_PostQ: {x: 0.5266106, y: 0.47189113, z: -0.52661055, w: -0.47189116}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: -0.6981317, y: -0.6981317, z: -0.6981317}
                 m_Max: {x: 0.6981317, y: 0.6981317, z: 0.6981317}
               m_Length: 0.12485049
               m_Type: 1
-            - m_PreQ: {x: 0.5656279, y: 0.42434093, z: -0.5656278, w: -0.42434096}
-              m_PostQ: {x: 0.5656279, y: 0.42434093, z: -0.5656278, w: -0.42434096}
+            - m_PreQ: {x: 0.5656278, y: 0.4243409, z: -0.5656278, w: -0.42434093}
+              m_PostQ: {x: 0.5656278, y: 0.4243409, z: -0.5656278, w: -0.42434093}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: -0.34906584, y: -0.34906584, z: -0.34906584}
@@ -7569,16 +7968,16 @@ Avatar:
                 m_Max: {x: 0, y: 0.34906584, z: 0.2617994}
               m_Length: 0.1
               m_Type: 1
-            - m_PreQ: {x: 0.030472565, y: 0.0026061204, z: 0.9958968, w: -0.085172586}
-              m_PostQ: {x: 0.030472565, y: 0.0026061204, z: 0.9958968, w: -0.085172586}
+            - m_PreQ: {x: 0.030472565, y: 0.0026061202, z: 0.9958968, w: -0.08517258}
+              m_PostQ: {x: 0.030472565, y: 0.0026061202, z: 0.9958968, w: -0.08517258}
               m_Sgn: {x: 1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: -0.2617994, z: -0.2617994}
                 m_Max: {x: 0, y: 0.2617994, z: 0.5235988}
               m_Length: 0.08773052
               m_Type: 1
-            - m_PreQ: {x: 0.24792685, y: -0.0042026765, z: 0.90223885, w: -0.35281724}
-              m_PostQ: {x: 0.004188989, y: 0.000097473516, z: 0.99972075, w: -0.023262486}
+            - m_PreQ: {x: 0.24792685, y: -0.004202677, z: 0.9022389, w: -0.35281724}
+              m_PostQ: {x: 0.0041889884, y: 0.0000974735, z: 0.99972063, w: -0.023262482}
               m_Sgn: {x: 1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: -1.5707964, y: -1.7453293, z: -1.0471976}
@@ -7586,23 +7985,23 @@ Avatar:
               m_Length: 0.21925153
               m_Type: 1
             - m_PreQ: {x: 0.47583547, y: 0.5220143, z: 0.5230495, w: -0.47697088}
-              m_PostQ: {x: 0.028342746, y: 0.7064754, z: 0.7065386, w: -0.029877841}
+              m_PostQ: {x: 0.028342742, y: 0.7064753, z: 0.70653856, w: -0.029877838}
               m_Sgn: {x: 1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: -1.5707964, y: 0, z: -1.3962634}
                 m_Max: {x: 1.5707964, y: 0, z: 1.3962634}
               m_Length: 0.21430108
               m_Type: 1
-            - m_PreQ: {x: 0.041168075, y: 0.000044876986, z: 0.99915177, w: -0.0010891672}
-              m_PostQ: {x: 0.041168075, y: 0.000044876986, z: 0.99915177, w: -0.0010891672}
+            - m_PreQ: {x: 0.041168075, y: 0.000044876986, z: 0.9991517, w: -0.0010891672}
+              m_PostQ: {x: 0.041168075, y: 0.000044876986, z: 0.9991517, w: -0.0010891672}
               m_Sgn: {x: 1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: -0.6981317, z: -1.3962634}
                 m_Max: {x: 0, y: 0.6981317, z: 1.3962634}
               m_Length: 0.05357527
               m_Type: 1
-            - m_PreQ: {x: 0.15035649, y: 0.022265384, z: 0.9456134, w: -0.28759804}
-              m_PostQ: {x: 0.07772678, y: 0.00015880089, z: 0.9969726, w: -0.00203688}
+            - m_PreQ: {x: 0.1503565, y: 0.022265386, z: 0.9456134, w: -0.28759804}
+              m_PostQ: {x: 0.07772678, y: 0.00015880087, z: 0.99697256, w: -0.00203688}
               m_Sgn: {x: -1, y: -1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: -0.34906584, z: -0.87266463}
@@ -7610,46 +8009,46 @@ Avatar:
               m_Length: 0.03322246
               m_Type: 1
             - m_PreQ: {x: 0.053205114, y: 0.018540911, z: 0.9428051, w: -0.3285486}
-              m_PostQ: {x: 0.056335397, y: 0.00093369663, z: 0.99827445, w: -0.01654529}
+              m_PostQ: {x: 0.05633539, y: 0.0009336965, z: 0.9982743, w: -0.016545288}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
                 m_Max: {x: 0, y: 0, z: 0.7853982}
               m_Length: 0.020454532
               m_Type: 1
-            - m_PreQ: {x: 0.05320511, y: 0.01854091, z: 0.94280505, w: -0.3285486}
-              m_PostQ: {x: 0.056335397, y: 0.0009336967, z: 0.99827445, w: -0.01654529}
+            - m_PreQ: {x: 0.053205114, y: 0.018540913, z: 0.9428052, w: -0.32854864}
+              m_PostQ: {x: 0.056335393, y: 0.00093369663, z: 0.9982744, w: -0.01654529}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
                 m_Max: {x: 0, y: 0, z: 0.7853982}
               m_Length: 0.011505675
               m_Type: 1
-            - m_PreQ: {x: -0.07606488, y: 0.0004349727, z: 0.953798, w: -0.29066038}
-              m_PostQ: {x: 0.0003528372, y: 0.0000015351641, z: 0.99999046, w: -0.004350872}
+            - m_PreQ: {x: -0.076064885, y: 0.0004349727, z: 0.95379806, w: -0.29066038}
+              m_PostQ: {x: 0.0003528372, y: 0.000001535164, z: 0.99999046, w: -0.004350872}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: -0.34906584, z: -0.87266463}
                 m_Max: {x: 0, y: 0.34906584, z: 0.87266463}
               m_Length: 0.031399492
               m_Type: 1
-            - m_PreQ: {x: -0.024910541, y: -0.0077045513, z: 0.9550246, w: -0.29537842}
-              m_PostQ: {x: -0.026070194, y: 0.00048993964, z: 0.99948364, w: 0.01878339}
+            - m_PreQ: {x: -0.02491054, y: -0.0077045504, z: 0.9550246, w: -0.29537842}
+              m_PostQ: {x: -0.02607019, y: 0.0004899396, z: 0.9994835, w: 0.018783389}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
                 m_Max: {x: 0, y: 0, z: 0.7853982}
               m_Length: 0.018096562
               m_Type: 1
-            - m_PreQ: {x: -0.024910541, y: -0.0077045513, z: 0.9550246, w: -0.29537842}
-              m_PostQ: {x: -0.026070194, y: 0.00048993964, z: 0.99948364, w: 0.01878339}
+            - m_PreQ: {x: -0.02491054, y: -0.0077045504, z: 0.9550246, w: -0.29537842}
+              m_PostQ: {x: -0.02607019, y: 0.0004899396, z: 0.9994835, w: 0.018783389}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
                 m_Max: {x: 0, y: 0, z: 0.7853982}
               m_Length: 0.010179317
               m_Type: 1
-            - m_PreQ: {x: 0.06962495, y: 0.009339274, z: 0.94994, w: -0.3044329}
+            - m_PreQ: {x: 0.06962495, y: 0.009339274, z: 0.94993997, w: -0.30443287}
               m_PostQ: {x: 0.032952957, y: 0.00060212665, z: 0.99929, w: -0.018259333}
               m_Sgn: {x: -1, y: -1, z: -1}
               m_Limit:
@@ -7658,7 +8057,7 @@ Avatar:
               m_Length: 0.03700574
               m_Type: 1
             - m_PreQ: {x: 0.019132787, y: 0.0074554845, z: 0.93156207, w: -0.36300233}
-              m_PostQ: {x: 0.020505425, y: 0.001084157, z: 0.9983948, w: -0.05278685}
+              m_PostQ: {x: 0.020505423, y: 0.0010841569, z: 0.99839467, w: -0.052786842}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
@@ -7673,7 +8072,7 @@ Avatar:
                 m_Max: {x: 0, y: 0, z: 0.7853982}
               m_Length: 0.012841464
               m_Type: 1
-            - m_PreQ: {x: -0.035885345, y: 0.0010400497, z: 0.95493776, w: -0.29462725}
+            - m_PreQ: {x: -0.03588534, y: 0.0010400497, z: 0.9549377, w: -0.29462722}
               m_PostQ: {x: 0.0025116643, y: 0.000019683186, z: 0.9999662, w: -0.007836445}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
@@ -7682,7 +8081,7 @@ Avatar:
               m_Length: 0.034327626
               m_Type: 1
             - m_PreQ: {x: 0.0059948247, y: 0.0018614208, z: 0.9550022, w: -0.29653257}
-              m_PostQ: {x: 0.006276185, y: -0.00011098449, z: 0.9998241, w: 0.01768032}
+              m_PostQ: {x: 0.006276184, y: -0.000110984474, z: 0.999824, w: 0.017680319}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
@@ -7690,47 +8089,47 @@ Avatar:
               m_Length: 0.019810317
               m_Type: 1
             - m_PreQ: {x: 0.005994824, y: 0.0018614207, z: 0.9550022, w: -0.29653257}
-              m_PostQ: {x: 0.0062761847, y: -0.000110984496, z: 0.9998241, w: 0.01768032}
+              m_PostQ: {x: 0.0062761838, y: -0.00011098448, z: 0.999824, w: 0.017680319}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
                 m_Max: {x: 0, y: 0, z: 0.7853982}
               m_Length: 0.0111433035
               m_Type: 1
-            - m_PreQ: {x: 0.25516075, y: 0.62820834, z: 0.58069927, w: -0.45059493}
-              m_PostQ: {x: 0.2571129, y: 0.64267313, z: 0.6587056, w: -0.294909}
+            - m_PreQ: {x: 0.25516072, y: 0.62820834, z: 0.5806992, w: -0.45059493}
+              m_PostQ: {x: 0.2571129, y: 0.6426731, z: 0.6587056, w: -0.29490897}
               m_Sgn: {x: -1, y: -1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: -0.43633232, z: -0.34906584}
                 m_Max: {x: 0, y: 0.43633232, z: 0.34906584}
               m_Length: 0.046533648
               m_Type: 1
-            - m_PreQ: {x: 0.09905882, y: 0.693924, z: 0.7001339, w: -0.13590264}
-              m_PostQ: {x: 0.23444273, y: 0.6537958, z: 0.66711074, w: -0.2693532}
+            - m_PreQ: {x: 0.099058814, y: 0.6939239, z: 0.7001338, w: -0.13590263}
+              m_PostQ: {x: 0.2344427, y: 0.6537957, z: 0.6671107, w: -0.26935318}
               m_Sgn: {x: -1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.6981317}
                 m_Max: {x: 0, y: 0, z: 0.61086524}
               m_Length: 0.028623426
               m_Type: 1
-            - m_PreQ: {x: 0.099058814, y: 0.693924, z: 0.70013386, w: -0.13590266}
-              m_PostQ: {x: 0.2344427, y: 0.6537958, z: 0.6671107, w: -0.2693532}
+            - m_PreQ: {x: 0.099058814, y: 0.6939239, z: 0.7001338, w: -0.13590263}
+              m_PostQ: {x: 0.2344427, y: 0.6537957, z: 0.6671107, w: -0.26935318}
               m_Sgn: {x: -1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.6981317}
                 m_Max: {x: 0, y: 0, z: 0.61086524}
               m_Length: 0.016100679
               m_Type: 1
-            - m_PreQ: {x: -0.0026062373, y: -0.03047237, z: -0.085176915, w: 0.99589646}
-              m_PostQ: {x: -0.0026062373, y: -0.03047237, z: -0.085176915, w: 0.99589646}
+            - m_PreQ: {x: -0.002606237, y: -0.030472366, z: -0.08517691, w: 0.99589634}
+              m_PostQ: {x: -0.002606237, y: -0.030472366, z: -0.08517691, w: 0.99589634}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: -0.2617994, z: -0.2617994}
                 m_Max: {x: 0, y: 0.2617994, z: 0.5235988}
               m_Length: 0.08773032
               m_Type: 1
-            - m_PreQ: {x: 0.0042026774, y: -0.24792631, z: -0.35281637, w: 0.9022393}
-              m_PostQ: {x: -0.00009745576, y: -0.0041883853, z: -0.023261603, w: 0.99972075}
+            - m_PreQ: {x: 0.004202677, y: -0.2479263, z: -0.35281637, w: 0.90223926}
+              m_PostQ: {x: -0.00009745575, y: -0.004188385, z: -0.023261601, w: 0.99972063}
               m_Sgn: {x: -1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: -1.5707964, y: -1.7453293, z: -1.0471976}
@@ -7738,15 +8137,15 @@ Avatar:
               m_Length: 0.21925469
               m_Type: 1
             - m_PreQ: {x: -0.52201563, y: -0.47583547, z: -0.47696942, w: 0.5230495}
-              m_PostQ: {x: -0.70647544, y: -0.028342724, z: -0.029875856, w: 0.7065386}
+              m_PostQ: {x: -0.7064754, y: -0.02834272, z: -0.029875852, w: 0.70653856}
               m_Sgn: {x: -1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: -1.5707964, y: 0, z: -1.3962634}
                 m_Max: {x: 1.5707964, y: 0, z: 1.3962634}
               m_Length: 0.21429995
               m_Type: 1
-            - m_PreQ: {x: -0.000044818218, y: -0.041166656, z: -0.0010877784, w: 0.9991518}
-              m_PostQ: {x: -0.000044818218, y: -0.041166656, z: -0.0010877784, w: 0.9991518}
+            - m_PreQ: {x: -0.000044818215, y: -0.041166652, z: -0.0010877782, w: 0.9991517}
+              m_PostQ: {x: -0.000044818215, y: -0.041166652, z: -0.0010877782, w: 0.9991517}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: -0.6981317, z: -1.3962634}
@@ -7754,23 +8153,23 @@ Avatar:
               m_Length: 0.053574987
               m_Type: 1
             - m_PreQ: {x: 0.02226504, y: 0.15035522, z: 0.2876068, w: -0.94561094}
-              m_PostQ: {x: -0.00015950634, y: -0.07772566, z: -0.0020459588, w: 0.9969728}
+              m_PostQ: {x: -0.00015950632, y: -0.07772565, z: -0.0020459585, w: 0.9969727}
               m_Sgn: {x: 1, y: -1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: -0.34906584, z: -0.87266463}
                 m_Max: {x: 0, y: 0.34906584, z: 0.87266463}
               m_Length: 0.03322203
               m_Type: 1
-            - m_PreQ: {x: 0.018538665, y: 0.053200237, z: 0.32854006, w: -0.94280845}
-              m_PostQ: {x: -0.000933091, y: -0.056330066, z: -0.01653613, w: 0.9982749}
+            - m_PreQ: {x: 0.018538665, y: 0.05320024, z: 0.32854006, w: -0.9428085}
+              m_PostQ: {x: -0.000933091, y: -0.056330062, z: -0.01653613, w: 0.9982748}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
                 m_Max: {x: 0, y: 0, z: 0.7853982}
               m_Length: 0.020454975
               m_Type: 1
-            - m_PreQ: {x: 0.018538663, y: 0.053200234, z: 0.32854006, w: -0.94280845}
-              m_PostQ: {x: -0.0009330909, y: -0.056330062, z: -0.01653613, w: 0.9982749}
+            - m_PreQ: {x: 0.018538663, y: 0.053200237, z: 0.32854006, w: -0.9428085}
+              m_PostQ: {x: -0.0009330909, y: -0.05633006, z: -0.01653613, w: 0.9982748}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
@@ -7802,7 +8201,7 @@ Avatar:
                 m_Max: {x: 0, y: 0, z: 0.7853982}
               m_Length: 0.01017957
               m_Type: 1
-            - m_PreQ: {x: 0.009339055, y: 0.06962432, z: 0.3044362, w: -0.949939}
+            - m_PreQ: {x: 0.009339055, y: 0.06962431, z: 0.3044362, w: -0.94993895}
               m_PostQ: {x: -0.00060223, y: -0.032952316, z: -0.018262826, w: 0.99928993}
               m_Sgn: {x: 1, y: -1, z: 1}
               m_Limit:
@@ -7811,7 +8210,7 @@ Avatar:
               m_Length: 0.037005212
               m_Type: 1
             - m_PreQ: {x: 0.0074551473, y: 0.019132566, z: 0.36299175, w: -0.9315662}
-              m_PostQ: {x: -0.0010839066, y: -0.020505108, z: -0.052775502, w: 0.9983954}
+              m_PostQ: {x: -0.0010839066, y: -0.020505108, z: -0.0527755, w: 0.9983953}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
@@ -7819,14 +8218,14 @@ Avatar:
               m_Length: 0.022829633
               m_Type: 1
             - m_PreQ: {x: 0.0074551473, y: 0.019132564, z: 0.36299175, w: -0.9315662}
-              m_PostQ: {x: -0.0010839066, y: -0.020505106, z: -0.05277551, w: 0.9983954}
+              m_PostQ: {x: -0.0010839066, y: -0.020505106, z: -0.052775506, w: 0.9983953}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
                 m_Max: {x: 0, y: 0, z: 0.7853982}
               m_Length: 0.01284167
               m_Type: 1
-            - m_PreQ: {x: 0.0010403787, y: -0.035885215, z: 0.29463398, w: -0.9549357}
+            - m_PreQ: {x: 0.0010403786, y: -0.03588521, z: 0.29463395, w: -0.95493567}
               m_PostQ: {x: -0.000019702024, y: -0.002511807, z: -0.007843499, w: 0.99996614}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
@@ -7835,7 +8234,7 @@ Avatar:
               m_Length: 0.034327157
               m_Type: 1
             - m_PreQ: {x: 0.001861269, y: 0.0059940126, z: 0.2965472, w: -0.9549978}
-              m_PostQ: {x: 0.00011087427, y: -0.006275365, z: 0.017665075, w: 0.99982435}
+              m_PostQ: {x: 0.00011087426, y: -0.0062753647, z: 0.017665073, w: 0.9998243}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
@@ -7843,7 +8242,7 @@ Avatar:
               m_Length: 0.019810535
               m_Type: 1
             - m_PreQ: {x: 0.0018612692, y: 0.0059940135, z: 0.2965472, w: -0.9549978}
-              m_PostQ: {x: 0.00011087428, y: -0.006275366, z: 0.017665075, w: 0.99982435}
+              m_PostQ: {x: 0.000110874265, y: -0.0062753656, z: 0.017665073, w: 0.9998243}
               m_Sgn: {x: 1, y: 1, z: 1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.7853982}
@@ -7858,15 +8257,15 @@ Avatar:
                 m_Max: {x: 0, y: 0.43633232, z: 0.34906584}
               m_Length: 0.04653382
               m_Type: 1
-            - m_PreQ: {x: 0.69393843, y: 0.09930609, z: 0.13582914, w: -0.7000989}
-              m_PostQ: {x: -0.6538243, y: -0.23467833, z: -0.26928395, w: 0.6670279}
+            - m_PreQ: {x: 0.6939384, y: 0.099306084, z: 0.13582912, w: -0.70009875}
+              m_PostQ: {x: -0.65382427, y: -0.2346783, z: -0.26928392, w: 0.66702783}
               m_Sgn: {x: 1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: 0, y: 0, z: -0.6981317}
                 m_Max: {x: 0, y: 0, z: 0.61086524}
               m_Length: 0.028623613
               m_Type: 1
-            - m_PreQ: {x: 0.69393843, y: 0.099306114, z: 0.13582914, w: -0.7000988}
+            - m_PreQ: {x: 0.6939384, y: 0.0993061, z: 0.13582912, w: -0.70009875}
               m_PostQ: {x: -0.6538243, y: -0.23467833, z: -0.26928395, w: 0.66702783}
               m_Sgn: {x: 1, y: 1, z: -1}
               m_Limit:
@@ -7882,8 +8281,8 @@ Avatar:
                 m_Max: {x: 1.0471976, y: 1.0471976, z: 0.87266463}
               m_Length: 0.35282934
               m_Type: 1
-            - m_PreQ: {x: -0.044222225, y: 0.6969058, z: -0.043133415, w: 0.7144973}
-              m_PostQ: {x: -0.49311584, y: 0.50616324, z: -0.48097488, w: 0.51894}
+            - m_PreQ: {x: -0.044222232, y: 0.6969058, z: -0.043133423, w: 0.7144974}
+              m_PostQ: {x: -0.4931158, y: 0.50616324, z: -0.48097485, w: 0.51894}
               m_Sgn: {x: 1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: -1.5707964, y: 0, z: -1.3962634}
@@ -7914,8 +8313,8 @@ Avatar:
                 m_Max: {x: 1.0471976, y: 1.0471976, z: 0.87266463}
               m_Length: 0.3528288
               m_Type: 1
-            - m_PreQ: {x: -0.043133125, y: 0.7144981, z: -0.04422196, w: 0.69690514}
-              m_PostQ: {x: -0.48097426, y: 0.51894075, z: -0.49311614, w: 0.50616294}
+            - m_PreQ: {x: -0.04313311, y: 0.71449804, z: -0.044221964, w: 0.69690514}
+              m_PostQ: {x: -0.4809742, y: 0.51894075, z: -0.49311605, w: 0.506163}
               m_Sgn: {x: -1, y: 1, z: -1}
               m_Limit:
                 m_Min: {x: -1.5707964, y: 0, z: -1.3962634}
@@ -9491,402 +9890,3 @@ Avatar:
     m_HasTranslationDoF: 0
     m_HasExtraRoot: 0
     m_SkeletonHasParents: 0
---- !u!114 &2215315669383372044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 976e99d37c093ce4c9b249c81c2cbdd5, type: 3}
-  m_Name: AvatarDescription
-  m_EditorClassIdentifier: 
-  armStretch: 0.05
-  legStretch: 0.05
-  upperArmTwist: 0.5
-  lowerArmTwist: 0.5
-  upperLegTwist: 0.5
-  lowerLegTwist: 0.5
-  feetSpacing: 0
-  hasTranslationDoF: 0
-  human:
-  - humanBone: 0
-    boneName: J_Bip_C_Hips
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 1
-    boneName: J_Bip_L_UpperLeg
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 2
-    boneName: J_Bip_R_UpperLeg
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 3
-    boneName: J_Bip_L_LowerLeg
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 4
-    boneName: J_Bip_R_LowerLeg
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 5
-    boneName: J_Bip_L_Foot
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 6
-    boneName: J_Bip_R_Foot
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 7
-    boneName: J_Bip_C_Spine
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 8
-    boneName: J_Bip_C_Chest
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 9
-    boneName: J_Bip_C_Neck
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 10
-    boneName: J_Bip_C_Head
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 11
-    boneName: J_Bip_L_Shoulder
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 12
-    boneName: J_Bip_R_Shoulder
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 13
-    boneName: J_Bip_L_UpperArm
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 14
-    boneName: J_Bip_R_UpperArm
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 15
-    boneName: J_Bip_L_LowerArm
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 16
-    boneName: J_Bip_R_LowerArm
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 17
-    boneName: J_Bip_L_Hand
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 18
-    boneName: J_Bip_R_Hand
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 19
-    boneName: J_Bip_L_ToeBase
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 20
-    boneName: J_Bip_R_ToeBase
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 21
-    boneName: J_Adj_L_FaceEye
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 22
-    boneName: J_Adj_R_FaceEye
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 24
-    boneName: J_Bip_L_Thumb1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 25
-    boneName: J_Bip_L_Thumb2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 26
-    boneName: J_Bip_L_Thumb3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 27
-    boneName: J_Bip_L_Index1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 28
-    boneName: J_Bip_L_Index2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 29
-    boneName: J_Bip_L_Index3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 30
-    boneName: J_Bip_L_Middle1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 31
-    boneName: J_Bip_L_Middle2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 32
-    boneName: J_Bip_L_Middle3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 33
-    boneName: J_Bip_L_Ring1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 34
-    boneName: J_Bip_L_Ring2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 35
-    boneName: J_Bip_L_Ring3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 36
-    boneName: J_Bip_L_Little1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 37
-    boneName: J_Bip_L_Little2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 38
-    boneName: J_Bip_L_Little3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 39
-    boneName: J_Bip_R_Thumb1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 40
-    boneName: J_Bip_R_Thumb2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 41
-    boneName: J_Bip_R_Thumb3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 42
-    boneName: J_Bip_R_Index1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 43
-    boneName: J_Bip_R_Index2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 44
-    boneName: J_Bip_R_Index3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 45
-    boneName: J_Bip_R_Middle1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 46
-    boneName: J_Bip_R_Middle2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 47
-    boneName: J_Bip_R_Middle3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 48
-    boneName: J_Bip_R_Ring1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 49
-    boneName: J_Bip_R_Ring2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 50
-    boneName: J_Bip_R_Ring3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 51
-    boneName: J_Bip_R_Little1
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 52
-    boneName: J_Bip_R_Little2
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 53
-    boneName: J_Bip_R_Little3
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0
-  - humanBone: 54
-    boneName: J_Bip_C_UpperChest
-    useDefaultValues: 1
-    min: {x: 0, y: 0, z: 0}
-    max: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    axisLength: 0

@@ -64,7 +64,7 @@ namespace Assets.Script.ActionControl
             {
                 Camera = Me.transform.Find("Camera").GetComponent<Camera>();
             }
-            aiPathManager = GameObject.Find("Vulcan").GetComponent<AIPath>();
+            //aiPathManager = GameObject.Find("Vulcan").GetComponent<AIPath>();
         }
 
         #region 自訂狀態機

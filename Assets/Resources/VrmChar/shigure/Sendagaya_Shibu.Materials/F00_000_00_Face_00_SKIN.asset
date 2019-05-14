@@ -8,13 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: F00_000_00_Face_00_SKIN
-  m_Shader: {fileID: 4800000, guid: 1a70c9898704e1a4691843883f5101af, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8c17b56f4bf084c47872edcb95237e4a, type: 3}
   m_ShaderKeywords: MTOON_OUTLINE_COLOR_FIXED MTOON_OUTLINE_WIDTH_WORLD _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -27,10 +28,6 @@ Material:
         m_Texture: {fileID: 2800000, guid: bfa725e37ccdc524bac2c5b62c5878af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _FalloffSampler:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: f1542fb4d9fe68f469f66e294ff07a26, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -40,10 +37,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ReceiveShadowTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _RimLightSampler:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -66,7 +59,6 @@ Material:
     - _Cutoff: 0.5
     - _DebugMode: 0
     - _DstBlend: 0
-    - _EdgeThickness: 1
     - _IndirectLightIntensity: 0.1
     - _LightColorAttenuation: 0
     - _OutlineColorMode: 0
@@ -80,10 +72,10 @@ Material:
     - _ShadeToony: 0
     - _ShadingGradeRate: 1
     - _SrcBlend: 1
+    - _VColBlendMode: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0.27450982, g: 0.09019608, b: 0.1254902, a: 1}
     - _ShadeColor: {r: 0.97, g: 0.81, b: 0.86, a: 1}
-    - _ShadowColor: {r: 0.8, g: 0.8, b: 1, a: 1}
