@@ -146,6 +146,8 @@ GameObject:
   - component: {fileID: 452411891082691585}
   - component: {fileID: 452411891082691590}
   - component: {fileID: 452411891082691591}
+  - component: {fileID: 1485817388}
+  - component: {fileID: 1485817389}
   m_Layer: 8
   m_Name: UnityChan
   m_TagString: Player
@@ -443,7 +445,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.7
   m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!114 &452411891082691587
 MonoBehaviour:
@@ -518,7 +520,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452411891082691588}
   serializedVersion: 2
-  m_Mass: 10
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -526,6 +528,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!195 &1485817388
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452411891082691588}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 99
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 0
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1485817389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452411891082691588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f6a66ba06af9e43afa3cccf1d3d21b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &452460475103163517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,7 +2022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 688349409424706720}
   - component: {fileID: 7665313542887465651}
-  - component: {fileID: 2967863383402837987}
+  - component: {fileID: 6466313240593697781}
   m_Layer: 0
   m_Name: J_Bip_C_Head
   m_TagString: Untagged
@@ -2040,8 +2076,8 @@ MonoBehaviour:
   - Offset: {x: -0.00022643831, y: 0.09982741, z: -0.01251079}
     Radius: 0.09829534
   m_gizmoColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!65 &2967863383402837987
-BoxCollider:
+--- !u!135 &6466313240593697781
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2051,8 +2087,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.19887346, y: 0.2337333, z: 0.20538697}
-  m_Center: {x: 0.0032566786, y: 0.08966941, z: -0.009769842}
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!1 &1832151628546421861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,7 +2979,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4696038458013300810}
-  - component: {fileID: 7231035524060758684}
+  - component: {fileID: 7711538318397508843}
   m_Layer: 0
   m_Name: J_Sec_R_UpperLeg
   m_TagString: Untagged
@@ -2965,8 +3001,8 @@ Transform:
   m_Father: {fileID: 3719988286027986777}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7231035524060758684
-BoxCollider:
+--- !u!136 &7711538318397508843
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2975,9 +3011,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.06535253, y: 0.37068337, z: 1}
-  m_Center: {x: -0.021167964, y: -0.08966938, z: 0}
+  m_Radius: 0.04122094
+  m_Height: 0.3857525
+  m_Direction: 1
+  m_Center: {x: -0.02, y: -0.0782865, z: 0}
 --- !u!1 &3084344036050736436
 GameObject:
   m_ObjectHideFlags: 0
@@ -3763,7 +3800,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8175855061544581094}
-  - component: {fileID: 3033722367355033245}
+  - component: {fileID: 5367020219569427185}
   m_Layer: 0
   m_Name: J_Sec_L_UpperLeg
   m_TagString: Untagged
@@ -3785,8 +3822,8 @@ Transform:
   m_Father: {fileID: 8601139338795760344}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3033722367355033245
-BoxCollider:
+--- !u!136 &5367020219569427185
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3795,9 +3832,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.06535256, y: 0.32503372, z: 1}
-  m_Center: {x: 0.014654778, y: -0.07662651, z: 0}
+  m_Radius: 0.044640686
+  m_Height: 0.44286746
+  m_Direction: 1
+  m_Center: {x: 0.012074072, y: 0, z: 0}
 --- !u!1 &4246351379425010523
 GameObject:
   m_ObjectHideFlags: 0
@@ -4297,7 +4335,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2431445369108736449}
-  - component: {fileID: 4420676932889021076}
+  - component: {fileID: 8042688437432227281}
   m_Layer: 0
   m_Name: J_Bip_C_Chest
   m_TagString: Untagged
@@ -4320,8 +4358,8 @@ Transform:
   m_Father: {fileID: 4039994158697262389}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4420676932889021076
-BoxCollider:
+--- !u!136 &8042688437432227281
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4330,9 +4368,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.21515658, y: 0.42937624, z: 0.13699818}
-  m_Center: {x: -0.0016283244, y: 0.017934024, z: -0.02442462}
+  m_Radius: 0.0872933
+  m_Height: 0.6581509
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5067288275885055979
 GameObject:
   m_ObjectHideFlags: 0

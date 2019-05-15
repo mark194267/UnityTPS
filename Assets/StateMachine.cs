@@ -39,12 +39,7 @@ public class StateMachine : StateMachineBehaviour
                     }
                 }
             }
-            //目前AI還是每一禎重讀一次
-            //如果是AI
-            if (AIBase != null)
-            {
-                Animator.SetTrigger("AI_" + AIBase.DistanceBasicAI(AIBase.TargetInfo.GetTargetDis(), 3, 50));
-            }
+
         }
     }
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -71,7 +66,12 @@ public class StateMachine : StateMachineBehaviour
                     action.AfterCustomAction(actionStatuse.Value);
                 }
             }
-
+            //目前AI還是每一禎重讀一次
+            //如果是AI
+            if (AIBase != null)
+            {
+                Animator.SetTrigger("AI_" + AIBase.DistanceBasicAI(AIBase.TargetInfo.GetTargetDis(), 3, 50));
+            }
         }
     }
 

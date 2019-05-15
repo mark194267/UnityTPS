@@ -23,6 +23,8 @@ namespace Assets.Script.AIGroup
         /// <returns></returns>
         public string DistanceBasicAI(float targetDis,float meleerange,float shootrange)
         {
+            Debug.Log("enter");
+
             float distance = TargetInfo.GetTargetDis();
             TargetInfo.ToTargetSight(shootrange);
             //如果在距離內，又看的到目標，衝刺攻擊也算遠距離攻擊。

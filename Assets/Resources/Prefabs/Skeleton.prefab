@@ -229,7 +229,6 @@ GameObject:
   - component: {fileID: 5269384395931091501}
   - component: {fileID: 5269384395931091500}
   - component: {fileID: 5269384395931091503}
-  - component: {fileID: 5269384395931091502}
   m_Layer: 9
   m_Name: Bip001 Spine1
   m_TagString: Untagged
@@ -279,7 +278,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.02424641, y: 0.0031752554, z: 0.00000003539026}
+  m_ConnectedAnchor: {x: -0.024246402, y: 0.003175242, z: 0.00000003539026}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -313,19 +312,6 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!65 &5269384395931091502
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384395931091498}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.024431126, y: 0.024340028, z: 0.035409287}
-  m_Center: {x: -0.012215571, y: -0.0017884318, z: -0.0000000037252903}
 --- !u!1 &5269384396104768297
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +355,6 @@ GameObject:
   - component: {fileID: 5269384396194194576}
   - component: {fileID: 5269384396194194579}
   - component: {fileID: 5269384396194194578}
-  - component: {fileID: 5269384396194194581}
   m_Layer: 9
   m_Name: Bip001 L Thigh
   m_TagString: Untagged
@@ -419,7 +404,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000014901161, y: -0.0000000018626454, z: 0.011535682}
+  m_ConnectedAnchor: {x: 0.000000013038516, y: 0.00000006332994, z: 0.011535719}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -453,20 +438,6 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!136 &5269384396194194581
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384396194194577}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.007969303
-  m_Height: 0.026564341
-  m_Direction: 0
-  m_Center: {x: -0.0132821705, y: 0, z: 0}
 --- !u!1 &5269384396246979369
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +622,6 @@ GameObject:
   - component: {fileID: 5269384396350984060}
   - component: {fileID: 5269384396350984062}
   - component: {fileID: 5269384396350984063}
-  - component: {fileID: 5269384396350984049}
   m_Layer: 9
   m_Name: Bip001 R Calf
   m_TagString: Untagged
@@ -702,7 +672,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.02656435, y: -0.000000019848812, z: 0.000000015832484}
+  m_ConnectedAnchor: {x: -0.02656435, y: 0.00000007025665, z: -0.00000004004687}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -736,20 +706,6 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!136 &5269384396350984049
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384396350984061}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.01012373
-  m_Height: 0.04049492
-  m_Direction: 0
-  m_Center: {x: -0.02024746, y: 0, z: 0}
 --- !u!1 &5269384396376572977
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +812,6 @@ GameObject:
   - component: {fileID: 5269384396567151742}
   - component: {fileID: 5269384396567151728}
   - component: {fileID: 5269384396567151729}
-  - component: {fileID: 5269384396567151731}
   m_Layer: 9
   m_Name: Bip001 L Calf
   m_TagString: Untagged
@@ -906,7 +861,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.026564341, y: -0.00000003384775, z: -0.0000000046566124}
+  m_ConnectedAnchor: {x: -0.026564347, y: -0.000000009109498, z: 0.000000006519257}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -940,20 +895,6 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!136 &5269384396567151731
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384396567151743}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.010123723
-  m_Height: 0.040494893
-  m_Direction: 0
-  m_Center: {x: -0.020247446, y: 0, z: 0}
 --- !u!1 &5269384396703667185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +967,6 @@ GameObject:
   - component: {fileID: 5269384396781601279}
   - component: {fileID: 5269384396781601265}
   - component: {fileID: 5269384396781601278}
-  - component: {fileID: 5269384396781601264}
   m_Layer: 9
   m_Name: Bip001 Neck
   m_TagString: Untagged
@@ -1078,7 +1018,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.029972015, y: -0.0023436372, z: -0.00000003142401}
+  m_ConnectedAnchor: {x: -0.029972011, y: -0.0023435997, z: -0.0000000016215226}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1112,19 +1052,6 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!135 &5269384396781601264
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384396781601276}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.1327848
-  m_Center: {x: -0.1327848, y: 0, z: 0}
 --- !u!1 &5269384396819898489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,7 +1063,6 @@ GameObject:
   - component: {fileID: 5269384396819898488}
   - component: {fileID: 5269384396819898491}
   - component: {fileID: 5269384396819898490}
-  - component: {fileID: 5269384396819898493}
   m_Layer: 9
   m_Name: Bip001 L UpperArm
   m_TagString: Untagged
@@ -1186,7 +1112,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.02443113, y: -0.003576863, z: 0.01770464}
+  m_ConnectedAnchor: {x: -0.024431122, y: -0.003576947, z: 0.01770461}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -1220,20 +1146,6 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!136 &5269384396819898493
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384396819898489}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.0059396015
-  m_Height: 0.023758406
-  m_Direction: 0
-  m_Center: {x: -0.011879203, y: 0, z: 0}
 --- !u!1 &5269384397001598395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,7 +1156,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5269384397001598394}
   - component: {fileID: 5269384397001598396}
-  - component: {fileID: 5269384397001598397}
   m_Layer: 9
   m_Name: Object02
   m_TagString: Untagged
@@ -1349,19 +1260,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.011821274, y: 0.005415788, z: -0.000000014901161}
     m_Extent: {x: 0.07841134, y: 0.01940385, z: 0.06694175}
   m_DirtyAABB: 0
---- !u!65 &5269384397001598397
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384397001598395}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1338836, y: 0.038808107, z: 0.15682271}
-  m_Center: {x: 0.00000011861576, y: -0.00541579, z: 0.078411296}
 --- !u!1 &5269384397066424334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,7 +1315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5269384397100935394}
   m_LocalRotation: {x: -0.50000036, y: 0.49999964, z: 0.49999964, w: 0.50000036}
-  m_LocalPosition: {x: -1.0587897e-24, y: 0.06659, z: 0.000000003998719}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5269384396259946500}
@@ -1548,8 +1446,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5269384397363913709}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19, y: 0, z: 5.19}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 5269384397100935397}
@@ -1587,11 +1485,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.07
-  m_Speed: 5
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1.5
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1607,7 +1505,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5269384397363913709}
   serializedVersion: 2
-  m_Mass: 20
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1766,7 +1664,6 @@ GameObject:
   - component: {fileID: 5269384397416175559}
   - component: {fileID: 5269384397416175609}
   - component: {fileID: 5269384397416175558}
-  - component: {fileID: 5269384397416175608}
   m_Layer: 9
   m_Name: Bip001 R Forearm
   m_TagString: Untagged
@@ -1816,7 +1713,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.023758398, y: -0.000000014551917, z: 0.000000013125826}
+  m_ConnectedAnchor: {x: -0.02375844, y: 0.000000069121604, z: 0.0000000018044373}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -1850,20 +1747,6 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!136 &5269384397416175608
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384397416175556}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.008215558
-  m_Height: 0.04107779
-  m_Direction: 0
-  m_Center: {x: -0.020538894, y: 0, z: 0}
 --- !u!1 &5269384397416760826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,7 +1849,6 @@ GameObject:
   - component: {fileID: 5269384397502938774}
   - component: {fileID: 5269384397502938760}
   - component: {fileID: 5269384397502938761}
-  - component: {fileID: 5269384397502938763}
   m_Layer: 9
   m_Name: Bip001 L Forearm
   m_TagString: Untagged
@@ -2016,7 +1898,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.023758406, y: 0.000000039464798, z: 0.0000000047730278}
+  m_ConnectedAnchor: {x: -0.023758398, y: -0.00000007144991, z: 0.0000000064173937}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -2050,20 +1932,6 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!136 &5269384397502938763
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384397502938775}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.008215546
-  m_Height: 0.04107773
-  m_Direction: 0
-  m_Center: {x: -0.020538865, y: 0, z: 0}
 --- !u!1 &5269384397539825130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,8 +2083,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.024246424, y: 0.024340209, z: 0.035409283}
-  m_Center: {x: -0.012123197, y: -0.00019106455, z: 0.000000070780516}
+  m_Size: {x: 0.088223524, y: 0.024340207, z: 0.035409283}
+  m_Center: {x: -0.034675505, y: -0.0001910661, z: 0.00000007068998}
 --- !u!1 &5269384397726846469
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,7 +2128,6 @@ GameObject:
   - component: {fileID: 5269384397731031392}
   - component: {fileID: 5269384397731031395}
   - component: {fileID: 5269384397731031394}
-  - component: {fileID: 5269384397731031397}
   m_Layer: 9
   m_Name: Bip001 R UpperArm
   m_TagString: Untagged
@@ -2310,7 +2177,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.024431134, y: -0.0035767548, z: -0.017704647}
+  m_ConnectedAnchor: {x: -0.024431126, y: -0.0035768163, z: -0.017704692}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -2344,20 +2211,6 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!136 &5269384397731031397
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384397731031393}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.0059395996
-  m_Height: 0.023758398
-  m_Direction: 0
-  m_Center: {x: -0.011879199, y: 0, z: 0}
 --- !u!1 &5269384397792249373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,7 +2222,6 @@ GameObject:
   - component: {fileID: 5269384397792249372}
   - component: {fileID: 5269384397792249375}
   - component: {fileID: 5269384397792249374}
-  - component: {fileID: 5269384397792249361}
   m_Layer: 9
   m_Name: Bip001 R Thigh
   m_TagString: Untagged
@@ -2419,7 +2271,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000029802322, y: -0.00000006891788, z: -0.011535713}
+  m_ConnectedAnchor: {x: -0.000000018626451, y: -0.00000006332994, z: -0.011535719}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -2453,17 +2305,3 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!136 &5269384397792249361
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5269384397792249373}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.007969306
-  m_Height: 0.02656435
-  m_Direction: 0
-  m_Center: {x: -0.013282175, y: 0, z: 0}

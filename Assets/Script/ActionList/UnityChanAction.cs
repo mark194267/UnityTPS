@@ -233,8 +233,7 @@ namespace Assets.Script.ActionList
             if (AvaterMain.anim_flag == 1)
             {
                 AvaterMain.anim_flag = 0;
-                //Rig.AddForce(Vector3.up * 10f, ForceMode.Impulse);
-                Rig.AddRelativeForce(Vector3.forward * 30+Vector3.up* 60,ForceMode.Impulse);
+                Rig.AddRelativeForce(/*Vector3.forward * 5+*/Vector3.up* 5,ForceMode.VelocityChange);
             }
             return true;
         }
@@ -322,11 +321,11 @@ namespace Assets.Script.ActionList
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
             {
-                pos = 1;
+                pos = 1.5f;
             }
             else
             {
-                pos = -1;
+                pos = -1.5f;
             }
 
             Rig.AddForce(Me.transform.TransformVector(Vector3.right*pos)*3,ForceMode.VelocityChange);

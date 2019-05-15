@@ -3195,7 +3195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ea0146224b8b4694a1925dddeb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Meta: {fileID: -5805841839916219383}
+  Meta: {fileID: 7556357329322466758}
 --- !u!114 &2157577778096487827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3208,8 +3208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3869812175467a143ab9cd865752b4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Avatar: {fileID: 7353967206188348204}
-  Description: {fileID: -411735867308646334}
+  Avatar: {fileID: -2139016480926797788}
+  Description: {fileID: -8772449957527309354}
 --- !u!95 &805361056284964610
 Animator:
   serializedVersion: 3
@@ -3219,7 +3219,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5779402082357251695}
   m_Enabled: 1
-  m_Avatar: {fileID: 7353967206188348204}
+  m_Avatar: {fileID: -2139016480926797788}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -6171,33 +6171,7 @@ Transform:
   m_Father: {fileID: 6537013441661604714}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5805841839916219383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
-  m_Name: Meta
-  m_EditorClassIdentifier: 
-  ExporterVersion: UniVRM-0.44
-  Title: 
-  Version: 
-  Author: 
-  ContactInformation: 
-  Reference: 
-  Thumbnail: {fileID: 2800000, guid: d6956c686f8b20c4398a885d4af72e62, type: 3}
-  AllowedUser: 0
-  ViolentUssage: 0
-  SexualUssage: 0
-  CommercialUssage: 0
-  OtherPermissionUrl: 
-  LicenseType: 0
-  OtherLicenseUrl: 
---- !u!114 &-411735867308646334
+--- !u!114 &-8772449957527309354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6596,7 +6570,7 @@ MonoBehaviour:
     max: {x: 0, y: 0, z: 0}
     center: {x: 0, y: 0, z: 0}
     axisLength: 0
---- !u!90 &7353967206188348204
+--- !u!90 &-2139016480926797788
 Avatar:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9890,3 +9864,29 @@ Avatar:
     m_HasTranslationDoF: 0
     m_HasExtraRoot: 0
     m_SkeletonHasParents: 0
+--- !u!114 &7556357329322466758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
+  m_Name: Meta
+  m_EditorClassIdentifier: 
+  ExporterVersion: UniVRM-0.44
+  Title: 
+  Version: 
+  Author: 
+  ContactInformation: 
+  Reference: 
+  Thumbnail: {fileID: 2800000, guid: d6956c686f8b20c4398a885d4af72e62, type: 3}
+  AllowedUser: 0
+  ViolentUssage: 0
+  SexualUssage: 0
+  CommercialUssage: 0
+  OtherPermissionUrl: 
+  LicenseType: 0
+  OtherLicenseUrl: 

@@ -39,7 +39,7 @@ namespace Assets.Script.weapon
                 foreach (Collider hit in colliders)
                 {
                     var rb = hit.attachedRigidbody;
-                    if (rb != null)
+                    if (rb != null || !rb.CompareTag("Player"))
                         rb.AddExplosionForce(5f, transform.position, blast,0,ForceMode.VelocityChange);
                 }
             }        
