@@ -19,6 +19,9 @@ namespace Assets.Script.Avater
         public AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
 
+        public GameObject _groundchecker;
+        public float GroundDistance = .2f;
+
         void Start()
         {
             avaterStatus = avaterDataLoader.LoadStatus("UnityChan");
@@ -101,7 +104,9 @@ namespace Assets.Script.Avater
             //忽略自己
             int layermask = LayerMask.GetMask("Player");
             layermask = ~layermask;
-            if (/*!Animator.GetBool("avater_IsParkour") &&*/ Physics.Linecast(transform.position + Vector3.up*.5f, transform.position + Vector3.down * .2f, layermask, QueryTriggerInteraction.Ignore))
+            if (/*!Animator.GetBool("avater_IsParkour") &&*/ /*Physics.Linecast(transform.position + Vector3.up*.5f, transform.position + Vector3.down * .2f, layermask, QueryTriggerInteraction.Ignore)*/
+                Physics.CheckSphere(_groundchecker.transform.position,GroundDistance,layermask,QueryTriggerInteraction.Ignore)
+                )
             {
                 //Debug.Log("Grounded!");  
                 //print(other.gameObject.name);              

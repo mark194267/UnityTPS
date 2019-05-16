@@ -6,13 +6,16 @@ using Assets.Script.Config;
 public class MouseOrbitImproved : MonoBehaviour {
 
 	public Transform target;
-	public float distance = 5.0f;
+    public bool IsAutoTransparent = false;
+    public bool IsAutoClose = false;
+    public float distance = 5.0f;
 	public float xSpeed = 120.0f;
 	public float ySpeed = 120.0f;
 
 	public float yMinLimit = -20f;
 	public float yMaxLimit = 80f;
 
+    public float cameraHeight = 1.3f;
 	public float distanceMin = .5f;
 	public float distanceMax = 15f;
 
@@ -63,44 +66,48 @@ public class MouseOrbitImproved : MonoBehaviour {
 
 			distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel")*5, distanceMin, distanceMax);
 
-            /*
-			RaycastHit hit;
-			if (Physics.Linecast (target.position, transform.position, out hit,1)) 
-			{
-				distance -=  hit.distance;
-			}
-            */
 
             #region 透明化
 
-            RaycastHit[] hits; // you can also use CapsuleCastAll() 
-                               // TODO: setup your layermask it improve performance and filter your hits. 
-            int layermask = LayerMask.GetMask("Player","AI");
-            hits = Physics.RaycastAll(transform.position, transform.forward, distance, ~layermask);
-            foreach (RaycastHit hit in hits)
+            if (IsAutoTransparent)
             {
-                Renderer R = hit.collider.GetComponent<Renderer>();
-                if (R == null)
+                RaycastHit[] hits; // you can also use CapsuleCastAll() 
+                                   // TODO: setup your layermask it improve performance and filter your hits. 
+                int layermask = LayerMask.GetMask("Player", "AI");
+                hits = Physics.RaycastAll(transform.position, transform.forward, distance, ~layermask);
+                foreach (RaycastHit hit in hits)
                 {
-                    continue;
+                    Renderer R = hit.collider.GetComponent<Renderer>();
+                    if (R == null)
+                    {
+                        continue;
+                    }
+                    // no renderer attached? go to next hit 
+                    // TODO: maybe implement here a check for GOs that should not be affected like the player
+                    AutoTransparent AT = R.GetComponent<AutoTransparent>();
+                    if (AT == null) // if no script is attached, attach one
+                    {
+                        AT = R.gameObject.AddComponent<AutoTransparent>();
+                        AT.TransparentMaterial = TransparentMaterial;
+                        AT.FadeInTimeout = FadeInTimeout;
+                        AT.FadeOutTimeout = FadeOutTimeout;
+                        AT.TargetTransparency = TargetTransparency;
+                    }
+                    AT.BeTransparent(); // get called every frame to reset the falloff
                 }
-                // no renderer attached? go to next hit 
-                // TODO: maybe implement here a check for GOs that should not be affected like the player
-                AutoTransparent AT = R.GetComponent<AutoTransparent>();
-                if (AT == null) // if no script is attached, attach one
-                {
-                    AT = R.gameObject.AddComponent<AutoTransparent>();
-                    AT.TransparentMaterial = TransparentMaterial;
-                    AT.FadeInTimeout = FadeInTimeout;
-                    AT.FadeOutTimeout = FadeOutTimeout;
-                    AT.TargetTransparency = TargetTransparency;
-                }
-                AT.BeTransparent(); // get called every frame to reset the falloff
             }
-
             #endregion
 
+            if (IsAutoClose)
+            {
+                RaycastHit hit;
 
+                if (Physics.Linecast(target.position, transform.position, out hit, 1))
+                {
+                    distance -= hit.distance;
+                }
+            }
+            
             Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
 			//要去的位置
 			Vector3 position = rotation * negDistance + target.position;
@@ -109,7 +116,7 @@ public class MouseOrbitImproved : MonoBehaviour {
 			//後座力為一角度，用 rot += 某個值 然後在同時更新為加算前的值
 
 			transform.rotation = rotation;
-			transform.position = position+Vector3.up*1.7f;
+			transform.position = position+Vector3.up* cameraHeight;
 		}
 
         //後座力回復

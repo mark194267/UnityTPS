@@ -185,7 +185,7 @@ namespace Assets.Script.ActionList
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, 5f);
             var endspeed = Me.transform.TransformDirection(Vector3.forward*InputManager.maxWSAD).normalized * actionStatus.f1;
-            Rig.velocity = Vector3.Lerp(Rig.velocity,endspeed,1f);
+            Rig.velocity = Vector3.Lerp(Rig.velocity,endspeed,.1f);
             return true;
         }
         public override void After_move(ActionStatus actionStatus)
@@ -421,7 +421,7 @@ namespace Assets.Script.ActionList
         {
             var vec = Me.transform.TransformDirection(Vector3.forward);
             vec.y = 0;
-            Rig.AddForce(vec * 15f, ForceMode.VelocityChange);
+            Rig.AddForce(vec * 5f, ForceMode.VelocityChange);
         }
         public bool slide(ActionStatus actionStatus)
         {
@@ -430,7 +430,7 @@ namespace Assets.Script.ActionList
                 var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
                 RotateTowardSlerp(Me.transform.position - camPos, 5f);
                 var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
-                Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, .7f);
+                Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, 5f);
             }
             return true;
         }
@@ -444,7 +444,7 @@ namespace Assets.Script.ActionList
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, 5f);
             var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
-            Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, 1f);
+            Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, .1f);
 
             return true;
         }
