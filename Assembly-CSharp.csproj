@@ -75,7 +75,6 @@
     <Compile Include="Assets\Script\ActionControl\ActionScriptBuilder.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionStatusDictionary.cs" />
     <Compile Include="Assets\Script\ActionControl\MotionStatusBuilder.cs" />
-    <Compile Include="Assets\Script\ActionList\BobChanAction.cs" />
     <Compile Include="Assets\Script\ActionList\ImpAction.cs" />
     <Compile Include="Assets\Script\ActionList\MechGrantAction.cs" />
     <Compile Include="Assets\Script\ActionList\SkeletonAction.cs" />
@@ -302,7 +301,6 @@
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_TransparentOverlay.shader" />
     <None Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\README.txt" />
     <None Include="Assets\VRM\Resources\Shaders\VRMUnlitTransparent.shader" />
-    <None Include="Assets\data\actions\BobChanAction.xml" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_SelectionPicker.shader" />
     <None Include="Assets\ProCore\ProBuilder\About\changelog.txt" />
     <None Include="Assets\ProCore\ProBuilder\Shader\DiffuseVertexColor.shader" />
@@ -342,7 +340,6 @@
     <None Include="Assets\ProCore\ProBuilder\About\Font\SIL Open Font License.txt" />
     <None Include="Assets\VRM\MToon\MToon\Resources\Shaders\MToonSM4.cginc" />
     <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eyelash_blend.shader" />
-    <None Include="Assets\data\StatusByAniName\BobChanStatusByAniName.xml" />
     <None Include="Assets\VRM\Resources\Shaders\VRMUnlitCutout.shader" />
     <None Include="Assets\ProCore\ProBuilder\About\pc_AboutEntry_ProBuilder.txt" />
     <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada.shader" />

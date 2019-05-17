@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<motion>
-  <action name="TwoHandSlideSlash" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0"></action>
-  <action name="TwoHand3Combo" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0"></action>
-  <action name="TwoHandMoveTree" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="3"></action>
-  <action name="OneHandMoveTree" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="5"></action>
-  <action name="OneHandFPSMoveTree" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="5"></action>
-</motion>

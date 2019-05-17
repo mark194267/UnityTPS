@@ -18,11 +18,9 @@ namespace Assets.Script.Avater
 
         public AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
-        public CharacterController character;
-        public float Gravity;
-        public Vector3 Velocity;
 
-        private Vector3 _velocity;
+        public GameObject _groundchecker;
+        public float GroundDistance = .2f;
 
         void Start()
         {
@@ -32,10 +30,7 @@ namespace Assets.Script.Avater
             //獲取腳色動作值
             motionStatusDir = statusBuilder.GetMotionList("UnityChan");
             //GetAnimaterParameter();
-
-            //20190517使用腳色控制器
-            character = this.GetComponent<CharacterController>();
-
+            
             //ActionScript.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
             WeaponFactory weaponFactory = new WeaponFactory();
             weaponFactory.Init();
@@ -57,28 +52,77 @@ namespace Assets.Script.Avater
             //GrabLedgePoint = transform.Find("GrabLedgePoint").transform;
             //gameObject.GetComponent<Gun>().ChangeWeapon(PlayerWeaponDictionary[0]);
         }
-        void  Update()
+        void Update()
         {
-            Animator.SetFloat("avater_yspeed", character.velocity.y);
-            Animator.SetBool("avater_IsLanded", character.isGrounded);
-            if (!character.isGrounded)
+            /*
+            //在字典內找尋該動作的數值(待廢除)
+            foreach (var actionStatuse in actionStatusDictionary.AllActionStatusDictionary)
             {
-                _velocity.y += Physics.gravity.y * Time.deltaTime;
-                character.Move(_velocity * Time.deltaTime);
-                //character.Move(new Vector3(0,Physics.gravity.y * Time.deltaTime,0)*.1f);
+                if (Animator.GetCurrentAnimatorStateInfo(0).IsTag(actionStatuse.Key))
+                {
+                    NowActionStatus = actionStatuse.Value;
+                }
+            }
+            */
+            /*
+            foreach (var motionStatus in motionStatusDir)
+            {
+                if (Animator.GetCurrentAnimatorStateInfo(0).IsName(motionStatus.Key))
+                {
+                    NowMotionStatus = motionStatus.Value;
+                }
+            }
+            */
+            /*
+            //動作變了
+            if (OldActionStatus != NowActionStatus)
+            {
+                //觸發動作結束
+                //Debug.Log(OldActionStatus.ActionName);
+                if(OldActionStatus != null)
+                    ActionScript.AfterCustomAction(OldActionStatus);
+                //觸發下個動作之前
+                ActionScript.BeforeCustomAction(NowActionStatus);
+                //撥開通用開關(可能會移除)
+                //ActionScript.SetupBeforeAction(this.name,NowActionStatus.ActionName);
+                //讀取該動作是否可進入其他動畫
+                if (NowActionStatus.ignorelist != null)
+                {
+                    foreach (var cando in NowActionStatus.ignorelist)
+                    {
+                        Animator.SetBool("avater_can_" + cando, false);
+                    }
+                }
+                //狀態更新+執行新狀態
+                OldActionStatus = NowActionStatus;
+            }
+
+            IsEndNormal = ActionScript.CustomAction(NowActionStatus);
+            Animator.SetBool("avater_IsEndNormal", IsEndNormal);
+            */
+            
+            //忽略自己
+            int layermask = LayerMask.GetMask("Player");
+            layermask = ~layermask;
+            if (/*!Animator.GetBool("avater_IsParkour") &&*/ /*Physics.Linecast(transform.position + Vector3.up*.5f, transform.position + Vector3.down * .2f, layermask, QueryTriggerInteraction.Ignore)*/
+                Physics.CheckSphere(_groundchecker.transform.position,GroundDistance,layermask,QueryTriggerInteraction.Ignore)
+                )
+            {
+                //Debug.Log("Grounded!");  
+                //print(other.gameObject.name);              
+                Animator.SetBool("avater_IsLanded", true);
+                Animator.SetBool("avater_can_parkour", false);
             }
             else
-                _velocity = Vector3.zero;
-            /*
+            {
+                Animator.SetBool("avater_IsLanded", false);
+            }
+
             //檢查掉落速度
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {
                 Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
             }            
-            */
-
-
         }
     }
-
 }

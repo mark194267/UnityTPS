@@ -34,8 +34,6 @@ namespace Assets.Script.ActionControl
         protected Rigidbody Rig;
         protected NavMeshAgent Agent;
         protected Vector3 NowVecter;
-        protected CharacterController character;
-        protected Vector3 velocity;
 
         protected InputManager InputManager;
 
@@ -49,19 +47,13 @@ namespace Assets.Script.ActionControl
         public void Init(GameObject Me)
         {
             this.Me = Me;
+            //this.Agent = this.Me.GetComponent<NavMeshAgent>();
             this.Agent = this.Me.GetComponent<NavMeshAgent>();
             this.Gun = Me.GetComponent<Gun>();
             this.Animator = Me.GetComponent<Animator>();
             this.Rig = Me.GetComponent<Rigidbody>();
             this.AvaterMain = Me.GetComponent<AvaterMain>();
             InputManager = Me.GetComponent<InputManager>();
-            this.Target = GameObject.Find("BobChan");
-
-            if (Me.GetComponent<CharacterController>())
-            {
-                this.character = Me.GetComponent<CharacterController>();
-                this.velocity = Me.GetComponent<PlayerAvater>().Velocity;
-            }
 
             if (Me.GetComponent<AIAvaterMain>())
             {
@@ -80,12 +72,15 @@ namespace Assets.Script.ActionControl
         {
             MethodInfo methodInfo;
             Type actionbaseType = GetType();
-            if (actionbaseType.GetMethod("Before_" + actionStatus.ActionName) != null)
+            if (actionbaseType.GetMethod("Before_" + actionStatus.ActionName) == null)
+            {
+                Debug.Log(actionStatus.ActionName + "has No Before");
+            }
+            else
             {
                 methodInfo = actionbaseType.GetMethod("Before_" + actionStatus.ActionName);
                 methodInfo.Invoke(this, new object[] { actionStatus }/*放入actionStatus*/);
             }
-
         }
         /// <summary>
         /// 自訂狀態機，預設的狀態機在ActionScript裡面
@@ -103,7 +98,11 @@ namespace Assets.Script.ActionControl
         {
             MethodInfo methodInfo;
             Type actionbaseType = GetType();
-            if (actionbaseType.GetMethod("After_" + actionStatus.ActionName) != null)
+            if (actionbaseType.GetMethod("After_" + actionStatus.ActionName) == null)
+            {
+                //Debug.Log(actionStatus.ActionName + "has No After");
+            }
+            else
             {
                 methodInfo = actionbaseType.GetMethod("After_" + actionStatus.ActionName);
                 methodInfo.Invoke(this, new object[] { actionStatus }/*放入actionStatus*/);
@@ -400,16 +399,6 @@ namespace Assets.Script.ActionControl
             //Rig.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
             Rig.velocity = Vector3.Lerp(Rig.velocity, dir.normalized * InputManager.maxWSAD * maxSpeed, baseSpeed);
 
-
-            var camPos = Camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
-        }
-
-        public void FPSLikeCharMovement(float maxSpeed, float rotSpeed)
-        {
-            var dir =
-                Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
-            character.SimpleMove(dir.normalized * InputManager.maxWSAD * maxSpeed);
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
             RotateTowardlerp(Me.transform.position - camPos, rotSpeed);

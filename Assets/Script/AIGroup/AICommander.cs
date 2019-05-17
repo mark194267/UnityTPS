@@ -28,7 +28,7 @@ namespace Assets.Script.AIGroup
             //初期化
             path = new NavMeshPath();
             allMyAi = GameObject.FindGameObjectsWithTag("AI");
-            target = GameObject.FindGameObjectWithTag("Player");
+            target = GameObject.Find("UnityChan");
             weaponFactory.Init();
             avaterStatus = avaterDataLoader.LoadStatus("Imp");
             foreach (GameObject ai in allMyAi)
@@ -36,10 +36,10 @@ namespace Assets.Script.AIGroup
                 var aimain = ai.gameObject.GetComponent<AIAvaterMain>();
                 aimain.avaterStatus = avaterStatus;
                 aimain.Init_Avater();
-                aimain.IsAwake = IsAwake;
+                aimain.IsAwake = true;
                 aimain.targetInfo = new TargetInfo() { Me = ai, Target = target };
                 aimain.stateMachine.AIBase = aiConstructer.GetAI(aimain.targetInfo);
-                Debug.Log(aimain.targetInfo.Target.name);
+                //Debug.Log(aimain.stateMachine.AIBase);
             }
         }
 

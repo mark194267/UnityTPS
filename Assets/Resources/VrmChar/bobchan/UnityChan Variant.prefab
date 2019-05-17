@@ -24,30 +24,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4598341221140783316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2437398330738779537}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &471728848
-CharacterController:
+--- !u!136 &781191815
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5114548669204089236}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0ac6ca62f5633d547a54051b379086cf, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.8
   m_Radius: 0.2
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1001 &4665110040372235664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58,22 +54,22 @@ PrefabInstance:
     - target: {fileID: 452411891082691588, guid: 14def70fbb5cac549a05c277f0369d4e,
         type: 3}
       propertyPath: m_Name
-      value: BobChan
+      value: UnityChan
       objectReference: {fileID: 0}
     - target: {fileID: 7020737999171119105, guid: 14def70fbb5cac549a05c277f0369d4e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.3032763
+      value: -1.155373
       objectReference: {fileID: 0}
     - target: {fileID: 7020737999171119105, guid: 14def70fbb5cac549a05c277f0369d4e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 1.0934663
       objectReference: {fileID: 0}
     - target: {fileID: 7020737999171119105, guid: 14def70fbb5cac549a05c277f0369d4e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5671999
+      value: 0.308359
       objectReference: {fileID: 0}
     - target: {fileID: 7020737999171119105, guid: 14def70fbb5cac549a05c277f0369d4e,
         type: 3}
@@ -120,9 +116,11 @@ PrefabInstance:
       propertyPath: _groundchecker
       value: 
       objectReference: {fileID: 4598341221140783316}
-    m_RemovedComponents:
-    - {fileID: 1485817389, guid: 14def70fbb5cac549a05c277f0369d4e, type: 3}
-    - {fileID: 1485817388, guid: 14def70fbb5cac549a05c277f0369d4e, type: 3}
+    - target: {fileID: 1485817389, guid: 14def70fbb5cac549a05c277f0369d4e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14def70fbb5cac549a05c277f0369d4e, type: 3}
 --- !u!1 &5114548669204089236 stripped
 GameObject:

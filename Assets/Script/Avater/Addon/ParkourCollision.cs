@@ -32,7 +32,7 @@ namespace Assets.Script.Avater.Addon
 
         private void OnTriggerStay(Collider collider) 
         {
-            //print(collider.gameObject.tag);
+            //print(collider.name);
             if(collider.gameObject.tag == "wall")
             {
                 RaycastHit temphit;
