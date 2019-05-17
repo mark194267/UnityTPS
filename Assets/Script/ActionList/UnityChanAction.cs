@@ -26,7 +26,7 @@ namespace Assets.Script.ActionList
 
         public bool meleeready(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(5f, 10f);
+            //FPSLikeRigMovement(5f, 10f);
 
             //FPSLikeRigMovement(5f/*AvaterMain.MotionStatus.motionSpd*/, 10f);
             return true;
@@ -46,7 +46,7 @@ namespace Assets.Script.ActionList
             {
                 return false;
             }
-            Rig.velocity = Me.transform.TransformDirection(Vector3.forward*7f);
+            //Rig.velocity = Me.transform.TransformDirection(Vector3.forward*7f);
             return true;
         }
 
@@ -57,8 +57,8 @@ namespace Assets.Script.ActionList
 
         public override void Before_slash(ActionStatus actionStatus)
         {
-            Rig.velocity = NowVecter;
-            Rig.velocity += Me.transform.TransformDirection(Vector3.up * 5f);
+            //Rig.velocity = NowVecter;
+            //Rig.velocity += Me.transform.TransformDirection(Vector3.up * 5f);
 
         }
 
@@ -75,7 +75,7 @@ namespace Assets.Script.ActionList
 
         public void Before_slash1(ActionStatus actionStatus)
         {
-            Rig.velocity = Vector3.zero;
+            //Rig.velocity = Vector3.zero;
         }
 
         public bool slash1(ActionStatus actionStatus)
@@ -91,7 +91,7 @@ namespace Assets.Script.ActionList
         {
             var vec = Me.transform.TransformDirection(Vector3.forward * 7f);
             vec.y = 0;
-            Rig.velocity = vec;
+            //Rig.velocity = vec;
         }
 
         public bool slash2(ActionStatus actionStatus)
@@ -107,7 +107,7 @@ namespace Assets.Script.ActionList
         {
             var vec = Me.transform.TransformDirection(Vector3.forward * 10f);
             vec.y = 0;
-            Rig.velocity = vec;
+            //Rig.velocity = vec;
         }
 
         public bool slash3(ActionStatus actionStatus)
@@ -155,7 +155,7 @@ namespace Assets.Script.ActionList
             //如果直接按下就會往前
             if (ws * ws + ad * ad <= 0) ws = -1;
             var vec = Me.transform.TransformDirection(new Vector3(ad, 0, ws));
-            Rig.velocity = Vector3.ClampMagnitude(vec * 15, 10f);
+            //Rig.velocity = Vector3.ClampMagnitude(vec * 15, 10f);
         }
 
         public bool meleeDodge(ActionStatus actionStatus)
@@ -184,13 +184,14 @@ namespace Assets.Script.ActionList
         {
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, 5f);
-            var endspeed = Me.transform.TransformDirection(Vector3.forward*InputManager.maxWSAD).normalized * actionStatus.f1;
-            Rig.velocity = Vector3.Lerp(Rig.velocity,endspeed,.1f);
+            var endspeed = Me.transform.TransformDirection(Vector3.forward*InputManager.maxWSAD).normalized;
+            
+            character.SimpleMove(endspeed* actionStatus.f1);
             return true;
         }
         public override void After_move(ActionStatus actionStatus)
         {
-            NowVecter = Rig.velocity;
+            NowVecter = character.velocity;
         }
 
         public void Before_strafe(ActionStatus actionStatus)
@@ -200,7 +201,7 @@ namespace Assets.Script.ActionList
 
         public bool strafe(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(3f,10f);
+            FPSLikeCharMovement(3f,10f);
             if(Input.GetButton("Fire1"))
             {
                 return Gun.fire();
@@ -210,60 +211,25 @@ namespace Assets.Script.ActionList
 
         public void Before_jump(ActionStatus actionStatus)
         {
+            NowVecter.y = Mathf.Sqrt(actionStatus.f1 * -2f * Physics.gravity.y);
             Animator.SetBool("avater_can_jump",false);
-            //Animator.SetBool("avater_IsLanded",false);
-
-            /*
-            var ws = Animator.GetFloat("input_ws");
-            var ad = Animator.GetFloat("input_ad");
-            var camPos = Camera.transform.TransformDirection(new Vector3(ad, 0, ws));
-            RotateTowardlerp(Me.transform.position + camPos, 100f);
-            //Rig.AddForce(Me.transform.TransformDirection(Vector3.forward * 3f), ForceMode.Impulse);
-            Rig.AddForce(Vector3.up * 7f,ForceMode.Impulse);
-            */
-            //Rig.AddRelativeForce(Vector3.forward * 5f);
-
         }
         public bool jump(ActionStatus actionStatus)
         {
             //應該適用AddForce故不能用FpsLike，或是只更新他的x,z軸
-            //FPSLikeRigMovement(.2f,.1f);
-            
-            //Rig.velocity = NowVecter*10;
+            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+            RotateTowardSlerp(Me.transform.position - camPos, 5f);
+            var endspeed = Me.transform.TransformDirection(Vector3.forward).normalized*actionStatus.f2;
             if (AvaterMain.anim_flag == 1)
             {
-                AvaterMain.anim_flag = 0;
-                Rig.AddRelativeForce(/*Vector3.forward * 5+*/Vector3.up* 5,ForceMode.VelocityChange);
+                NowVecter.y += Physics.gravity.y * Time.deltaTime;
+                character.Move(new Vector3(endspeed.x, NowVecter.y, endspeed.z)*Time.deltaTime);                
             }
+            else
+                character.SimpleMove(new Vector3(endspeed.x, 0, endspeed.z));
+
             return true;
         }
-        public void After_jump(ActionStatus actionStatus)
-        {
-            //NowVecter = Rig.velocity;
-        }
-
-        public void Before_dodge(ActionStatus actionStatus)
-        {
-            var col = Me.GetComponent<Collider>();
-            col.enabled = false;
-        }
-
-        public bool After_dodge(ActionStatus actionStatus)
-        {
-            var col = Me.GetComponent<Collider>();
-            col.enabled = true;
-            return true;
-        }
-        public bool magnet_melee(ActionStatus actionStatus)
-        {
-            //參考:https://blog.csdn.net/u013700908/article/details/52888792
-            //球體碰撞器來返回目標，夾角小於X時就會自動追尾
-            float range = 10f;
-            Collider[] colliders = Physics.OverlapSphere(Me.transform.position,range,-1/*LayerMask*/);
-            Debug.Log(colliders[0].name);//找到物件
-            return true;
-        }
-
         #region 跑牆
         /// <summary>
         /// 2019-01-18新增
@@ -288,13 +254,15 @@ namespace Assets.Script.ActionList
             //沿著Y軸轉90度    
             NowVecter = Quaternion.AngleAxis(angle,Vector3.up)*rot;
 
-            Rig.rotation = Quaternion.LookRotation(NowVecter);
+            Me.transform.rotation = Quaternion.LookRotation(NowVecter);
         }
 
         public bool wallrun(ActionStatus actionStatus)
         {
             //給定速度
-            Rig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
+            character.Move((NowVecter.normalized * 50 + Vector3.up * 20)*Time.deltaTime);//NowVector已經是正規化的向量了
+
+            //Rig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
             //轉過去
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
@@ -334,94 +302,33 @@ namespace Assets.Script.ActionList
         }
         #endregion
 
-        public void Before_tranglejump(ActionStatus actionStatus)
-        {
-            //Rig.useGravity = true;
-            //Rig.isKinematic = true;勿打開!!打開後Rigibody的任何動量相關皆會失效
-            //Animator.SetBool("avater_can_jump",true);
-            var hit = Me.GetComponent<ParkourCollision>().hit;
-            var q = Quaternion.AngleAxis(180,Vector3.up)*hit.normal;
-            //轉為世界向量
-            NowVecter = q;
-            //沿著Y軸轉90度    
-            //Rig.velocity = NowVecter*2+Vector3.up*10;//NowVector已經是正規化的向量了 
-        }
-
-        public bool tranglejump(ActionStatus actionStatus)
-        {
-            Rig.velocity = Vector3.up*3;//NowVector已經是正規化的向量了
-
-            if(!Physics.CheckBox(Me.transform.TransformVector(new Vector3(0,.7f,.5f)),Vector3.one*.05f,Me.transform.rotation))
-            {
-                //Rig.isKinematic = true;
-                return false;
-            }       
-            return true;
-        }
-        
-        public bool PanicMelee(ActionStatus actionStatus)
-        {
-
-            return true;
-        }
-        public void Before_falling(ActionStatus actionStatus)
-        {
-            //Rig.velocity = NowVecter;
-        }
         public bool falling(ActionStatus actionStatus)
         {
-            /*
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, 5f);
-            var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
-            var NoneYspeed = Vector3.Lerp(Rig.velocity, endspeed, .7f);
-            NoneYspeed.y = 0;
-            Rig.velocity = NoneYspeed+Vector3.down * 9.8f;
-            */
+            var endspeed = Me.transform.TransformDirection(Vector3.forward).normalized;
+            character.SimpleMove(endspeed * actionStatus.f1*Time.deltaTime);
             return true;
         }
         public void After_falling(ActionStatus actionStatus)
         { 
         }
-
-        public void Before_softland(ActionStatus actionStatus)
-        {
-            Rig.AddRelativeForce(Vector3.forward * 7, ForceMode.VelocityChange);
-        }
-
-        public bool softland(ActionStatus actionStatus)
-        {
-            if (AvaterMain.anim_flag == 1)
-            {
-                AvaterMain.anim_flag = 0;
-                //Rig.AddForce(Vector3.up * 10f, ForceMode.Impulse);
-                Rig.AddRelativeForce(Vector3.forward * 15, ForceMode.VelocityChange);
-            }
-            return true;
-        }
-
         public void Before_hardland(ActionStatus actionStatus)
         {
-            //var vec_old = NowVecter; 
-            //Rig.velocity = vec*10;
-
-            var vec = Me.transform.TransformDirection(Vector3.forward);
-            vec.y = 0;
-
-            Rig.AddForce(vec * 10f,ForceMode.VelocityChange);
         }
 
         public bool hardland(ActionStatus actionStatus)
         {
-            //Rig.velocity = Vector3.zero;
+            var vec = Me.transform.TransformDirection(Vector3.forward);
+            
+            character.SimpleMove(vec*actionStatus.f1);
             return true;
         }
 
         public void Before_slide(ActionStatus actionStatus)
         {
-            var vec = Me.transform.TransformDirection(Vector3.forward);
-            vec.y = 0;
-            Rig.AddForce(vec * 5f, ForceMode.VelocityChange);
+
+            //Rig.AddForce(vec * 5f, ForceMode.VelocityChange);
         }
         public bool slide(ActionStatus actionStatus)
         {
@@ -429,8 +336,14 @@ namespace Assets.Script.ActionList
             {
                 var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
                 RotateTowardSlerp(Me.transform.position - camPos, 5f);
-                var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
-                Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, 5f);
+                var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized;
+
+                character.SimpleMove(endspeed * actionStatus.f1);
+            }
+            else
+            {
+                var vec = Me.transform.TransformDirection(Vector3.forward);
+                character.SimpleMove(vec * 7f);
             }
             return true;
         }
@@ -443,9 +356,9 @@ namespace Assets.Script.ActionList
         {
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, 5f);
-            var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
-            Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, .1f);
+            var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized;
 
+            character.SimpleMove(endspeed * actionStatus.f1);
             return true;
         }
         public void After_reload(ActionStatus actionStatus)
