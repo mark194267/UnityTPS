@@ -14,7 +14,7 @@ namespace Assets.Script.Avater
     public class AIAvaterMain:AvaterMain
     {
         public AIBase AIBase;
-        public TargetInfo targetInfo { get; set; }
+        public TargetInfo targetInfo;
         //public Vector3 formationPoint;
         public Collider HotThing;
 

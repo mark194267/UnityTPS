@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 7685583300166414254}
   - component: {fileID: 1936805787066985751}
   - component: {fileID: 5081588360795579394}
-  - component: {fileID: 452411891082691586}
   - component: {fileID: 452411891082691587}
   - component: {fileID: 452411891082691584}
   - component: {fileID: 452411891082691585}
@@ -148,6 +147,7 @@ GameObject:
   - component: {fileID: 452411891082691591}
   - component: {fileID: 1485817388}
   - component: {fileID: 1485817389}
+  - component: {fileID: 452411891082691586}
   m_Layer: 8
   m_Name: UnityChan
   m_TagString: Player
@@ -434,19 +434,6 @@ MonoBehaviour:
       m_RotationOrder: 4
     CurveXRangeDegree: 90
     CurveYRangeDegree: 10
---- !u!135 &452411891082691586
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 452411891082691588}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.7
-  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!114 &452411891082691587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +462,10 @@ MonoBehaviour:
   ActionElapsedTime: 0
   IsEndNormal: 1
   anim_flag: 0
+  _groundchecker: {fileID: 0}
+  character: {fileID: 0}
+  GroundDistance: 0.2
+  _velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &452411891082691585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,6 +553,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f6a66ba06af9e43afa3cccf1d3d21b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &452411891082691586
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452411891082691588}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1 &452460475103163517
 GameObject:
   m_ObjectHideFlags: 0
@@ -6275,11 +6279,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 7020737999171119105}
+  IsAutoTransparent: 0
+  IsAutoClose: 0
   distance: 2
   xSpeed: 120
   ySpeed: 120
   yMinLimit: -20
   yMaxLimit: 80
+  cameraHeight: 1.3
   distanceMin: 2
   distanceMax: 3
   Vrecoil: 0
