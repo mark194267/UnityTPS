@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 334, y: 272}
   m_MaxSize: {x: 14004, y: 10022}
   vertical: 0
-  controlID: 126
+  controlID: 89
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_MinSize: {x: 681, y: 494}
   m_MaxSize: {x: 18004, y: 14044}
   vertical: 0
-  controlID: 180
+  controlID: 63
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 494}
   m_MaxSize: {x: 14004, y: 14044}
   vertical: 1
-  controlID: 125
+  controlID: 64
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -553,19 +553,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Chara/UnityChan/CustomAnimation
+    - Assets/Script/Avater
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Chara/UnityChan/CustomAnimation
+  - Assets/Script/Avater
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\GitHub\WebApplication2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 212}
-    m_SelectedIDs: a83f0000
-    m_LastClickedID: 16296
+    scrollPos: {x: 0, y: 1060}
+    m_SelectedIDs: 284a0000
+    m_LastClickedID: 18984
     m_ExpandedIDs: 000000006e2f0000da3300000c350000983500000c3600002a3c0000483e00003c440000024700002c4a0000664d00000c500000485400005a550000e4550000ac5c0000625d000098640000806900007e6c0000b66c00005287000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -646,7 +646,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 280}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_DirectoriesAreaWidth: 233
 --- !u!114 &17
@@ -681,7 +681,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewResizer:
-    m_CachedPref: 225
+    m_CachedPref: -225
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
@@ -714,23 +714,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
+      m_SelectedIDs: 6c6e0000
+      m_LastClickedID: 28268
       m_ExpandedIDs: 8efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: UnityChan
+        m_OriginalName: UnityChan
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 28268
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 6}
       m_SearchString: 
@@ -776,9 +776,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -3.7994394, y: 0.60297847, z: 11.514723}
+    m_Target: {x: 3.53, y: 1.943426, z: 10.43}
     speed: 2
-    m_Value: {x: -3.7994394, y: 0.60297847, z: 11.514723}
+    m_Value: {x: 3.53, y: 1.943426, z: 10.43}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -807,13 +807,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.16999488, y: 0.70911777, z: -0.1828063, w: -0.65942395}
+    m_Target: {x: -0.08621945, y: 0.8374335, z: -0.13841191, w: -0.5216543}
     speed: 2
-    m_Value: {x: -0.16999452, y: 0.7091162, z: -0.18280591, w: -0.6594225}
+    m_Value: {x: -0.08621903, y: 0.8374294, z: -0.13841124, w: -0.52165174}
   m_Size:
-    m_Target: 7.031256
+    m_Target: 7.9743323
     speed: 2
-    m_Value: 7.031256
+    m_Value: 7.9743323
   m_Ortho:
     m_Target: 1
     speed: 2

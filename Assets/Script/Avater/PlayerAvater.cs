@@ -59,24 +59,10 @@ namespace Assets.Script.Avater
         }
         void  Update()
         {
-            /*
-            Animator.SetFloat("avater_yspeed", character.velocity.y);
-            if (!character.isGrounded)
-            {
-                _velocity.y += Physics.gravity.y * Time.deltaTime;
-                character.Move(_velocity * Time.deltaTime);
-                //character.Move(new Vector3(0,Physics.gravity.y * Time.deltaTime,0)*.1f);
-            }
-            else
-                _velocity = Vector3.zero;
-            */
-            /*
-            //檢查掉落速度
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {
                 Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
-            }            
-            */
+            } 
             int layer = LayerMask.GetMask("Player");
             layer = ~layer;
             if(Physics.CheckSphere(GroundCheck.transform.position,CheckRadius,layer,QueryTriggerInteraction.Ignore))

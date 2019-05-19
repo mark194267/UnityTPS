@@ -222,8 +222,8 @@ namespace Assets.Script.ActionList
             //初始速度
             var fwd = new Vector3(NowVecter.x,0,NowVecter.z)*.7f;
             //取出初始速度的長度
-            var lenght = new Vector3(NowVecter.x,0,NowVecter.z).magnitude*.7f;
-
+            var lenght = new Vector3(NowVecter.x,0,NowVecter.z).magnitude;
+            
             if (AvaterMain.anim_flag == 1)
             {
                 _timer += Time.deltaTime;
@@ -396,6 +396,8 @@ namespace Assets.Script.ActionList
                 Rig.velocity = Me.transform.TransformVector(Vector3.forward*5);
                 //Rig.AddRelativeForce(Vector3.forward * 15, ForceMode.VelocityChange);
             }
+            else
+                Rig.velocity = Me.transform.TransformVector(Vector3.forward*1);
             return true;
         }
 

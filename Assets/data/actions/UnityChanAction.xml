@@ -10,7 +10,7 @@
 		<ignore list = "dodge,jump"/>
 	</move>
 	<move name = "move">
-		<f1 value = "7"/>
+		<f1 value = "5"/>
 		<f2 value = "0"/>
 		<f3 value = "0"/>
 		<f4 value = "0"/>
