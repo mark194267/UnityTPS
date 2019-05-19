@@ -106,8 +106,8 @@
     <ignore list = "0"/>
   </close>
 	<long name = "jump">
-		<f1 value = "0"/>
-		<f2 value = "0"/>
+		<f1 value = "10"/>
+		<f2 value = "5"/>
 		<f3 value = "6"/>
 		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>

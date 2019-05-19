@@ -98,9 +98,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.17722787
   m_TransitionOffset: 0
-  m_ExitTime: 0.73214287
+  m_ExitTime: 0
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -901,7 +901,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5353732087488379092}
   m_Solo: 0
-  m_Mute: 1
+  m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0.14144182
@@ -1808,7 +1808,7 @@ AnimatorStateTransition:
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102426663578064620}
   m_Solo: 0
-  m_Mute: 0
+  m_Mute: 1
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0.04382747
@@ -2299,8 +2299,8 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.2834264
-  m_TransitionOffset: 0.18364967
+  m_TransitionDuration: 0.1868918
+  m_TransitionOffset: 0.00530414
   m_ExitTime: 0.70796317
   m_HasExitTime: 0
   m_HasFixedDuration: 1
@@ -2859,7 +2859,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: jump
-  m_Speed: 1
+  m_Speed: 1.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101597450579425186}
@@ -3208,7 +3208,7 @@ AnimatorStateMachine:
     m_Position: {x: 210, y: -230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102401261457702500}
-    m_Position: {x: -390, y: 90, z: 0}
+    m_Position: {x: -380, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102266637317210894}
     m_Position: {x: 790, y: 10, z: 0}
@@ -3217,10 +3217,10 @@ AnimatorStateMachine:
     m_Position: {x: 950, y: 180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5794415428251966339}
-    m_Position: {x: 310, y: 490, z: 0}
+    m_Position: {x: 410, y: 560, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 226109846088415078}
-    m_Position: {x: -390, y: -40, z: 0}
+    m_Position: {x: -380, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5353732087488379092}
     m_Position: {x: 450, y: 310, z: 0}

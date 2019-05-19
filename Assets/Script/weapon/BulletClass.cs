@@ -42,7 +42,7 @@ namespace Assets.Script.weapon
                     if (rb != null || !rb.CompareTag("Player"))
                         rb.AddExplosionForce(5f, transform.position, blast,0,ForceMode.VelocityChange);
                 }
-            }        
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ ModelImporter:
       1.079247 mm\n\t'Character1_RightHand' : position error = 1.337685 mm\nCopied
       Avatar Rig Configuration mis-match. Inbetween bone rotation in copied configuration
       does not match rotation in animation file:\n\t'Character1_LeftShoulder' : rotation
-      error = 9.106750 deg\n\t'Character1_RightShoulder' : rotation error = 17.286535
+      error = 9.106750 deg\n\t'Character1_RightShoulder' : rotation error = 17.286537
       deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'mixamo.com' has import animation warnings that
@@ -63,9 +63,9 @@ ModelImporter:
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 0
+      keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
-      heightFromFeet: 1
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

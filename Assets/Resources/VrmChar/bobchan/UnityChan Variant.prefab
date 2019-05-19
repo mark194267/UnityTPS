@@ -43,7 +43,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1.8
   m_Radius: 0.2
-  m_SlopeLimit: 45
+  m_SlopeLimit: 15
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -58,7 +58,7 @@ PrefabInstance:
     - target: {fileID: 452411891082691588, guid: 14def70fbb5cac549a05c277f0369d4e,
         type: 3}
       propertyPath: m_Name
-      value: BobChan
+      value: UnityChan Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7020737999171119105, guid: 14def70fbb5cac549a05c277f0369d4e,
         type: 3}
@@ -120,6 +120,16 @@ PrefabInstance:
       propertyPath: _groundchecker
       value: 
       objectReference: {fileID: 4598341221140783316}
+    - target: {fileID: 452411891082691591, guid: 14def70fbb5cac549a05c277f0369d4e,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 452411891082691591, guid: 14def70fbb5cac549a05c277f0369d4e,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1485817389, guid: 14def70fbb5cac549a05c277f0369d4e, type: 3}
     - {fileID: 1485817388, guid: 14def70fbb5cac549a05c277f0369d4e, type: 3}

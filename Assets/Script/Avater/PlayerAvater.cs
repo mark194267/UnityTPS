@@ -19,9 +19,9 @@ namespace Assets.Script.Avater
         public AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
         public CharacterController character;
-        public float Gravity;
         public Vector3 Velocity;
-
+        public GameObject GroundCheck;
+        public float CheckRadius;
         private Vector3 _velocity;
 
         void Start()
@@ -59,8 +59,8 @@ namespace Assets.Script.Avater
         }
         void  Update()
         {
+            /*
             Animator.SetFloat("avater_yspeed", character.velocity.y);
-            Animator.SetBool("avater_IsLanded", character.isGrounded);
             if (!character.isGrounded)
             {
                 _velocity.y += Physics.gravity.y * Time.deltaTime;
@@ -69,6 +69,7 @@ namespace Assets.Script.Avater
             }
             else
                 _velocity = Vector3.zero;
+            */
             /*
             //檢查掉落速度
             if (GetComponent<Rigidbody>().velocity.y != 0)
@@ -76,9 +77,15 @@ namespace Assets.Script.Avater
                 Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
             }            
             */
-
+            int layer = LayerMask.GetMask("Player");
+            layer = ~layer;
+            if(Physics.CheckSphere(GroundCheck.transform.position,CheckRadius,layer,QueryTriggerInteraction.Ignore))
+            {
+                Animator.SetBool("avater_IsLanded", true);
+            }
+            else
+                Animator.SetBool("avater_IsLanded", false);
 
         }
     }
-
 }
