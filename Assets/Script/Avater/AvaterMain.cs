@@ -80,7 +80,8 @@ namespace Assets.Script.Avater
                 //倒下並且重置頓值
                 //重置路徑禁止行動
                 print("i`m stun!");
-                GetComponent<NavMeshAgent>().ResetPath();
+                if(GetComponent<NavMeshAgent>() != null)
+                    GetComponent<NavMeshAgent>().ResetPath();
                 Animator.SetTrigger("avatermain_stun");
                 Stun = 0;
             }

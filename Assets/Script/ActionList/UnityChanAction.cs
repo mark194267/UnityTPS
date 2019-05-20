@@ -57,20 +57,16 @@ namespace Assets.Script.ActionList
             NowVecter = Rig.velocity;
         }
 
-        public override void Before_slash(ActionStatus actionStatus)
+        public bool kick(ActionStatus actionStatus)
         {
-            Rig.velocity = NowVecter;
-            Rig.velocity += Me.transform.TransformDirection(Vector3.up * 5f);
-
-        }
-
-        public override bool slash(ActionStatus actionStatus)
-        {
-            //Debug.Log("lal111");
-            
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
 
+            if (AvaterMain.anim_flag == 2)
+            {
+                Rig.velocity = NowVecter;
+                Rig.velocity += Me.transform.TransformDirection(Vector3.forward * 2f);
+            }
             Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
         }
@@ -209,7 +205,7 @@ namespace Assets.Script.ActionList
             }
             return true;
         }
-
+        #region jump
         public void Before_jump(ActionStatus actionStatus)
         {
             Animator.SetBool("avater_can_jump",false);
@@ -217,17 +213,13 @@ namespace Assets.Script.ActionList
         }
         public bool jump(ActionStatus actionStatus)
         {
-            //var lastlenght = new Vector3(NowVecter.x,0,NowVecter.z).sqrMagnitude;
-            //var endspeed = Me.transform.TransformDirection(Vector3.forward*InputManager.maxWSAD).normalized * last;
-            //初始速度
-            var fwd = new Vector3(NowVecter.x,0,NowVecter.z)*.7f;
-            //取出初始速度的長度
-            var lenght = new Vector3(NowVecter.x,0,NowVecter.z).magnitude;
+            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+            RotateTowardSlerp(Me.transform.position - camPos, 5f);
+            var fwd = Me.transform.TransformVector(Vector3.forward*2f);
             
             if (AvaterMain.anim_flag == 1)
             {
                 _timer += Time.deltaTime;
-                //AvaterMain.anim_flag = 0;
                 Rig.velocity  = (Vector3.up* .7f/(_timer*_timer)+fwd/_timer*_timer);
             }
             else
@@ -238,6 +230,7 @@ namespace Assets.Script.ActionList
         {
             //NowVecter = Rig.velocity;
         }
+#endregion
 
         public void Before_dodge(ActionStatus actionStatus)
         {
@@ -331,6 +324,7 @@ namespace Assets.Script.ActionList
         }
         #endregion
 
+        #region tranglejump
         public void Before_tranglejump(ActionStatus actionStatus)
         {
             //Rig.useGravity = true;
@@ -355,18 +349,18 @@ namespace Assets.Script.ActionList
             }       
             return true;
         }
-        
-        public bool PanicMelee(ActionStatus actionStatus)
-        {
+        #endregion
 
-            return true;
-        }
+        #region falling
         public void Before_falling(ActionStatus actionStatus)
         {
             //Rig.velocity = NowVecter;
         }
         public bool falling(ActionStatus actionStatus)
         {
+            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+            RotateTowardSlerp(Me.transform.position - camPos, 5f);
+            Rig.AddRelativeForce(Vector3.forward*2f);
             /*
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, 5f);
@@ -380,7 +374,9 @@ namespace Assets.Script.ActionList
         public void After_falling(ActionStatus actionStatus)
         { 
         }
+        #endregion
 
+        #region land
         public void Before_softland(ActionStatus actionStatus)
         {
             AvaterMain.anim_flag = 0;
@@ -413,7 +409,9 @@ namespace Assets.Script.ActionList
             Rig.velocity = fwd;
             return true;
         }
+        #endregion
 
+        #region slide
         public void Before_slide(ActionStatus actionStatus)
         {
             var vec = Me.transform.TransformDirection(Vector3.forward);
@@ -435,7 +433,9 @@ namespace Assets.Script.ActionList
         {
             AvaterMain.anim_flag = 0;
         }
+        #endregion
 
+        #region reload
         public override bool reload(ActionStatus actionStatus)
         {
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
@@ -449,5 +449,6 @@ namespace Assets.Script.ActionList
         {
             Gun.reload();
         }
+        #endregion
     }
 }

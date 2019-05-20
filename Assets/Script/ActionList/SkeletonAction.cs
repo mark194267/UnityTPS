@@ -7,7 +7,7 @@ namespace Assets.Script.ActionList
     {
         public void Before_shoot(ActionStatus actionStatus)
         {
-            Gun.ChangeWeapon("MG");
+            Gun.ChangeWeapon("basicgun");
         }
         public override void Before_slash(ActionStatus actionStatus)
         {

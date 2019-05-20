@@ -139,6 +139,5 @@ namespace Assets.Script.Avater
                 line.SetPosition( i, path.corners[ i ] );
             }        
         }
-
     }
 }

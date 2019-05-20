@@ -169,4 +169,12 @@
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "0"/>
   </long>
+  <long name = "kick">
+    <f1 value = "6"/>
+    <f2 value = "0"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "0"/>
+  </long>
 </UnityChan>

@@ -10,6 +10,7 @@ namespace Assets.Script.ActionList
 {
     class MechGrantAction :ActionScript
     {
+        private float _timer;
         public override void Before_move(ActionStatus actionStatus)
         {
             Agent.updateRotation = true;
@@ -22,10 +23,11 @@ namespace Assets.Script.ActionList
             var MyPos = Me.transform.position;
             var TargetPos = Target.transform.position;
             RaycastHit hit;
-            Physics.BoxCast(MyPos, Vector3.one * .1f, TargetPos - MyPos, out hit, Me.transform.rotation);
-            if (hit.rigidbody != null)
+            int layermask = LayerMask.GetMask("Ignore Raycast");
+            layermask = ~layermask;
+            Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
+            if (hit.transform.CompareTag("Player"))
             {
-//                Debug.Log(hit.transform.name);
                 return false;
             }
             return true;
@@ -48,7 +50,7 @@ namespace Assets.Script.ActionList
 
             if (angle < 10)
             {
-                var f = Mathf.Lerp(Animator.GetFloat("AI_angle"), Mathf.Clamp(3 / angle, 0, 1), Time.deltaTime*.3f/*轉速加速度*/);
+                var f = Mathf.Lerp(Animator.GetFloat("AI_angle"), Mathf.Clamp(3 / angle, 0, 1), Time.deltaTime * .3f/*轉速加速度*/);
                 Animator.SetFloat("AI_angle", f);
                 //格林機槍轉速
                 //用的是自然數 1/N 
@@ -56,18 +58,28 @@ namespace Assets.Script.ActionList
                 Debug.Log(f / Gun.NowWeaponOrign.rof);
                 Gun.NowWeapon.rof = f/Gun.NowWeaponOrign.rof;
                 */
+                if (_timer < 10)
+                    _timer += Time.deltaTime;
+                Gun.NowWeapon.rof = Gun.NowWeaponOrign.rof + (_timer/-20);
                 var MyPos = Me.transform.position;
                 var TargetPos = Target.transform.position;
                 RaycastHit hit;
-                Physics.BoxCast(MyPos, Vector3.one*.1f, TargetPos - MyPos, out hit, Me.transform.rotation);
+                int layermask = LayerMask.GetMask("Ignore Raycast");
+                layermask = ~layermask;
+                Physics.SphereCast(MyPos, .1f, TargetPos - MyPos,out hit,100f,layermask,QueryTriggerInteraction.Ignore);
                 if (hit.transform.CompareTag("Player"))
                 {
+                    Gun.NowWeapon.BulletInMag = 1;
                     Gun.fire();
                 }
                 else
                     return false;
             }
-            else Animator.SetFloat("AI_angle", 0);
+            else
+            {
+                Animator.SetFloat("AI_angle", 0);
+                _timer = 0;
+            }
 
             return true;
         }
@@ -125,8 +137,9 @@ namespace Assets.Script.ActionList
             var MyPos = Me.transform.position;
             var TargetPos = Target.transform.position;
             RaycastHit hit;
-            Physics.BoxCast(MyPos, Vector3.one*.1f, TargetPos - MyPos, out hit, Me.transform.rotation);
-
+            int layermask = LayerMask.GetMask("Ignore Raycast");
+            layermask = ~layermask;
+            Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
             if (!hit.transform.CompareTag("AI") || Agent.remainingDistance < 1f)
             {
                 //Debug.Log(hit.transform.name);

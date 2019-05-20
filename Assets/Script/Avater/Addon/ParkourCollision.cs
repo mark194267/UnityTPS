@@ -32,7 +32,6 @@ namespace Assets.Script.Avater.Addon
 
         private void OnTriggerStay(Collider collider) 
         {
-            print(collider.gameObject.tag);
             if(collider.gameObject.tag == "wall")
             {
                 RaycastHit temphit;
@@ -40,7 +39,7 @@ namespace Assets.Script.Avater.Addon
                 //向碰撞點射出雷射
                 //triggerThing = collider;
                 //忽略掉自己
-                int layermask = LayerMask.GetMask("Player","AI");
+                int layermask = LayerMask.GetMask("Player","AI", "Ignore Raycast");
                 layermask = ~layermask;
                 //忽略掉自己+觸發物件
                 if(Physics.Raycast(transform.position+Vector3.up*.5f,transform.TransformVector(Vector3.forward),out temphit,2f,layermask,QueryTriggerInteraction.Ignore))
