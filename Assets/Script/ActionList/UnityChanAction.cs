@@ -11,50 +11,31 @@ namespace Assets.Script.ActionList
 {
     class UnityChanAction : ActionScript
     {
-        private float _timer; 
-        
-        public bool ChangeWeapon(ActionStatus actionStatus)
-        {
-            //InputManager 得到現在按鈕的參照
-            //將玩家武器Dictionary內部的索引值對應InputManager的參照
-            return true;
-        }
+        private float _timer;
 
-        public void Before_meleeready(ActionStatus actionStatus)
+        public void Before_equip(ActionStatus actionStatus)
         {
-            Animator.SetBool("avater_can_jump", true);
-            Gun.ChangeWeapon("Wakizashi");
+            AvaterMain.anim_flag = 0;
         }
-
-        public bool meleeready(ActionStatus actionStatus)
+        public bool equip(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(5f, 10f);
-
-            //FPSLikeRigMovement(5f/*AvaterMain.MotionStatus.motionSpd*/, 10f);
-            return true;
-        }
-        public void Before_MoveNslash(ActionStatus actionStatus)
-        {
-            Gun.ChangeWeapon("katana");
-        }
-
-        public bool MoveNslash(ActionStatus actionStatus)
-        {
-            var camPos = Camera.transform.TransformDirection(Vector3.forward);
-            RotateTowardlerp(Me.transform.position + camPos, 7f);
-            var myVec = Me.transform.TransformVector(Vector3.forward);
-            
-            if (Physics.Raycast(Me.transform.position,myVec,3f))
+            if (AvaterMain.anim_flag == 1)
             {
-                return false;
+                Debug.Log(AvaterMain.MotionStatus.String);
+                Gun.ChangeWeapon(AvaterMain.MotionStatus.String);
             }
-            Rig.velocity = Me.transform.TransformDirection(Vector3.forward*7f);
             return true;
         }
-
-        public void After_MoveNslash(ActionStatus actionStatus)
+        public void Before_Mstrafe(ActionStatus actionStatus)
         {
-            NowVecter = Rig.velocity;
+        }
+        public bool Mstrafe(ActionStatus actionStatus)
+        {
+            FPSLikeRigMovement(3f, 10f);
+            return true;
+        }
+        public void Before_kick(ActionStatus actionStatus)
+        {
         }
 
         public bool kick(ActionStatus actionStatus)
@@ -70,97 +51,24 @@ namespace Assets.Script.ActionList
             Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
         }
-
-        public void Before_slash1(ActionStatus actionStatus)
+        public override void Before_slash(ActionStatus actionStatus)
         {
-            Rig.velocity = Vector3.zero;
+            _timer = 0;
         }
-
-        public bool slash1(ActionStatus actionStatus)
+        public override bool slash(ActionStatus actionStatus)
         {
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
+
+            _timer += Time.deltaTime;
+            var mb = AvaterMain.MotionStatus;
+            Rig.velocity = Me.transform.TransformVector(new Vector3(mb.camX, mb.camY, mb.camZ))*_timer;
 
             Gun.Swing(AvaterMain.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
             return true;
         }
 
-        public void Before_slash2(ActionStatus actionStatus)
-        {
-            var vec = Me.transform.TransformDirection(Vector3.forward * 7f);
-            vec.y = 0;
-            Rig.velocity = vec;
-        }
-
-        public bool slash2(ActionStatus actionStatus)
-        {
-            var camPos = Camera.transform.TransformDirection(Vector3.forward);
-            RotateTowardlerp(Me.transform.position + camPos, 3f);
-
-            Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
-            return true;
-        }
-
-        public void Before_slash3(ActionStatus actionStatus)
-        {
-            var vec = Me.transform.TransformDirection(Vector3.forward * 10f);
-            vec.y = 0;
-            Rig.velocity = vec;
-        }
-
-        public bool slash3(ActionStatus actionStatus)
-        {
-            var camPos = Camera.transform.TransformDirection(Vector3.forward);
-            RotateTowardlerp(Me.transform.position + camPos, 3f);
-
-            Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
-            return true;
-        }
-
-        public void Before_jumpAtk(ActionStatus actionStatus)
-        {
-            Gun.ChangeWeapon("katana");
-        }
-
-        public bool jumpAtk(ActionStatus actionStatus)
-        {
-            Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
-            return true;
-        }
-        public void Before_heavyslash(ActionStatus actionStatus)
-        {
-            Gun.NowWeapon.charge = Animator.GetFloat("charge");
-        }
-
-        public bool heavyslash(ActionStatus actionStatus)
-        {
-            /*
-            if (doOnlyOnce)
-            {
-                Agent.velocity = Me.transform.TransformDirection
-                    (Vector3.forward*5f+Vector3.up*100); 
-                Debug.Log("your power is "+Gun.NowWeapon.charge); 
-                doOnlyOnce = false;   
-            }
-            */
-            return true;
-        }
-
-        public void Before_meleeDodge(ActionStatus actionStatus)
-        {
-            var ws = Animator.GetFloat("input_ws");
-            var ad = Animator.GetFloat("input_ad");
-            //如果直接按下就會往前
-            if (ws * ws + ad * ad <= 0) ws = -1;
-            var vec = Me.transform.TransformDirection(new Vector3(ad, 0, ws));
-            Rig.velocity = Vector3.ClampMagnitude(vec * 15, 10f);
-        }
-
-        public bool meleeDodge(ActionStatus actionStatus)
-        {
-            return true;
-        }
-
+        #region idle
         public override void Before_idle(ActionStatus actionStatus)
         {
         }
@@ -172,7 +80,9 @@ namespace Assets.Script.ActionList
             //Rig.velocity = Vector3.Lerp(Rig.velocity, Vector3.zero, 0.5f);
             return true;
         }
+        #endregion
 
+        #region move
         public override void Before_move(ActionStatus actionStatus)
         {
             Animator.SetBool("avater_can_jump", true);
@@ -190,10 +100,12 @@ namespace Assets.Script.ActionList
         public override void After_move(ActionStatus actionStatus)
         {
         }
+        #endregion
 
+        #region strafe
         public void Before_strafe(ActionStatus actionStatus)
         {
-            Gun.ChangeWeapon("AK-47");
+            //Gun.ChangeWeapon("AK-47");
         }
 
         public bool strafe(ActionStatus actionStatus)
@@ -205,6 +117,8 @@ namespace Assets.Script.ActionList
             }
             return true;
         }
+        #endregion
+
         #region jump
         public void Before_jump(ActionStatus actionStatus)
         {
@@ -231,28 +145,6 @@ namespace Assets.Script.ActionList
             //NowVecter = Rig.velocity;
         }
 #endregion
-
-        public void Before_dodge(ActionStatus actionStatus)
-        {
-            var col = Me.GetComponent<Collider>();
-            col.enabled = false;
-        }
-
-        public bool After_dodge(ActionStatus actionStatus)
-        {
-            var col = Me.GetComponent<Collider>();
-            col.enabled = true;
-            return true;
-        }
-        public bool magnet_melee(ActionStatus actionStatus)
-        {
-            //參考:https://blog.csdn.net/u013700908/article/details/52888792
-            //球體碰撞器來返回目標，夾角小於X時就會自動追尾
-            float range = 10f;
-            Collider[] colliders = Physics.OverlapSphere(Me.transform.position,range,-1/*LayerMask*/);
-            Debug.Log(colliders[0].name);//找到物件
-            return true;
-        }
 
         #region 跑牆
         /// <summary>

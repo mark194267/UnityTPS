@@ -203,11 +203,19 @@ namespace Assets.Script.weapon
         {
             if (NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot < 0) yield break;
             canshoot = false;
+
+            //得到攝影機的正中央
+            var MainCam = GetComponentInChildren<Camera>();
+            var MainCamPos = MainCam.ScreenToWorldPoint(
+                new Vector3(MainCam.pixelWidth / 2, MainCam.pixelHeight / 2, MainCam.nearClipPlane*100)
+                );
+            
+
             //找到目前"槍口"的方向
             for(int i = 0;i< NowWeapon.BulletUsedPerShot/*散彈數*/;i++)
             {
                 var bullet = (GameObject)Instantiate(NowWeapon.bullet,
-                NowWeapon.weapon.transform.position,NowWeapon.weapon.transform.rotation);
+                NowWeapon.weapon.transform.position, Quaternion.LookRotation(MainCamPos-transform.position)/*NowWeapon.weapon.transform.rotation*/);
                 
                 Quaternion q = UnityEngine.Random.rotationUniform;
                 var qv = bullet.transform.TransformVector(Vector3.forward) +

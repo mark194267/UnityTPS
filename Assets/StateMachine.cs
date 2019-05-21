@@ -23,7 +23,6 @@ public class StateMachine : StateMachineBehaviour
             {
                 if (stateInfo.IsTag(actionStatuse.Key))
                 {
-//                    Debug.Log("OnStateEnter" + actionStatuse.Value.ActionName);
                     action.BeforeCustomAction(actionStatuse.Value);
                     _actionStatus = actionStatuse.Value;
                 }
@@ -35,7 +34,6 @@ public class StateMachine : StateMachineBehaviour
                     if (stateInfo.IsName(motionStatus.Key))
                     {
                         AvaterMain.MotionStatus = motionStatus.Value;
-                        //Debug.Log(AvaterMain.MotionStatus.motionSpd);
                     }
                 }
             }
@@ -47,7 +45,6 @@ public class StateMachine : StateMachineBehaviour
     {
         if (layerIndex == 0)
         {
-            //Debug.Log("update");
             Animator.SetBool("avater_IsEndNormal", action.CustomAction(_actionStatus));
 
         }
@@ -62,7 +59,6 @@ public class StateMachine : StateMachineBehaviour
             {
                 if (stateInfo.IsTag(actionStatuse.Key))
                 {
-//                    Debug.Log("OnStateExit" + actionStatuse.Value.ActionName);
                     action.AfterCustomAction(actionStatuse.Value);
                 }
             }

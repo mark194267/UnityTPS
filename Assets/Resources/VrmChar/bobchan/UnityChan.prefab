@@ -462,10 +462,10 @@ MonoBehaviour:
   ActionElapsedTime: 0
   IsEndNormal: 1
   anim_flag: 0
-  _groundchecker: {fileID: 0}
   character: {fileID: 0}
-  GroundDistance: 0.2
-  _velocity: {x: 0, y: 0, z: 0}
+  Velocity: {x: 0, y: 0, z: 0}
+  GroundCheck: {fileID: 0}
+  CheckRadius: 0
 --- !u!114 &452411891082691585
 MonoBehaviour:
   m_ObjectHideFlags: 0

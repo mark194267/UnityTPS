@@ -46,6 +46,7 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["AK-47"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Handgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
@@ -71,7 +72,6 @@ namespace Assets.Script.Avater
             }
             else
                 Animator.SetBool("avater_IsLanded", false);
-
         }
     }
 }
