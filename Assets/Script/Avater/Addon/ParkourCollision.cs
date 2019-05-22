@@ -8,6 +8,8 @@ namespace Assets.Script.Avater.Addon
         //public Collision contactThing;
         //public Collider triggerThing;
 
+        public float limitedDegree = 30;
+
         public Animator Animator;
         public RaycastHit hit;
         private void Start() 
@@ -30,7 +32,7 @@ namespace Assets.Script.Avater.Addon
 
         }
 
-        private void OnTriggerStay(Collider collider) 
+        private void OnTriggerEnter(Collider collider) 
         {
             if(collider.gameObject.tag == "wall")
             {
@@ -46,19 +48,21 @@ namespace Assets.Script.Avater.Addon
                 {             
                     //取得法線
                     hit = temphit;
-                    //print(hit.point-transform.position);
-                    //print(hit.transform.name);
-                    //射線轉90度--找夾角
-                    var q = Quaternion.AngleAxis(90,Vector3.up)*hit.normal;
+                    //找垂直夾角...如果大於上下N度就不能跑庫
+                    var Yangle = Vector3.Angle(new Vector3(0, hit.normal.y, 0), new Vector3(0, transform.rotation.y, 0));
+                    if (limitedDegree > Yangle && -limitedDegree < Yangle)
+                    {
+                        //射線轉90度--找夾角
+                        var q = Quaternion.AngleAxis(90, Vector3.up) * hit.normal;
 
-                    var front = transform.TransformVector(Vector3.forward);
-                    var angle = Vector3.Angle(
-                        new Vector3(front.x,0,front.z),new Vector3(q.x,0,q.z));
-                    
-                    Animator.SetFloat("avater_AngleBetweenWall",angle);
-                    //Animator.SetTrigger("avater_parkour");//將動畫導向
-                    Animator.SetBool("avater_can_parkour",true);
-                    //print("Hitpoint"+collider.ClosestPoint(transform.position));
+                        var front = transform.TransformVector(Vector3.forward);
+                        var angle = Vector3.Angle(
+                            new Vector3(front.x, 0, front.z), new Vector3(q.x, 0, q.z));
+
+                        Animator.SetFloat("avater_AngleBetweenWall", angle);
+                        Animator.SetBool("avater_can_parkour", true);
+                    }
+
                 } 
                 else
                     Animator.SetBool("avater_can_parkour", false);

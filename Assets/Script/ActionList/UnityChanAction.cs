@@ -36,6 +36,7 @@ namespace Assets.Script.ActionList
         }
         public void Before_kick(ActionStatus actionStatus)
         {
+            //Gun.ChangeWeapon("kick");
         }
 
         public bool kick(ActionStatus actionStatus)
@@ -50,6 +51,10 @@ namespace Assets.Script.ActionList
             }
             Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
+        }
+        public void After_kick(ActionStatus actionStatus)
+        {
+            //Gun.ChangeWeapon("kick");
         }
         public override void Before_slash(ActionStatus actionStatus)
         {
