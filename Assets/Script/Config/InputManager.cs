@@ -42,11 +42,11 @@ namespace Assets.Script.Config
 
             if (Input.GetButtonDown("Jump"))
             {
-                Animator.SetBool("avatermain_jump",true);
+                Animator.SetBool("input_jump",true);
             }
             else
             {
-                Animator.SetBool("avatermain_jump", false);
+                Animator.SetBool("input_jump", false);
             }
 
             if (Input.GetButton("Fire1"))

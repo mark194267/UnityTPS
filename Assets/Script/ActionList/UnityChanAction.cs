@@ -127,19 +127,20 @@ namespace Assets.Script.ActionList
         #region jump
         public void Before_jump(ActionStatus actionStatus)
         {
-            Animator.SetBool("avater_can_jump",false);
+            //Animator.SetBool("avater_can_jump",false);
+            //Animator.SetBool("action_can_fall", false);
             _timer = .3f;
         }
         public bool jump(ActionStatus actionStatus)
         {
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-            RotateTowardSlerp(Me.transform.position - camPos, 5f);
-            var fwd = Me.transform.TransformVector(Vector3.forward*2f);
+            RotateTowardSlerp(Me.transform.position - camPos, 4f);
+            var fwd = Me.transform.TransformVector(Vector3.forward*3f);
             
             if (AvaterMain.anim_flag == 1)
             {
                 _timer += Time.deltaTime;
-                Rig.velocity  = (Vector3.up* .7f/(_timer*_timer)+fwd/_timer*_timer);
+                Rig.velocity  = (Vector3.up* 1f/(_timer*_timer)+fwd/_timer*_timer);
             }
             else
                 Rig.velocity = fwd/_timer*_timer;
@@ -148,10 +149,11 @@ namespace Assets.Script.ActionList
         public void After_jump(ActionStatus actionStatus)
         {
             //NowVecter = Rig.velocity;
+            //Animator.SetBool("action_can_fall", true);
         }
-#endregion
+        #endregion
 
-        #region 跑牆
+        #region wallrun
         /// <summary>
         /// 2019-01-18新增
         /// </summary>
@@ -175,29 +177,27 @@ namespace Assets.Script.ActionList
             //沿著Y軸轉90度    
             NowVecter = Quaternion.AngleAxis(angle,Vector3.up)*rot;
 
-            Rig.rotation = Quaternion.LookRotation(NowVecter);
+            Me.transform.rotation = Quaternion.LookRotation(NowVecter);
         }
 
         public bool wallrun(ActionStatus actionStatus)
         {
             //給定速度
-            Rig.velocity = NowVecter.normalized*6+Vector3.up*3;//NowVector已經是正規化的向量了
+            Rig.velocity = NowVecter.normalized*4+Vector3.up*2;//NowVector已經是正規化的向量了
             //轉過去
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
             {
-                pos = -.5f;
+                pos = -1;
             }
             else
             {
-                pos = .5f;
+                pos = 1;
             }
             
-            if(!Physics.CheckBox(Me.transform.TransformPoint(pos,.7f,.2f),Vector3.one*.05f,Me.transform.rotation,-1,QueryTriggerInteraction.Ignore))
+            if(!Physics.CheckSphere(Me.transform.TransformPoint(.3f*pos,1,0),.7f,LayerMask.GetMask("Parkour"),QueryTriggerInteraction.Ignore))
             {
-                //如果踩空牆壁...目前全面停用
-                Debug.Log("wall");
-                //Rig.isKinematic = true;
+                Debug.Log("wallrun out");
                 return false;
             }            
             return true;
@@ -208,15 +208,15 @@ namespace Assets.Script.ActionList
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
             {
-                pos = 1.5f;
+                pos = 1;
             }
             else
             {
-                pos = -1.5f;
+                pos = -1;
             }
 
-            Rig.AddForce(Me.transform.TransformVector(Vector3.right*pos)*3,ForceMode.VelocityChange);
-            Animator.SetBool("avater_can_parkour", false);
+            Rig.AddRelativeForce(Me.transform.TransformVector(Vector3.right*pos)*1,ForceMode.VelocityChange);
+            //Animator.SetBool("action_can_parkour", false);
             return true;
         }
         #endregion
@@ -256,16 +256,8 @@ namespace Assets.Script.ActionList
         public bool falling(ActionStatus actionStatus)
         {
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-            RotateTowardSlerp(Me.transform.position - camPos, 5f);
+            RotateTowardSlerp(Me.transform.position - camPos, .2f);
             Rig.AddRelativeForce(Vector3.forward*2f);
-            /*
-            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-            RotateTowardSlerp(Me.transform.position - camPos, 5f);
-            var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
-            var NoneYspeed = Vector3.Lerp(Rig.velocity, endspeed, .7f);
-            NoneYspeed.y = 0;
-            Rig.velocity = NoneYspeed+Vector3.down * 9.8f;
-            */
             return true;
         }
         public void After_falling(ActionStatus actionStatus)
@@ -282,15 +274,12 @@ namespace Assets.Script.ActionList
 
         public bool softland(ActionStatus actionStatus)
         {
-            if (AvaterMain.anim_flag == 1)
+            if (AvaterMain.anim_flag == 2)
             {
-                //AvaterMain.anim_flag = 0;
-                //Rig.AddForce(Vector3.up * 10f, ForceMode.Impulse);
-                Rig.velocity = Me.transform.TransformVector(Vector3.forward*5);
-                //Rig.AddRelativeForce(Vector3.forward * 15, ForceMode.VelocityChange);
-            }
-            else
-                Rig.velocity = Me.transform.TransformVector(Vector3.forward*1);
+                Rig.velocity = Me.transform.TransformVector(Vector3.forward * .7f);
+            }            
+            else if (AvaterMain.anim_flag == 1)
+                Rig.velocity = Me.transform.TransformVector(Vector3.forward * 5);
             return true;
         }
 
@@ -311,9 +300,12 @@ namespace Assets.Script.ActionList
         #region slide
         public void Before_slide(ActionStatus actionStatus)
         {
+            
             var vec = Me.transform.TransformDirection(Vector3.forward);
             vec.y = 0;
             Rig.AddForce(vec * 5f, ForceMode.VelocityChange);
+            
+            AvaterMain.anim_flag = 0;
         }
         public bool slide(ActionStatus actionStatus)
         {
@@ -325,10 +317,6 @@ namespace Assets.Script.ActionList
                 Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, 5f);
             }
             return true;
-        }
-        public void After_slide(ActionStatus actionStatus)
-        {
-            AvaterMain.anim_flag = 0;
         }
         #endregion
 

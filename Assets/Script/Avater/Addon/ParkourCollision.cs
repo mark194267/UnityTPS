@@ -32,48 +32,36 @@ namespace Assets.Script.Avater.Addon
 
         }
 
-        private void OnTriggerEnter(Collider collider) 
+        private void OnTriggerStay(Collider collider) 
         {
-            if(collider.gameObject.tag == "wall")
+            RaycastHit temphit;
+            int layermask = LayerMask.GetMask("Parkour");
+            //layermask = ~layermask;
+            if (Physics.Raycast(transform.position + Vector3.up * 1f, transform.TransformVector(Vector3.forward), out temphit, 2f, layermask, QueryTriggerInteraction.Ignore))
             {
-                RaycastHit temphit;
-                //如果碰撞點不是在腳下就可以跑庫
-                //向碰撞點射出雷射
-                //triggerThing = collider;
-                //忽略掉自己
-                int layermask = LayerMask.GetMask("Player","AI", "Ignore Raycast");
-                layermask = ~layermask;
-                //忽略掉自己+觸發物件
-                if(Physics.Raycast(transform.position+Vector3.up*.5f,transform.TransformVector(Vector3.forward),out temphit,2f,layermask,QueryTriggerInteraction.Ignore))
-                {             
-                    //取得法線
-                    hit = temphit;
-                    //找垂直夾角...如果大於上下N度就不能跑庫
-                    var Yangle = Vector3.Angle(new Vector3(0, hit.normal.y, 0), new Vector3(0, transform.rotation.y, 0));
-                    if (limitedDegree > Yangle && -limitedDegree < Yangle)
-                    {
-                        //射線轉90度--找夾角
-                        var q = Quaternion.AngleAxis(90, Vector3.up) * hit.normal;
+                //取得法線
+                hit = temphit;
+                //找垂直夾角...如果大於上下N度就不能跑庫
+                //射線轉90度--找夾角
+                var q = Quaternion.AngleAxis(90, Vector3.up) * hit.normal;
+                var front = transform.TransformVector(Vector3.forward);
+                var angle = Vector3.Angle(
+                    new Vector3(front.x, 0, front.z), new Vector3(q.x, 0, q.z));
 
-                        var front = transform.TransformVector(Vector3.forward);
-                        var angle = Vector3.Angle(
-                            new Vector3(front.x, 0, front.z), new Vector3(q.x, 0, q.z));
-
-                        Animator.SetFloat("avater_AngleBetweenWall", angle);
-                        Animator.SetBool("avater_can_parkour", true);
-                    }
-
-                } 
-                else
-                    Animator.SetBool("avater_can_parkour", false);
-                //print(temphit.normal);
+                Animator.SetFloat("avater_AngleBetweenWall", angle);
+                Animator.SetBool("action_parkour", true);
             }
+            else
+                Animator.SetBool("action_parkour", false);
         }
-        private void OnTriggerExit(Collider collider) {
+        private void OnTriggerExit(Collider collider)
+        {
             if(collider.gameObject.tag == "wall")
             {
                 //Animator.SetTrigger("avater_exit");
             }
+            Animator.SetBool("action_parkour", false);
+
         }
         /*
         void OnDrawGizmos()

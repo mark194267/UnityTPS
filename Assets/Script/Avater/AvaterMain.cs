@@ -18,7 +18,7 @@ namespace Assets.Script.Avater
         public AvaterStatus avaterStatus { get; set; }
         //2019-04-24 增加動作值
         public MotionStatus MotionStatus;
-        private List<string> candolist = new List<string>();
+        public List<string> candolist = new List<string>();
 
         public float ActionElapsedTime;
         public bool IsEndNormal = true;
@@ -46,6 +46,14 @@ namespace Assets.Script.Avater
             stateMachine.me = gameObject;
             stateMachine.action = ActionScript;
             stateMachine.AvaterMain = this;
+
+            foreach (var animaterparameter in Animator.parameters)
+            {
+                if (animaterparameter.name.StartsWith("avater_can"))
+                {
+                    candolist.Add(animaterparameter.name);
+                }
+            }
         }
 
         public void OnDead()

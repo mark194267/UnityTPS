@@ -52,11 +52,6 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
             
             /// 未來可能在此增加射線管理員
-            /// 先保留於此
-            /// StartCoroutine(GetRayCast());
-            
-            //GrabLedgePoint = transform.Find("GrabLedgePoint").transform;
-            //gameObject.GetComponent<Gun>().ChangeWeapon(PlayerWeaponDictionary[0]);
         }
         void  Update()
         {
@@ -68,6 +63,7 @@ namespace Assets.Script.Avater
             layer = ~layer;
             if(Physics.CheckSphere(GroundCheck.transform.position,CheckRadius,layer,QueryTriggerInteraction.Ignore))
             {
+                //print(GroundCheck.transform.position);
                 Animator.SetBool("avater_IsLanded", true);
             }
             else

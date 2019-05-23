@@ -16,8 +16,7 @@ namespace Assets.Script.weapon
 
         void Start()
         {
-            var frontTransformDirection = gameObject.transform.TransformDirection(Vector3.forward);
-            gameObject.GetComponent<Rigidbody>().AddForce(frontTransformDirection.normalized*50,ForceMode.VelocityChange);
+            gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward*20,ForceMode.VelocityChange);
         }
         
         void OnTriggerEnter(Collider collision)
