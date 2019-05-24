@@ -34,7 +34,7 @@
 		<ignore list = "0"/>
 	</move>
   <move name = "slide">
-    <f1 value = "7"/>
+    <f1 value = "8"/>
     <f2 value = "0"/>
     <f3 value = "0"/>
     <f4 value = "0"/>
@@ -87,7 +87,7 @@
 		<f3 value = "0"/>
 		<f4 value = "0"/>
 		<vector3 x="0" y="0" z="1"/>
-		<ignore list = "0"/>
+		<ignore list = "fall"/>
 	</long>
 	<long name = "softland">
 		<f1 value = "6"/>

@@ -58,16 +58,7 @@ namespace Assets.Script.Avater
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {
                 Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
-            } 
-            int layer = LayerMask.GetMask("Player");
-            layer = ~layer;
-            if(Physics.CheckSphere(GroundCheck.transform.position,CheckRadius,layer,QueryTriggerInteraction.Ignore))
-            {
-                //print(GroundCheck.transform.position);
-                Animator.SetBool("avater_IsLanded", true);
             }
-            else
-                Animator.SetBool("avater_IsLanded", false);
         }
     }
 }

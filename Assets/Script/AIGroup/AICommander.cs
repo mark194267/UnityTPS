@@ -39,7 +39,6 @@ namespace Assets.Script.AIGroup
                 aimain.IsAwake = IsAwake;
                 aimain.targetInfo = new TargetInfo() { Me = ai, Target = target };
                 aimain.stateMachine.AIBase = aiConstructer.GetAI(aimain.targetInfo);
-                Debug.Log(aimain.targetInfo.Target.name);
             }
         }
 

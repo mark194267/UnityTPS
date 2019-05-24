@@ -53,7 +53,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0.24655151
   m_TransitionOffset: 0
-  m_ExitTime: 0.932718
+  m_ExitTime: 0.7677356
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -461,7 +461,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Fall A Land To Run Forward
-  m_Speed: 1
+  m_Speed: 1.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8189310528077936050}
@@ -940,12 +940,12 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.14144188
+  m_TransitionDuration: 0.024638709
   m_TransitionOffset: 0
-  m_ExitTime: 0.3145781
+  m_ExitTime: 0.0037534407
   m_HasExitTime: 0
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 1
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &-3154179249685442598
@@ -1938,9 +1938,9 @@ AnimatorStateTransition:
   m_Mute: 1
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.04382747
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.0012918833
+  m_ExitTime: 0.0012918832
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -4073,7 +4073,7 @@ BlendTree:
   m_BlendParameterY: avater_yspeed
   m_MinThreshold: 0
   m_MaxThreshold: 1
-  m_UseAutomaticThresholds: 1
+  m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
 --- !u!1101 &7257951268465846534

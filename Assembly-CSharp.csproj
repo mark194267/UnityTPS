@@ -86,6 +86,7 @@
     <Compile Include="Assets\Script\AIGroup\LocalNavMeshBuilder.cs" />
     <Compile Include="Assets\Script\AIGroup\NavGrid.cs" />
     <Compile Include="Assets\Script\AIGroup\NavMeshSourceTag.cs" />
+    <Compile Include="Assets\Script\Avater\Addon\Grandcheck.cs" />
     <Compile Include="Assets\Script\Avater\Addon\ParkourCollision.cs" />
     <Compile Include="Assets\Script\Avater\AIAvaterMain.cs" />
     <Compile Include="Assets\Script\Avater\AvaterDataLoader.cs" />

@@ -205,22 +205,27 @@ namespace Assets.Script.weapon
             canshoot = false;
 
             //得到攝影機的正中央
-            var MainCam = GetComponentInChildren<Camera>();
-            var MainCamPos = MainCam.ScreenToWorldPoint(
-                new Vector3(MainCam.pixelWidth / 2, MainCam.pixelHeight / 2, MainCam.nearClipPlane*100)
-                );
-            
-
-            //找到目前"槍口"的方向
-            for(int i = 0;i< NowWeapon.BulletUsedPerShot/*散彈數*/;i++)
+            Quaternion Qua;
+            if (transform.CompareTag("Player"))
             {
-                var bullet = (GameObject)Instantiate(NowWeapon.bullet,
-                NowWeapon.weapon.transform.position, Quaternion.LookRotation(MainCamPos-transform.position)/*NowWeapon.weapon.transform.rotation*/);
+                var MainCam = GetComponentInChildren<Camera>();
+                var MainCamPos = MainCam.ScreenToWorldPoint(
+                    new Vector3(MainCam.pixelWidth / 2, MainCam.pixelHeight / 2, MainCam.nearClipPlane * 100)
+                    );
+                Qua = Quaternion.LookRotation(MainCamPos - transform.position);
+            }
+            else
+                Qua = NowWeapon.weapon.transform.rotation;
+
+                //找到目前"槍口"的方向
+            for (int i = 0;i< NowWeapon.BulletUsedPerShot/*散彈數*/;i++)
+            {
+                var bullet = Instantiate(NowWeapon.bullet,
+                NowWeapon.weapon.transform.position, Qua);
                 
                 Quaternion q = UnityEngine.Random.rotationUniform;
                 var qv = bullet.transform.TransformVector(Vector3.forward) +
                 bullet.transform.TransformDirection(q.eulerAngles*.00001f/* 擴散係數 */);
-                //Debug.Log(bullet.transform.TransformDirection(q.eulerAngles));
                 bullet.transform.rotation = Quaternion.LookRotation(qv);
                 
                 //tag來找尋子彈的"陣營"
@@ -243,7 +248,6 @@ namespace Assets.Script.weapon
             
             //可能是雙管之類的
             NowWeapon.BulletInMag = NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot;
-            //print(gameObject.name+" 用 "+name+" 射擊! 而彈量為 "+ NowWeapon.BulletInMag);
             yield return new WaitForSeconds(NowWeapon.rof);
             canshoot = true;
         }

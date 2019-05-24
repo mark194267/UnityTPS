@@ -39,16 +39,17 @@ namespace Assets.Script.Avater
             //Animator = this.gameObject.GetComponent<Animator>();
             //有無被叫醒
             //IsAwake = true;
-            StartCoroutine(CheckSight(1));
         }
 
         private void Update()
         {
             if (IsAwake)
             {
-                StopCoroutine(CheckSight(1));
                 Animator.SetBool("AI_IsAwake",true);
             }
+            else
+                StartCoroutine(CheckSight(1));
+
         }
         #region Update()
 
@@ -123,14 +124,16 @@ namespace Assets.Script.Avater
         public IEnumerator CheckSight(float time)
         {
             //這裡用測距，之後會改良為觸發盒
-            if (targetInfo.TargetDis < 10)
+            if (targetInfo.TargetDis < 50)
             {
-                if (Vector3.Angle(gameObject.transform.TransformDirection(Vector3.forward), targetInfo.Target.transform.position) < 15)
+                if (Vector3.Angle(transform.TransformDirection(Vector3.forward), targetInfo.Target.transform.position) < 15)
                 {
                     RaycastHit hits;
                     //檢查是否看的到
-                    if (Physics.Raycast(gameObject.transform.position, targetInfo.Target.transform.position - gameObject.transform.position, out hits, 10))
+                    if (Physics.Raycast(transform.position, targetInfo.Target.transform.position - transform.position, out hits, 50))
                     {
+                        print(targetInfo.Target.name);
+
                         IsAwake = true;
                     }
                 }

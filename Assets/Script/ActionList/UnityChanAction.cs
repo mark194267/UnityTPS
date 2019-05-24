@@ -58,6 +58,7 @@ namespace Assets.Script.ActionList
         }
         public override void Before_slash(ActionStatus actionStatus)
         {
+            AvaterMain.anim_flag = 0;
             _timer = 0;
         }
         public override bool slash(ActionStatus actionStatus)
@@ -65,10 +66,12 @@ namespace Assets.Script.ActionList
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
 
-            _timer += Time.deltaTime;
             var mb = AvaterMain.MotionStatus;
-            Rig.velocity = Me.transform.TransformVector(new Vector3(mb.camX, mb.camY, mb.camZ))*_timer;
-
+            if (AvaterMain.anim_flag > 0)
+            {
+                _timer += Time.deltaTime;
+                Rig.velocity = Me.transform.TransformVector(new Vector3(mb.camX, mb.camY, mb.camZ)) * _timer;
+            }
             Gun.Swing(AvaterMain.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
             return true;
         }
@@ -303,7 +306,7 @@ namespace Assets.Script.ActionList
             
             var vec = Me.transform.TransformDirection(Vector3.forward);
             vec.y = 0;
-            Rig.AddForce(vec * 5f, ForceMode.VelocityChange);
+            Rig.AddForce(vec * 6f, ForceMode.VelocityChange);
             
             AvaterMain.anim_flag = 0;
         }
