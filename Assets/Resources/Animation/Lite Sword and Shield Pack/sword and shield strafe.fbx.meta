@@ -977,7 +977,7 @@ ModelImporter:
     second: mixamo:BLW_DEF
   - first:
       74: 7400000
-    second: OneHandLeftLite
+    second: sword and shield strafeL
   - first:
       95: 9500000
     second: //RootNode
@@ -1013,7 +1013,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: OneHandLeftLite
+      name: sword and shield strafeL
       takeName: mixamo.com
       internalID: 7400000
       firstFrame: 0
