@@ -18,11 +18,8 @@ namespace Assets.Script.Avater
 
         public AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
-        public CharacterController character;
-        public Vector3 Velocity;
         public GameObject GroundCheck;
         public float CheckRadius;
-        private Vector3 _velocity;
 
         void Start()
         {
@@ -32,9 +29,6 @@ namespace Assets.Script.Avater
             //獲取腳色動作值
             motionStatusDir = statusBuilder.GetMotionList("UnityChan");
             //GetAnimaterParameter();
-
-            //20190517使用腳色控制器
-            character = this.GetComponent<CharacterController>();
 
             //ActionScript.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
             WeaponFactory weaponFactory = new WeaponFactory();
@@ -53,7 +47,7 @@ namespace Assets.Script.Avater
             
             /// 未來可能在此增加射線管理員
         }
-        void  Update()
+        void Update()
         {
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {

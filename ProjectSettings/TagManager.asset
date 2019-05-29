@@ -9,6 +9,7 @@ TagManager:
   - bullet
   - wall
   - heat
+  - Triggerable
   layers:
   - Default
   - TransparentFX

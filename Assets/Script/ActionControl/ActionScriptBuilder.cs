@@ -57,12 +57,6 @@ namespace Assets.Script.ActionControl
             InputManager = Me.GetComponent<InputManager>();
             this.Target = GameObject.Find("BobChan");
 
-            if (Me.GetComponent<CharacterController>())
-            {
-                this.character = Me.GetComponent<CharacterController>();
-                this.velocity = Me.GetComponent<PlayerAvater>().Velocity;
-            }
-
             if (Me.GetComponent<AIAvaterMain>())
             {
                 this.Targetinfo = Me.GetComponent<AIAvaterMain>().targetInfo;

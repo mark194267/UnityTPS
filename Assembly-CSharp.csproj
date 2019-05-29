@@ -107,6 +107,7 @@
     <Compile Include="Assets\Script\weapon\GunFactory.cs" />
     <Compile Include="Assets\Script\weapon\MeleeClass.cs" />
     <Compile Include="Assets\StateMachine.cs" />
+    <Compile Include="Assets\TriggerObject.cs" />
     <Compile Include="Assets\VRM\MToon\MToon\Scripts\Utils.cs" />
     <Compile Include="Assets\VRM\Scripts\BlendShape\AIUEO.cs" />
     <Compile Include="Assets\VRM\Scripts\BlendShape\BlendShapeAvatar.cs" />

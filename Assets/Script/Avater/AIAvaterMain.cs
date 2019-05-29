@@ -35,7 +35,6 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             gameObject.GetComponent<Gun>().ChangeWeapon("MG");
-
             //Animator = this.gameObject.GetComponent<Animator>();
             //有無被叫醒
             //IsAwake = true;
@@ -46,10 +45,10 @@ namespace Assets.Script.Avater
             if (IsAwake)
             {
                 Animator.SetBool("AI_IsAwake",true);
+                StopCoroutine(CheckSight(5));
             }
             else
-                StartCoroutine(CheckSight(1));
-
+                StartCoroutine(CheckSight(5));
         }
         #region Update()
 
@@ -123,18 +122,25 @@ namespace Assets.Script.Avater
 
         public IEnumerator CheckSight(float time)
         {
+            //Debug.Log("Check");
             //這裡用測距，之後會改良為觸發盒
             if (targetInfo.TargetDis < 50)
             {
-                if (Vector3.Angle(transform.TransformDirection(Vector3.forward), targetInfo.Target.transform.position) < 15)
+                //Debug.Log("<50");
+                if (Vector3.Angle(transform.TransformVector(Vector3.forward), targetInfo.Target.transform.position) < 120)
                 {
+                    var height = GetComponent<NavMeshAgent>().height*Vector3.up;
+                    var Layer = ~LayerMask.GetMask("AI");
+                    //Debug.Log("Angle");
                     RaycastHit hits;
                     //檢查是否看的到
-                    if (Physics.Raycast(transform.position, targetInfo.Target.transform.position - transform.position, out hits, 50))
+                    if (Physics.Raycast(transform.position, targetInfo.Target.transform.position - transform.position, out hits, 50,Layer,QueryTriggerInteraction.Ignore))
                     {
-                        print(targetInfo.Target.name);
-
-                        IsAwake = true;
+                        //print(hits.transform.name);
+                        if (hits.transform.CompareTag("Player"))
+                        {
+                            IsAwake = true;
+                        }
                     }
                 }
             }            

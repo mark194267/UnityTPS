@@ -21,7 +21,7 @@ namespace Assets.Script.ActionList
         {
             if (AvaterMain.anim_flag == 1)
             {
-                Debug.Log(AvaterMain.MotionStatus.String);
+//                Debug.Log(AvaterMain.MotionStatus.String);
                 Gun.ChangeWeapon(AvaterMain.MotionStatus.String);
             }
             return true;
