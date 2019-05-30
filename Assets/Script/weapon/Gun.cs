@@ -41,6 +41,7 @@ namespace Assets.Script.weapon
                     if(item.name == weaponBasic.type)
                     {
                         weaponBasic.weapon = Instantiate(weaponBasic.weapon, item.transform);
+                        weaponBasic.weapon.tag = gameObject.tag;
                         weaponBasic.weapon.SetActive(false);
                     }
                 }

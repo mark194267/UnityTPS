@@ -93,11 +93,11 @@ namespace Assets.Script.Config
                 Animator.SetTrigger("input_melee");
                 //Animator.SetTrigger("avatermain_panicmelee");
                 var anifloat = Animator.GetFloat("input_meleelevel");
-                if (anifloat < 10)
+                if (anifloat < 5)
                 {
                     Animator.SetFloat("input_meleelevel", anifloat + 1);
                 }
-                else Animator.SetFloat("input_meleelevel", 1);
+                else Animator.SetFloat("input_meleelevel", 0);
             }
         }
     }

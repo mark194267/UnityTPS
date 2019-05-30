@@ -65,7 +65,6 @@ namespace Assets.Script.ActionList
         {
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
-
             var mb = AvaterMain.MotionStatus;
             if (AvaterMain.anim_flag > 0)
             {
@@ -241,12 +240,13 @@ namespace Assets.Script.ActionList
         public bool tranglejump(ActionStatus actionStatus)
         {
             Rig.velocity = Vector3.up*3;//NowVector已經是正規化的向量了
-
+            /*
             if(!Physics.CheckBox(Me.transform.TransformVector(new Vector3(0,.7f,.5f)),Vector3.one*.05f,Me.transform.rotation))
             {
                 //Rig.isKinematic = true;
                 return false;
-            }       
+            }
+            */
             return true;
         }
         #endregion

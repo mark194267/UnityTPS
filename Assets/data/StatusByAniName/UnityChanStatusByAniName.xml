@@ -8,8 +8,8 @@
   <action name="unarmed equip underarm" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="Handgun"></action>
   <action name="unarmed equip over shoulder" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="Wakizashi"></action>
   <action name="unarmed equip over shoulder Rifle" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="AK-47"></action>
-  <action name="great sword slash" x="0" y="0" z="1.3" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="great sword slash 0" x="0" y="0" z="1.7" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="OneHand360slashLow" x="0" y="0" z="2" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
+  <action name="slash1" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
+  <action name="slash2" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
+  <action name="slash3" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
 
 </motion>

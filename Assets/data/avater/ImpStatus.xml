@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Imp>
-  <hp value ="10" />
-  <stun value ="40" />
+  <hp value ="1000" />
+  <stun value ="10" />
   <atk value="10" />
 </Imp>

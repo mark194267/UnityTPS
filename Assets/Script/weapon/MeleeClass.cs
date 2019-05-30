@@ -19,12 +19,13 @@ namespace Assets.Script.weapon
 
         void OnTriggerEnter(Collider collision)
         {
-            print("meleehit");
-            if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponent<AvaterMain>()/*是演員*/)
+            print("OnTriggerEnter " + collision.name);
+            if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponentInParent<AvaterMain>()/*是演員*/)
             {
+                print("OnMeleeHit" + collision.name);
                 var hit = collision.gameObject;
                 //執行"被打中"
-                hit.GetComponent<AvaterMain>().OnHit(damage + motionDamage, stun + motionStun);
+                hit.GetComponentInParent<AvaterMain>().OnHit(damage + motionDamage, stun + motionStun);
                 //Destroy(gameObject);
             }
         }

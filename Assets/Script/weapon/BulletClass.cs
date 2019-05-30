@@ -35,6 +35,8 @@ namespace Assets.Script.weapon
             if (blast > 0)
             {
                 Collider[] colliders = Physics.OverlapSphere(transform.position, blast);
+                if (colliders == null)
+                    return;
                 foreach (Collider hit in colliders)
                 {
                     var rb = hit.attachedRigidbody;

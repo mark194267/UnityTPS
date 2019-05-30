@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5434832}
   - component: {fileID: 2359886}
   - component: {fileID: 4878169056315583092}
+  - component: {fileID: 6690548643323065520}
   m_Layer: 0
   m_Name: Wakizashi
   m_TagString: Untagged
@@ -111,6 +112,19 @@ MonoBehaviour:
   damage: 0
   stun: 0
   blast: 0
+--- !u!65 &6690548643323065520
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103460}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.018790457, y: 0.061320394, z: 0.46628588}
+  m_Center: {x: -0.0008091945, y: 0.013348468, z: 0.24898848}
 --- !u!1 &135496
 GameObject:
   m_ObjectHideFlags: 0
