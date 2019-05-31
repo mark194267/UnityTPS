@@ -78,7 +78,7 @@ namespace Assets.Script.Avater
                 Animator.enabled = false;
                 GetComponent<NavMeshAgent>().enabled = false;
                 GetComponent<Rigidbody>().isKinematic = false;
-                GetComponent<Gun>().NowWeapon.weapon.SetActive(false);
+                GetComponent<Gun>().NowWeapon[0].weapon.SetActive(false);
                 //死了
                 Destroy(gameObject, 30f);
             }
@@ -98,7 +98,7 @@ namespace Assets.Script.Avater
 
         public void recover()
         {
-            gameObject.GetComponent<Gun>().NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+            gameObject.GetComponent<Gun>().NowWeapon[0].weapon.GetComponent<Collider>().enabled = false;
             gameObject.GetComponent<NavMeshAgent>().enabled = true;
         }
 

@@ -120,7 +120,7 @@ namespace Assets.Script.ActionList
             FPSLikeRigMovement(3f,10f);
             if(Input.GetButton("Fire1"))
             {
-                return Gun.fire();
+                return Gun.fire(0);
             }
             return true;
         }
@@ -335,7 +335,7 @@ namespace Assets.Script.ActionList
         }
         public void After_reload(ActionStatus actionStatus)
         {
-            Gun.reload();
+            Gun.reload(0);
         }
         #endregion
     }

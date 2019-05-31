@@ -22,12 +22,12 @@ namespace Assets.Script.ActionList
 
         public bool fireball(ActionStatus actionStatus)
         {
-            if (Gun.NowWeapon.BulletInMag > 0)
+            if (Gun.NowWeapon[0].BulletInMag > 0)
             {
                 if (Vector3.Angle(Me.transform.TransformDirection(Vector3.forward),
                         Target.transform.position - Me.transform.position) < 5)
                 {
-                    Gun.fire();
+                    Gun.fire(0);
                 }
             }
             else

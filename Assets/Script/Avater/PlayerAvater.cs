@@ -11,7 +11,7 @@ namespace Assets.Script.Avater
     /// <summary>
     /// 此為核心元件，非必要時別動這邊
     /// </summary>
-    class PlayerAvater : AvaterMain
+    public class PlayerAvater : AvaterMain
     {
         //武器欄
         //public Dictionary<int,string> PlayerWeaponDictionary;
@@ -20,6 +20,11 @@ namespace Assets.Script.Avater
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
         public GameObject GroundCheck;
         public float CheckRadius;
+        public string Type;
+        public int NowAmmo;
+        public int MaxAmmo;
+
+        public AllAmmoType ammoType = new AllAmmoType();
 
         void Start()
         {
@@ -32,9 +37,16 @@ namespace Assets.Script.Avater
 
             //ActionScript.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
             WeaponFactory weaponFactory = new WeaponFactory();
-            weaponFactory.Init();
+            var ammo = ammoType.GetAmmoType();
+            weaponFactory.Init(ammo);
+
+            Type = ammoType.Type;
+            NowAmmo = ammoType.NowAmmo;
+            MaxAmmo = ammoType.MaxAmmo;
+
             var GunDic = weaponFactory.AllWeaponDictionary;
 
+            gameObject.GetComponent<Gun>().SetPlayerAvater(this);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["MG"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);

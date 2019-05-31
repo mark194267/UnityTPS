@@ -14,6 +14,8 @@ public class StateMachine : StateMachineBehaviour
 
     private ActionStatus _actionStatus { get; set; }
     private MotionStatus _motionStatus { get; set; }
+
+    private string _latestCommand;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator Animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -37,11 +39,12 @@ public class StateMachine : StateMachineBehaviour
                     }
                 }
             }
-            //目前AI還是每一禎重讀一次
             //如果是AI
             if (AIBase != null)
             {
-                Animator.SetTrigger("AI_" + AIBase.DistanceBasicAI(AIBase.TargetInfo.GetTargetDis(), 3, 50));
+                Animator.SetBool("AI_" + _latestCommand,false);
+                _latestCommand = AIBase.DistanceBasicAI(AIBase.TargetInfo.GetTargetDis(), 3, 50);
+                Animator.SetBool("AI_" + _latestCommand,true);
             }
             foreach (var cando in AvaterMain.candolist)
             {

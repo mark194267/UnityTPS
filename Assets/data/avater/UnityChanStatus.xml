@@ -3,4 +3,5 @@
   <hp value="9999"/>
   <stun value ="100"/>
   <atk value ="100"/>
+  <Ammo type="Bullet" MaxAmmo="999" NowAmmo="0"/>
 </UnityChan>

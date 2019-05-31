@@ -262,12 +262,13 @@
     <Compile Include="Assets\Extended Script\VRM\UniGLTF\UniJSON\Scripts\SimpleJSON.cs" />
     <Compile Include="Assets\Extended Script\VRM\UniGLTF\UniJSON\Scripts\StringSegment.cs" />
     <Compile Include="Assets\Extended Script\VRM\UniGLTF\UniUnlit\Scripts\Utils.cs" />
-    <Compile Include="Assets\Resources\Chara\TAZO_3D_C\DemoScene\Action_Manage.cs" />
-    <Compile Include="Assets\Resources\Chara\TAZO_3D_C\DemoScene\demo.cs" />
+    <Compile Include="Assets\Resources\Char\TAZO_3D_C\DemoScene\Action_Manage.cs" />
+    <Compile Include="Assets\Resources\Char\TAZO_3D_C\DemoScene\demo.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionScriptBuilder.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionStatusDictionary.cs" />
     <Compile Include="Assets\Script\ActionControl\MotionStatusBuilder.cs" />
     <Compile Include="Assets\Script\ActionList\ImpAction.cs" />
+    <Compile Include="Assets\Script\ActionList\Karate_WarriorAction.cs" />
     <Compile Include="Assets\Script\ActionList\MechGrantAction.cs" />
     <Compile Include="Assets\Script\ActionList\SkeletonAction.cs" />
     <Compile Include="Assets\Script\ActionList\UnityChanAction.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Assets\Script\SceneLoad.cs" />
     <Compile Include="Assets\Script\Test\TestControl.cs" />
     <Compile Include="Assets\Script\Test\TestRandom.cs" />
+    <Compile Include="Assets\Script\weapon\AmmoType.cs" />
     <Compile Include="Assets\Script\weapon\ArtyClass.cs" />
     <Compile Include="Assets\Script\weapon\BulletClass.cs" />
     <Compile Include="Assets\Script\weapon\Gun.cs" />
@@ -300,15 +302,16 @@
     <Compile Include="Assets\Script\weapon\MeleeClass.cs" />
     <Compile Include="Assets\StateMachine.cs" />
     <Compile Include="Assets\TriggerObject.cs" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_TransparentOverlay.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\API Examples\Icosphere FFT\README.txt" />
     <None Include="Assets\Extended Script\VRM\Resources\Shaders\VRMUnlitTransparent.shader" />
-    <None Include="Assets\Resources\Chara\TAZO_3D_C\Creature\Egg_Minions\Shader\Cartoon_culloff.shader" />
+    <None Include="Assets\Resources\Char\TAZO_3D_C\Creature\Egg_Minions\Shader\Cartoon_culloff.shader" />
     <None Include="Assets\data\actions\BobChanAction.xml" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_SelectionPicker.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\About\changelog.txt" />
+    <None Include="Assets\data\actions\Karate_WarriorAction.xml" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\DiffuseVertexColor.shader" />
     <None Include="Assets\Extended Script\VRM\UniGLTF\Resources\Shaders\StandardVColor.shader" />
     <None Include="Assets\Extended Script\VRM\MToon\MToon\Resources\Shaders\MToonCore.cginc" />
@@ -321,49 +324,49 @@
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_UnlitSolidColor.shader" />
     <None Include="Assets\data\StatusByAniName\UnityChanStatusByAniName.xml" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_ReferenceUnlit.shader" />
-    <None Include="Assets\Resources\Chara\UnityChan\license.txt" />
+    <None Include="Assets\Resources\Char\UnityChan\license.txt" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\DiffuseTextureBlend.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_StandardVertexColor.shader" />
     <None Include="Assets\data\actions\CommonAction.xml" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku_ds.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku_ds.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_VertexPicker.shader" />
     <None Include="Assets\Resources\Weapon\JTS_Wakizashi\_ReadMe.txt" />
     <None Include="Assets\Extended Script\VRM\UniGLTF\Resources\Shaders\NormalMapDecoder.shader" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye_blend.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_HideVertices.shader" />
     <None Include="Assets\Resources\Weapon\JTS_Wakizashi\Shaders\jts_custom_sword.shader" />
     <None Include="Assets\data\actions\SkeletonAction.xml" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair_ds.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\About\ThirdPartyLicenses.txt" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_akarami_blend.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_akarami_blend.shader" />
     <None Include="Assets\data\actions\GolemAction.xml" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_UnlitVertexColor.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_FacePicker.shader" />
     <None Include="Assets\data\actions\ImpAction.xml" />
     <None Include="Assets\Extended Script\VRM\Resources\Shaders\VRMUnlitTexture.shader" />
     <None Include="Assets\data\avater\GolemStatus.xml" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hair.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\About\Font\SIL Open Font License.txt" />
     <None Include="Assets\Extended Script\VRM\MToon\MToon\Resources\Shaders\MToonSM4.cginc" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eyelash_blend.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eyelash_blend.shader" />
     <None Include="Assets\data\StatusByAniName\BobChanStatusByAniName.xml" />
     <None Include="Assets\Extended Script\VRM\Resources\Shaders\VRMUnlitCutout.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\About\pc_AboutEntry_ProBuilder.txt" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_VertexShader.shader" />
     <None Include="Assets\data\weapon\weapon.xml" />
     <None Include="Assets\data\avater\ImpStatus.xml" />
-    <None Include="Assets\Resources\Chara\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada_blend.shader" />
+    <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada_blend.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_NormalPreview.shader" />
     <None Include="Assets\Resources\Weapon\Weapons Pack(LOW POLY)\Weapons Pack info.txt" />
     <None Include="Assets\Extended Script\VRM\LICENSE.txt" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_ScrollHighlight.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\readme.txt" />
     <None Include="Assets\Extended Script\VRM\MToon\MToon\Resources\Shaders\MToon.shader" />
-    <None Include="Assets\Resources\Chara\TAZO_3D_C\Creature\Egg_Minions\Shader\Cartoon_a_without_outline.shader" />
+    <None Include="Assets\Resources\Char\TAZO_3D_C\Creature\Egg_Minions\Shader\Cartoon_a_without_outline.shader" />
     <None Include="Assets\Extended Script\VRM\UniGLTF\UniUnlit\Resources\UniUnlit.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_SmoothingPreview.shader" />
-    <None Include="Assets\Resources\Chara\TAZO_3D_C\Creature\Egg_Minions\Shader\Cartoon.shader" />
+    <None Include="Assets\Resources\Char\TAZO_3D_C\Creature\Egg_Minions\Shader\Cartoon.shader" />
     <None Include="Assets\Extended Script\VRM\MToon\MToon\Resources\Shaders\MToonSM3.cginc" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
@@ -590,6 +593,21 @@
     <Reference Include="nunit.framework">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.4f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="ProBuilderCore-Unity5">
+      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
+    </Reference>
+    <Reference Include="ProBuilderMeshOps-Unity5">
+      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
+    </Reference>
+    <Reference Include="KdTreeLib">
+      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="pb_Stl">
+      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
+    </Reference>
+    <Reference Include="Poly2Tri">
+      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
@@ -598,21 +616,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="Poly2Tri">
-      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
-    </Reference>
-    <Reference Include="KdTreeLib">
-      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
-    </Reference>
-    <Reference Include="pb_Stl">
-      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
-    </Reference>
-    <Reference Include="ProBuilderCore-Unity5">
-      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
-    </Reference>
-    <Reference Include="ProBuilderMeshOps-Unity5">
-      <HintPath>C:/Users/mark_shih/Documents/GitHub/WebApplication2/Assets/Extended Script/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.4f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

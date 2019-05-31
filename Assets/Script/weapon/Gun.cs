@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Script.Avater;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Assets.Script.weapon
     public class Gun : MonoBehaviour
     {
         public List<WeaponBasic> WeaponSlot = new List<WeaponBasic>();
-        public WeaponBasic NowWeapon;
+        public List<WeaponBasic> NowWeapon;
         public WeaponBasic NowWeaponOrign;
 
         public string weaponname;
@@ -22,14 +23,21 @@ namespace Assets.Script.weapon
         public GameObject Bullet;
         public GameObject target;
 
+        PlayerAvater PlayerAvater;
+
         public MouseOrbitImproved cam;
 
         public bool canshoot = true;
+        public void SetPlayerAvater(PlayerAvater avater)
+        {
+            PlayerAvater = avater;
+        }
 
         public void AddWeapon(WeaponBasic weapon)
         {
             weapon.BulletInMag = weapon.MagSize;
-            this.WeaponSlot.Add(weapon);
+            //Debug.Log(weapon.weapon.name);
+            WeaponSlot.Add(weapon);
         }
 
         public void CreateWeaponByList()
@@ -38,8 +46,9 @@ namespace Assets.Script.weapon
             {
                 foreach (var item in gameObject.GetComponentsInChildren(typeof(Transform),true))
                 {
-                    if(item.name == weaponBasic.type)
+                    if (item.name == weaponBasic.weapontype)
                     {
+                        //後面的疊道前面了
                         weaponBasic.weapon = Instantiate(weaponBasic.weapon, item.transform);
                         weaponBasic.weapon.tag = gameObject.tag;
                         weaponBasic.weapon.SetActive(false);
@@ -61,45 +70,47 @@ namespace Assets.Script.weapon
         }
 
         public void ChangeWeapon(string weaponName)
-        {            
-            //關閉上個武器模組
-            if (NowWeapon != null)
-            {
-                if (NowWeapon.weapon != null)
-                {
-                    NowWeapon.weapon.SetActive(false);
-                }
-            }            
-            //找到新武器
-            NowWeapon = WeaponSlot.Find(x => x.name == weaponName);
-            NowWeapon.weapon.SetActive(true);
-            //用來改變狀態
-            NowWeaponOrign = NowWeapon;
-            //射擊武器
-            if (NowWeapon.acc > 0)
-            {
-                NowWeapon.bullet = Resources.Load("Prefabs/" + NowWeapon.type) as GameObject;
-                var bullet = NowWeapon.bullet.GetComponent<BulletClass>();
-                bullet.damage = NowWeapon.Damage;
-                bullet.stun = NowWeapon.stun;
-            }
-            //肉搏武器
-            else
-            {
-                var melee = NowWeapon.weapon.GetComponent<MeleeClass>();
-                melee.damage = NowWeapon.Damage;
-                melee.stun = NowWeapon.stun;
-            }
-            //canshoot = true;
-        }
-        public virtual bool fire()
         {
-            if (NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot >= 0)
+            //關閉上個武器模組
+            //foreach (var Weapon in NowWeapon) Weapon.weapon.SetActive(false);
+            //找到新武器
+            NowWeapon = WeaponSlot.FindAll(x => x.name == weaponName);
+            Debug.Log(NowWeapon[0].name);
+            Debug.Log(NowWeapon[1].name);
+
+            foreach (var Weapon in NowWeapon) Weapon.weapon.SetActive(true);
+            //用來改變狀態
+            NowWeaponOrign = NowWeapon[0];
+
+            foreach (var Weapon in NowWeapon)
+            {
+                //射擊武器
+                if (Weapon.acc > 0)
+                {
+                    Debug.Log(Weapon.name + Weapon.ammotype);
+
+                    Weapon.bullet = Resources.Load("Prefabs/" + Weapon.ammotype.Type) as GameObject;
+                    var bullet = Weapon.bullet.GetComponent<BulletClass>();
+                    bullet.damage = Weapon.Damage;
+                    bullet.stun = Weapon.stun;
+                }
+                //肉搏武器
+                else
+                {
+                    var melee = Weapon.weapon.GetComponent<MeleeClass>();
+                    melee.damage = Weapon.Damage;
+                    melee.stun = Weapon.stun;
+                }
+            }
+        }
+        public virtual bool fire(int BarrelIndex)
+        {
+            if (NowWeapon[BarrelIndex].BulletInMag - NowWeapon[BarrelIndex].BulletUsedPerShot >= 0)
             {
                 if (canshoot)
                 {
                     //發射一發
-                    StartCoroutine(ShootShotGunBullet());
+                    StartCoroutine(ShootShotGunBullet(BarrelIndex));
                     //後座力區塊
                     //cam.Rotate(Random.RandomRange(-100f,100f),Random.RandomRange(0,100f),0f,Space.Self);<<轉為攝影機統一控管
                     //如果現在後座力為 < 目標後座力
@@ -118,34 +129,30 @@ namespace Assets.Script.weapon
         /// 換彈，請在"完成換彈"後使用
         /// </summary>
         /// <returns></returns>
-        public virtual bool reload()
+        public virtual bool reload(int WeaponIndex)
         {
+            var Weapon = NowWeapon[WeaponIndex];
             //如果彈夾內的子彈 < 彈夾大小，或是剩下彈藥大於 0
-            if (NowWeapon.BulletInMag <= NowWeapon.MagSize && NowWeapon.nowammo > 0)
+            if (Weapon.BulletInMag <= Weapon.MagSize && PlayerAvater.NowAmmo > 0)
             {
                 //如果現在彈量 >= 彈夾容量
-                if (NowWeapon.nowammo >= NowWeapon.MagSize)
+                if (PlayerAvater.NowAmmo >= Weapon.MagSize)
                 {
                     //總彈藥 += 彈夾殘彈
-                    NowWeapon.nowammo += NowWeapon.BulletInMag;
+                    PlayerAvater.NowAmmo += Weapon.BulletInMag;
                     //現在彈量 -= 彈夾容量
-                    NowWeapon.nowammo -= NowWeapon.MagSize;
+                    PlayerAvater.NowAmmo -= Weapon.MagSize;
                     //彈夾殘彈 = 彈夾容量
-                    NowWeapon.BulletInMag = NowWeapon.MagSize;
+                    Weapon.BulletInMag = Weapon.MagSize;
                 }
                 //如果持有彈量 < 彈夾容量
-                if (NowWeapon.nowammo <= NowWeapon.MagSize)
+                if (PlayerAvater.NowAmmo <= Weapon.MagSize)
                 {
                     //彈夾殘彈 = 彈夾容量
-                    NowWeapon.BulletInMag = NowWeapon.nowammo;
+                    Weapon.BulletInMag = PlayerAvater.NowAmmo;
                     //持有彈量歸零
-                    NowWeapon.nowammo = 0;
+                    PlayerAvater.NowAmmo = 0;
                 }
-
-                //測試區
-                //weaponname = NowWeapon.name;
-                //ammo = NowWeapon.nowammo;
-                //bulletinmag = NowWeapon.BulletInMag;
                 return true;
             }
             return false;
@@ -158,8 +165,13 @@ namespace Assets.Script.weapon
         /// <param name="timeflag"></param>
         public void Swing(int timeflag,int motionDamage,double motionStun)
         {
-            if (timeflag == 1) NowWeapon.weapon.GetComponentInChildren<Collider>().enabled = true;
-            else NowWeapon.weapon.GetComponentInChildren<Collider>().enabled = false;
+            if (timeflag == 1) NowWeapon[0].weapon.GetComponentInChildren<Collider>().enabled = true;
+            else NowWeapon[0].weapon.GetComponentInChildren<Collider>().enabled = false;
+        }
+        public void Swing(int WeaponIndex,int timeflag, int motionDamage, double motionStun)
+        {
+            if (timeflag == 1) NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = true;
+            else NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = false;
         }
         /// <summary>
         /// 開啟肉搏判定的HITBOX,
@@ -174,11 +186,10 @@ namespace Assets.Script.weapon
         {
             if (timeflag == 1)
             {
-                NowWeapon.weapon.GetComponent<Collider>().enabled = true;
-                var trans = this.GetComponentInParent<Transform>();
-                this.GetComponentInParent<Rigidbody>().AddForce(trans.TransformVector(force));
+                NowWeapon[0].weapon.GetComponent<Collider>().enabled = true;
+                this.GetComponentInParent<Rigidbody>().AddRelativeForce(force,ForceMode.VelocityChange);
             }
-            else NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+            else NowWeapon[0].weapon.GetComponent<Collider>().enabled = false;
         }
         /// <summary>
         /// 開啟肉搏判定的HITBOX,
@@ -193,16 +204,15 @@ namespace Assets.Script.weapon
         {
             if (timeflag == 1)
             {
-                NowWeapon.weapon.GetComponent<Collider>().enabled = true;
-                var trans = this.GetComponentInParent<Transform>();
-                this.GetComponentInParent<Rigidbody>().AddForce(trans.TransformVector(force), mode);
+                NowWeapon[0].weapon.GetComponent<Collider>().enabled = true;
+                this.GetComponentInParent<Rigidbody>().AddRelativeForce(force, mode);
             }
-            else NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+            else NowWeapon[0].weapon.GetComponent<Collider>().enabled = false;
         }
 
-        IEnumerator ShootShotGunBullet()
+        IEnumerator ShootShotGunBullet(int BarrelIndex)
         {
-            if (NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot < 0) yield break;
+            if (NowWeapon[BarrelIndex].BulletInMag - NowWeapon[BarrelIndex].BulletUsedPerShot < 0) yield break;
             canshoot = false;
 
             //得到攝影機的正中央
@@ -216,13 +226,13 @@ namespace Assets.Script.weapon
                 Qua = Quaternion.LookRotation(MainCamPos - transform.position);
             }
             else
-                Qua = NowWeapon.weapon.transform.rotation;
+                Qua = NowWeapon[BarrelIndex].weapon.transform.rotation;
 
                 //找到目前"槍口"的方向
-            for (int i = 0;i< NowWeapon.BulletUsedPerShot/*散彈數*/;i++)
+            for (int i = 0;i< NowWeapon[BarrelIndex].BulletUsedPerShot/*散彈數*/;i++)
             {
-                var bullet = Instantiate(NowWeapon.bullet,
-                NowWeapon.weapon.transform.position, Qua);
+                var bullet = Instantiate(NowWeapon[BarrelIndex].bullet,
+                NowWeapon[BarrelIndex].weapon.transform.position, Qua);
                 
                 Quaternion q = UnityEngine.Random.rotationUniform;
                 var qv = bullet.transform.TransformVector(Vector3.forward) +
@@ -233,8 +243,8 @@ namespace Assets.Script.weapon
                 bullet.tag = gameObject.tag;
                 var b = bullet.GetComponent<BulletClass>();
                 //初始化子彈的數值--待改進
-                b.damage = NowWeapon.Damage;
-                b.blast = NowWeapon.blast;
+                b.damage = NowWeapon[BarrelIndex].Damage;
+                b.blast = NowWeapon[BarrelIndex].blast;
                 //三秒之後移除
                 Destroy(bullet,3f);
             }
@@ -248,8 +258,8 @@ namespace Assets.Script.weapon
             }
             
             //可能是雙管之類的
-            NowWeapon.BulletInMag = NowWeapon.BulletInMag - NowWeapon.BulletUsedPerShot;
-            yield return new WaitForSeconds(NowWeapon.rof);
+            NowWeapon[BarrelIndex].BulletInMag = NowWeapon[BarrelIndex].BulletInMag - NowWeapon[BarrelIndex].BulletUsedPerShot;
+            yield return new WaitForSeconds(NowWeapon[BarrelIndex].rof);
             canshoot = true;
         }
     }

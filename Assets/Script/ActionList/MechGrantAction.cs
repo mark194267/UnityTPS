@@ -60,7 +60,7 @@ namespace Assets.Script.ActionList
                 */
                 if (_timer < 10)
                     _timer += Time.deltaTime;
-                Gun.NowWeapon.rof = Gun.NowWeaponOrign.rof + (_timer/-20);
+                Gun.NowWeapon[0].rof = Gun.NowWeaponOrign.rof + (_timer/-20);
                 var MyPos = Me.transform.position;
                 var TargetPos = Target.transform.position;
                 RaycastHit hit;
@@ -69,8 +69,8 @@ namespace Assets.Script.ActionList
                 Physics.SphereCast(MyPos, .1f, TargetPos - MyPos,out hit,100f,layermask,QueryTriggerInteraction.Ignore);
                 if (hit.transform.CompareTag("Player"))
                 {
-                    Gun.NowWeapon.BulletInMag = 1;
-                    Gun.fire();
+                    Gun.NowWeapon[0].BulletInMag = 1;
+                    Gun.fire(0);
                 }
                 else
                     return false;

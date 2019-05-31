@@ -279,16 +279,9 @@ namespace Assets.Script.ActionControl
 
         public virtual bool shoot(ActionStatus actionStatus)
         {
-            if (Gun.NowWeapon.BulletInMag > 0)
+            if (Targetinfo.GetTargetAngle() < 5)
             {
-                if (Targetinfo.GetTargetAngle() < 5)
-                {
-                    Gun.fire();
-                }
-            }
-            else
-            {
-                return false;
+                Gun.fire(0);
             }
             RotateTowardlerp(Target.transform);
             return true;
@@ -321,7 +314,7 @@ namespace Assets.Script.ActionControl
             AddCostArea();
             Agent.enabled = false;
             Rig.isKinematic = false;
-            Gun.NowWeapon.weapon.GetComponent<Collider>().enabled = false;
+            Gun.NowWeapon[0].weapon.GetComponent<Collider>().enabled = false;
         }
 
         public virtual bool dead(ActionStatus actionStatus)
