@@ -14,14 +14,18 @@ namespace Assets.Script.weapon
         public Dictionary<string, WeaponBasic> RangeDictionary;
         public Dictionary<string, WeaponBasic> RocketDictionary;
         public Dictionary<string, WeaponBasic> CloseDictionary;
+        public Dictionary<string, WeaponBasic> DualDictionary;
+
 
         public void Init()
         {
             RangeDictionary = Loadweapon("range", "rifle");
             RocketDictionary = Loadweapon("range", "rocket");
             CloseDictionary = Loadweapon("close", "sword");
-            AllWeaponDictionary = RangeDictionary.Concat(CloseDictionary).Concat(RocketDictionary).GroupBy(d => d.Key)
-                .ToDictionary(d => d.Key, d => d.First().Value);
+            DualDictionary = Loadweapon("close", "dual");
+            AllWeaponDictionary = 
+                RangeDictionary.Concat(CloseDictionary).Concat(RocketDictionary).Concat(DualDictionary)
+                .GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
         }
 
         public void Init(List<Ammo> ammo)

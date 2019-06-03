@@ -111,16 +111,15 @@ namespace Assets.Script.weapon
         public void ChangeWeapon(string weaponName)
         {
             //關閉上個武器模組
-            //foreach (var Weapon in NowWeapon) Weapon.weapon.SetActive(false);
+            if(NowWeapon != null)
+                foreach (var Weapon in NowWeapon) Weapon.weapon.SetActive(false);
             //找到新武器
             NowWeapon = WeaponSlot.FindAll(x => x.name == weaponName);
             //Debug.Log(NowWeapon[0].name);
 //            Debug.Log(NowWeapon[1].name);
 
-            foreach (var Weapon in NowWeapon)
-            {
-                Weapon.weapon.SetActive(true);
-            } 
+            foreach (var Weapon in NowWeapon) Weapon.weapon.SetActive(true);
+
             //用來改變狀態
             NowWeaponOrign = NowWeapon[0];
 

@@ -12,7 +12,7 @@ namespace Assets.Script.ActionList
         public override void Before_slash(ActionStatus actionStatus)
         {
             Agent.ResetPath();
-
+            Gun.ChangeWeapon("fist");
         }
     }
 }

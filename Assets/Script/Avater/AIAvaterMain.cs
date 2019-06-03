@@ -30,7 +30,7 @@ namespace Assets.Script.Avater
             ActionScript.Target = GameObject.Find("UnityChan");
 
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["fist"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["MG"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
             gameObject.GetComponent<Gun>().CreateWeaponByList();
