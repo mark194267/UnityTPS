@@ -3861,6 +3861,36 @@ MonoBehaviour:
   Type: 0
   TargetPos: {x: 0, y: 0, z: 0}
   TargetRot: {x: 0, y: 0, z: 90}
+--- !u!1 &928743780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 928743781}
+  m_Layer: 8
+  m_Name: rifle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &928743781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928743780}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1605695256}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1011960158
 GameObject:
   m_ObjectHideFlags: 0
@@ -7596,36 +7626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f6a66ba06af9e43afa3cccf1d3d21b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1560501175
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1560501176}
-  m_Layer: 8
-  m_Name: rifle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1560501176
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560501175}
-  m_LocalRotation: {x: 0.45068637, y: 0.54486877, z: 0.5384548, w: 0.45832995}
-  m_LocalPosition: {x: 0.71825683, y: -0.00024855137, z: 0.11916274}
-  m_LocalScale: {x: 0.9000002, y: 0.9000001, z: 0.9000001}
-  m_Children: []
-  m_Father: {fileID: 1605695256}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -10, y: 90.00001, z: 90089.19}
 --- !u!4 &1605695256 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6116416452481958781, guid: f15f001cd5500364aa8cc7e3c296491a,

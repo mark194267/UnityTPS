@@ -11,6 +11,9 @@ namespace Assets.Script.weapon
     public class Gun : MonoBehaviour
     {
         public List<WeaponBasic> WeaponSlot = new List<WeaponBasic>();
+
+        public List<WeaponBasic> EquipmentSlot = new List<WeaponBasic>();
+
         public List<WeaponBasic> NowWeapon;
         public WeaponBasic NowWeaponOrign;
 
@@ -37,26 +40,62 @@ namespace Assets.Script.weapon
         {
             weapon.BulletInMag = weapon.MagSize;
             //Debug.Log(weapon.weapon.name);
-            WeaponSlot.Add(weapon);
+            EquipmentSlot.Add(weapon);
         }
 
         public void CreateWeaponByList()
         {
-            foreach (var weaponBasic in WeaponSlot)
+            foreach (var item in gameObject.GetComponentsInChildren(typeof(Transform), true))
             {
-                foreach (var item in gameObject.GetComponentsInChildren(typeof(Transform),true))
+                foreach (var weaponBasic in EquipmentSlot)
                 {
+
                     if (item.name == weaponBasic.weapontype)
                     {
                         //後面的疊道前面了
-                        weaponBasic.weapon = Instantiate(weaponBasic.weapon, item.transform);
-                        weaponBasic.weapon.tag = gameObject.tag;
-                        weaponBasic.weapon.SetActive(false);
+                        WeaponBasic weapon = new WeaponBasic(){
+                            name = weaponBasic.name,
+                            weapontype = weaponBasic.weapontype,
+                            ammotype = weaponBasic.ammotype,
+                            Damage = weaponBasic.Damage,
+                            MagSize = weaponBasic.MagSize,
+                            BulletInMag = weaponBasic.BulletInMag,
+                            BulletUsedPerShot = weaponBasic.BulletUsedPerShot,
+                            charge = weaponBasic.charge,
+                            acc = weaponBasic.acc,
+                            rof = weaponBasic.rof,
+                            dropoff = weaponBasic.dropoff,
+                            speed = weaponBasic.speed,
+                            recoil = weaponBasic.recoil,
+                            blast = weaponBasic.blast,
+                            stun = weaponBasic.stun,
+                            weapon = Instantiate(weaponBasic.weapon, item.transform),
+                            };
+                            weapon.weapon.tag = gameObject.tag;
+                            weapon.weapon.SetActive(false);
+                        //print(weaponBasic.name + " " + weaponBasic.weapon.name);
+                        WeaponSlot.Add(weapon);
                     }
                 }
                 //var weaponPosition = gameObject.transform.Find(weaponBasic.type);
             }
+            
+            foreach(var gun in WeaponSlot)
+            {
+                 print(gun.name);
+                 print(gun.name+" "+gun.weapon.name);
+            }
+            
+            /*
+            var guns = WeaponSlot.FindAll(x => x.name == "AK-47");
+            foreach(var gun in guns)
+            {
+                print(gun.weapon.name);
+                gun.weapon.SetActive(true);
+            } 
+            */
         }
+
 
         public void ExchangeNewWeapon(WeaponBasic weapon)
         {
@@ -75,10 +114,13 @@ namespace Assets.Script.weapon
             //foreach (var Weapon in NowWeapon) Weapon.weapon.SetActive(false);
             //找到新武器
             NowWeapon = WeaponSlot.FindAll(x => x.name == weaponName);
-            Debug.Log(NowWeapon[0].name);
-            Debug.Log(NowWeapon[1].name);
+            //Debug.Log(NowWeapon[0].name);
+//            Debug.Log(NowWeapon[1].name);
 
-            foreach (var Weapon in NowWeapon) Weapon.weapon.SetActive(true);
+            foreach (var Weapon in NowWeapon)
+            {
+                Weapon.weapon.SetActive(true);
+            } 
             //用來改變狀態
             NowWeaponOrign = NowWeapon[0];
 
