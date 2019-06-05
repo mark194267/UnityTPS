@@ -16,7 +16,7 @@ public class Grandcheck : MonoBehaviour
     {
         //print(other.gameObject.name);
         animator.SetBool("avater_IsLanded", true);
-        //MyObject.parent = other.transform;
+        MyObject.parent = other.transform;
     }
     private void OnTriggerExit(Collider other)
     {

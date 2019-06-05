@@ -21,6 +21,20 @@ public class StateMachine : StateMachineBehaviour
     {
         if (layerIndex == 0)
         {
+            if (AvaterMain.motionStatusDir != null)
+            {
+                //Debug.Log(me.name);
+                foreach (var motionStatus in AvaterMain.motionStatusDir)
+                {
+                    //                    Debug.Log(motionStatus.Key);
+                    //                    Debug.Log(motionStatus.Value.String);
+                    if (stateInfo.IsName(motionStatus.Key))
+                    {
+                        AvaterMain.MotionStatus = motionStatus.Value;
+                    }
+                }
+            }
+
             foreach (var actionStatuse in AvaterMain.actionStatusDictionary.AllActionStatusDictionary)
             {
                 if (stateInfo.IsTag(actionStatuse.Key))
@@ -29,16 +43,7 @@ public class StateMachine : StateMachineBehaviour
                     _actionStatus = actionStatuse.Value;
                 }
             }
-            if (AvaterMain.motionStatusDir != null)
-            {
-                foreach (var motionStatus in AvaterMain.motionStatusDir)
-                {
-                    if (stateInfo.IsName(motionStatus.Key))
-                    {
-                        AvaterMain.MotionStatus = motionStatus.Value;
-                    }
-                }
-            }
+
             //如果是AI
             if (AIBase != null)
             {

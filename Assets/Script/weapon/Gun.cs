@@ -79,20 +79,12 @@ namespace Assets.Script.weapon
                 }
                 //var weaponPosition = gameObject.transform.Find(weaponBasic.type);
             }
-            
+            /*
             foreach(var gun in WeaponSlot)
             {
                  print(gun.name);
                  print(gun.name+" "+gun.weapon.name);
             }
-            
-            /*
-            var guns = WeaponSlot.FindAll(x => x.name == "AK-47");
-            foreach(var gun in guns)
-            {
-                print(gun.weapon.name);
-                gun.weapon.SetActive(true);
-            } 
             */
         }
 
@@ -209,10 +201,17 @@ namespace Assets.Script.weapon
             if (timeflag == 1) NowWeapon[0].weapon.GetComponentInChildren<Collider>().enabled = true;
             else NowWeapon[0].weapon.GetComponentInChildren<Collider>().enabled = false;
         }
-        public void Swing(int WeaponIndex,int timeflag, int motionDamage, double motionStun)
+        /// <summary>
+        /// 在動畫中插入旗標，並依照旗標數字開啟武器碰撞
+        /// </summary>
+        /// <param name="WeaponIndex">目標旗標</param>
+        /// <param name="motionDamage"></param>
+        /// <param name="motionStun"></param>
+        public void SwingByIndex(int WeaponIndex, int motionDamage, double motionStun)
         {
-            if (timeflag == 1) NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = true;
-            else NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = false;
+            var timeflag = GetComponent<AvaterMain>().anim_flag;
+            if (timeflag != WeaponIndex) NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = false;
+            else NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = true;
         }
         /// <summary>
         /// 開啟肉搏判定的HITBOX,

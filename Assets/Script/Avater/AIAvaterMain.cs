@@ -14,7 +14,7 @@ namespace Assets.Script.Avater
         public TargetInfo targetInfo;
         //public Vector3 formationPoint;
         public Collider HotThing;
-
+        private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
         public bool IsDecided;
         public bool IsAwake;
         public string NowCommand { get; set; }
@@ -33,11 +33,14 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["fist"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["MG"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["kick"]);
+
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             //gameObject.GetComponent<Gun>().ChangeWeapon("MG");
             //Animator = this.gameObject.GetComponent<Animator>();
             //有無被叫醒
             //IsAwake = true;
+            motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
         }
 
         private void Update()

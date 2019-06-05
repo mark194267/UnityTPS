@@ -24,8 +24,12 @@ namespace Assets.Script.weapon
             if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponentInParent<AvaterMain>()/*是演員*/)
             {
                 var hit = collision.gameObject;
+
+                //var dir = hit.GetComponentInParent<Transform>().TransformPoint();
+
                 //執行"被打中"
                 hit.GetComponentInParent<AvaterMain>().OnHit(damage,stun);
+                
                 Destroy(gameObject);
             }
         }
@@ -34,15 +38,17 @@ namespace Assets.Script.weapon
         {        
             if (blast > 0)
             {
+                /*
                 Collider[] colliders = Physics.OverlapSphere(transform.position, blast);
                 if (colliders == null)
                     return;
                 foreach (Collider hit in colliders)
                 {
-                    var rb = hit.attachedRigidbody;
+                    var rb = hit.GetComponentInParent<Rigidbody>();
                     if (rb != null || !hit.transform.CompareTag("Player"))
                         rb.AddExplosionForce(5f, transform.position, blast,0,ForceMode.VelocityChange);
                 }
+                */
             }
         }
     }

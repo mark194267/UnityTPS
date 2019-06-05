@@ -309,6 +309,15 @@ namespace Assets.Script.ActionControl
             return true;
         }
 
+        public virtual void Before_stun(ActionStatus actionStatus)
+        {
+            if (Agent != null) { Agent.ResetPath(); }
+        }
+        public virtual bool stun(ActionStatus actionStatus)
+        {
+            return true;
+        }
+
         public virtual void Before_dead(ActionStatus actionStatus)
         {
             AddCostArea();

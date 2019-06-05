@@ -267,6 +267,7 @@
     <Compile Include="Assets\Script\ActionControl\ActionScriptBuilder.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionStatusDictionary.cs" />
     <Compile Include="Assets\Script\ActionControl\MotionStatusBuilder.cs" />
+    <Compile Include="Assets\Script\ActionList\Crossbow_WarriorAction.cs" />
     <Compile Include="Assets\Script\ActionList\ImpAction.cs" />
     <Compile Include="Assets\Script\ActionList\Karate_WarriorAction.cs" />
     <Compile Include="Assets\Script\ActionList\MechGrantAction.cs" />
@@ -306,6 +307,7 @@
     <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_TransparentOverlay.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\API Examples\Icosphere FFT\README.txt" />
+    <None Include="Assets\data\actions\Crossbow_WarriorAction.xml" />
     <None Include="Assets\Extended Script\VRM\Resources\Shaders\VRMUnlitTransparent.shader" />
     <None Include="Assets\Resources\Char\TAZO_3D_C\Creature\Egg_Minions\Shader\Cartoon_culloff.shader" />
     <None Include="Assets\data\actions\BobChanAction.xml" />
@@ -349,7 +351,6 @@
     <None Include="Assets\Extended Script\ProCore\ProBuilder\About\Font\SIL Open Font License.txt" />
     <None Include="Assets\Extended Script\VRM\MToon\MToon\Resources\Shaders\MToonSM4.cginc" />
     <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eyelash_blend.shader" />
-    <None Include="Assets\data\StatusByAniName\BobChanStatusByAniName.xml" />
     <None Include="Assets\Extended Script\VRM\Resources\Shaders\VRMUnlitCutout.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\About\pc_AboutEntry_ProBuilder.txt" />
     <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada.shader" />
@@ -359,6 +360,7 @@
     <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada_blend.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_NormalPreview.shader" />
     <None Include="Assets\Resources\Weapon\Weapons Pack(LOW POLY)\Weapons Pack info.txt" />
+    <None Include="Assets\data\StatusByAniName\Karate_WarriorStatusByAniName.xml" />
     <None Include="Assets\Extended Script\VRM\LICENSE.txt" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_ScrollHighlight.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\readme.txt" />

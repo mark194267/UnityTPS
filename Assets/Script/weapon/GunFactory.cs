@@ -15,6 +15,7 @@ namespace Assets.Script.weapon
         public Dictionary<string, WeaponBasic> RocketDictionary;
         public Dictionary<string, WeaponBasic> CloseDictionary;
         public Dictionary<string, WeaponBasic> DualDictionary;
+        public Dictionary<string, WeaponBasic> KickDictionary;
 
 
         public void Init()
@@ -23,8 +24,9 @@ namespace Assets.Script.weapon
             RocketDictionary = Loadweapon("range", "rocket");
             CloseDictionary = Loadweapon("close", "sword");
             DualDictionary = Loadweapon("close", "dual");
+            KickDictionary = Loadweapon("close","kick");
             AllWeaponDictionary = 
-                RangeDictionary.Concat(CloseDictionary).Concat(RocketDictionary).Concat(DualDictionary)
+                RangeDictionary.Concat(CloseDictionary).Concat(RocketDictionary).Concat(DualDictionary).Concat(KickDictionary)
                 .GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
         }
 

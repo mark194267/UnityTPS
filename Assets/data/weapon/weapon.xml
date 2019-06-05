@@ -18,5 +18,8 @@
     <dual>
       <fist name ="fist" type ="dual" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
     </dual>
+    <kick>
+      <kick name ="kick" type ="dual" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
+    </kick>
 	</close>
 </weapon>
