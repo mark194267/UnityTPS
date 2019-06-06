@@ -108,5 +108,15 @@ namespace Assets.Script.ActionList
             }
             return true;
         }
+        public void Before_kick(ActionStatus actionStatus)
+        {
+            Gun.ChangeWeapon("kick");
+        }
+        public bool kick(ActionStatus actionStatus)
+        {
+            RotateTowardlerp(Target.transform);
+            Gun.Swing(AvaterMain.anim_flag, 1, 1);
+            return true;
+        }
     }
 }

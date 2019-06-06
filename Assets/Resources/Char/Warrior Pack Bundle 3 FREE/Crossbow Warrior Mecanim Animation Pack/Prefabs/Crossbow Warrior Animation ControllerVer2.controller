@@ -294,7 +294,7 @@ AnimatorStateTransition:
     m_ConditionEvent: AI_long
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 4815536294315162163}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -319,7 +319,7 @@ AnimatorStateTransition:
     m_ConditionEvent: AI_long
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 4815536294315162163}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -837,7 +837,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 714c40c75ea542248aea545b08b8bc50, type: 3}
-  m_Tag: 
+  m_Tag: kick
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -879,7 +879,7 @@ AnimatorStateTransition:
     m_ConditionEvent: AI_long
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 4815536294315162163}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0

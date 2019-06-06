@@ -40,8 +40,6 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             //gameObject.GetComponent<Gun>().ChangeWeapon("MG");
             //Animator = this.gameObject.GetComponent<Animator>();
-            //有無被叫醒
-            //IsAwake = true;
             motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
         }
 

@@ -267,6 +267,7 @@
     <Compile Include="Assets\Script\ActionControl\ActionScriptBuilder.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionStatusDictionary.cs" />
     <Compile Include="Assets\Script\ActionControl\MotionStatusBuilder.cs" />
+    <Compile Include="Assets\Script\ActionList\Brute_WarriorAction.cs" />
     <Compile Include="Assets\Script\ActionList\Crossbow_WarriorAction.cs" />
     <Compile Include="Assets\Script\ActionList\ImpAction.cs" />
     <Compile Include="Assets\Script\ActionList\Karate_WarriorAction.cs" />
@@ -323,6 +324,7 @@
     <None Include="Assets\Extended Script\VRM\Resources\Shaders\VRMUnlitTransparentZWrite.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_FaceHighlight.shader" />
     <None Include="Assets\data\actions\UnityChanAction.xml" />
+    <None Include="Assets\data\actions\Brute_WarriorAction.xml" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_UnlitSolidColor.shader" />
     <None Include="Assets\data\StatusByAniName\UnityChanStatusByAniName.xml" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_ReferenceUnlit.shader" />
