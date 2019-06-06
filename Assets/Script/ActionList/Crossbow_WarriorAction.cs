@@ -38,8 +38,7 @@ namespace Assets.Script.ActionList
 
         public override bool shoot(ActionStatus actionStatus)
         {
-            UpdateWSAD_ToAnimator();
-
+            //Debug.Log(Target.transform.name);
             RotateTowardSlerp(Target.transform.position, 3f);
             var angle = Vector3.Angle(Me.transform.TransformDirection(Vector3.forward),
                     Target.transform.position - Me.transform.position);

@@ -71,9 +71,23 @@ namespace Assets.Script.weapon
 
                 WeaponBasic weapon = new WeaponBasic()
                 {
-                    name = name,weapontype = weapontype,Damage = damage,MagSize = magsize,BulletUsedPerShot = bulletusedpershot
-                    ,acc=acc,dropoff = dropoff,speed = speed,recoil = recoil,rof=rof
-                    ,stun = stun,charge = charge,blast = blast,weapon = weaponGameObject
+                    name = name,
+                    weapontype = weapontype,
+                    ammotype = new Ammo { Type = ammotype },
+                    Damage = damage,
+                    MagSize = magsize,
+                    BulletUsedPerShot = bulletusedpershot
+                    ,
+                    acc = acc,
+                    dropoff = dropoff,
+                    speed = speed,
+                    recoil = recoil,
+                    rof = rof
+                    ,
+                    stun = stun,
+                    charge = charge,
+                    blast = blast,
+                    weapon = weaponGameObject
                 };
                 weapondictionary.Add(name, weapon);
             }

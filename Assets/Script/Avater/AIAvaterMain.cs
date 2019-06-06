@@ -19,6 +19,8 @@ namespace Assets.Script.Avater
         public bool IsAwake;
         public string NowCommand { get; set; }
 
+        public AllAmmoType ammoType = new AllAmmoType();
+
         void Start()
         {
             WeaponFactory weaponFactory = new WeaponFactory();

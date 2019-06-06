@@ -685,37 +685,6 @@ Transform:
   m_Father: {fileID: 1641849228}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 2.035}
---- !u!1 &94905362 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4598341221140783316, guid: f15f001cd5500364aa8cc7e3c296491a,
-    type: 3}
-  m_PrefabInstance: {fileID: 774004602}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &94905364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94905362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58b22721bfbec2c4280c015c71deff33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!135 &94905365
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 94905362}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &155794086 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: f02a055bd6b8c1343ab2310b439da7d0,
@@ -1841,11 +1810,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnityChan
       objectReference: {fileID: 0}
-    - target: {fileID: 5114548669204089236, guid: f15f001cd5500364aa8cc7e3c296491a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2437398330738779537, guid: f15f001cd5500364aa8cc7e3c296491a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1901,52 +1865,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 91578357, guid: f15f001cd5500364aa8cc7e3c296491a, type: 3}
-      propertyPath: m_Center.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5114548669204089232, guid: f15f001cd5500364aa8cc7e3c296491a,
-        type: 3}
-      propertyPath: CheckRadius
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6709608785680619930, guid: f15f001cd5500364aa8cc7e3c296491a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.076
-      objectReference: {fileID: 0}
-    - target: {fileID: 5114548669204089239, guid: f15f001cd5500364aa8cc7e3c296491a,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4665110039440198589, guid: f15f001cd5500364aa8cc7e3c296491a,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3465306954095088387, guid: f15f001cd5500364aa8cc7e3c296491a,
-        type: 3}
-      propertyPath: IsAutoTransparent
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2669583573438400862, guid: f15f001cd5500364aa8cc7e3c296491a,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3465306954372310030, guid: f15f001cd5500364aa8cc7e3c296491a,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3465306955184649849, guid: f15f001cd5500364aa8cc7e3c296491a,
-        type: 3}
-      propertyPath: m_Name
-      value: rifle
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4665110039440198589, guid: f15f001cd5500364aa8cc7e3c296491a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f15f001cd5500364aa8cc7e3c296491a, type: 3}
 --- !u!1 &808092730
 GameObject:
@@ -8155,6 +8074,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 89a8c75168550f14cb94af61cea2d9ba, type: 2}
+    - target: {fileID: 9590292, guid: f02a055bd6b8c1343ab2310b439da7d0, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 159816, guid: f02a055bd6b8c1343ab2310b439da7d0, type: 3}
       propertyPath: m_Layer
       value: 9
