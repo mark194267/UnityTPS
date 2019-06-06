@@ -138,6 +138,8 @@ namespace Assets.Script.weapon
         }
         public virtual bool fire(int BarrelIndex)
         {
+            //Debug.Log(NowWeapon[BarrelIndex].BulletInMag + " - " + NowWeapon[BarrelIndex].BulletUsedPerShot);
+
             if (NowWeapon[BarrelIndex].BulletInMag - NowWeapon[BarrelIndex].BulletUsedPerShot >= 0)
             {
                 if (canshoot)

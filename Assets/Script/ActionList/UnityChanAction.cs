@@ -49,7 +49,7 @@ namespace Assets.Script.ActionList
                 Rig.velocity = NowVecter;
                 Rig.velocity += Me.transform.TransformDirection(Vector3.forward * 2f);
             }
-            Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
+            //Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
         }
         public void After_kick(ActionStatus actionStatus)

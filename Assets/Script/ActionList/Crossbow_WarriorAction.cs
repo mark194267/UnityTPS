@@ -16,11 +16,10 @@ namespace Assets.Script.ActionList
         {
             Agent.SetDestination(Target.transform.position);
 
-            var MyPos = Me.transform.position;
-            var TargetPos = Target.transform.position;
+            var MyPos = Me.transform.position + Vector3.up * .5f;
+            var TargetPos = Target.transform.position + Vector3.up * .5f;
             RaycastHit hit;
-            int layermask = LayerMask.GetMask("Ignore Raycast");
-            layermask = ~layermask;
+            int layermask = ~LayerMask.GetMask("Ignore Raycast");
             Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
             if (hit.transform.CompareTag("Player"))
             {
@@ -38,18 +37,16 @@ namespace Assets.Script.ActionList
 
         public override bool shoot(ActionStatus actionStatus)
         {
-            //Debug.Log(Target.transform.name);
             RotateTowardSlerp(Target.transform.position, 3f);
             var angle = Vector3.Angle(Me.transform.TransformDirection(Vector3.forward),
                     Target.transform.position - Me.transform.position);
 
             if (angle < 10)
             {
-                var MyPos = Me.transform.position;
-                var TargetPos = Target.transform.position;
+                var MyPos = Me.transform.position + Vector3.up*.5f;
+                var TargetPos = Target.transform.position + Vector3.up * .5f;
                 RaycastHit hit;
-                int layermask = LayerMask.GetMask("Ignore Raycast");
-                layermask = ~layermask;
+                int layermask = ~LayerMask.GetMask("Ignore Raycast");
                 Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
                 if (hit.transform.CompareTag("Player"))
                 {
@@ -57,7 +54,10 @@ namespace Assets.Script.ActionList
                     Gun.fire(0);
                 }
                 else
+                {
+                    Debug.Log(hit.transform.name);
                     return false;
+                }
             }
             else
             {

@@ -83,8 +83,8 @@ namespace Assets.Script.AIGroup
         {
             RaycastHit hit;
             int mask = ~LayerMask.GetMask("Player","AI");
-            var MyPos = Me.transform.position;
-            var TargetPos = Target.transform.position;
+            var MyPos = Me.transform.position + Vector3.up * .5f;
+            var TargetPos = Target.transform.position + Vector3.up * .5f;
 
             //Physics.Raycast(Me.transform.position, Target.transform.position - Me.transform.position, out hit, range,-1,QueryTriggerInteraction.Ignore);
             Physics.BoxCast(MyPos,Vector3.one*.1f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
