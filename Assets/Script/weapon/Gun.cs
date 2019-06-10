@@ -215,6 +215,20 @@ namespace Assets.Script.weapon
             if (timeflag != WeaponIndex) NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = false;
             else NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = true;
         }
+        public void SwingByIndex(int WeaponIndex, int flagTrigger, int motionDamage, double motionStun)
+        {
+            var timeflag = GetComponent<AvaterMain>().anim_flag;
+            if (timeflag != flagTrigger) NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = false;
+            else NowWeapon[WeaponIndex].weapon.GetComponentInChildren<Collider>().enabled = true;
+        }
+        public void SwingAll(int WeaponIndex, int motionDamage, double motionStun)
+        {
+            var timeflag = GetComponent<AvaterMain>().anim_flag;
+            if (timeflag != WeaponIndex)
+                foreach (var weapon in NowWeapon) weapon.weapon.GetComponentInChildren<Collider>().enabled = false;
+            else
+                foreach (var weapon in NowWeapon) weapon.weapon.GetComponentInChildren<Collider>().enabled = true;
+        }
         /// <summary>
         /// 開啟肉搏判定的HITBOX,
         /// 請在動作動畫內加入 AnimationEvent 輸入至 GetAnimationFlag

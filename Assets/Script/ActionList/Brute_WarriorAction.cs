@@ -26,12 +26,17 @@ namespace Assets.Script.ActionList
         }
         public void Before_kick(ActionStatus actionStatus)
         {
-            Gun.ChangeWeapon(AvaterMain.MotionStatus.String);
+            //Gun.ChangeWeapon(AvaterMain.MotionStatus.String);
         }
         public bool kick(ActionStatus actionStatus)
         {
-            Gun.Swing(AvaterMain.anim_flag, 1, 1);
+            Gun.SwingAll(AvaterMain.anim_flag, 1, 1);
             return true;
+        }
+        public void Before_shoot(ActionStatus actionStatus)
+        {
+            Agent.ResetPath();
+            Gun.ChangeWeapon("MG");
         }
     }
 }
