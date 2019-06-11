@@ -263,7 +263,7 @@ namespace Assets.Script.ActionControl
                 Agent.SetDestination(Target.transform.position);
             }
             */
-            if (actionStatus.f1 > Vector3.Distance(Target.transform.position,Me.transform.position))
+            if (Agent.stoppingDistance > Vector3.Distance(Target.transform.position,Me.transform.position))
             {                
                 return false;
             }
@@ -316,6 +316,10 @@ namespace Assets.Script.ActionControl
         public virtual bool stun(ActionStatus actionStatus)
         {
             return true;
+        }
+        public virtual void After_stun(ActionStatus actionStatus)
+        {
+            Animator.SetBool("avater_can_stun", false);
         }
 
         public virtual void Before_dead(ActionStatus actionStatus)

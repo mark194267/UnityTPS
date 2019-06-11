@@ -19,13 +19,14 @@ namespace Assets.Script.weapon
 
         void OnTriggerEnter(Collider collision)
         {
-            print("OnTriggerEnter " + collision.name);
-            if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponentInParent<AvaterMain>()/*是演員*/)
+            //print("OnTriggerEnter " + collision.name);
+            if (collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
             {
-                print("OnMeleeHit" + collision.name);
-                var hit = collision.gameObject;
+                var hit = collision.GetComponentInParent<AvaterMain>();
+                print(GetComponentInParent<AvaterMain>().gameObject.name + " OnMeleeHit " + hit.gameObject.name);
+
                 //執行"被打中"
-                hit.GetComponentInParent<AvaterMain>().OnHit(damage + motionDamage, stun + motionStun);
+                hit.OnHit(damage + motionDamage, stun + motionStun);
                 //Destroy(gameObject);
             }
         }

@@ -21,14 +21,14 @@ namespace Assets.Script.weapon
         
         void OnTriggerEnter(Collider collision)
         {
-            if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.gameObject.GetComponentInParent<AvaterMain>()/*是演員*/)
+            if (collision.gameObject.tag != tag/*子彈不會打中子彈*/ && collision.GetComponentInParent<AvaterMain>()/*是演員*/)
             {
-                var hit = collision.gameObject;
+                var hit = collision.GetComponentInParent<AvaterMain>();
 
                 //var dir = hit.GetComponentInParent<Transform>().TransformPoint();
 
                 //執行"被打中"
-                hit.GetComponentInParent<AvaterMain>().OnHit(damage,stun);
+                hit.OnHit(damage,stun);
                 
                 Destroy(gameObject);
             }

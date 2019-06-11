@@ -71,12 +71,12 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.04679741
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.0067064217
   m_HasExitTime: 0
   m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_InterruptionSource: 2
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &-5536024930237548502
@@ -481,7 +481,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 0}
   - m_Name: AI_reload
     m_Type: 4
@@ -649,7 +649,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: stun
-  m_Speed: 0.7
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2880216227107373301}
@@ -662,7 +662,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: acbe57a104d8c114c8487055894b3188, type: 3}
+  m_Motion: {fileID: 7400000, guid: 6dd5b57ca7c0d48e4b3e9061e1c88d18, type: 3}
   m_Tag: stun
   m_SpeedParameter: 
   m_MirrorParameter: 

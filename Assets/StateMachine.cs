@@ -4,6 +4,7 @@ using Assets.Script.Avater;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class StateMachine : StateMachineBehaviour
 {
@@ -48,7 +49,8 @@ public class StateMachine : StateMachineBehaviour
             if (AIBase != null)
             {
                 Animator.SetBool("AI_" + _latestCommand,false);
-                _latestCommand = AIBase.DistanceBasicAI(AIBase.TargetInfo.GetTargetDis(), 3, 50);
+                _latestCommand = AIBase.DistanceBasicAI(
+                    AIBase.TargetInfo.GetTargetDis(), me.GetComponent<NavMeshAgent>().stoppingDistance, 50);
                 Animator.SetBool("AI_" + _latestCommand,true);
             }
             foreach (var cando in AvaterMain.candolist)

@@ -31,7 +31,7 @@ namespace Assets.Script.ActionList
         public void Before_shoot(ActionStatus actionStatus)
         {
             //Agent.SetDestination(Target.transform.position);
-
+            Agent.ResetPath();
             Gun.ChangeWeapon("MG");
         }
 
@@ -55,7 +55,7 @@ namespace Assets.Script.ActionList
                 }
                 else
                 {
-                    Debug.Log(hit.transform.name);
+                    //Debug.Log(hit.transform.name);
                     return false;
                 }
             }

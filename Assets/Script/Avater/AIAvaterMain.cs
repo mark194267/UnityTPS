@@ -40,7 +40,7 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             //gameObject.GetComponent<Gun>().ChangeWeapon("MG");
             //Animator = this.gameObject.GetComponent<Animator>();
-            motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
+            //motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
         }
 
         private void Update()
