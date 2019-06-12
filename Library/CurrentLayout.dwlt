@@ -46,7 +46,7 @@ MonoBehaviour:
   m_MinSize: {x: 681, y: 494}
   m_MaxSize: {x: 18006, y: 14044}
   vertical: 1
-  controlID: 47
+  controlID: 119
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_MinSize: {x: 336, y: 272}
   m_MaxSize: {x: 14006, y: 10022}
   vertical: 0
-  controlID: 131
+  controlID: 35
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_MinSize: {x: 681, y: 494}
   m_MaxSize: {x: 18006, y: 14044}
   vertical: 0
-  controlID: 48
+  controlID: 120
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 494}
   m_MaxSize: {x: 14006, y: 14044}
   vertical: 1
-  controlID: 49
+  controlID: 121
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 222}
   m_MaxSize: {x: 8006, y: 4022}
   vertical: 0
-  controlID: 50
+  controlID: 122
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -606,19 +606,21 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Prefabs/Monster
+    - Assets/Resources/Char/Warrior Pack Bundle 1 FREE/Brute Warrior Mecanim Animation
+      Pack Free/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Prefabs/Monster
+  - Assets/Resources/Char/Warrior Pack Bundle 1 FREE/Brute Warrior Mecanim Animation
+    Pack Free/Prefabs
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\mark_shih\Documents\GitHub\WebApplication2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 2127}
-    m_SelectedIDs: ae590000
-    m_LastClickedID: 22958
+    scrollPos: {x: 0, y: 802}
+    m_SelectedIDs: 74670000
+    m_LastClickedID: 26484
     m_ExpandedIDs: 00000000842f00008e2f0000143400001e3400005e3500003a3600008c360000ba360000623700008c370000883b0000563d0000c03d0000da4200001c450000f245000070460000ce480000384b0000444b00002c4c0000504c0000005000006a500000ea520000ac530000c25400003c560000ac57000048580000d0580000dc580000aa5900008e5f0000ee5f00001c600000c4600000c66000008a61000038620000cc62000070630000ea66000086670000e4670000e26800008e6a00000e7000005e70000036710000487b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -767,23 +769,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 8efbffff
+      m_SelectedIDs: 66daffff
+      m_LastClickedID: -9626
+      m_ExpandedIDs: c0d9ffffc2d9ffffc8d9ffffcad9ffffd2d9ffffd4d9ffffd6d9ffff32daffff36daffff42daffff4adaffff66daffff62f5ffff64f5ffff66f5ffff68f5ffff6af5ffff6cf5ffff6ef5ffff70f5ffff72f5ffff74f5ffff7af5ffff7cf5ffff7ef5ffff80f5ffff82f5ffff84f5ffff86f5ffff88f5ffff8af5ffff8cf5ffff9cf5ffffa0f5ffffb4f5ffffb6f5ffffbaf5ffffbcf5ffffd0f5ffffd2f5ffffd4f5ffffd6f5ffffdaf5ffffeef5fffff0f5fffff2f5ffff4ef6ffff52f6ffff56f6ffff64f6ffff68f6ffff8cfbffff8efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Brute_Warrior
+        m_OriginalName: Brute_Warrior
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -9626
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 7}
       m_SearchString: 
@@ -829,9 +831,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.81052, y: 1.0418893, z: 3.7091522}
+    m_Target: {x: 0.057484567, y: 2.5807564, z: 2.480792}
     speed: 2
-    m_Value: {x: 6.81052, y: 1.0418893, z: 3.7091522}
+    m_Value: {x: 0.057484567, y: 2.5807564, z: 2.480792}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 2
@@ -860,13 +862,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.043647405, y: -0.93956757, z: 0.31335473, w: -0.13107948}
+    m_Target: {x: -0.056201674, y: 0.93872195, z: -0.18482003, w: -0.28545475}
     speed: 2
-    m_Value: {x: -0.043645978, y: -0.93953687, z: 0.3133445, w: -0.1310752}
+    m_Value: {x: -0.056201667, y: 0.93872184, z: -0.18482001, w: -0.28545472}
   m_Size:
-    m_Target: 6.2254124
+    m_Target: 6.8205905
     speed: 2
-    m_Value: 6.2254124
+    m_Value: 6.8205905
   m_Ortho:
     m_Target: 1
     speed: 2
