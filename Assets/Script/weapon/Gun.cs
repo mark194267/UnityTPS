@@ -120,7 +120,7 @@ namespace Assets.Script.weapon
                 //射擊武器
                 if (Weapon.acc > 0)
                 {
-                    Debug.Log(Weapon.name +" "+ Weapon.ammotype.Type);
+                    //Debug.Log(Weapon.name +" "+ Weapon.ammotype.Type);
 
                     Weapon.bullet = Resources.Load("Prefabs/" + Weapon.ammotype.Type) as GameObject;
                     var bullet = Weapon.bullet.GetComponent<BulletClass>();

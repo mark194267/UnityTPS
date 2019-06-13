@@ -36,7 +36,7 @@ namespace Assets.Script.AIGroup
                     return "reload";
                 }
                 */
-                if (TargetInfo.TargetSightHit.transform.CompareTag("Player"))
+                if (TargetInfo.TargetSightHit.transform.GetComponentInParent<Avater.AvaterMain>().CompareTag("Player"))
                 {
                     if (distance < meleerange)
                     {
@@ -49,7 +49,7 @@ namespace Assets.Script.AIGroup
                 }
                 else
                 {
-                    //Debug.Log(TargetInfo.TargetSightHit.transform.name);
+                    Debug.Log(TargetInfo.TargetSightHit.transform.name);
                     return "SpreadOut";
                 }
             }
@@ -81,16 +81,24 @@ namespace Assets.Script.AIGroup
         }
         public RaycastHit ToTargetSight(float range)
         {
-            RaycastHit hit;
+            RaycastHit TargetHit = new RaycastHit();
             int mask = ~LayerMask.GetMask("Player","AI");
-            var MyPos = Me.transform.position + Vector3.up * .5f;
-            var TargetPos = Target.transform.position + Vector3.up * .5f;
+            var MyPos = Me.transform.position;// + Vector3.up * .5f;
+            var TargetPos = Target.transform.position; //+ Vector3.up * .5f;
 
             //Physics.Raycast(Me.transform.position, Target.transform.position - Me.transform.position, out hit, range,-1,QueryTriggerInteraction.Ignore);
-            Physics.BoxCast(MyPos,Vector3.one*.1f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
-
-            TargetSightHit = hit;
-            return hit;
+            //Physics.BoxCast(MyPos,Vector3.one*.1f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
+            var AllHit = Physics.SphereCastAll(MyPos, .1f, TargetPos - MyPos, range, -1, QueryTriggerInteraction.Ignore);
+            foreach (var hit in AllHit)
+            {
+                if(hit.transform.GetComponentInParent<Avater.AvaterMain>() != Me.GetComponentInParent<Avater.AvaterMain>())
+                {
+                    TargetHit = hit;
+                    break;
+                }
+            }
+            //TargetSightHit = hit;
+            return TargetHit;
         }
 
     }

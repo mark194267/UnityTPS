@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Script.Avater;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,8 @@ public class Grandcheck : MonoBehaviour
     {
         //print(other.gameObject.name);
         animator.SetBool("avater_IsLanded", true);
-        MyObject.parent = other.transform;
+        if(!other.GetComponentInParent<AvaterMain>())
+            MyObject.parent = other.transform;
     }
     private void OnTriggerExit(Collider other)
     {

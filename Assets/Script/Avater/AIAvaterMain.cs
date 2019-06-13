@@ -17,6 +17,9 @@ namespace Assets.Script.Avater
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
         public bool IsDecided;
         public bool IsAwake;
+
+        public bool HasMotionStatus = false;
+
         public string NowCommand { get; set; }
 
         public AllAmmoType ammoType = new AllAmmoType();
@@ -40,7 +43,8 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             //gameObject.GetComponent<Gun>().ChangeWeapon("MG");
             //Animator = this.gameObject.GetComponent<Animator>();
-            //motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
+            if(HasMotionStatus)
+                motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
         }
 
         private void Update()

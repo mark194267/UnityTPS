@@ -8,6 +8,8 @@ using UnityEngine.AI;
 
 public class StateMachine : StateMachineBehaviour
 {
+    public float TargetDis;
+
     public GameObject me { get; set; }
     public ActionScript action { get; set; }
     public AvaterMain AvaterMain { get; set; }
@@ -50,7 +52,7 @@ public class StateMachine : StateMachineBehaviour
             {
                 Animator.SetBool("AI_" + _latestCommand,false);
                 _latestCommand = AIBase.DistanceBasicAI(
-                    AIBase.TargetInfo.GetTargetDis(), me.GetComponent<NavMeshAgent>().stoppingDistance, 50);
+                    AIBase.TargetInfo.GetTargetDis(), TargetDis, 50);
                 Animator.SetBool("AI_" + _latestCommand,true);
             }
             foreach (var cando in AvaterMain.candolist)
