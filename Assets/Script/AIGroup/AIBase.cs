@@ -25,6 +25,7 @@ namespace Assets.Script.AIGroup
         {
             float distance = TargetInfo.GetTargetDis();
             TargetInfo.ToTargetSight(shootrange);
+            //Debug.Log(TargetInfo.TargetSightHit.transform.name);
             //如果在距離內，又看的到目標，衝刺攻擊也算遠距離攻擊。
             if (TargetInfo.TargetSightHit.rigidbody != null)
             {
@@ -49,7 +50,7 @@ namespace Assets.Script.AIGroup
                 }
                 else
                 {
-                    Debug.Log(TargetInfo.TargetSightHit.transform.name);
+                    //Debug.Log(TargetInfo.TargetSightHit.transform.name);
                     return "SpreadOut";
                 }
             }
@@ -79,12 +80,12 @@ namespace Assets.Script.AIGroup
             return Vector3.Angle(Me.transform.TransformDirection(Vector3.forward),
                         Target.transform.position - Me.transform.position);
         }
-        public RaycastHit ToTargetSight(float range)
+        public Transform ToTargetSight(float range)
         {
             RaycastHit TargetHit = new RaycastHit();
             int mask = ~LayerMask.GetMask("Player","AI");
-            var MyPos = Me.transform.position;// + Vector3.up * .5f;
-            var TargetPos = Target.transform.position; //+ Vector3.up * .5f;
+            var MyPos = Me.transform.position + Vector3.up * .5f;
+            var TargetPos = Target.transform.position+ Vector3.up * .5f;
 
             //Physics.Raycast(Me.transform.position, Target.transform.position - Me.transform.position, out hit, range,-1,QueryTriggerInteraction.Ignore);
             //Physics.BoxCast(MyPos,Vector3.one*.1f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
@@ -94,12 +95,12 @@ namespace Assets.Script.AIGroup
                 if(hit.transform.GetComponentInParent<Avater.AvaterMain>() != Me.GetComponentInParent<Avater.AvaterMain>())
                 {
                     TargetHit = hit;
+                    Debug.Log(TargetHit.transform.name);
                     break;
                 }
             }
-            //TargetSightHit = hit;
-            return TargetHit;
+            TargetSightHit = TargetHit;
+            return TargetHit.transform;
         }
-
     }
 }

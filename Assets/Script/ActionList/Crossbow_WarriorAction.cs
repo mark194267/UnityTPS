@@ -16,12 +16,14 @@ namespace Assets.Script.ActionList
         {
             Agent.SetDestination(Target.transform.position);
 
-            var MyPos = Me.transform.position + Vector3.up * .5f;
-            var TargetPos = Target.transform.position + Vector3.up * .5f;
-            RaycastHit hit;
-            int layermask = ~LayerMask.GetMask("Ignore Raycast");
-            Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
-            if (hit.transform.CompareTag("Player"))
+            //var MyPos = Me.transform.position + Vector3.up * .5f;
+            //var TargetPos = Target.transform.position + Vector3.up * .5f;
+            //RaycastHit hit;
+            //int layermask = ~LayerMask.GetMask("Ignore Raycast");
+            //Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
+            var hit = Targetinfo.ToTargetSight(100);
+
+            if (hit.CompareTag("Player"))
             {
                 return false;
             }
@@ -43,12 +45,15 @@ namespace Assets.Script.ActionList
 
             if (angle < 10)
             {
-                var MyPos = Me.transform.position + Vector3.up*.5f;
-                var TargetPos = Target.transform.position + Vector3.up * .5f;
-                RaycastHit hit;
-                int layermask = ~LayerMask.GetMask("Ignore Raycast");
-                Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
-                if (hit.transform.CompareTag("Player"))
+                //var MyPos = Me.transform.position + Vector3.up*.5f;
+                //var TargetPos = Target.transform.position + Vector3.up * .5f;
+                //RaycastHit hit;
+                //int layermask = ~LayerMask.GetMask("Ignore Raycast");
+                //Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
+
+                var hit = Targetinfo.ToTargetSight(100);
+
+                if (hit.CompareTag("Player"))
                 {
                     Gun.NowWeapon[0].BulletInMag = 1;
                     Gun.fire(0);
@@ -94,18 +99,23 @@ namespace Assets.Script.ActionList
         public bool SpreadOut(ActionStatus actionStatus)
         {
             //散開腳本
-            var MyPos = Me.transform.position;
-            var TargetPos = Target.transform.position;
-            RaycastHit hit;
-            int layermask = LayerMask.GetMask("Ignore Raycast");
-            layermask = ~layermask;
-            Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
-            if (!hit.transform.CompareTag("AI") || Agent.remainingDistance < 1f)
+            var MyPos = Gun.NowWeapon[0].weapon.transform.position;
+            var TargetPos = Target.transform.position + Vector3.up*.5f;
+            //RaycastHit hit;
+            //int layermask = LayerMask.GetMask("Ignore Raycast");
+            //layermask = ~layermask;
+            var hit = Targetinfo.ToTargetSight(100);
+            Debug.Log(hit.transform.name);
+
+            /*
+            Physics.SphereCast(MyPos, .2f, TargetPos - MyPos, out hit, 100f, -1, QueryTriggerInteraction.Ignore);
+            if (hit.transform.CompareTag("Player") )
             {
-                //Debug.Log(hit.transform.name);
+                Debug.Log(hit.transform.tag);
                 Agent.ResetPath();
                 return false;
             }
+            */
             return true;
         }
         public void Before_kick(ActionStatus actionStatus)

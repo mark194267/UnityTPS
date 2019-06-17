@@ -52,7 +52,7 @@ public class StateMachine : StateMachineBehaviour
             {
                 Animator.SetBool("AI_" + _latestCommand,false);
                 _latestCommand = AIBase.DistanceBasicAI(
-                    AIBase.TargetInfo.GetTargetDis(), TargetDis, 50);
+                    AIBase.TargetInfo.GetTargetDis(), me.GetComponent<NavMeshAgent>().stoppingDistance, 50);
                 Animator.SetBool("AI_" + _latestCommand,true);
             }
             foreach (var cando in AvaterMain.candolist)
