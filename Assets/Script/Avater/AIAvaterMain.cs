@@ -11,7 +11,7 @@ namespace Assets.Script.Avater
     public class AIAvaterMain:AvaterMain
     {
         public AIBase AIBase;
-        public TargetInfo targetInfo;
+        public TargetInfo targetInfo { get; set; }
         //public Vector3 formationPoint;
         public Collider HotThing;
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
@@ -32,7 +32,9 @@ namespace Assets.Script.Avater
             
             //簡單的初始化，等待改寫
 
-            ActionScript.Target = GameObject.Find("UnityChan");
+            //ActionScript.Target = GameObject.Find("UnityChan");
+            ActionScript.Target = targetInfo.Target;
+            Debug.Log(targetInfo.Me.name);
 
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["fist"]);

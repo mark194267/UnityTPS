@@ -95,7 +95,6 @@ namespace Assets.Script.AIGroup
                 if(hit.transform.GetComponentInParent<Avater.AvaterMain>() != Me.GetComponentInParent<Avater.AvaterMain>())
                 {
                     TargetHit = hit;
-                    Debug.Log(TargetHit.transform.name);
                     break;
                 }
             }

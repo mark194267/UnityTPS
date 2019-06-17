@@ -29,7 +29,7 @@ namespace Assets.Script.ActionControl
     {
         public Animator Animator;
         public GameObject Me;
-        public GameObject Target;
+        public GameObject Target { get; set; }
         protected Camera Camera;
         protected Rigidbody Rig;
         protected NavMeshAgent Agent;
@@ -55,12 +55,13 @@ namespace Assets.Script.ActionControl
             this.Rig = Me.GetComponent<Rigidbody>();
             this.AvaterMain = Me.GetComponent<AvaterMain>();
             InputManager = Me.GetComponent<InputManager>();
-            this.Target = GameObject.Find("BobChan");
 
             if (Me.GetComponent<AIAvaterMain>())
             {
                 this.Targetinfo = Me.GetComponent<AIAvaterMain>().targetInfo;
             }
+            //this.Target = GameObject.Find("BobChan");
+            this.Target = Targetinfo.Target;
 
             if (Me.transform.Find("Camera"))
             {
