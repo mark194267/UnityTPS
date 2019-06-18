@@ -63,7 +63,7 @@ namespace Assets.Script.Avater
 
         public void OnHit(int atk, double stun)
         {
-            print(gameObject.name + " say:i`m hit!");
+            //print(gameObject.name + " say:i`m hit!");
 
             //先扣血
             Hp -= atk;
@@ -72,7 +72,7 @@ namespace Assets.Script.Avater
             Stun += stun;
             if (Hp < 1)
             {
-                print("i`m Dead!");
+                //print("i`m Dead!");
                 //Animator.SetTrigger("avatermain_dead");
 
                 Animator.enabled = false;

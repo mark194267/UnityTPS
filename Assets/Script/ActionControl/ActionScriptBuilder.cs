@@ -27,23 +27,22 @@ namespace Assets.Script.ActionControl
     /// </summary>
     public class ActionScript
     {
-        public Animator Animator;
-        public GameObject Me;
+        public Animator Animator { get; set; }
+        public GameObject Me { get; set; }
         public GameObject Target { get; set; }
-        protected Camera Camera;
-        protected Rigidbody Rig;
-        protected NavMeshAgent Agent;
-        protected Vector3 NowVecter;
-        protected CharacterController character;
-        protected Vector3 velocity;
+        protected Camera Camera { get; set; }
+        protected Rigidbody Rig { get; set; }
+        protected NavMeshAgent Agent { get; set; }
+        protected Vector3 NowVecter { get; set; }
+        protected CharacterController character { get; set; }
+        protected Vector3 velocity { get; set; }
 
-        protected InputManager InputManager;
+        protected InputManager InputManager { get; set; }
 
-        protected AvaterMain AvaterMain;
-        protected Gun Gun;
-        //protected AIBase AI;
-        public AIPath aiPathManager;
-        protected TargetInfo Targetinfo;
+        protected AvaterMain AvaterMain { get; set; }
+        protected Gun Gun { get; set; }
+        public AIPath aiPathManager { get; set; }
+        protected TargetInfo Targetinfo { get; set; }
 
 
         public void Init(GameObject Me)
@@ -59,9 +58,8 @@ namespace Assets.Script.ActionControl
             if (Me.GetComponent<AIAvaterMain>())
             {
                 this.Targetinfo = Me.GetComponent<AIAvaterMain>().targetInfo;
+                this.Target = Me.GetComponent<AIAvaterMain>().targetInfo.Target;
             }
-            //this.Target = GameObject.Find("BobChan");
-            this.Target = Targetinfo.Target;
 
             if (Me.transform.Find("Camera"))
             {

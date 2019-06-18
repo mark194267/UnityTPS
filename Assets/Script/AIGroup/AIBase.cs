@@ -6,9 +6,11 @@ namespace Assets.Script.AIGroup
 {
     class AIConstructer
     {
-        public AIBase GetAI(TargetInfo info)
+        public AIBase GetAI(GameObject Me,GameObject Target)
         {
-            return new ZombieAI() { TargetInfo = info};
+            return new ZombieAI() {
+                TargetInfo = new TargetInfo() { Me = Me,Target= Target}
+            };
         }
     }
 
@@ -89,7 +91,7 @@ namespace Assets.Script.AIGroup
 
             //Physics.Raycast(Me.transform.position, Target.transform.position - Me.transform.position, out hit, range,-1,QueryTriggerInteraction.Ignore);
             //Physics.BoxCast(MyPos,Vector3.one*.1f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
-            var AllHit = Physics.SphereCastAll(MyPos, .1f, TargetPos - MyPos, range, -1, QueryTriggerInteraction.Ignore);
+            var AllHit = Physics.SphereCastAll(MyPos, .3f, TargetPos - MyPos, range, -1, QueryTriggerInteraction.Ignore);
             foreach (var hit in AllHit)
             {
                 if(hit.transform.GetComponentInParent<Avater.AvaterMain>() != Me.GetComponentInParent<Avater.AvaterMain>())

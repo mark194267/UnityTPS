@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Script.Avater;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace Assets.Script.Config
         public float ad;
         public float maxWSAD;
         public float charge;//蓄力
+
+        public int weaponslot;//武器欄
 
         public Animator Animator;
 
@@ -79,7 +82,10 @@ namespace Assets.Script.Config
                 Animator.SetBool("input_dodge", false);
             }
 
-            
+            if (Input.GetButtonDown("holster"))
+            {
+                GetComponent<PlayerAvater>().ChangeWeapon(0);
+            }
             /*
             if(Input.GetButton("Fire2"))
             {
@@ -98,6 +104,27 @@ namespace Assets.Script.Config
                     Animator.SetFloat("input_meleelevel", anifloat + 1);
                 }
                 else Animator.SetFloat("input_meleelevel", 0);
+            }
+
+            if (Input.GetKeyDown("1"))
+            {
+                GetComponent<PlayerAvater>().ChangeWeapon(1);
+            }
+            if (Input.GetKeyDown("2"))
+            {
+                GetComponent<PlayerAvater>().ChangeWeapon(2);
+            }
+            if (Input.GetKeyDown("3"))
+            {
+                GetComponent<PlayerAvater>().ChangeWeapon(3);
+            }
+            if (Input.GetKeyDown("4"))
+            {
+                GetComponent<PlayerAvater>().ChangeWeapon(4);
+            }
+            if (Input.GetKeyDown("5"))
+            {
+                GetComponent<PlayerAvater>().ChangeWeapon(5);
             }
         }
     }

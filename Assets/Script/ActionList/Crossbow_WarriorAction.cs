@@ -105,17 +105,13 @@ namespace Assets.Script.ActionList
             //int layermask = LayerMask.GetMask("Ignore Raycast");
             //layermask = ~layermask;
             var hit = Targetinfo.ToTargetSight(100);
-            Debug.Log(hit.transform.name);
-
-            /*
-            Physics.SphereCast(MyPos, .2f, TargetPos - MyPos, out hit, 100f, -1, QueryTriggerInteraction.Ignore);
+            
+            //Physics.SphereCast(MyPos, .2f, TargetPos - MyPos, out hit, 100f, -1, QueryTriggerInteraction.Ignore);
             if (hit.transform.CompareTag("Player") )
             {
-                Debug.Log(hit.transform.tag);
-                Agent.ResetPath();
                 return false;
             }
-            */
+            
             return true;
         }
         public void Before_kick(ActionStatus actionStatus)

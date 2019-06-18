@@ -10,10 +10,10 @@ namespace Assets.Script.Avater
 {
     public class AIAvaterMain:AvaterMain
     {
-        public AIBase AIBase;
+        public AIBase AIBase { get; set; }
         public TargetInfo targetInfo { get; set; }
         //public Vector3 formationPoint;
-        public Collider HotThing;
+        public Collider HotThing { get; set; }
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
         public bool IsDecided;
         public bool IsAwake;
@@ -31,10 +31,6 @@ namespace Assets.Script.Avater
             var GunDic = weaponFactory.AllWeaponDictionary;
             
             //簡單的初始化，等待改寫
-
-            //ActionScript.Target = GameObject.Find("UnityChan");
-            ActionScript.Target = targetInfo.Target;
-            Debug.Log(targetInfo.Me.name);
 
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["fist"]);

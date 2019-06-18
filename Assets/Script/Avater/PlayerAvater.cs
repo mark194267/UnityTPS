@@ -1,10 +1,8 @@
-﻿using Assets.Script.ActionControl;
+﻿using UnityEngine;
+
+using Assets.Script.ActionControl;
 using Assets.Script.weapon;
-using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UI;
-using System.Collections.Generic;
-using System.Collections;
+using Assets.Script.Config;
 
 namespace Assets.Script.Avater
 {
@@ -23,9 +21,12 @@ namespace Assets.Script.Avater
         public string Type;
         public int NowAmmo;
         public int MaxAmmo;
-
+        public int WeaponSlotNumber;
         public AllAmmoType ammoType = new AllAmmoType();
 
+        public enum Guns { Wakizashi, Handgun ,Shotgun , AK47,}
+        public Guns myguns;
+        public 
         void Start()
         {
             avaterStatus = avaterDataLoader.LoadStatus("UnityChan");
@@ -51,7 +52,7 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["MG"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["AK-47"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["AK47"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["Handgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
             gameObject.GetComponent<Gun>().CreateWeaponByList();
@@ -64,6 +65,41 @@ namespace Assets.Script.Avater
             if (GetComponent<Rigidbody>().velocity.y != 0)
             {
                 Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
+            }
+        }
+        public void ChangeWeapon(int slotNum)
+        {
+            if (WeaponSlotNumber != slotNum)
+            {
+                bool canchange = true;
+                //依照得到的slotNum切換武器參照
+                switch (slotNum)
+                {
+                    case 0:
+                        break;
+
+                    case 1:
+                        myguns = Guns.Wakizashi;
+                        break;
+                    case 2:
+                        myguns = Guns.Handgun;
+                        break;
+                    case 3:
+                        myguns = Guns.Shotgun;
+                        break;
+                    case 4:
+                        myguns = Guns.AK47;
+                        break;
+                    default:
+                        canchange = false;
+                        break;
+                }
+                if (canchange)
+                {
+                    WeaponSlotNumber = slotNum;
+                    Animator.SetInteger("avater_weaponslot", slotNum);
+                    Animator.SetTrigger("avater_changeweapon");
+                }
             }
         }
     }

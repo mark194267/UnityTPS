@@ -83,7 +83,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2727683160932489796
 Transform:
   m_ObjectHideFlags: 0
@@ -259,7 +259,6 @@ MonoBehaviour:
   ActionElapsedTime: 0
   IsEndNormal: 1
   anim_flag: 0
-  HotThing: {fileID: 0}
   IsDecided: 0
   IsAwake: 0
   HasMotionStatus: 0

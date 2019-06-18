@@ -9,7 +9,6 @@ namespace Assets.Script.AIGroup
 {
     class AICommander:MonoBehaviour
     {
-        private GameObject[] allMyAi;
         private GameObject target;
 
         public bool IsAwake;
@@ -27,23 +26,31 @@ namespace Assets.Script.AIGroup
         {
             //初期化
             path = new NavMeshPath();
-            allMyAi = GameObject.FindGameObjectsWithTag("AI");
+            //GameObject[] allMyAi = GameObject.FindGameObjectsWithTag("AI");
+            AIAvaterMain[] allMyAi = GetComponentsInChildren<AIAvaterMain>();
             target = GameObject.FindGameObjectWithTag("Player");
             weaponFactory.Init();
             avaterStatus = avaterDataLoader.LoadStatus("Imp");
-            foreach (GameObject ai in allMyAi)
-            {
-                var aimain = ai.gameObject.GetComponent<AIAvaterMain>();
-                aimain.avaterStatus = avaterStatus;
-                aimain.Init_Avater();
-                aimain.IsAwake = IsAwake;
-                aimain.targetInfo = new TargetInfo() { Me = ai, Target = target };
-                aimain.stateMachine.AIBase = aiConstructer.GetAI(aimain.targetInfo);
-            }
-        }
+            //Debug.Log("hihi");
 
-        void Start()
-        {
+            foreach (var ai in allMyAi)
+            {
+                //Debug.Log("2");
+                ai.avaterStatus = avaterStatus;
+                //Debug.Log("3");
+                ai.IsAwake = IsAwake;
+                //Debug.Log("4");
+                ai.AIBase = aiConstructer.GetAI(ai.gameObject, target);
+                ai.targetInfo = ai.AIBase.TargetInfo;
+                //Debug.Log("5");
+                ai.Init_Avater();
+                ai.stateMachine.AIBase = ai.AIBase;
+                var aibase = ai.stateMachine.AIBase;
+                //Debug.Log(aibase.TargetInfo.Me.name);
+                //Debug.Log(aibase.TargetInfo.Target.name);
+                ai.targetInfo = aibase.TargetInfo;
+                //Debug.Log("7");
+            }
             //是否有巡邏路線
             //var agent = GetComponent<NavMeshAgent>();
             //agent.CalculatePath(target.transform.position, path);

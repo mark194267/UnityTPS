@@ -19,10 +19,19 @@ namespace Assets.Script.ActionList
         }
         public bool equip(ActionStatus actionStatus)
         {
+            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+            RotateTowardSlerp(Me.transform.position - camPos, 5f);
+            var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
+            Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, .3f);
+            NowVecter = Rig.velocity;
+
             if (AvaterMain.anim_flag == 1)
             {
-//                Debug.Log(AvaterMain.MotionStatus.String);
-                Gun.ChangeWeapon(AvaterMain.MotionStatus.String);
+                //Debug.Log(AvaterMain.MotionStatus.String);
+                //Gun.ChangeWeapon(AvaterMain.MotionStatus.String);
+                var g = Me.GetComponent<PlayerAvater>().myguns;
+                //Debug.Log(g.ToString());
+                Gun.ChangeWeapon(g.ToString());
             }
             return true;
         }
@@ -112,12 +121,12 @@ namespace Assets.Script.ActionList
         #region strafe
         public void Before_strafe(ActionStatus actionStatus)
         {
-            //Gun.ChangeWeapon("AK-47");
+            //Gun.ChangeWeapon("AK47");
         }
 
         public bool strafe(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(3f,10f);
+            FPSLikeRigMovement(7f,10f);
             if(Input.GetButton("Fire1"))
             {
                 return Gun.fire(0);
@@ -185,7 +194,7 @@ namespace Assets.Script.ActionList
         public bool wallrun(ActionStatus actionStatus)
         {
             //給定速度
-            Rig.velocity = NowVecter.normalized*4+Vector3.up*2;//NowVector已經是正規化的向量了
+            Rig.velocity = NowVecter.normalized*12+Vector3.up*2;//NowVector已經是正規化的向量了
             //轉過去
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
