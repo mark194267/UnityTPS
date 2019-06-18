@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 5879999272610157775, guid: 786c7bdf10f770d438730f63a24ebee5,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5879999272610157779, guid: 786c7bdf10f770d438730f63a24ebee5,
         type: 3}
@@ -655,7 +655,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308400195}
   m_LocalRotation: {x: 0.05782624, y: 0.24879552, z: 0.7582199, w: 0.599883}
-  m_LocalPosition: {x: 0.274, y: 0.046, z: 0.103}
+  m_LocalPosition: {x: 0.232, y: -0.015, z: 0.104}
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 1401947712}
@@ -1282,6 +1282,63 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3557608}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1924282326
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1810850215}
+    m_Modifications:
+    - target: {fileID: 100000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_Name
+      value: Sorceress Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.1360564
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.4503975
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 03195f095903a914192b43fe5bb968e1, type: 3}
 --- !u!1 &2018792461
 GameObject:
   m_ObjectHideFlags: 0

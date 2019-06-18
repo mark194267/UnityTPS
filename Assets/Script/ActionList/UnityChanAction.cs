@@ -270,6 +270,12 @@ namespace Assets.Script.ActionList
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, .2f);
             Rig.AddRelativeForce(Vector3.forward*2f);
+
+            if (Input.GetButton("Fire1"))
+            {
+                return Gun.fire(0);
+            }
+
             return true;
         }
         public void After_falling(ActionStatus actionStatus)
