@@ -7,30 +7,30 @@ AvatarMask:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: upperbody
-  m_Mask: 01000000010000000100000000000000000000000100000001000000010000000100000001000000010000000100000001000000
+  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
   m_Elements:
   - m_Path: 
     m_Weight: 1
   - m_Path: Character1_Reference
     m_Weight: 1
   - m_Path: Character1_Reference/Character1_Hips
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Character1_Reference/Character1_Hips/Character1_LeftUpLeg
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Character1_Reference/Character1_Hips/Character1_LeftUpLeg/Character1_LeftLeg
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Character1_Reference/Character1_Hips/Character1_LeftUpLeg/Character1_LeftLeg/Character1_LeftFoot
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Character1_Reference/Character1_Hips/Character1_LeftUpLeg/Character1_LeftLeg/Character1_LeftFoot/Character1_LeftToeBase
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Character1_Reference/Character1_Hips/Character1_RightUpLeg
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Character1_Reference/Character1_Hips/Character1_RightUpLeg/Character1_RightLeg
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Character1_Reference/Character1_Hips/Character1_RightUpLeg/Character1_RightLeg/Character1_RightFoot
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Character1_Reference/Character1_Hips/Character1_RightUpLeg/Character1_RightLeg/Character1_RightFoot/Character1_RightToeBase
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Character1_Reference/Character1_Hips/Character1_Spine
     m_Weight: 1
   - m_Path: Character1_Reference/Character1_Hips/Character1_Spine/Character1_Spine1

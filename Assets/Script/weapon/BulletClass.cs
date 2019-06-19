@@ -16,7 +16,7 @@ namespace Assets.Script.weapon
 
         void Start()
         {
-            gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward*20,ForceMode.VelocityChange);
+            gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward*30,ForceMode.VelocityChange);
         }
         
         void OnTriggerEnter(Collider collision)

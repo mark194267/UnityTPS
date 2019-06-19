@@ -2544,7 +2544,6 @@ GameObject:
   - component: {fileID: 822525389353870110}
   - component: {fileID: 822525389353870104}
   - component: {fileID: 822525389353870105}
-  - component: {fileID: 1513358237244920560}
   - component: {fileID: 822525389353870107}
   - component: {fileID: 822525388559717486}
   m_Layer: 9
@@ -2553,7 +2552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &822525388559222861
 Transform:
   m_ObjectHideFlags: 0
@@ -2625,7 +2624,6 @@ MonoBehaviour:
   ActionElapsedTime: 0
   IsEndNormal: 1
   anim_flag: 0
-  HotThing: {fileID: 0}
   IsDecided: 0
   IsAwake: 0
   HasMotionStatus: 0
@@ -2731,26 +2729,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &1513358237244920560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 822525388559717485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a6ecb0e355b79e49a09d8cb91f13d40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponname: 
-  ammo: 0
-  bulletinmag: 0
-  Weapon: {fileID: 0}
-  Bullet: {fileID: 0}
-  target: {fileID: 0}
-  cam: {fileID: 0}
-  canshoot: 1
 --- !u!195 &822525389353870107
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2761,7 +2739,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 240

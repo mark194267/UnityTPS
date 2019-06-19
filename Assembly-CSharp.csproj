@@ -273,6 +273,7 @@
     <Compile Include="Assets\Script\ActionList\Karate_WarriorAction.cs" />
     <Compile Include="Assets\Script\ActionList\MechGrantAction.cs" />
     <Compile Include="Assets\Script\ActionList\SkeletonAction.cs" />
+    <Compile Include="Assets\Script\ActionList\Sorceress_WarriorAction.cs" />
     <Compile Include="Assets\Script\ActionList\UnityChanAction.cs" />
     <Compile Include="Assets\Script\AIGroup\AIBase.cs" />
     <Compile Include="Assets\Script\AIGroup\AICommander.cs" />
@@ -314,6 +315,7 @@
     <None Include="Assets\data\actions\BobChanAction.xml" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_SelectionPicker.shader" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\About\changelog.txt" />
+    <None Include="Assets\data\actions\Sorceress_WarriorAction.xml" />
     <None Include="Assets\data\actions\Karate_WarriorAction.xml" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\DiffuseVertexColor.shader" />
     <None Include="Assets\Extended Script\VRM\UniGLTF\Resources\Shaders\StandardVColor.shader" />

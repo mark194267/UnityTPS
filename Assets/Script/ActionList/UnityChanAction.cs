@@ -41,6 +41,7 @@ namespace Assets.Script.ActionList
         public bool Mstrafe(ActionStatus actionStatus)
         {
             FPSLikeRigMovement(3f, 10f);
+            Gun.Swing(1, 1, 1);
             return true;
         }
         public void Before_kick(ActionStatus actionStatus)

@@ -60,6 +60,7 @@ namespace Assets.Script.Avater
             
             /// 未來可能在此增加射線管理員
         }
+
         void Update()
         {
             if (GetComponent<Rigidbody>().velocity.y != 0)
@@ -67,6 +68,7 @@ namespace Assets.Script.Avater
                 Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
             }
         }
+
         public void ChangeWeapon(int slotNum)
         {
             if (WeaponSlotNumber != slotNum)
