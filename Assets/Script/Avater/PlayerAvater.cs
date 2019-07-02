@@ -24,7 +24,9 @@ namespace Assets.Script.Avater
         public int WeaponSlotNumber;
         public AllAmmoType ammoType = new AllAmmoType();
 
-        public enum Guns { Wakizashi, Handgun ,Shotgun , AK47,}
+        public RaycastHit hit { get; set; }
+
+        public enum Guns { Wakizashi, Handgun ,Shotgun ,AK47 , SMAW }
         public Guns myguns;
         public 
         void Start()
@@ -50,11 +52,13 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().SetPlayerAvater(this);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["MG"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["bazooka"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["SMAW"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["AK47"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["Handgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Shotgun"]);
+
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
             
@@ -91,6 +95,9 @@ namespace Assets.Script.Avater
                         break;
                     case 4:
                         myguns = Guns.AK47;
+                        break;
+                    case 5:
+                        myguns = Guns.SMAW;
                         break;
                     default:
                         canchange = false;

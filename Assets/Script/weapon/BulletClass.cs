@@ -11,12 +11,13 @@ namespace Assets.Script.weapon
     class BulletClass:MonoBehaviour
     {        
         public int damage;
+        public float speed;
         public double stun;
         public float blast;
 
         void Start()
         {
-            gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward*30,ForceMode.VelocityChange);
+            gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward* speed, ForceMode.VelocityChange);
         }
         
         void OnTriggerEnter(Collider collision)

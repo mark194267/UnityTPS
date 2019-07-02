@@ -1,25 +1,27 @@
 <weapon>
 	<range>
 		<rifle>
-			<basicgun name ="basicgun" type ="bullet" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "90" stun = "0" blast = "1" charge = "0"/>
-      <MG name ="MG" type ="bullet" damage = "10" magsize = "200" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
-      <AK-47 name ="AK47" type ="bullet" damage = "7" magsize = "30" bulletusedpershot = "1" rof = "0.1" dropoff = "1" speed = "10" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
-      <Handgun name ="Handgun" type ="bullet" damage = "10" magsize = "15" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
+			<basicgun name ="basicgun" type ="bullet" damage = "10" magsize = "2" bulletusedpershot = "1" multi="1" rof = "0.3" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "0" blast = "1" charge = "0"/>
+      <MG name ="MG" type ="bullet" damage = "10" magsize = "200" bulletusedpershot = "1" multi="1" rof = "0.3" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
+      <AK-47 name ="AK47" type ="bullet" damage = "7" magsize = "30" bulletusedpershot = "1" multi="1" rof = "0.1" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
+      <Handgun name ="Handgun" type ="bullet" damage = "10" magsize = "15" bulletusedpershot = "1" multi="1" rof = "0.3" dropoff = "1" speed = "20" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
+      <Shotgun name ="Shotgun" type ="bullet" damage = "10" magsize = "8" bulletusedpershot = "1" multi="12" rof = "0.3" dropoff = "1" speed = "20" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
     </rifle>
 		<rocket>
-			<bazooka name ="bazooka" type ="rocket" damage = "100" magsize = "100" bulletusedpershot = "1" rof = "5" dropoff = "1" speed = "10" recoil = "1" acc = "90" stun = "999" blast = "1" charge = "0"/>
-		</rocket>
+			<bazooka name ="bazooka" type ="rocket" damage = "100" magsize = "100" bulletusedpershot = "1" multi="1" rof = "5" dropoff = "1" speed = "10" recoil = "1" acc = "90" stun = "999" blast = "1" charge = "0"/>
+      <SMAW name ="SMAW" type ="rocket" damage = "100" magsize = "1" bulletusedpershot = "1" multi="1" rof = "5" dropoff = "1" speed = "10" recoil = "1" acc = "90" stun = "999" blast = "100" charge = "0"/>
+    </rocket>
 	</range>
 	<close>
 		<sword>
-			<katana name ="katana" type ="sword" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
-			<katana name ="Wakizashi" type ="sword" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
+			<katana name ="katana" type ="sword" damage = "10" magsize = "2" bulletusedpershot = "1" multi="1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
+			<katana name ="Wakizashi" type ="sword" damage = "10" magsize = "2" bulletusedpershot = "1" multi="1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
   </sword>
     <dual>
-      <fist name ="fist" type ="dual" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
+      <fist name ="fist" type ="dual" damage = "10" magsize = "2" bulletusedpershot = "1" multi="1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
     </dual>
     <kick>
-      <kick name ="kick" type ="dual" damage = "10" magsize = "2" bulletusedpershot = "1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
+      <kick name ="kick" type ="dual" damage = "10" magsize = "2" bulletusedpershot = "1" multi="1" rof = "0.3" dropoff = "1" speed = "10" recoil = "1" acc = "-1" stun = "10" blast = "10" charge = "0"/>
     </kick>
 	</close>
 </weapon>

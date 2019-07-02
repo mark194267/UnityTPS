@@ -334,6 +334,8 @@ namespace Assets.Script.ActionList
                 RotateTowardSlerp(Me.transform.position - camPos, 5f);
                 var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
                 Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, 5f);
+
+                Gun.fire(0);
             }
             return true;
         }
@@ -353,6 +355,22 @@ namespace Assets.Script.ActionList
         {
             Gun.reload(0);
         }
+        #endregion
+
+        #region climb
+
+        public void Before_climb(ActionStatus AS)
+        {
+            var hit = Me.GetComponent<ParkourCollision>().hit;
+            //Me.transform.position = new Vector3(Me.transform.position.x, hit.point.y, Me.transform.position.z);
+            Me.transform.position = hit.point;
+            Debug.Log(hit.point);
+        }
+        public bool climb(ActionStatus AS)
+        {
+            return true;
+        }
+
         #endregion
     }
 }

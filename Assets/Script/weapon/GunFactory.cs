@@ -56,6 +56,7 @@ namespace Assets.Script.weapon
                 int damage = Convert.ToInt32(node.Attributes["damage"].Value);
                 int magsize = Convert.ToInt32(node.Attributes["magsize"].Value);
                 int bulletusedpershot = Convert.ToInt32(node.Attributes["bulletusedpershot"].Value);
+                int multi = Convert.ToInt32(node.Attributes["multi"].Value);
 
                 float charge = (float)Convert.ToDouble(node.Attributes["charge"].Value);
                 float acc = (float)Convert.ToDouble(node.Attributes["acc"].Value);
@@ -76,7 +77,8 @@ namespace Assets.Script.weapon
                     ammotype = new Ammo { Type = ammotype },
                     Damage = damage,
                     MagSize = magsize,
-                    BulletUsedPerShot = bulletusedpershot
+                    BulletUsedPerShot = bulletusedpershot,
+                    multi = multi
                     ,
                     acc = acc,
                     dropoff = dropoff,
@@ -107,6 +109,7 @@ namespace Assets.Script.weapon
                 int damage = Convert.ToInt32(node.Attributes["damage"].Value);
                 int magsize = Convert.ToInt32(node.Attributes["magsize"].Value);
                 int bulletusedpershot = Convert.ToInt32(node.Attributes["bulletusedpershot"].Value);
+                int multi = Convert.ToInt32(node.Attributes["multi"].Value);
 
                 float charge = (float)Convert.ToDouble(node.Attributes["charge"].Value);
                 float acc = (float)Convert.ToDouble(node.Attributes["acc"].Value);
@@ -125,7 +128,8 @@ namespace Assets.Script.weapon
                     weapontype = weapontype,
                     Damage = damage,
                     MagSize = magsize,
-                    BulletUsedPerShot = bulletusedpershot
+                    BulletUsedPerShot = bulletusedpershot,
+                    multi = multi
                     ,
                     acc = acc,
                     dropoff = dropoff,
@@ -158,6 +162,7 @@ namespace Assets.Script.weapon
         public int MagSize;
         public int BulletInMag;
         public int BulletUsedPerShot;
+        public int multi;
 
         public float charge;
         public float acc;

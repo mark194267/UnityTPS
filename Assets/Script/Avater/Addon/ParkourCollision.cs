@@ -2,25 +2,34 @@ using UnityEngine;
 using Assets.Script.ActionControl;
 
 namespace Assets.Script.Avater.Addon
-{    
-    class ParkourCollision : MonoBehaviour 
+{
+    class ParkourCollision : MonoBehaviour
     {
         //public Collision contactThing;
         //public Collider triggerThing;
+        public bool canparkour;
+        public bool canclimb;
 
         public float limitedDegree = 30;
 
+        public Transform _climbChecker;
+        public float climbWidth;
+        public float climbHeight;
+        public float climbFwd;
+        public Vector3 climbVec;
+        public float climbFwdDis;
+
         public Animator Animator;
-        public RaycastHit hit;
-        private void Start() 
+        public RaycastHit hit { get; set; }
+        private void Start()
         {
             Animator = GetComponent<Animator>();
         }
         void OnCollisionEnter(Collision collision)
-        {   
+        {
             //print("Enter!");
             //print(collision.gameObject.name);
-            if(collision.transform.tag == "item")
+            if (collision.transform.tag == "item")
             {
                 //道具
             }
@@ -32,31 +41,56 @@ namespace Assets.Script.Avater.Addon
 
         }
 
-        private void OnTriggerStay(Collider collider) 
+        private void OnTriggerStay(Collider collider)
         {
-            RaycastHit temphit;
-            int layermask = LayerMask.GetMask("Parkour");
-            //layermask = ~layermask;
-            if (Physics.Raycast(transform.position + Vector3.up * 1f, transform.TransformVector(Vector3.forward), out temphit, 2f, layermask, QueryTriggerInteraction.Ignore))
+            if (canparkour)
             {
-                //取得法線
-                hit = temphit;
-                //找垂直夾角...如果大於上下N度就不能跑庫
-                //射線轉90度--找夾角
-                var q = Quaternion.AngleAxis(90, Vector3.up) * hit.normal;
-                var front = transform.TransformVector(Vector3.forward);
-                var angle = Vector3.Angle(
-                    new Vector3(front.x, 0, front.z), new Vector3(q.x, 0, q.z));
+                RaycastHit temphit;
+                int layermask = LayerMask.GetMask("Parkour");
+                //layermask = ~layermask;
+                if (Physics.Raycast(transform.position + Vector3.up * 1f, transform.TransformVector(Vector3.forward), out temphit, 2f, layermask, QueryTriggerInteraction.Ignore))
+                {
+                    //取得法線
+                    hit = temphit;
+                    //找垂直夾角...如果大於上下N度就不能跑庫
+                    //射線轉90度--找夾角
+                    var q = Quaternion.AngleAxis(90, Vector3.up) * hit.normal;
+                    var front = transform.TransformVector(Vector3.forward);
+                    var angle = Vector3.Angle(
+                        new Vector3(front.x, 0, front.z), new Vector3(q.x, 0, q.z));
 
-                Animator.SetFloat("avater_AngleBetweenWall", angle);
-                Animator.SetBool("action_parkour", true);
+                    Animator.SetFloat("avater_AngleBetweenWall", angle);
+                    Animator.SetBool("action_parkour", true);
+                }
+                else
+                    Animator.SetBool("action_parkour", false);
+
             }
-            else
-                Animator.SetBool("action_parkour", false);
+
+            #region 爬牆
+
+            if (canclimb)
+            {
+                if (!Physics.BoxCast(_climbChecker.position, climbVec),
+                this.transform.forward, this.transform.rotation, climbFwdDis))
+                {
+                    RaycastHit temphit;
+                    Debug.Log("No hit");
+                    if (Physics.Raycast(_climbChecker.TransformPoint(Vector3.forward * climbFwdDis), Vector3.down, out temphit, climbHeight, -1))
+                    {
+                        Debug.Log("can climb");
+                        Animator.SetBool("action_climb", true);
+                        hit = temphit;
+                    }
+                }
+            }
+
+            #endregion
+
         }
         private void OnTriggerExit(Collider collider)
         {
-            if(collider.gameObject.tag == "wall")
+            if (collider.gameObject.tag == "wall")
             {
                 //Animator.SetTrigger("avater_exit");
             }

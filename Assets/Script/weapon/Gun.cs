@@ -61,6 +61,7 @@ namespace Assets.Script.weapon
                             MagSize = weaponBasic.MagSize,
                             BulletInMag = weaponBasic.BulletInMag,
                             BulletUsedPerShot = weaponBasic.BulletUsedPerShot,
+                            multi = weaponBasic.multi,
                             charge = weaponBasic.charge,
                             acc = weaponBasic.acc,
                             rof = weaponBasic.rof,
@@ -285,7 +286,7 @@ namespace Assets.Script.weapon
                 Qua = NowWeapon[BarrelIndex].weapon.transform.rotation;
 
                 //找到目前"槍口"的方向
-            for (int i = 0;i< NowWeapon[BarrelIndex].BulletUsedPerShot/*散彈數*/;i++)
+            for (int i = 0;i< NowWeapon[BarrelIndex].multi/*散彈數*/;i++)
             {
                 var bullet = Instantiate(NowWeapon[BarrelIndex].bullet,
                 NowWeapon[BarrelIndex].weapon.transform.position, Qua);
@@ -301,6 +302,7 @@ namespace Assets.Script.weapon
                 //初始化子彈的數值--待改進
                 b.damage = NowWeapon[BarrelIndex].Damage;
                 b.blast = NowWeapon[BarrelIndex].blast;
+                b.speed = NowWeapon[BarrelIndex].speed;
                 //三秒之後移除
                 Destroy(bullet,3f);
             }
