@@ -71,7 +71,7 @@ namespace Assets.Script.Avater.Addon
 
             if (canclimb)
             {
-                if (!Physics.BoxCast(_climbChecker.position, climbVec),
+                if (!Physics.BoxCast(_climbChecker.position, climbVec,
                 this.transform.forward, this.transform.rotation, climbFwdDis))
                 {
                     RaycastHit temphit;
