@@ -16,14 +16,18 @@ namespace Assets.Script.ActionList
         public void Before_equip(ActionStatus actionStatus)
         {
             AvaterMain.anim_flag = 0;
+            
         }
         public bool equip(ActionStatus actionStatus)
         {
+            /*
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, 5f);
             var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
             Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, .3f);
             NowVecter = Rig.velocity;
+            */
+            FPSLikeRigMovement(3f, 10f);
 
             if (AvaterMain.anim_flag == 1)
             {
@@ -37,16 +41,27 @@ namespace Assets.Script.ActionList
         }
         public void Before_Mstrafe(ActionStatus actionStatus)
         {
+            //Me.GetComponent<Animator>().applyRootMotion = true;
         }
         public bool Mstrafe(ActionStatus actionStatus)
         {
+            //var camPos = Camera.transform.TransformDirection(Vector3.forward);
+            //Vector3 direction = (Me.transform.position + camPos - Me.transform.position).normalized;
+            //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+
+            //Me.GetComponent<Animator>().rootRotation = lookRotation;
             FPSLikeRigMovement(3f, 10f);
-            Gun.Swing(1, 1, 1);
+            //Gun.Swing(1, 1, 1);
             return true;
+        }
+        public void After_Mstrafe(ActionStatus actionStatus)
+        {
+            //Me.GetComponent<Animator>().applyRootMotion = false;
         }
         public void Before_kick(ActionStatus actionStatus)
         {
             //Gun.ChangeWeapon("kick");
+            Me.GetComponent<Animator>().applyRootMotion = true;
         }
 
         public bool kick(ActionStatus actionStatus)
@@ -65,14 +80,22 @@ namespace Assets.Script.ActionList
         public void After_kick(ActionStatus actionStatus)
         {
             //Gun.ChangeWeapon("kick");
+            //Me.GetComponent<Animator>().applyRootMotion = false;
+
         }
         public override void Before_slash(ActionStatus actionStatus)
         {
+            Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Wakizashi;
+            var g = Me.GetComponent<PlayerAvater>().myguns;
+            Gun.ChangeWeapon(g.ToString());
+
             AvaterMain.anim_flag = 0;
             _timer = 0;
         }
         public override bool slash(ActionStatus actionStatus)
         {
+            Me.GetComponent<Animator>().applyRootMotion = true;
+            /*
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
             var mb = AvaterMain.MotionStatus;
@@ -81,8 +104,15 @@ namespace Assets.Script.ActionList
                 _timer += Time.deltaTime;
                 Rig.velocity = Me.transform.TransformVector(new Vector3(mb.camX, mb.camY, mb.camZ)) * _timer;
             }
+            */
             Gun.Swing(AvaterMain.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
             return true;
+        }
+        public void After_slash(ActionStatus actionStatus)
+        {
+            Me.GetComponent<Animator>().applyRootMotion = false;
+            AvaterMain.anim_flag = 0;
+            _timer = 0;
         }
 
         #region idle
@@ -195,7 +225,7 @@ namespace Assets.Script.ActionList
         public bool wallrun(ActionStatus actionStatus)
         {
             //給定速度
-            Rig.velocity = NowVecter.normalized*12+Vector3.up*2;//NowVector已經是正規化的向量了
+            Rig.velocity = NowVecter.normalized*9+Vector3.up*2;//NowVector已經是正規化的向量了
             //轉過去
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
@@ -210,6 +240,8 @@ namespace Assets.Script.ActionList
             if(!Physics.CheckSphere(Me.transform.TransformPoint(.3f*pos,1,0),.7f,LayerMask.GetMask("Parkour"),QueryTriggerInteraction.Ignore))
             {
                 Debug.Log("wallrun out");
+                Me.GetComponent<Animator>().applyRootMotion = false;
+
                 return false;
             }            
             return true;
@@ -227,7 +259,7 @@ namespace Assets.Script.ActionList
                 pos = -1;
             }
 
-            Rig.AddRelativeForce(Me.transform.TransformVector(Vector3.right*pos)*1,ForceMode.VelocityChange);
+            //Rig.AddRelativeForce(Me.transform.TransformVector(Vector3.right*pos)*1,ForceMode.VelocityChange);
             //Animator.SetBool("action_can_parkour", false);
             return true;
         }
@@ -361,14 +393,27 @@ namespace Assets.Script.ActionList
 
         public void Before_climb(ActionStatus AS)
         {
+            Me.GetComponent<Animator>().applyRootMotion = true;
+            /*
             var hit = Me.GetComponent<ParkourCollision>().hit;
             //Me.transform.position = new Vector3(Me.transform.position.x, hit.point.y, Me.transform.position.z);
             Me.transform.position = hit.point;
             Debug.Log(hit.point);
+            */
         }
         public bool climb(ActionStatus AS)
         {
+            var hit = Me.GetComponent<ParkourCollision>().hit;
+            Me.transform.position = Vector3.Lerp(Me.transform.position, hit.point, 1f*Time.deltaTime);
             return true;
+        }
+        public void After_climb(ActionStatus AS)
+        {
+            var hit = Me.GetComponent<ParkourCollision>().hit;
+            //Me.transform.position = new Vector3(Me.transform.position.x, hit.point.y, Me.transform.position.z);
+            Me.transform.position = hit.point;
+            Me.GetComponent<Animator>().applyRootMotion = false;
+            //Debug.Log(hit.point);
         }
 
         #endregion

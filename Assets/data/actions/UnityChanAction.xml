@@ -119,6 +119,6 @@
     <f3 value = "6"/>
     <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "0"/>
+    <ignore list = "fall"/>
   </long>
 </UnityChan>

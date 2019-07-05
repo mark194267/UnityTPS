@@ -13,9 +13,7 @@ namespace Assets.Script.Avater.Addon
         public float limitedDegree = 30;
 
         public Transform _climbChecker;
-        public float climbWidth;
         public float climbHeight;
-        public float climbFwd;
         public Vector3 climbVec;
         public float climbFwdDis;
 
@@ -71,18 +69,15 @@ namespace Assets.Script.Avater.Addon
 
             if (canclimb)
             {
-                if (!Physics.BoxCast(_climbChecker.position, climbVec,
-                this.transform.forward, this.transform.rotation, climbFwdDis))
+                RaycastHit temphit;
+                if (Physics.Raycast(_climbChecker.transform.position, Vector3.down, out temphit, climbHeight, ~LayerMask.GetMask("Player"),QueryTriggerInteraction.Ignore))
                 {
-                    RaycastHit temphit;
-                    Debug.Log("No hit");
-                    if (Physics.Raycast(_climbChecker.TransformPoint(Vector3.forward * climbFwdDis), Vector3.down, out temphit, climbHeight, -1))
-                    {
-                        Debug.Log("can climb");
-                        Animator.SetBool("action_climb", true);
-                        hit = temphit;
-                    }
+                    Debug.Log(temphit.point);
+                    Animator.SetBool("action_climb", true);
+                    hit = temphit;
                 }
+                else
+                    Animator.SetBool("action_climb", false);
             }
 
             #endregion
