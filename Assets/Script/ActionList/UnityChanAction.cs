@@ -413,6 +413,7 @@ namespace Assets.Script.ActionList
             //Me.transform.position = new Vector3(Me.transform.position.x, hit.point.y, Me.transform.position.z);
             Me.transform.position = hit.point;
             Me.GetComponent<Animator>().applyRootMotion = false;
+            Me.GetComponent<Animator>().SetBool("avater_IsLanded", true);
             //Debug.Log(hit.point);
         }
 

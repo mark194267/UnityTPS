@@ -1,5 +1,95 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &308400195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308400196}
+  m_Layer: 8
+  m_Name: sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &308400196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308400195}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_Children: []
+  m_Father: {fileID: 4286578378477590805}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &844045930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 844045931}
+  m_Layer: 8
+  m_Name: _climbchecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &844045931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844045930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.85, z: 0.301}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3976901600478402888}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1124286899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1124286900}
+  m_Layer: 8
+  m_Name: rocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1124286900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124286899}
+  m_LocalRotation: {x: 0.40631863, y: 0.78588736, z: 0.34640512, w: 0.3119131}
+  m_LocalPosition: {x: 0.38799998, y: 0.08399999, z: -0.016000014}
+  m_LocalScale: {x: 0.89999956, y: 0.89999986, z: 0.8999995}
+  m_Children: []
+  m_Father: {fileID: 3344080656514512040}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -16.918001, y: 126.228004, z: 90063.305}
 --- !u!1 &19072276751388095
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,6 +390,7 @@ Transform:
   - {fileID: 8632083492137959691}
   - {fileID: 4286578378477590805}
   - {fileID: 2090582555207685259}
+  - {fileID: 1124286900}
   m_Father: {fileID: 2166748008084942901}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1789,7 +1880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2090582555207685259}
   m_Layer: 8
-  m_Name: bullet
+  m_Name: rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2127,6 +2218,8 @@ GameObject:
   - component: {fileID: 2594459011546240317}
   - component: {fileID: 2594459011546240316}
   - component: {fileID: 2594459011546240315}
+  - component: {fileID: 755707538}
+  - component: {fileID: 755707537}
   m_Layer: 8
   m_Name: UnityChan
   m_TagString: Player
@@ -2141,7 +2234,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2594459011546240314}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 30.709, y: -1.36, z: 28.466}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2152,6 +2245,7 @@ Transform:
   - {fileID: 5230559641884819653}
   - {fileID: 2090582554752155326}
   - {fileID: 2090582554888502483}
+  - {fileID: 844045931}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2426,7 +2520,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c268387310855b64bbdab47763a93e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canparkour: 1
+  canclimb: 1
   limitedDegree: 180
+  _climbChecker: {fileID: 844045931}
+  climbHeight: 1
+  climbVec: {x: 1, y: 1, z: 1}
+  climbFwdDis: 0.4
   Animator: {fileID: 0}
 --- !u!114 &2594459011546240288
 MonoBehaviour:
@@ -2449,6 +2549,8 @@ MonoBehaviour:
   Type: 
   NowAmmo: 0
   MaxAmmo: 0
+  WeaponSlotNumber: 0
+  myguns: 0
 --- !u!114 &2594459011546240319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2465,6 +2567,7 @@ MonoBehaviour:
   ad: 0
   maxWSAD: 0
   charge: 0
+  weaponslot: 0
   Animator: {fileID: 0}
 --- !u!114 &2594459011546240318
 MonoBehaviour:
@@ -2529,6 +2632,34 @@ CapsuleCollider:
   m_Height: 0.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!114 &755707538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594459011546240314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f6a66ba06af9e43afa3cccf1d3d21b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &755707537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594459011546240314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2777bba7e4e7c6f4681e3ea77eef5438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 4, y: 3, z: 4}
+  m_Center: {x: 0, y: 1, z: 0}
+  m_Area: 3
+  m_AffectedAgents: ffffffff
 --- !u!1 &2617815265018572479
 GameObject:
   m_ObjectHideFlags: 0
@@ -4948,6 +5079,7 @@ Transform:
   - {fileID: 6322497394703696251}
   - {fileID: 9078993622585048564}
   - {fileID: 8194132252609329018}
+  - {fileID: 308400196}
   m_Father: {fileID: 3344080656514512040}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

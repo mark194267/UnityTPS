@@ -103,5 +103,27 @@ namespace Assets.Script.AIGroup
             TargetSightHit = TargetHit;
             return TargetHit.transform;
         }
+        public Transform ToTargetSight()
+        {
+            RaycastHit TargetHit = new RaycastHit();
+            int mask = ~LayerMask.GetMask("Player", "AI");
+            var MyPos = Me.transform.position + Vector3.up * .5f;
+            var TargetPos = Target.transform.position + Vector3.up * .5f;
+            var range = Me.GetComponent<Animator>().GetBehaviour<StateMachine>().TargetDis;
+
+            //Physics.Raycast(Me.transform.position, Target.transform.position - Me.transform.position, out hit, range,-1,QueryTriggerInteraction.Ignore);
+            //Physics.BoxCast(MyPos,Vector3.one*.1f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
+            var AllHit = Physics.SphereCastAll(MyPos, .3f, TargetPos - MyPos, range, -1, QueryTriggerInteraction.Ignore);
+            foreach (var hit in AllHit)
+            {
+                if (hit.transform.GetComponentInParent<Avater.AvaterMain>() != Me.GetComponentInParent<Avater.AvaterMain>())
+                {
+                    TargetHit = hit;
+                    break;
+                }
+            }
+            TargetSightHit = TargetHit;
+            return TargetHit.transform;
+        }
     }
 }

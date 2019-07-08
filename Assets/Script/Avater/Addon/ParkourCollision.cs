@@ -72,7 +72,7 @@ namespace Assets.Script.Avater.Addon
                 RaycastHit temphit;
                 if (Physics.Raycast(_climbChecker.transform.position, Vector3.down, out temphit, climbHeight, ~LayerMask.GetMask("Player"),QueryTriggerInteraction.Ignore))
                 {
-                    Debug.Log(temphit.point);
+                    //Debug.Log(temphit.point);
                     Animator.SetBool("action_climb", true);
                     hit = temphit;
                 }
