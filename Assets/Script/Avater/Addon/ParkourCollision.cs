@@ -46,7 +46,7 @@ namespace Assets.Script.Avater.Addon
                 RaycastHit temphit;
                 int layermask = LayerMask.GetMask("Parkour");
                 //layermask = ~layermask;
-                if (Physics.Raycast(transform.position + Vector3.up * 1f, transform.TransformVector(Vector3.forward), out temphit, 2f, layermask, QueryTriggerInteraction.Ignore))
+                if (Physics.Raycast(transform.position + Vector3.up * 1f, transform.TransformVector(Vector3.forward), out temphit, .6f, layermask, QueryTriggerInteraction.Ignore))
                 {
                     //取得法線
                     hit = temphit;
@@ -72,9 +72,13 @@ namespace Assets.Script.Avater.Addon
                 RaycastHit temphit;
                 if (Physics.Raycast(_climbChecker.transform.position, Vector3.down, out temphit, climbHeight, ~LayerMask.GetMask("Player"),QueryTriggerInteraction.Ignore))
                 {
-                    //Debug.Log(temphit.point);
-                    Animator.SetBool("action_climb", true);
-                    hit = temphit;
+                    if (Physics.Raycast(new Vector3(transform.position.x, temphit.point.y, transform.position.z), transform.TransformVector( Vector3.forward), out temphit, 1f, ~LayerMask.GetMask("Player"), QueryTriggerInteraction.Ignore))
+                    {
+                        //Debug.Log(temphit.point);
+                        Animator.SetBool("action_climb", true);
+                        hit = temphit;
+
+                    }
                 }
                 else
                     Animator.SetBool("action_climb", false);

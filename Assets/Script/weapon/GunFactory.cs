@@ -12,6 +12,7 @@ namespace Assets.Script.weapon
     {
         public Dictionary<string, WeaponBasic> AllWeaponDictionary;
         public Dictionary<string, WeaponBasic> RangeDictionary;
+        public Dictionary<string, WeaponBasic> SidearmDictionary;
         public Dictionary<string, WeaponBasic> RocketDictionary;
         public Dictionary<string, WeaponBasic> CloseDictionary;
         public Dictionary<string, WeaponBasic> DualDictionary;
@@ -21,21 +22,27 @@ namespace Assets.Script.weapon
         public void Init()
         {
             RangeDictionary = Loadweapon("range", "rifle");
+            SidearmDictionary = Loadweapon("range", "sidearm");
             RocketDictionary = Loadweapon("range", "rocket");
             CloseDictionary = Loadweapon("close", "sword");
             DualDictionary = Loadweapon("close", "dual");
             KickDictionary = Loadweapon("close","kick");
             AllWeaponDictionary = 
-                RangeDictionary.Concat(CloseDictionary).Concat(RocketDictionary).Concat(DualDictionary).Concat(KickDictionary)
+                RangeDictionary.Concat(CloseDictionary).Concat(RocketDictionary).Concat(DualDictionary).Concat(KickDictionary).Concat(SidearmDictionary)
                 .GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
         }
 
         public void Init(List<Ammo> ammo)
         {
+            SidearmDictionary = Loadweapon("range", "sidearm",ammo);
             RangeDictionary = Loadweapon("range", "rifle",ammo);
             RocketDictionary = Loadweapon("range", "rocket", ammo);
             CloseDictionary = Loadweapon("close", "sword", ammo);
-            AllWeaponDictionary = RangeDictionary.Concat(CloseDictionary).Concat(RocketDictionary).GroupBy(d => d.Key)
+            AllWeaponDictionary = RangeDictionary
+                .Concat(CloseDictionary)
+                .Concat(RocketDictionary)
+                .Concat(SidearmDictionary)
+                .GroupBy(d => d.Key)
                 .ToDictionary(d => d.Key, d => d.First().Value);
         }
 

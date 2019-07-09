@@ -138,9 +138,9 @@ namespace Assets.Script.ActionList
         public override bool move(ActionStatus actionStatus)
         {
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-            RotateTowardSlerp(Me.transform.position - camPos, 5f);
+            RotateTowardSlerp(Me.transform.position - camPos, 9f);
             var endspeed = Me.transform.TransformDirection(Vector3.forward*InputManager.maxWSAD).normalized * actionStatus.f1;
-            Rig.velocity = Vector3.Lerp(Rig.velocity,endspeed,.3f);
+            Rig.velocity = Vector3.Lerp(Rig.velocity,endspeed,.1f);
             NowVecter = Rig.velocity;
             return true;
         }
@@ -177,12 +177,12 @@ namespace Assets.Script.ActionList
         {
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, 4f);
-            var fwd = Me.transform.TransformVector(Vector3.forward*3f);
+            var fwd = Me.transform.TransformVector(Vector3.forward*5f);
             
             if (AvaterMain.anim_flag == 1)
             {
                 _timer += Time.deltaTime;
-                Rig.velocity  = (Vector3.up* 1f/(_timer*_timer)+fwd/_timer*_timer);
+                Rig.velocity  = (Vector3.up* 1.3f/(_timer*_timer)+fwd/_timer*_timer);
             }
             else
                 Rig.velocity = fwd/_timer*_timer;
@@ -193,6 +193,40 @@ namespace Assets.Script.ActionList
             //NowVecter = Rig.velocity;
             //Animator.SetBool("action_can_fall", true);
         }
+        #endregion
+
+        #region jumpout
+        public void Before_jumpout(ActionStatus AS)
+        {
+            //Me.GetComponent<Animator>().applyRootMotion = false;
+            //Rig.AddRelativeForce(Vector3.up*5+Vector3.back * 5f, ForceMode.VelocityChange);
+        }
+
+        public bool jumpout(ActionStatus AS)
+        {
+            Rig.velocity = Rig.transform.TransformVector(Vector3.up*4+Vector3.back);
+            return true;
+        }
+        public void After_jumpout(ActionStatus AS)
+        {
+            //Me.GetComponent<Animator>().applyRootMotion = false;
+        }
+
+        #endregion
+
+        #region offwall
+
+        public bool offwall(ActionStatus AS)
+        {
+            Animator.applyRootMotion = true;
+            return true;
+        }
+
+        public void After_offwall(ActionStatus AS)
+        {
+            Animator.applyRootMotion = false;
+        }
+
         #endregion
 
         #region wallrun
@@ -301,8 +335,11 @@ namespace Assets.Script.ActionList
         public bool falling(ActionStatus actionStatus)
         {
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-            RotateTowardSlerp(Me.transform.position - camPos, .2f);
-            Rig.AddRelativeForce(Vector3.forward*2f);
+            if (Input.anyKey)
+            {
+                RotateTowardSlerp(Me.transform.position - camPos, .2f);
+                Rig.AddRelativeForce(Vector3.forward * 2f);
+            }
 
             if (Input.GetButton("Fire1"))
             {
@@ -394,6 +431,15 @@ namespace Assets.Script.ActionList
         public void Before_climb(ActionStatus AS)
         {
             Me.GetComponent<Animator>().applyRootMotion = true;
+
+            var hit = Me.GetComponent<ParkourCollision>().hit;
+            var toPoint = Me.transform.TransformVector(hit.point).normalized;
+            var EdgeOffSet = Rig.position + toPoint * .3f;
+            EdgeOffSet.y = hit.point.y;
+            //Debug.Log("hitPos: " + hit.point + " toPoint: " + toPoint + " EdgeOffSet " + EdgeOffSet);
+            velocity = EdgeOffSet;
+            Rig.rotation = Quaternion.LookRotation(EdgeOffSet, Vector3.up);
+
             /*
             var hit = Me.GetComponent<ParkourCollision>().hit;
             //Me.transform.position = new Vector3(Me.transform.position.x, hit.point.y, Me.transform.position.z);
@@ -404,7 +450,13 @@ namespace Assets.Script.ActionList
         public bool climb(ActionStatus AS)
         {
             var hit = Me.GetComponent<ParkourCollision>().hit;
-            Me.transform.position = Vector3.Lerp(Me.transform.position, hit.point, 1f*Time.deltaTime);
+            var toPoint = Me.transform.position - hit.point;
+            
+            //Me.transform.position = Vector3.Lerp(Me.transform.position, hit.point, 10f*Time.deltaTime);
+            //Me.transform.position = Vector3.Lerp(Me.transform.position, hit.point-toPoint*2f, 10f * Time.deltaTime);
+
+            Me.transform.position = Vector3.Lerp(Me.transform.position, velocity, 5f * Time.deltaTime);
+
             return true;
         }
         public void After_climb(ActionStatus AS)
