@@ -285,6 +285,7 @@
     <Compile Include="Assets\Script\Avater\Addon\Grandcheck.cs" />
     <Compile Include="Assets\Script\Avater\Addon\ParkourCollision.cs" />
     <Compile Include="Assets\Script\Avater\AIAvaterMain.cs" />
+    <Compile Include="Assets\Script\Avater\AIAvaterMainNavgator.cs" />
     <Compile Include="Assets\Script\Avater\AvaterDataLoader.cs" />
     <Compile Include="Assets\Script\Avater\AvaterMain.cs" />
     <Compile Include="Assets\Script\Avater\AvaterStatus.cs" />

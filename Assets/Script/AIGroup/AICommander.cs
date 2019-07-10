@@ -28,6 +28,7 @@ namespace Assets.Script.AIGroup
             path = new NavMeshPath();
             //GameObject[] allMyAi = GameObject.FindGameObjectsWithTag("AI");
             AIAvaterMain[] allMyAi = GetComponentsInChildren<AIAvaterMain>();
+            AIAvaterMainNavgator[] allMyNav = GetComponentsInChildren<AIAvaterMainNavgator>();
             target = GameObject.FindGameObjectWithTag("Player");
             weaponFactory.Init();
             avaterStatus = avaterDataLoader.LoadStatus("Imp");
@@ -51,6 +52,29 @@ namespace Assets.Script.AIGroup
                 ai.targetInfo = aibase.TargetInfo;
                 //Debug.Log("7");
             }
+            if (allMyNav.Length > 0)
+            {
+                foreach (var ai in allMyNav)
+                {
+                    //Debug.Log("2");
+                    ai.avaterStatus = avaterStatus;
+                    //Debug.Log("3");
+                    ai.IsAwake = IsAwake;
+                    //Debug.Log("4");
+                    ai.AIBase = aiConstructer.GetAI(ai.gameObject, target);
+                    ai.targetInfo = ai.AIBase.TargetInfo;
+                    //Debug.Log("5");
+                    ai.Init_Avater();
+                    ai.stateMachine.AIBase = ai.AIBase;
+                    var aibase = ai.stateMachine.AIBase;
+                    //Debug.Log(aibase.TargetInfo.Me.name);
+                    //Debug.Log(aibase.TargetInfo.Target.name);
+                    ai.targetInfo = aibase.TargetInfo;
+                    //Debug.Log("7");
+                }
+
+            }
+
             //是否有巡邏路線
             //var agent = GetComponent<NavMeshAgent>();
             //agent.CalculatePath(target.transform.position, path);

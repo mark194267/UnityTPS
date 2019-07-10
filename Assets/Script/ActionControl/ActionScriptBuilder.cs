@@ -32,7 +32,7 @@ namespace Assets.Script.ActionControl
         public GameObject Target { get; set; }
         protected Camera Camera { get; set; }
         protected Rigidbody Rig { get; set; }
-        protected NavMeshAgent Agent { get; set; }
+        public NavMeshAgent Agent { get; set; }
         protected Vector3 NowVecter { get; set; }
         protected CharacterController character { get; set; }
         protected Vector3 velocity { get; set; }
