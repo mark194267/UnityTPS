@@ -25,8 +25,8 @@ public class MouseOrbitImproved : MonoBehaviour {
 
 	public Rigidbody rb;
 
-	float x = 0.0f;
-	float y = 0.0f;
+	public float x = 0.0f;
+	public float y = 0.0f;
 
     // Use this for initialization
 
@@ -59,7 +59,9 @@ public class MouseOrbitImproved : MonoBehaviour {
 			x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
 			y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f ;
 
-			y = ClampAngle(y - Vrecoil, yMinLimit, yMaxLimit);
+            x = ClampAngle(x, -360, 360);
+
+            y = ClampAngle(y - Vrecoil, yMinLimit, yMaxLimit);
 			
 			//後座力主要超載這邊
 			Quaternion rotation = Quaternion.Euler(y , x + Hrecoil, 0);
@@ -137,4 +139,12 @@ public class MouseOrbitImproved : MonoBehaviour {
 			angle -= 360F;
 		return Mathf.Clamp(angle, min, max);
 	}
+    public static float ClampAngle180(float angle, float min, float max)
+    {
+        if (angle < -180F)
+            angle = 180F;
+        if (angle > 180F)
+            angle = 180F;
+        return Mathf.Clamp(angle, min, max);
+    }
 }

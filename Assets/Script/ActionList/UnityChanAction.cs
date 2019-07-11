@@ -85,7 +85,7 @@ namespace Assets.Script.ActionList
         }
         public override void Before_slash(ActionStatus actionStatus)
         {
-            Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Wakizashi;
+            Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
             var g = Me.GetComponent<PlayerAvater>().myguns;
             Gun.ChangeWeapon(g.ToString());
 
@@ -237,6 +237,8 @@ namespace Assets.Script.ActionList
         /// <returns></returns>
         public void Before_wallrun(ActionStatus actionStatus)
         {
+            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
+
             float angle;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
             {
@@ -283,6 +285,8 @@ namespace Assets.Script.ActionList
         
         public bool After_wallrun(ActionStatus actionStatus)
         {
+            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
             {
@@ -293,7 +297,7 @@ namespace Assets.Script.ActionList
                 pos = -1;
             }
 
-            //Rig.AddRelativeForce(Me.transform.TransformVector(Vector3.right*pos)*1,ForceMode.VelocityChange);
+            Rig.AddRelativeForce(Me.transform.TransformVector(Vector3.right*pos)*2,ForceMode.VelocityChange);
             //Animator.SetBool("action_can_parkour", false);
             return true;
         }

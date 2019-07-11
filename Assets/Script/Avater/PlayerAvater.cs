@@ -23,14 +23,22 @@ namespace Assets.Script.Avater
         public int MaxAmmo;
         public int WeaponSlotNumber;
         public AllAmmoType ammoType = new AllAmmoType();
+        public GameObject camera { get; set; }
+
+        public bool IsRotChestV = false;
+        public bool IsRotChestH = false;
+
+        public Transform chestTransform;
+        public Vector3 chestOffSet;
 
         public RaycastHit hit { get; set; }
 
-        public enum Guns { Wakizashi, Handgun ,Shotgun ,AK47 , SMAW }
+        public enum Guns { Great_Sword,Cross_Sword, Handgun ,Shotgun ,AK47 , SMAW }
         public Guns myguns;
         public 
         void Start()
         {
+            camera = gameObject.transform.Find("Camera").gameObject;
             avaterStatus = avaterDataLoader.LoadStatus("UnityChan");
             //暫時，初始化到時會交出去
             Init_Avater();
@@ -53,7 +61,8 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["MG"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["SMAW"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Great_Sword"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Cross_Sword"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["AK47"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["Handgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
@@ -73,6 +82,40 @@ namespace Assets.Script.Avater
             }
         }
 
+        private void LateUpdate()
+        {
+            if (IsRotChestV||IsRotChestH)
+            {
+                ChestLook(IsRotChestV,IsRotChestH);
+            }
+        }
+
+        public void ChestLook(bool IsV,bool IsH)
+        {
+            var cam = camera.GetComponent<MouseOrbitImproved>();
+            if (IsH)
+            {
+
+                //等待加入限制角度
+                var rootrot = transform.rotation.eulerAngles;
+                var localcam = rootrot.y - cam.x;
+
+                //目標轉向只能為 母物件轉向+-45度之間
+                var targetRot = Mathf.Clamp(localcam /*輸入轉向為攝影機轉向*/, (rootrot.y - 45f)%360, (rootrot.y + 45f)%360)/*此時camx為世界轉軸，需要先改成本地轉軸*/;
+                var localRot = transform.rotation.eulerAngles.y-targetRot;
+
+                Debug.Log(localcam + "  " + targetRot + " " + localRot);
+
+
+                //保留動畫的原轉向所以只能用 加成的方式
+                chestTransform.rotation = chestTransform.rotation * /*目前轉向和目標轉向的差值*/Quaternion.AngleAxis(localRot, Vector3.up);
+            }
+            if (IsV)
+            {
+                chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(cam.y+chestOffSet.y, Vector3.right);
+            }
+        }
+
         public void ChangeWeapon(int slotNum)
         {
             if (WeaponSlotNumber != slotNum)
@@ -85,7 +128,7 @@ namespace Assets.Script.Avater
                         break;
 
                     case 1:
-                        myguns = Guns.Wakizashi;
+                        myguns = Guns.Great_Sword;
                         break;
                     case 2:
                         myguns = Guns.Handgun;
