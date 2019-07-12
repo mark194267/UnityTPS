@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Assets.Script.Config;
+using Assets.Script.StaticFunction;
 
 [AddComponentMenu("Camera-Control/Mouse Orbit with zoom")]
 public class MouseOrbitImproved : MonoBehaviour {
@@ -8,9 +9,13 @@ public class MouseOrbitImproved : MonoBehaviour {
 	public Transform target;
     public bool IsAutoTransparent = false;
     public bool IsAutoClose = false;
+    public bool IsLimitX = false;
     public float distance = 5.0f;
 	public float xSpeed = 120.0f;
 	public float ySpeed = 120.0f;
+
+    public float xMinLimit = -360f;
+    public float xMaxLimit = 360f;
 
 	public float yMinLimit = -20f;
 	public float yMaxLimit = 80f;
@@ -59,7 +64,13 @@ public class MouseOrbitImproved : MonoBehaviour {
 			x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
 			y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f ;
 
-            x = ClampAngle(x, -360, 360);
+            var TargetRot = RotFunction.Clamp180(target.rotation.eulerAngles.y);
+            if (IsLimitX)
+            {
+                x = ClampAngle(x, (xMinLimit + TargetRot), (TargetRot + xMaxLimit));
+            }
+            else
+                x = ClampAngle(x, -360, 360);
 
             y = ClampAngle(y - Vrecoil, yMinLimit, yMaxLimit);
 			
@@ -139,12 +150,4 @@ public class MouseOrbitImproved : MonoBehaviour {
 			angle -= 360F;
 		return Mathf.Clamp(angle, min, max);
 	}
-    public static float ClampAngle180(float angle, float min, float max)
-    {
-        if (angle < -180F)
-            angle = 180F;
-        if (angle > 180F)
-            angle = 180F;
-        return Mathf.Clamp(angle, min, max);
-    }
 }

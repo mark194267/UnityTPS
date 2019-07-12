@@ -2,6 +2,7 @@
 
 using Assets.Script.ActionControl;
 using Assets.Script.weapon;
+using Assets.Script.StaticFunction;
 using Assets.Script.Config;
 
 namespace Assets.Script.Avater
@@ -97,11 +98,11 @@ namespace Assets.Script.Avater
             {
                 //父節點的角度
                 var Rootrot = transform.rotation.eulerAngles;
-                var root = Clamp180(Rootrot.y);
-                var camY = Clamp180(cam.x);
+                var root = RotFunction.Clamp180(Rootrot.y);
+                var camY = RotFunction.Clamp180(cam.x);
                
                 //取得目標的本地角度
-                var TargetRot = Clamp180(camY - root);
+                var TargetRot = RotFunction.Clamp180(camY - root);
                 //子節點的角度
                 var ChestRot = chestTransform.rotation.eulerAngles;
                 //Debug.Log(camY + " - " + root + " = " + TargetRot +" ABS " + Mathf.Abs(TargetRot - ChestRot.y));
@@ -113,6 +114,7 @@ namespace Assets.Script.Avater
                 chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(cam.y+chestOffSet.y, Vector3.right);
             }
         }
+        /*
         public float Clamp180(float Num)
         {
             if (Num < -180)
@@ -125,6 +127,7 @@ namespace Assets.Script.Avater
             }
             return Num;
         }
+        */
 
         public void ChangeWeapon(int slotNum)
         {

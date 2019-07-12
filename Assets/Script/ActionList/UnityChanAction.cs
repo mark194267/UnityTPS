@@ -50,8 +50,20 @@ namespace Assets.Script.ActionList
             //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
 
             //Me.GetComponent<Animator>().rootRotation = lookRotation;
-            FPSLikeRigMovement(3f, 10f);
-            //Gun.Swing(1, 1, 1);
+            if (AvaterMain.anim_flag == 1)
+            {
+                Gun.Swing(1, 10, 10);
+                FPSLikeRigMovement(4f, 3f);
+                Me.GetComponent<PlayerAvater>().IsRotChestH = true;
+                Me.GetComponent<PlayerAvater>().IsRotChestV = true;
+            }
+            else
+            {
+                FPSLikeRigMovement(7f, 10f);
+                Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+                Me.GetComponent<PlayerAvater>().IsRotChestV = false;
+
+            }
             return true;
         }
         public void After_Mstrafe(ActionStatus actionStatus)

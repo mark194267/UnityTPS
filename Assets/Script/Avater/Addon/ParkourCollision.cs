@@ -51,6 +51,7 @@ namespace Assets.Script.Avater.Addon
                     //取得法線
                     hit = temphit;
                     //找垂直夾角...如果大於上下N度就不能跑庫
+
                     //射線轉90度--找夾角
                     var q = Quaternion.AngleAxis(90, Vector3.up) * hit.normal;
                     var front = transform.TransformVector(Vector3.forward);

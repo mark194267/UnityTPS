@@ -296,6 +296,7 @@
     <Compile Include="Assets\Script\Config\MouseOrbitImproved.cs" />
     <Compile Include="Assets\Script\Item\ItemBase.cs" />
     <Compile Include="Assets\Script\SceneLoad.cs" />
+    <Compile Include="Assets\Script\StaticFunction\RotFunction.cs" />
     <Compile Include="Assets\Script\Test\TestControl.cs" />
     <Compile Include="Assets\Script\Test\TestRandom.cs" />
     <Compile Include="Assets\Script\weapon\AmmoType.cs" />
