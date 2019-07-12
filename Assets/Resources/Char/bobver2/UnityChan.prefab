@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308400195}
-  m_LocalRotation: {x: -0, y: -0.00000017881388, z: 0.7436842, w: 0.6685311}
-  m_LocalPosition: {x: 0.05, y: -0.01, z: 0.039}
-  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0272, y: 0.3697, z: -0.684}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4286578378477590805}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 96.092}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &468252220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,8 +1736,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090582554752155325}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 1.7, y: -1.31, z: -2.51}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3976901600478402888}
@@ -1815,12 +1815,14 @@ MonoBehaviour:
   yMinLimit: -20
   yMaxLimit: 80
   cameraHeight: 1.3
-  distanceMin: 2
+  distanceMin: 1.3
   distanceMax: 3
   Vrecoil: 0
   Hrecoil: 0
   FireTime: 0
   rb: {fileID: 0}
+  x: 0
+  y: 0
   DistanceToPlayer: 5
   TransparentMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   FadeInTimeout: 0.6
@@ -2374,9 +2376,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DrawGizmo: 1
-  UpdateType: 1
-  Target: {fileID: 0}
-  Head: {fileID: 0}
+  UpdateType: 2
+  Target: {fileID: 2090582554752155326}
+  Head: {fileID: 5232952471278918639}
   m_yaw: 0
   m_pitch: 0
 --- !u!114 &2555906643159098483
@@ -2580,6 +2582,10 @@ MonoBehaviour:
   NowAmmo: 0
   MaxAmmo: 0
   WeaponSlotNumber: 0
+  IsRotChestV: 1
+  IsRotChestH: 1
+  chestTransform: {fileID: 3802884910264646149}
+  chestOffSet: {x: 10, y: -8, z: 0}
   myguns: 0
 --- !u!114 &2594459011546240319
 MonoBehaviour:

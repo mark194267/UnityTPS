@@ -95,25 +95,35 @@ namespace Assets.Script.Avater
             var cam = camera.GetComponent<MouseOrbitImproved>();
             if (IsH)
             {
-
-                //等待加入限制角度
-                var rootrot = transform.rotation.eulerAngles;
-                var localcam = rootrot.y - cam.x;
-
-                //目標轉向只能為 母物件轉向+-45度之間
-                var targetRot = Mathf.Clamp(localcam /*輸入轉向為攝影機轉向*/, (rootrot.y - 45f)%360, (rootrot.y + 45f)%360)/*此時camx為世界轉軸，需要先改成本地轉軸*/;
-                var localRot = transform.rotation.eulerAngles.y-targetRot;
-
-                Debug.Log(localcam + "  " + targetRot + " " + localRot);
-
-
-                //保留動畫的原轉向所以只能用 加成的方式
-                chestTransform.rotation = chestTransform.rotation * /*目前轉向和目標轉向的差值*/Quaternion.AngleAxis(localRot, Vector3.up);
+                //父節點的角度
+                var Rootrot = transform.rotation.eulerAngles;
+                var root = Clamp180(Rootrot.y);
+                var camY = Clamp180(cam.x);
+               
+                //取得目標的本地角度
+                var TargetRot = Clamp180(camY - root);
+                //子節點的角度
+                var ChestRot = chestTransform.rotation.eulerAngles;
+                //Debug.Log(camY + " - " + root + " = " + TargetRot +" ABS " + Mathf.Abs(TargetRot - ChestRot.y));
+                var RotAngle = Mathf.Clamp(TargetRot, -45, 45);
+                chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(RotAngle+chestOffSet.x, Vector3.up);
             }
             if (IsV)
             {
                 chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(cam.y+chestOffSet.y, Vector3.right);
             }
+        }
+        public float Clamp180(float Num)
+        {
+            if (Num < -180)
+            {
+                Num += 360;
+            }
+            if (Num > 180)
+            {
+                Num -= 360;
+            }
+            return Num;
         }
 
         public void ChangeWeapon(int slotNum)
