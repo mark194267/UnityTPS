@@ -1807,11 +1807,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 3976901600478402888}
-  IsAutoTransparent: 1
+  IsAutoTransparent: 0
   IsAutoClose: 0
+  IsLimitX: 0
   distance: 2
   xSpeed: 120
   ySpeed: 120
+  xMinLimit: -360
+  xMaxLimit: 360
   yMinLimit: -20
   yMaxLimit: 80
   cameraHeight: 1.3
