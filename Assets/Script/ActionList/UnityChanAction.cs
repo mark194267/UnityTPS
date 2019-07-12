@@ -94,8 +94,33 @@ namespace Assets.Script.ActionList
             //Me.GetComponent<Animator>().applyRootMotion = false;
 
         }
+
+        public void Before_block(ActionStatus AS)
+        {
+            Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
+            var g = Me.GetComponent<PlayerAvater>().myguns;
+            Gun.ChangeWeapon(g.ToString());
+
+            AvaterMain.anim_flag = 0;
+            _timer = 0;
+        }
+
+        public bool block(ActionStatus AS)
+        {
+            Me.GetComponent<Animator>().applyRootMotion = true;
+            Gun.Swing(AvaterMain.anim_flag,0,0);
+            return true;
+        }
+        public void After_block(ActionStatus AS)
+        {
+            Me.GetComponent<Animator>().applyRootMotion = false;
+            AvaterMain.anim_flag = 0;
+            _timer = 0;
+        }
+
         public override void Before_slash(ActionStatus actionStatus)
         {
+            
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
             var g = Me.GetComponent<PlayerAvater>().myguns;
             Gun.ChangeWeapon(g.ToString());
@@ -105,6 +130,7 @@ namespace Assets.Script.ActionList
         }
         public override bool slash(ActionStatus actionStatus)
         {
+            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
             Me.GetComponent<Animator>().applyRootMotion = true;
             /*
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
@@ -121,6 +147,7 @@ namespace Assets.Script.ActionList
         }
         public void After_slash(ActionStatus actionStatus)
         {
+            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
             Me.GetComponent<Animator>().applyRootMotion = false;
             AvaterMain.anim_flag = 0;
             _timer = 0;
@@ -286,9 +313,7 @@ namespace Assets.Script.ActionList
             
             if(!Physics.CheckSphere(Me.transform.TransformPoint(.3f*pos,1,0),.7f,LayerMask.GetMask("Parkour"),QueryTriggerInteraction.Ignore))
             {
-                Debug.Log("wallrun out");
-                Me.GetComponent<Animator>().applyRootMotion = false;
-
+                //Me.GetComponent<Animator>().applyRootMotion = false;
                 return false;
             }            
             return true;

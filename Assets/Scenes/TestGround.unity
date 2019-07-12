@@ -3061,29 +3061,9 @@ PrefabInstance:
       propertyPath: IsRotChestH
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2090582554752155296, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+    - target: {fileID: 5973635835758463885, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
-      propertyPath: xMaxLimit
-      value: 360
-      objectReference: {fileID: 0}
-    - target: {fileID: 2090582554752155296, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: xMinLimit
-      value: -360
-      objectReference: {fileID: 0}
-    - target: {fileID: 2090582554752155296, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: IsAutoClose
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2090582554752155296, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: IsAutoTransparent
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2090582554752155296, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: IsLimitX
+      propertyPath: m_UpdateMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

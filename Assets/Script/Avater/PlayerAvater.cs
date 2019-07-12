@@ -83,7 +83,7 @@ namespace Assets.Script.Avater
             }
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             if (IsRotChestV||IsRotChestH)
             {

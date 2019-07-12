@@ -9,6 +9,8 @@ namespace Assets.Script.weapon
 {
     class MeleeClass:MonoBehaviour
     {
+        public bool IsBlocking = false;
+
         public int damage;
         public double stun;
         public float blast;
@@ -19,8 +21,17 @@ namespace Assets.Script.weapon
 
         void OnTriggerEnter(Collider collision)
         {
-            //print("OnTriggerEnter " + collision.name);
-            if (collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
+            if (IsBlocking)
+            {
+                if (collision.GetComponentInParent<MeleeClass>() != GetComponentInParent<MeleeClass>())
+                {
+                    var hit = collision.GetComponentInParent<AvaterMain>();
+                    hit.OnHit(0, 999);
+                }
+            }
+
+                //print("OnTriggerEnter " + collision.name);
+                if (collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
             {
                 var hit = collision.GetComponentInParent<AvaterMain>();
                 print(GetComponentInParent<AvaterMain>().gameObject.name + " OnMeleeHit " + hit.gameObject.name);

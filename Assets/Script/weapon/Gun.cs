@@ -193,7 +193,25 @@ namespace Assets.Script.weapon
             }
             return false;
         }
-
+        /// <summary>
+        /// 防禦，在timeflag期間碰撞到的對象的coillder關閉
+        /// </summary>
+        /// <param name="timeflag"></param>
+        /// <param name="motionDamage"></param>
+        /// <param name="motionStun"></param>
+        public void Block(int timeflag, int motionDamage, double motionStun)
+        {
+            if (timeflag == 1)
+            {
+                NowWeapon[0].weapon.GetComponentInChildren<Collider>().enabled = true;
+                NowWeapon[0].weapon.GetComponentInChildren<MeleeClass>().IsBlocking = true;
+            }
+            else
+            {
+                NowWeapon[0].weapon.GetComponentInChildren<MeleeClass>().IsBlocking = false;
+                NowWeapon[0].weapon.GetComponentInChildren<Collider>().enabled = false;
+            }
+        }
         /// <summary>
         /// 開啟肉搏判定的HITBOX,
         /// 請在動作動畫內加入 AnimationEvent 輸入至 GetAnimationFlag
