@@ -2253,8 +2253,6 @@ GameObject:
   - component: {fileID: 2594459011546240317}
   - component: {fileID: 2594459011546240316}
   - component: {fileID: 2594459011546240315}
-  - component: {fileID: 755707538}
-  - component: {fileID: 755707537}
   m_Layer: 8
   m_Name: UnityChan
   m_TagString: Player
@@ -2585,10 +2583,11 @@ MonoBehaviour:
   NowAmmo: 0
   MaxAmmo: 0
   WeaponSlotNumber: 0
-  IsRotChestV: 1
-  IsRotChestH: 1
+  IsRotChestV: 0
+  IsRotChestH: 0
   chestTransform: {fileID: 3802884910264646149}
   chestOffSet: {x: 10, y: -8, z: 0}
+  chestMaxRot: 60
   myguns: 0
 --- !u!114 &2594459011546240319
 MonoBehaviour:
@@ -2671,34 +2670,6 @@ CapsuleCollider:
   m_Height: 0.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.4, z: 0}
---- !u!114 &755707538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2594459011546240314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67f6a66ba06af9e43afa3cccf1d3d21b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &755707537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2594459011546240314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2777bba7e4e7c6f4681e3ea77eef5438, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Size: {x: 4, y: 3, z: 4}
-  m_Center: {x: 0, y: 1, z: 0}
-  m_Area: 3
-  m_AffectedAgents: ffffffff
 --- !u!1 &2617815265018572479
 GameObject:
   m_ObjectHideFlags: 0

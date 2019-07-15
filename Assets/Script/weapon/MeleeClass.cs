@@ -23,35 +23,33 @@ namespace Assets.Script.weapon
         {
             if (IsBlocking)
             {
-                if (collision.GetComponentInParent<MeleeClass>() != GetComponentInParent<MeleeClass>())
+                if (collision.GetComponent<MeleeClass>() && collision.GetComponent<MeleeClass>() != GetComponent<MeleeClass>())
                 {
                     var hit = collision.GetComponentInParent<AvaterMain>();
                     hit.OnHit(0, 999);
+                    collision.GetComponent<Collider>().enabled = false;
+                    GetComponentInParent<Animator>().SetTrigger("weapon_parry");
+                    print(gameObject.name + "is been blocked");
+
                 }
             }
-
+            else
+            {
                 //print("OnTriggerEnter " + collision.name);
                 if (collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
-            {
-                var hit = collision.GetComponentInParent<AvaterMain>();
-                print(GetComponentInParent<AvaterMain>().gameObject.name + " OnMeleeHit " + hit.gameObject.name);
-
-                //執行"被打中"
-                hit.OnHit(damage + motionDamage, stun + motionStun);
-                //Destroy(gameObject);
-            }
-        }
-
-        void OnDestroy()
-        {
-            if (blast > 0)
-            {
-                Collider[] colliders = Physics.OverlapSphere(transform.position, blast);
-                foreach (Collider hit in colliders)
                 {
-                    var rb = hit.attachedRigidbody;
-                    if (rb != null||!rb.CompareTag("Player"))
-                        rb.AddExplosionForce(5f, transform.position, blast, 0, ForceMode.VelocityChange);
+                    if (collision.GetComponent<MeleeClass>() && collision.GetComponent<MeleeClass>().IsBlocking == true)
+                    {
+                        print(gameObject.name + "is been blocked");
+                    }
+                    else
+                    {
+                        var hit = collision.GetComponentInParent<AvaterMain>();
+                        print(GetComponentInParent<AvaterMain>().gameObject.name +"'s "+ gameObject.name + " OnMeleeHit " + hit.gameObject.name);
+                        //執行"被打中"
+                        hit.OnHit(damage + motionDamage, stun + motionStun);
+
+                    }
                 }
             }
         }

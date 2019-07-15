@@ -204,6 +204,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 822525388130924630, guid: 786c7bdf10f770d438730f63a24ebee5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 292771865283014832, guid: 786c7bdf10f770d438730f63a24ebee5,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 822525390016892704, guid: 786c7bdf10f770d438730f63a24ebee5,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65873931, guid: 786c7bdf10f770d438730f63a24ebee5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 786c7bdf10f770d438730f63a24ebee5, type: 3}
@@ -3054,16 +3069,6 @@ PrefabInstance:
     - target: {fileID: 3976901600478402888, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2594459011546240288, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: IsRotChestH
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5973635835758463885, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: m_UpdateMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

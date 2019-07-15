@@ -39,6 +39,10 @@ namespace Assets.Script.ActionList
             }
             return true;
         }
+        public void After_eqip(ActionStatus AS)
+        {
+            AvaterMain.anim_flag = 0;
+        }
         public void Before_Mstrafe(ActionStatus actionStatus)
         {
             //Me.GetComponent<Animator>().applyRootMotion = true;
@@ -51,17 +55,11 @@ namespace Assets.Script.ActionList
 
             //Me.GetComponent<Animator>().rootRotation = lookRotation;
 
-            Gun.Swing(AvaterMain.anim_flag, 10, 10);
+             //Gun.Swing(AvaterMain.anim_flag, 10, 10);
 
-            if (AvaterMain.anim_flag == 1)
-            {
-                FPSLikeRigMovement(4f, 3f);
-                Me.GetComponent<PlayerAvater>().IsRotChestV = true;
-            }
-            else
+            if (!Me.GetComponent<PlayerAvater>().IsRotChestH)
             {
                 FPSLikeRigMovement(7f, 10f);
-                Me.GetComponent<PlayerAvater>().IsRotChestV = false;
             }
             return true;
         }
@@ -108,19 +106,23 @@ namespace Assets.Script.ActionList
         public bool block(ActionStatus AS)
         {
             Me.GetComponent<Animator>().applyRootMotion = true;
-            Gun.Swing(AvaterMain.anim_flag,0,0);
+            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
+            Gun.Block(AvaterMain.anim_flag,0,0);
             return true;
         }
         public void After_block(ActionStatus AS)
         {
             Me.GetComponent<Animator>().applyRootMotion = false;
+            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = false;
             AvaterMain.anim_flag = 0;
             _timer = 0;
         }
 
         public override void Before_slash(ActionStatus actionStatus)
         {
-            
+
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
             var g = Me.GetComponent<PlayerAvater>().myguns;
             Gun.ChangeWeapon(g.ToString());
@@ -130,8 +132,10 @@ namespace Assets.Script.ActionList
         }
         public override bool slash(ActionStatus actionStatus)
         {
-            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
             Me.GetComponent<Animator>().applyRootMotion = true;
+            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
+
             /*
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
@@ -147,8 +151,10 @@ namespace Assets.Script.ActionList
         }
         public void After_slash(ActionStatus actionStatus)
         {
-            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
             Me.GetComponent<Animator>().applyRootMotion = false;
+
+            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = false;
             AvaterMain.anim_flag = 0;
             _timer = 0;
         }
@@ -171,6 +177,8 @@ namespace Assets.Script.ActionList
         public override void Before_move(ActionStatus actionStatus)
         {
             Animator.SetBool("avater_can_jump", true);
+            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
         }
 
         public override bool move(ActionStatus actionStatus)
@@ -184,6 +192,8 @@ namespace Assets.Script.ActionList
         }
         public override void After_move(ActionStatus actionStatus)
         {
+            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = false;
         }
         #endregion
 

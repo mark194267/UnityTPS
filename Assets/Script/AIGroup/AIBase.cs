@@ -85,8 +85,8 @@ namespace Assets.Script.AIGroup
         public Transform ToTargetSight(float range)
         {
             RaycastHit TargetHit = new RaycastHit();
-            int mask = ~LayerMask.GetMask("Player","AI");
-            var MyPos = Me.transform.position + Vector3.up * .5f;
+            //int mask = ~LayerMask.GetMask("Player","AI");
+            var MyPos = Me.transform.position + Vector3.up * 1f;
             var TargetPos = Target.transform.position+ Vector3.up * .5f;
 
             //Physics.Raycast(Me.transform.position, Target.transform.position - Me.transform.position, out hit, range,-1,QueryTriggerInteraction.Ignore);
@@ -94,19 +94,20 @@ namespace Assets.Script.AIGroup
             var AllHit = Physics.SphereCastAll(MyPos, .3f, TargetPos - MyPos, range, -1, QueryTriggerInteraction.Ignore);
             foreach (var hit in AllHit)
             {
-                if(hit.transform.GetComponentInParent<Avater.AvaterMain>() != Me.GetComponentInParent<Avater.AvaterMain>())
+                if(hit.transform.GetComponentInParent<Avater.AvaterMain>() && hit.transform.GetComponentInParent<Avater.AvaterMain>() != Me.GetComponentInParent<Avater.AvaterMain>())
                 {
                     TargetHit = hit;
                     break;
                 }
             }
             TargetSightHit = TargetHit;
+            Debug.Log(TargetHit.transform.name);
             return TargetHit.transform;
         }
         public Transform ToTargetSight()
         {
             RaycastHit TargetHit = new RaycastHit();
-            int mask = ~LayerMask.GetMask("Player", "AI");
+            //int mask = ~LayerMask.GetMask("Player", "AI");
             var MyPos = Me.transform.position + Vector3.up * .5f;
             var TargetPos = Target.transform.position + Vector3.up * .5f;
             var range = Me.GetComponent<Animator>().GetBehaviour<StateMachine>().TargetDis;
@@ -116,7 +117,7 @@ namespace Assets.Script.AIGroup
             var AllHit = Physics.SphereCastAll(MyPos, .3f, TargetPos - MyPos, range, -1, QueryTriggerInteraction.Ignore);
             foreach (var hit in AllHit)
             {
-                if (hit.transform.GetComponentInParent<Avater.AvaterMain>() != Me.GetComponentInParent<Avater.AvaterMain>())
+                if (hit.transform.GetComponentInParent<Avater.AvaterMain>() && hit.transform.GetComponentInParent<Avater.AvaterMain>() != Me.GetComponentInParent<Avater.AvaterMain>())
                 {
                     TargetHit = hit;
                     break;

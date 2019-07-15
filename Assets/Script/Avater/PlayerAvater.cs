@@ -31,6 +31,7 @@ namespace Assets.Script.Avater
 
         public Transform chestTransform;
         public Vector3 chestOffSet;
+        public float chestMaxRot;
 
         public RaycastHit hit { get; set; }
 
@@ -83,7 +84,7 @@ namespace Assets.Script.Avater
             }
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             if (IsRotChestV||IsRotChestH)
             {
@@ -105,8 +106,7 @@ namespace Assets.Script.Avater
                 var TargetRot = RotFunction.Clamp180(camY - root);
                 //子節點的角度
                 var ChestRot = chestTransform.rotation.eulerAngles;
-                //Debug.Log(camY + " - " + root + " = " + TargetRot +" ABS " + Mathf.Abs(TargetRot - ChestRot.y));
-                var RotAngle = Mathf.Clamp(TargetRot, -45, 45);
+                var RotAngle = Mathf.Clamp(TargetRot, -chestMaxRot, chestMaxRot);
                 chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(RotAngle+chestOffSet.x, Vector3.up);
             }
             if (IsV)

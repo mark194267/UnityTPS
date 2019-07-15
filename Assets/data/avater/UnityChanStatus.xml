@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <UnityChan>
   <hp value="9999"/>
-  <stun value ="100"/>
+  <stun value ="999"/>
   <atk value ="100"/>
   <Ammo type="Bullet" MaxAmmo="999" NowAmmo="0"/>
 </UnityChan>

@@ -22,7 +22,7 @@ namespace Assets.Script.ActionList
             //RaycastHit hit;
             //int layermask = ~LayerMask.GetMask("Ignore Raycast");
             //Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
-            var hit = Targetinfo.ToTargetSight(100);
+            var hit = Targetinfo.ToTargetSight();
 
             if (hit.CompareTag("Player"))
             {
@@ -52,7 +52,7 @@ namespace Assets.Script.ActionList
                 //int layermask = ~LayerMask.GetMask("Ignore Raycast");
                 //Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
 
-                var hit = Targetinfo.ToTargetSight(100);
+                var hit = Targetinfo.ToTargetSight();
 
                 if (hit.CompareTag("Player"))
                 {
@@ -105,7 +105,7 @@ namespace Assets.Script.ActionList
             //RaycastHit hit;
             //int layermask = LayerMask.GetMask("Ignore Raycast");
             //layermask = ~layermask;
-            var hit = Targetinfo.ToTargetSight(100);
+            var hit = Targetinfo.ToTargetSight();
             
             //Physics.SphereCast(MyPos, .2f, TargetPos - MyPos, out hit, 100f, -1, QueryTriggerInteraction.Ignore);
             if (hit.transform.CompareTag("Player") )

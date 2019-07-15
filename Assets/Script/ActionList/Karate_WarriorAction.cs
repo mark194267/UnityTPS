@@ -17,7 +17,7 @@ namespace Assets.Script.ActionList
         }
         public override bool slash(ActionStatus actionStatus)
         {
-            Me.GetComponent<Animator>().applyRootMotion = true;
+            //Me.GetComponent<Animator>().applyRootMotion = true;
             RotateTowardlerp(Target.transform.position,2f);
 
             Gun.SwingByIndex(1, 1, 1);
@@ -27,7 +27,7 @@ namespace Assets.Script.ActionList
         }
         public void After_slash(ActionStatus AS)
         {
-            Me.GetComponent<Animator>().applyRootMotion = false;
+            //Me.GetComponent<Animator>().applyRootMotion = false;
         }
         public void Before_kick(ActionStatus actionStatus)
         {
@@ -35,14 +35,14 @@ namespace Assets.Script.ActionList
         }
         public bool kick(ActionStatus actionStatus)
         {
-            Me.GetComponent<Animator>().applyRootMotion = true;
+            //Me.GetComponent<Animator>().applyRootMotion = true;
             Gun.Swing(AvaterMain.anim_flag, 1, 1);
 
             return true;
         }
         public void After_kick(ActionStatus AS)
         {
-            Me.GetComponent<Animator>().applyRootMotion = false;
+            //Me.GetComponent<Animator>().applyRootMotion = false;
         }
     }
 }
