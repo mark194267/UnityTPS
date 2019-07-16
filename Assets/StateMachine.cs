@@ -8,7 +8,8 @@ using UnityEngine.AI;
 
 public class StateMachine : StateMachineBehaviour
 {
-    public float TargetDis = 50f;
+    public float maxShootRange = 50f;
+    public float maxMeleeRange = 3f;
 
     public GameObject me { get; set; }
     public ActionScript action { get; set; }
@@ -47,14 +48,7 @@ public class StateMachine : StateMachineBehaviour
                 }
             }
 
-            //如果是AI
-            if (AIBase != null)
-            {
-                Animator.SetBool("AI_" + _latestCommand,false);
-                _latestCommand = AIBase.DistanceBasicAI(
-                    AIBase.TargetInfo.GetTargetDis(), me.GetComponent<NavMeshAgent>().stoppingDistance, TargetDis);
-                Animator.SetBool("AI_" + _latestCommand,true);
-            }
+
             foreach (var cando in AvaterMain.candolist)
             {
                 Animator.SetBool(cando, true);
@@ -91,7 +85,14 @@ public class StateMachine : StateMachineBehaviour
                     action.AfterCustomAction(actionStatuse.Value);
                 }
             }
-
+            //如果是AI
+            if (AIBase != null)
+            {
+                Animator.SetBool("AI_" + _latestCommand, false);
+                _latestCommand = AIBase.DistanceBasicAI(
+                    AIBase.TargetInfo.GetTargetDis(), maxMeleeRange, maxShootRange);
+                Animator.SetBool("AI_" + _latestCommand, true);
+            }
         }
     }
 

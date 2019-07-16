@@ -33,7 +33,7 @@ namespace Assets.Script.Config
             Animator.SetFloat("input_ws", ws);
             Animator.SetFloat("input_ad", ad);
 
-            
+            /*
             if (ws*ws+ad*ad != 0)
             {
                 Animator.SetBool("input_move",true);
@@ -42,6 +42,7 @@ namespace Assets.Script.Config
             {
                 Animator.SetBool("input_move", false);
             }
+            */
 
             if (Input.GetButtonDown("Jump"))
             {

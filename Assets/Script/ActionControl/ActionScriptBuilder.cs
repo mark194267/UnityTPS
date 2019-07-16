@@ -262,7 +262,8 @@ namespace Assets.Script.ActionControl
                 Agent.SetDestination(Target.transform.position);
             }
             */
-            if (Agent.stoppingDistance > Vector3.Distance(Target.transform.position,Me.transform.position))
+            //if (Animator.GetBehaviour<StateMachine>().maxMeleeRange > Vector3.Distance(Target.transform.position,Me.transform.position))
+            if(Targetinfo.ToTargetSight(Animator.GetBehaviour<StateMachine>().maxMeleeRange) != null)
             {                
                 return false;
             }

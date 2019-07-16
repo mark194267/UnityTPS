@@ -61,7 +61,7 @@ namespace Assets.Script.Avater
 
         }
 
-        public void OnHit(int atk, double stun)
+        public virtual void OnHit(int atk, double stun)
         {
             //print(gameObject.name + " say:i`m hit!");
 

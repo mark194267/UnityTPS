@@ -117,6 +117,12 @@ namespace Assets.Script.Avater
         */
         #endregion
 
+        public override void OnHit(int atk, double stun)
+        {
+            GetComponent<Animator>().SetTrigger("AI_IsAwake");
+            base.OnHit(atk, stun);
+        }
+
         private void OnTriggerEnter(Collider other) {
             if(other.tag == "heat")
             {

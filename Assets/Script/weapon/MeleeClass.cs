@@ -23,33 +23,25 @@ namespace Assets.Script.weapon
         {
             if (IsBlocking)
             {
-                if (collision.GetComponent<MeleeClass>() && collision.GetComponent<MeleeClass>() != GetComponent<MeleeClass>())
+                if (collision.GetComponent<MeleeClass>() /*&& collision.GetComponent<MeleeClass>() != GetComponent<MeleeClass>()*/)
                 {
                     var hit = collision.GetComponentInParent<AvaterMain>();
                     hit.OnHit(0, 999);
                     collision.GetComponent<Collider>().enabled = false;
                     GetComponentInParent<Animator>().SetTrigger("weapon_parry");
-                    print(gameObject.name + "is been blocked");
+                    print(collision.gameObject.name + "is been blocked");
 
                 }
             }
             else
             {
                 //print("OnTriggerEnter " + collision.name);
-                if (collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
+                if (collision.GetComponent<AvaterMain>() && collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
                 {
-                    if (collision.GetComponent<MeleeClass>() && collision.GetComponent<MeleeClass>().IsBlocking == true)
-                    {
-                        print(gameObject.name + "is been blocked");
-                    }
-                    else
-                    {
-                        var hit = collision.GetComponentInParent<AvaterMain>();
-                        print(GetComponentInParent<AvaterMain>().gameObject.name +"'s "+ gameObject.name + " OnMeleeHit " + hit.gameObject.name);
-                        //執行"被打中"
-                        hit.OnHit(damage + motionDamage, stun + motionStun);
-
-                    }
+                    var hit = collision.GetComponentInParent<AvaterMain>();
+                    print(GetComponentInParent<AvaterMain>().gameObject.name + "'s " + gameObject.name + " OnMeleeHit " + hit.gameObject.name);
+                    //執行"被打中"
+                    hit.OnHit(damage + motionDamage, stun + motionStun);
                 }
             }
         }

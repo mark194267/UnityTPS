@@ -22,10 +22,14 @@ namespace Assets.Script.ActionList
             //int layermask = ~LayerMask.GetMask("Ignore Raycast");
             //Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
             var hit = Targetinfo.ToTargetSight();
-            if (hit.CompareTag("Player"))
+            if (hit != null)
             {
-                return false;
+                if (hit.CompareTag("Player"))
+                {
+                    return false;
+                }
             }
+
             return true;
         }
 
@@ -52,16 +56,17 @@ namespace Assets.Script.ActionList
 
                 var hit = Targetinfo.ToTargetSight();
 
+                if (hit == null)
+                {
+                    return true;
+                }
                 if (hit.CompareTag("Player"))
                 {
                     Gun.NowWeapon[0].BulletInMag = 1;
                     Gun.fire(0);
                 }
                 else
-                {
-                    //Debug.Log(hit.transform.name);
                     return false;
-                }
             }
             else
             {
