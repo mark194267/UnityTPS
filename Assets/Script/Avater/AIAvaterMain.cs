@@ -119,7 +119,7 @@ namespace Assets.Script.Avater
 
         public override void OnHit(int atk, double stun)
         {
-            GetComponent<Animator>().SetTrigger("AI_IsAwake");
+            Animator.SetBool("AI_IsAwake", true);
             base.OnHit(atk, stun);
         }
 
@@ -138,17 +138,18 @@ namespace Assets.Script.Avater
             if (targetInfo.TargetDis < 50)
             {
                 //Debug.Log("<50");
-                if (Vector3.Angle(transform.TransformVector(Vector3.forward), targetInfo.Target.transform.position) < 120)
+                if (targetInfo.TargetAngle < 120)
                 {
-                    var height = GetComponent<NavMeshAgent>().height*Vector3.up;
-                    var Layer = ~LayerMask.GetMask("AI");
+                    ////var height = GetComponent<NavMeshAgent>().height*Vector3.up;
+                    //var Layer = ~LayerMask.GetMask("AI");
                     //Debug.Log("Angle");
-                    RaycastHit hits;
+                    //RaycastHit hits;
                     //檢查是否看的到
-                    if (Physics.Raycast(transform.position, targetInfo.Target.transform.position - transform.position, out hits, 50,Layer,QueryTriggerInteraction.Ignore))
+                    //if (Physics.Raycast(transform.position, targetInfo.Target.transform.position - transform.position, out hits, 50,Layer,QueryTriggerInteraction.Ignore))
+                    var hit = targetInfo.TargetSightHit;
+                    if (hit.transform != null)
                     {
-                        //print(hits.transform.name);
-                        if (hits.transform.CompareTag("Player"))
+                        if (hit.transform.CompareTag("Player"))
                         {
                             IsAwake = true;
                         }

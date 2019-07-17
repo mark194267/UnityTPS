@@ -74,7 +74,7 @@ namespace Assets.Script.Config
             }
             #endregion
 
-            if (Input.GetButtonDown("dodge"))
+            if (Input.GetButton("dodge"))
             {
                 Animator.SetBool("input_dodge",true);
             }

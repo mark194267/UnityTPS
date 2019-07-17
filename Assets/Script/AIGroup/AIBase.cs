@@ -25,16 +25,14 @@ namespace Assets.Script.AIGroup
         /// <returns></returns>
         public string DistanceBasicAI(float targetDis,float meleerange,float shootrange)
         {
-            float distance = TargetInfo.GetTargetDis();
+            float distance = TargetInfo.TargetDis;
             //Debug.Log(TargetInfo.TargetDis);
 
-            TargetInfo.ToTargetSight();
+            //TargetInfo.ToTargetSight();
+            var hit = TargetInfo.TargetSightHit;
             //Debug.Log(TargetInfo.TargetSightHit.transform.name);
             //如果在距離內，又看的到目標，衝刺攻擊也算遠距離攻擊。
-
-
-
-            if (TargetInfo.TargetSightHit.rigidbody != null)
+            if (hit.rigidbody != null)
             {
                 //如果沒有彈藥就優先換彈
                 // 2019-05-03 改用Gun.fire 回傳false在Animator內觸發
@@ -52,7 +50,7 @@ namespace Assets.Script.AIGroup
                     //Debug.Log(TargetInfo.TargetSightHit.transform.name);
                     return "close";
                 }
-                if (TargetInfo.TargetSightHit.transform.GetComponentInParent<Avater.AvaterMain>().CompareTag("Player"))
+                if (hit.transform.GetComponentInParent<Avater.AvaterMain>().CompareTag("Player"))
                 {
                     return "long";
                 }
@@ -62,7 +60,7 @@ namespace Assets.Script.AIGroup
                     return "SpreadOut";
                 }
             }
-            Debug.Log(TargetInfo.TargetSightHit.point);
+            //Debug.Log(hit.point);
             //雖說是move卻指的是在射擊距離外
             return "move";
         }

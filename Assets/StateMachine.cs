@@ -90,7 +90,7 @@ public class StateMachine : StateMachineBehaviour
             {
                 Animator.SetBool("AI_" + _latestCommand, false);
                 _latestCommand = AIBase.DistanceBasicAI(
-                    AIBase.TargetInfo.GetTargetDis(), maxMeleeRange, maxShootRange);
+                    AIBase.TargetInfo.TargetDis, maxMeleeRange, maxShootRange);
                 Animator.SetBool("AI_" + _latestCommand, true);
             }
         }

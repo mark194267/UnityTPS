@@ -36,7 +36,7 @@ namespace Assets.Script.weapon
             else
             {
                 //print("OnTriggerEnter " + collision.name);
-                if (collision.GetComponent<AvaterMain>() && collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
+                if (collision.GetComponent<AvaterMain>() && !collision.CompareTag(tag) /*collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>()*/)
                 {
                     var hit = collision.GetComponentInParent<AvaterMain>();
                     print(GetComponentInParent<AvaterMain>().gameObject.name + "'s " + gameObject.name + " OnMeleeHit " + hit.gameObject.name);

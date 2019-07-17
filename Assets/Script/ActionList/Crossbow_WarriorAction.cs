@@ -82,13 +82,17 @@ namespace Assets.Script.ActionList
             var MyPos = Me.transform.position;
             var TargetPos = Target.transform.position;
             RaycastHit hit;
-            Physics.BoxCast(MyPos, Vector3.one * .1f, TargetPos - MyPos, out hit, Me.transform.rotation);
-            var step = hit.distance / Vector3.Distance(MyPos, TargetPos);
+            //Physics.BoxCast(MyPos, Vector3.one * .1f, TargetPos - MyPos, out hit, Me.transform.rotation);
+            //var step = hit.distance / Vector3.Distance(MyPos, TargetPos);
 
+            hit = Targetinfo.TargetSightHit;
+            //Debug.Log(hit.transform.GetComponentInParent<Avater.AvaterMain>().name);
             var randDirection =
-                SetSpreadOutPoint(Target.transform.position, hit.point,
-                Random.Range(1f * step + 1f, 1f * step + 5f)
-                );
+                SetSpreadOutPoint(TargetPos,
+                hit.transform.GetComponentInParent<Avater.AvaterMain>().transform.position,
+                Random.Range(60f, 90f),
+                //Random.Range(1f * step + 1f, 1f * step + 5f)
+                Random.Range(17f,20f));
 
 
             NavMeshHit navMeshHit;
@@ -103,19 +107,31 @@ namespace Assets.Script.ActionList
         public bool SpreadOut(ActionStatus actionStatus)
         {
             //散開腳本
-            var MyPos = Gun.NowWeapon[0].weapon.transform.position;
-            var TargetPos = Target.transform.position + Vector3.up*.5f;
+            //var MyPos = Gun.NowWeapon[0].weapon.transform.position;
+            //var TargetPos = Target.transform.position + Vector3.up*.5f;
             //RaycastHit hit;
             //int layermask = LayerMask.GetMask("Ignore Raycast");
             //layermask = ~layermask;
             var hit = Targetinfo.ToTargetSight();
-            
+
             //Physics.SphereCast(MyPos, .2f, TargetPos - MyPos, out hit, 100f, -1, QueryTriggerInteraction.Ignore);
+
+            if (!Agent.pathPending)
+            {
+                if (Agent.remainingDistance <= Agent.stoppingDistance)
+                {
+                    if (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f)
+                    {
+                        return false;
+                    }
+                }
+            }
+            /*
             if (hit.transform.CompareTag("Player") )
             {
                 return false;
             }
-            
+            */
             return true;
         }
         public void Before_kick(ActionStatus actionStatus)

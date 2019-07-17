@@ -37,7 +37,9 @@ namespace Assets.Script.Avater
 
         public enum Guns { Great_Sword,Cross_Sword, Handgun ,Shotgun ,AK47 , SMAW }
         public Guns myguns;
-        public 
+
+        public float timer = 0; 
+
         void Start()
         {
             camera = gameObject.transform.Find("Camera").gameObject;
@@ -107,7 +109,19 @@ namespace Assets.Script.Avater
                 //子節點的角度
                 var ChestRot = chestTransform.rotation.eulerAngles;
                 var RotAngle = Mathf.Clamp(TargetRot, -chestMaxRot, chestMaxRot);
-                chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(RotAngle+chestOffSet.x, Vector3.up);
+
+                //目前SLerp不能接元轉向
+                //因為每一針開始轉向都會被歸位，因此要給的是轉向差
+
+                /*
+                var Qrot = Quaternion.Slerp(chestTransform.rotation,
+                    chestTransform.rotation * Quaternion.AngleAxis(RotAngle + chestOffSet.x, Vector3.up),
+                    Time.deltaTime);
+                */
+
+                //Debug.Log("Qrot : "+Qrot.eulerAngles);
+                chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(RotAngle + chestOffSet.x, Vector3.up);
+                //chestTransform.rotation = Qrot;
             }
             if (IsV)
             {

@@ -104,7 +104,7 @@ namespace Assets.Script.ActionList
             var step = hit.distance / Vector3.Distance(MyPos,TargetPos);
 
             var randDirection = 
-                SetSpreadOutPoint(Target.transform.position, hit.point,
+                SetSpreadOutPoint(Target.transform.position, hit.point,60,
                 //Random.Range(3, 7), Random.Range(3f*step, 5f*step)
                 //12f * step+10, 5f * step+2f
                 //Random.Range(10f * step+10f, 13f * step+12f),

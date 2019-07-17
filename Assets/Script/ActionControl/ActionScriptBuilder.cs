@@ -234,7 +234,7 @@ namespace Assets.Script.ActionControl
 
         public virtual void Before_idle(ActionStatus actionStatus)
         {
-            //Agent.ResetPath();
+            Agent.ResetPath();
         }
 
         public virtual bool idle(ActionStatus actionStatus)
@@ -279,11 +279,11 @@ namespace Assets.Script.ActionControl
 
         public virtual bool shoot(ActionStatus actionStatus)
         {
-            if (Targetinfo.GetTargetAngle() < 5)
+            if (Targetinfo.TargetAngle < 5)
             {
                 Gun.fire(0);
             }
-            RotateTowardlerp(Target.transform);
+            RotateTowardSlerp(Target.transform);
             return true;
         }
 
@@ -295,7 +295,7 @@ namespace Assets.Script.ActionControl
         {
             if (AvaterMain.anim_flag == 0)//還沒揮刀時可以轉
             {
-                RotateTowardlerp(Target.transform);
+                RotateTowardSlerp(Target.transform);
             }
             else
             {
@@ -353,7 +353,7 @@ namespace Assets.Script.ActionControl
             Agent.velocity = Vector3.Lerp(Agent.velocity, dir.normalized * moveSpeed, 1f);
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
+            RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
         }
         /// <summary>
         /// 第一人稱式移動，移動的主體是NavAgent，若沒Agent請改用FPSLikeRigMovement
@@ -369,7 +369,7 @@ namespace Assets.Script.ActionControl
             Agent.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
+            RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
         }
         /// <summary>
         /// 第一人稱式移動，預設速度為7f
@@ -385,7 +385,7 @@ namespace Assets.Script.ActionControl
             Rig.velocity = Vector3.Lerp(Rig.velocity, dir.normalized * InputManager.maxWSAD * maxSpeed, 1f);
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
+            RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
         }
         /// <summary>
         /// 第一人稱式移動，自訂速度
@@ -402,7 +402,7 @@ namespace Assets.Script.ActionControl
 
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
+            RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
         }
 
         public void FPSLikeCharMovement(float maxSpeed, float rotSpeed)
@@ -412,7 +412,7 @@ namespace Assets.Script.ActionControl
             character.SimpleMove(dir.normalized * InputManager.maxWSAD * maxSpeed);
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
-            RotateTowardlerp(Me.transform.position - camPos, rotSpeed);
+            RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
         }
         #endregion
 
@@ -425,20 +425,23 @@ namespace Assets.Script.ActionControl
         /// <param name="AxisMultiper"></param>
         /// <param name="StepLenght"></param>
         /// <returns></returns>
-        public Vector3 SetSpreadOutPoint(Vector3 TargetPos,Vector3 barrier/*,float AxisMultiper*/,float StepLenght)
+        public Vector3 SetSpreadOutPoint(Vector3 TargetPos,Vector3 barrier,float angle,float StepLenght)
         {
+            var me2target = TargetPos - Me.transform.position;
+            var bar2target = barrier - Target.transform.position;
+            var bar2targetDis = bar2target.magnitude;
             //得到障礙和自身的夾角
-            var r = Vector3.SignedAngle(TargetPos - Me.transform.position, barrier - Me.transform.position, Vector3.up);
+            var r = Vector3.SignedAngle(me2target, bar2target, Vector3.up);
             var rot = Me.transform.TransformDirection(Vector3.forward);
             Vector3 fin;
             if(r > 0)
-                fin = Quaternion.AngleAxis(-90, Vector3.up) * rot;
+                fin = Quaternion.AngleAxis(-angle, Vector3.up) * me2target;
             else
-                fin = Quaternion.AngleAxis(90, Vector3.up) * rot;
+                fin = Quaternion.AngleAxis(angle, Vector3.up) * me2target;
 //            fin = Quaternion.AngleAxis(AxisMultiper * -r, Vector3.up) * rot;
 
-            //隨機散開角度由.5-3倍，其實角度會和距離成反比 可用自然數改良
-            return Me.transform.position + fin.normalized * StepLenght;//NowVector已經是正規化的向量了    
+            //角度會和距離成反比
+            return Me.transform.position + fin.normalized * (StepLenght/bar2targetDis);    
         }
 
         #endregion
