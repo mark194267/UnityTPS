@@ -121,7 +121,6 @@ namespace Assets.Script.Avater
 
                 //Debug.Log("Qrot : "+Qrot.eulerAngles);
                 chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(RotAngle + chestOffSet.x, Vector3.up);
-                //chestTransform.rotation = Qrot;
             }
             if (IsV)
             {

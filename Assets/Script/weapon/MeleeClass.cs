@@ -26,7 +26,7 @@ namespace Assets.Script.weapon
                 if (collision.GetComponent<MeleeClass>() /*&& collision.GetComponent<MeleeClass>() != GetComponent<MeleeClass>()*/)
                 {
                     var hit = collision.GetComponentInParent<AvaterMain>();
-                    hit.OnHit(0, 999);
+                    hit.OnHit(0, 999, transform.rotation.eulerAngles);
                     collision.GetComponent<Collider>().enabled = false;
                     GetComponentInParent<Animator>().SetTrigger("weapon_parry");
                     print(collision.gameObject.name + "is been blocked");
@@ -41,7 +41,8 @@ namespace Assets.Script.weapon
                     var hit = collision.GetComponentInParent<AvaterMain>();
                     print(GetComponentInParent<AvaterMain>().gameObject.name + "'s " + gameObject.name + " OnMeleeHit " + hit.gameObject.name);
                     //執行"被打中"
-                    hit.OnHit(damage + motionDamage, stun + motionStun);
+                    
+                    hit.OnHit(damage + motionDamage, stun + motionStun, transform.rotation.eulerAngles);
                 }
             }
         }

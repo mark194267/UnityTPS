@@ -312,6 +312,8 @@ namespace Assets.Script.ActionControl
         public virtual void Before_stun(ActionStatus actionStatus)
         {
             if (Agent != null) { Agent.ResetPath(); }
+            Me.GetComponent<Animator>().applyRootMotion = true;
+
         }
         public virtual bool stun(ActionStatus actionStatus)
         {
@@ -320,19 +322,27 @@ namespace Assets.Script.ActionControl
         public virtual void After_stun(ActionStatus actionStatus)
         {
             Animator.SetBool("avater_can_stun", false);
+            Me.GetComponent<Animator>().applyRootMotion = true;
+
         }
 
         public virtual void Before_dead(ActionStatus actionStatus)
         {
-            AddCostArea();
+            //AddCostArea();
             Agent.enabled = false;
             Rig.isKinematic = false;
+            Animator.enabled = false;
+
             Gun.NowWeapon[0].weapon.GetComponent<Collider>().enabled = false;
         }
 
         public virtual bool dead(ActionStatus actionStatus)
         {
             return true;
+        }
+        public virtual void After_dead(ActionStatus actionStatus)
+        {
+
         }
 
         #endregion

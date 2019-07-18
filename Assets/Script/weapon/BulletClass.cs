@@ -29,7 +29,7 @@ namespace Assets.Script.weapon
                 //var dir = hit.GetComponentInParent<Transform>().TransformPoint();
 
                 //執行"被打中"
-                hit.OnHit(damage,stun);
+                hit.OnHit(damage,stun, transform.rotation.eulerAngles);
                 
                 Destroy(gameObject);
             }

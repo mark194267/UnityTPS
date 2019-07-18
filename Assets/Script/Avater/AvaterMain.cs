@@ -61,23 +61,19 @@ namespace Assets.Script.Avater
 
         }
 
-        public virtual void OnHit(int atk, double stun)
+        public virtual void OnHit(int atk, double stun,Vector3 hitVector)
         {
             //print(gameObject.name + " say:i`m hit!");
 
             //先扣血
             Hp -= atk;
-
             //增加頓值
             Stun += stun;
+
             if (Hp < 1)
             {
                 //print("i`m Dead!");
-                //Animator.SetTrigger("avatermain_dead");
-
-                Animator.enabled = false;
-                GetComponent<NavMeshAgent>().enabled = false;
-                GetComponent<Rigidbody>().isKinematic = false;
+                Animator.SetTrigger("avatermain_dead");
                 GetComponent<Gun>().NowWeapon[0].weapon.SetActive(false);
                 //死了
                 Destroy(gameObject, 30f);
@@ -93,6 +89,12 @@ namespace Assets.Script.Avater
                     GetComponent<NavMeshAgent>().ResetPath();
                 */
                 Animator.SetTrigger("avatermain_stun");
+                var Dir = transform.rotation.eulerAngles;
+                var rotdir = StaticFunction.RotFunction.Clamp180((hitVector.y - Dir.y));
+                Debug.Log("meDir: "+ Dir.y +" hitVec: "+ hitVector.y+" res: "+ rotdir);
+                Animator.SetInteger("AI_Dice", Random.Range(0,100));
+                Animator.SetFloat("avatermain_hitAngle", rotdir);
+                
                 //Animator.enabled = false;
                 Stun = 0;
             }

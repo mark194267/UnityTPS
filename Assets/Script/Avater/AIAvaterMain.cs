@@ -117,10 +117,10 @@ namespace Assets.Script.Avater
         */
         #endregion
 
-        public override void OnHit(int atk, double stun)
+        public override void OnHit(int atk, double stun,Vector3 vector)
         {
             Animator.SetBool("AI_IsAwake", true);
-            base.OnHit(atk, stun);
+            base.OnHit(atk, stun, vector);
         }
 
         private void OnTriggerEnter(Collider other) {
