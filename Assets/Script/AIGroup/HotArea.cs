@@ -2,33 +2,55 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class HotArea : MonoBehaviour {
-    private int Size;
-    private int Heat;
-    private float ExistTime;
-    private NavMeshModifierVolume nv;
+
+    public bool IsOn
+    {
+        get { return Nv.enabled; }
+        set
+        {
+            Nv.enabled = value;
+        }
+    }
+    private int size = 5;
+    public int nowHeat
+    {
+        get { return heat; }
+        set
+        {
+            heat = value;
+            ApplyTemperature();
+        }
+    }
+
+    private int heat;
+
+    private float existTime;
+    public NavMeshModifierVolume Nv { get; set; }
 
     private void Start() 
     {
-        nv = GetComponent<NavMeshModifierVolume>();
+        Nv = GetComponent<NavMeshModifierVolume>();
     }
     /// <summary>
     /// *需套用ApplyTemperature才有效果，改變此物件的溫度
     /// </summary>
     /// <param name="heat"></param>
-    public void ChangeTemperature(int heat)
+    public void ChangeTemperature(int tempheat)
     {
+        Debug.Log("NowHeat: "+heat);
         //檢查是否還能更熱
-        if (Heat + heat > 32)
+        if (heat + tempheat > 32)
         {
-            Heat = 32;
+            heat = 32;
         }
-        else if (Heat + heat < 3)
+        else if (heat + tempheat < 3)
         {
-            Destroy(this);
+            //沒有溫度
+            //Destroy(this);
         }
         else
         {
-            Heat += heat;
+            heat += tempheat;
         }
     }
     /// <summary>
@@ -36,7 +58,7 @@ public class HotArea : MonoBehaviour {
     /// </summary>
     public void ApplyTemperature()
     {
-        nv.area = Heat;
-        nv.size = Vector3.one * Heat;
+        Nv.area = heat;
+        Nv.size = Vector3.one * size;
     }
 }

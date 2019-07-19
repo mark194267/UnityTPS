@@ -2253,6 +2253,7 @@ GameObject:
   - component: {fileID: 2594459011546240317}
   - component: {fileID: 2594459011546240316}
   - component: {fileID: 2594459011546240315}
+  - component: {fileID: 352749314}
   m_Layer: 8
   m_Name: UnityChan
   m_TagString: Player
@@ -2559,7 +2560,7 @@ MonoBehaviour:
   _climbChecker: {fileID: 844045931}
   climbHeight: 1.7
   climbVec: {x: 1, y: 1, z: 1}
-  climbFwdDis: 0.4
+  climbFwdDis: 0.53
   Animator: {fileID: 0}
 --- !u!114 &2594459011546240288
 MonoBehaviour:
@@ -2589,6 +2590,7 @@ MonoBehaviour:
   chestOffSet: {x: 10, y: -8, z: 0}
   chestMaxRot: 60
   myguns: 0
+  timer: 0
 --- !u!114 &2594459011546240319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2667,9 +2669,31 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.2
-  m_Height: 0.8
+  m_Height: 1.6
   m_Direction: 1
-  m_Center: {x: 0, y: 0.4, z: 0}
+  m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!195 &352749314
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594459011546240314}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 0
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2617815265018572479
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,8 +35,13 @@ public class AIPath : MonoBehaviour {
         {
             return;
         }
-        else */if (hotAreaList.Count < MaxHotArea)
+        else */
+        if (hotAreaList.Count < MaxHotArea)
         {
+            NavMeshData navMeshData = new NavMeshData();
+            
+
+            navMeshSurface.UpdateNavMesh(navMeshData);
             var heat = Instantiate(navBlocker, pos, Quaternion.LookRotation(Vector3.forward));
             hotAreaList.Add(heat.GetComponent<HotArea>());
         }

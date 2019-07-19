@@ -39,8 +39,6 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["kick"]);
 
             gameObject.GetComponent<Gun>().CreateWeaponByList();
-            //gameObject.GetComponent<Gun>().ChangeWeapon("MG");
-            //Animator = this.gameObject.GetComponent<Animator>();
             if(HasMotionStatus)
                 motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
         }

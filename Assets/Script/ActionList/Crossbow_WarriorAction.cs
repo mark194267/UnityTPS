@@ -14,13 +14,15 @@ namespace Assets.Script.ActionList
 
         public override bool move(ActionStatus actionStatus)
         {
-            Agent.SetDestination(Target.transform.position);
+            var coverPos = takecover(Target.transform.position, 45f, .5f);
 
-            //var MyPos = Me.transform.position + Vector3.up * .5f;
-            //var TargetPos = Target.transform.position + Vector3.up * .5f;
-            //RaycastHit hit;
-            //int layermask = ~LayerMask.GetMask("Ignore Raycast");
-            //Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
+            if (coverPos != Vector3.zero)
+            {
+                Agent.SetDestination(coverPos);
+            }
+            else
+                Agent.SetDestination(Target.transform.position);
+
             var hit = Targetinfo.ToTargetSight();
             if (hit != null)
             {
@@ -38,6 +40,10 @@ namespace Assets.Script.ActionList
             //Agent.SetDestination(Target.transform.position);
             Agent.ResetPath();
             Gun.ChangeWeapon("MG");
+            var num = NavMesh.GetAreaFromName("H1");
+            hotArea.nowHeat = num;
+            hotArea.IsOn = true;
+
         }
 
         public override bool shoot(ActionStatus actionStatus)
@@ -76,8 +82,18 @@ namespace Assets.Script.ActionList
 
             return true;
         }
+        public void After_shoot(ActionStatus actionStatus)
+        {
+            var num = NavMesh.GetAreaFromName("walkable");
+            hotArea.nowHeat = num;
+            hotArea.IsOn = false;
+        }
         public void Before_SpreadOut(ActionStatus actionStatus)
         {
+            var num = NavMesh.GetAreaFromName("H1");
+            hotArea.nowHeat = num;
+            hotArea.IsOn = true;
+
             NowVecter = Vector3.zero;
             var MyPos = Me.transform.position;
             var TargetPos = Target.transform.position;

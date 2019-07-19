@@ -14,6 +14,8 @@ public class LocalNavMeshBuilder : MonoBehaviour
 
     // The size of the build bounds
     public Vector3 m_Size = new Vector3(80.0f, 20.0f, 80.0f);
+    public string[] maskList;
+    public float changeRate = 0.1f;
 
     NavMeshData m_NavMesh;
     AsyncOperation m_Operation;
@@ -31,6 +33,8 @@ public class LocalNavMeshBuilder : MonoBehaviour
 
     void OnEnable()
     {
+        if (maskList.Length == 0)
+            maskList[0] = "default";
         // Construct and add navmesh
         m_NavMesh = new NavMeshData();
         m_Instance = NavMesh.AddNavMeshData(m_NavMesh);
@@ -48,7 +52,7 @@ public class LocalNavMeshBuilder : MonoBehaviour
     void UpdateNavMesh(bool asyncUpdate = false)
     {
         NavMeshSourceTag.CollectMeshes(ref m_Sources);
-        NavMeshSourceTag.CollectModifierVolumes(LayerMask.GetMask("Default"), ref m_Sources);
+        NavMeshSourceTag.CollectModifierVolumes(LayerMask.GetMask(maskList), ref m_Sources);
 
         var defaultBuildSettings = NavMesh.GetSettingsByID(AgentID);
         var bounds = QuantizedBounds();
@@ -71,7 +75,7 @@ public class LocalNavMeshBuilder : MonoBehaviour
     {
         // Quantize the bounds to update only when theres a 10% change in size
         var center = m_Tracked ? m_Tracked.position : transform.position;
-        return new Bounds(Quantize(center, 0.1f * m_Size), m_Size);
+        return new Bounds(Quantize(center,changeRate* m_Size), m_Size);
     }
 
     void OnDrawGizmosSelected()

@@ -126,7 +126,7 @@ namespace Assets.Script.ActionList
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
             var g = Me.GetComponent<PlayerAvater>().myguns;
             Gun.ChangeWeapon(g.ToString());
-
+            Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
             AvaterMain.anim_flag = 0;
             _timer = 0;
         }

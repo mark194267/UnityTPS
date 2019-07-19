@@ -11,14 +11,14 @@ NavMeshProjectSettings:
     cost: 1
   - name: Jump
     cost: 2
-  - name: Heat
+  - name: H1
     cost: 10
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
+  - name: H2
+    cost: 20
+  - name: H3
+    cost: 30
+  - name: H4
+    cost: 40
   - name: 
     cost: 1
   - name: 

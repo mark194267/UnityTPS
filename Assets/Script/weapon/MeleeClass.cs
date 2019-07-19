@@ -17,13 +17,12 @@ namespace Assets.Script.weapon
 
         public int motionDamage { get; set; }
         public double motionStun { get; set; }
-        public float motionBlast { get; set; }
-
+        public float motionBlast { get; set; }        
         void OnTriggerEnter(Collider collision)
         {
             if (IsBlocking)
             {
-                if (collision.GetComponent<MeleeClass>() /*&& collision.GetComponent<MeleeClass>() != GetComponent<MeleeClass>()*/)
+                if (collision.GetComponent<MeleeClass>() )//&& collision.GetComponent<MeleeClass>() != GetComponent<MeleeClass>())
                 {
                     var hit = collision.GetComponentInParent<AvaterMain>();
                     hit.OnHit(0, 999, transform.rotation.eulerAngles);
@@ -36,15 +35,20 @@ namespace Assets.Script.weapon
             else
             {
                 //print("OnTriggerEnter " + collision.name);
-                if (collision.GetComponent<AvaterMain>() && !collision.CompareTag(tag) /*collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>()*/)
+                if (collision.GetComponent<AvaterMain>() && !collision.CompareTag(tag) )//collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
                 {
                     var hit = collision.GetComponentInParent<AvaterMain>();
                     print(GetComponentInParent<AvaterMain>().gameObject.name + "'s " + gameObject.name + " OnMeleeHit " + hit.gameObject.name);
                     //執行"被打中"
-                    
+
+                    //var hitPoint2targetCenter = collision.ClosestPoint(transform.position)
+
+                    var hitPoint2targetCenter = collision.ClosestPoint(transform.position) - collision.transform.position;
+                    var h2tRot = Quaternion.Euler(hitPoint2targetCenter).eulerAngles;
+
                     hit.OnHit(damage + motionDamage, stun + motionStun, transform.rotation.eulerAngles);
                 }
             }
-        }
+        }        
     }
 }

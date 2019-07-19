@@ -10,20 +10,25 @@ public class NavMeshSourceTag : MonoBehaviour
     public static List<MeshFilter> Meshes = new List<MeshFilter>();
     public static List<NavMeshModifierVolume> VolumeModifiers = new List<NavMeshModifierVolume>();
     public static int AgentTypeId;
+    public bool IngoreMesh = false;
 
     //----------------------------------------------------------------------------------------
     private void OnEnable()
     {
         var volumes = GetComponents<NavMeshModifierVolume>();
         if (volumes != null)
+        {
             VolumeModifiers.AddRange(volumes);
+        }
 
         var modifier = GetComponent<NavMeshModifier>();
         if ((modifier != null) && (!modifier.AffectsAgentType(AgentTypeId) || (modifier.ignoreFromBuild) && modifier.AffectsAgentType(AgentTypeId)))
+        {
             return;
+        }
 
         var meshes = GetComponentsInChildren<MeshFilter>();
-        if (meshes != null && meshes.Length > 0)
+        if (meshes != null && meshes.Length > 0 && !IngoreMesh)
             Meshes.AddRange(meshes);
     }
 
@@ -68,6 +73,7 @@ public class NavMeshSourceTag : MonoBehaviour
             var modifier = mf.GetComponent<NavMeshModifier>();
             s.area = modifier && modifier.overrideArea ? modifier.area : 0;
             _sources.Add(s);
+            //Debug.Log("mesh: "+mf.gameObject.name);
         }
     }
 
@@ -91,6 +97,7 @@ public class NavMeshSourceTag : MonoBehaviour
             src.size = msize;
             src.area = m.area;
             _sources.Add(src);
+            //Debug.Log("modifiers: " + m.gameObject.name);
         }
     }
 }

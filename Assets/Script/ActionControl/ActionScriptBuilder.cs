@@ -34,15 +34,14 @@ namespace Assets.Script.ActionControl
         protected Rigidbody Rig { get; set; }
         public NavMeshAgent Agent { get; set; }
         protected Vector3 NowVecter { get; set; }
-        protected CharacterController character { get; set; }
         protected Vector3 velocity { get; set; }
-
         protected InputManager InputManager { get; set; }
-
         protected AvaterMain AvaterMain { get; set; }
         protected Gun Gun { get; set; }
         public AIPath aiPathManager { get; set; }
         protected TargetInfo Targetinfo { get; set; }
+
+        public HotArea hotArea { get; set; }
 
 
         public void Init(GameObject Me)
@@ -64,6 +63,13 @@ namespace Assets.Script.ActionControl
             if (Me.transform.Find("Camera"))
             {
                 Camera = Me.transform.Find("Camera").GetComponent<Camera>();
+            }
+            var vol = Me.GetComponent<NavMeshModifierVolume>();
+            if (vol != null)
+            {
+                hotArea = new HotArea();
+                hotArea.Nv = vol;
+                hotArea.nowHeat = 0;
             }
             //aiPathManager = GameObject.Find("Vulcan").GetComponent<AIPath>();
         }
@@ -187,10 +193,10 @@ namespace Assets.Script.ActionControl
         /// 只做轉角檢測的進攻路線
         /// </summary>
         /// <returns></returns>
-        protected Vector3 takecover()
+        protected Vector3 takecover( Vector3 targetPos,float maxConnerAngle,float maxConnerDis)
         {
             NavMeshPath path = new NavMeshPath();
-            Agent.CalculatePath(Target.transform.position, path);
+            Agent.CalculatePath(targetPos, path);
 
             int i = path.corners.Length;
             while (i - 3 > 0)
@@ -205,10 +211,9 @@ namespace Assets.Script.ActionControl
                 //如果兩向量夾角太小，距離太近，就不會過第二個轉角
                 if (Vector2.Angle(
                         new Vector2(ToLastCorner.x, ToLastCorner.z),
-                        new Vector2(TargetToCorner.x, TargetToCorner.z)) > 45
-                    && Vector3.Distance(point1, point2) > .5)
+                        new Vector2(TargetToCorner.x, TargetToCorner.z)) > maxConnerAngle
+                    && Vector3.Distance(point1, point2) > maxConnerDis)
                 {
-                    //Agent.SetDestination(point1);
                     return point1;
                 }
                 else
@@ -216,7 +221,7 @@ namespace Assets.Script.ActionControl
                     i--;
                 }
             }
-            return path.corners[path.corners.Length - 3];
+            return Vector3.zero;
         }
 
         #endregion
@@ -312,8 +317,10 @@ namespace Assets.Script.ActionControl
         public virtual void Before_stun(ActionStatus actionStatus)
         {
             if (Agent != null) { Agent.ResetPath(); }
-            Me.GetComponent<Animator>().applyRootMotion = true;
 
+            Me.GetComponent<Animator>().applyRootMotion = true;
+            Animator.SetBool("avatermain_stun", false);
+            Animator.SetBool("avater_can_stun", false);
         }
         public virtual bool stun(ActionStatus actionStatus)
         {
@@ -321,8 +328,7 @@ namespace Assets.Script.ActionControl
         }
         public virtual void After_stun(ActionStatus actionStatus)
         {
-            Animator.SetBool("avater_can_stun", false);
-            Me.GetComponent<Animator>().applyRootMotion = true;
+            Me.GetComponent<Animator>().applyRootMotion = false;
 
         }
 
@@ -332,6 +338,7 @@ namespace Assets.Script.ActionControl
             Agent.enabled = false;
             Rig.isKinematic = false;
             Animator.enabled = false;
+            Me.GetComponent<Collider>().enabled = false;
 
             Gun.NowWeapon[0].weapon.GetComponent<Collider>().enabled = false;
         }
@@ -414,16 +421,6 @@ namespace Assets.Script.ActionControl
             var camPos = Camera.transform.TransformDirection(Vector3.back);
             RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
         }
-
-        public void FPSLikeCharMovement(float maxSpeed, float rotSpeed)
-        {
-            var dir =
-                Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
-            character.SimpleMove(dir.normalized * InputManager.maxWSAD * maxSpeed);
-
-            var camPos = Camera.transform.TransformDirection(Vector3.back);
-            RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
-        }
         #endregion
 
         #region 散開腳本
@@ -472,9 +469,7 @@ namespace Assets.Script.ActionControl
         #endregion
         public void AddCostArea()
         {
-            aiPathManager.BurnGround(10, 5, Rig.position);
         }
-
     }
 
 
