@@ -20,8 +20,11 @@ namespace Assets.Script.weapon
         public float motionBlast { get; set; }        
         void OnTriggerEnter(Collider collision)
         {
+            //print("OnTriggerEnter " + collision.name);
+
             if (IsBlocking)
             {
+                //print("is blocking:"+collision.GetComponent<MeleeClass>().gameObject.name);
                 if (collision.GetComponent<MeleeClass>() )//&& collision.GetComponent<MeleeClass>() != GetComponent<MeleeClass>())
                 {
                     var hit = collision.GetComponentInParent<AvaterMain>();
@@ -34,13 +37,13 @@ namespace Assets.Script.weapon
             }
             else
             {
-                //print("OnTriggerEnter " + collision.name);
-                if (collision.GetComponent<AvaterMain>() && !collision.CompareTag(tag) )//collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
+                //print(collision.GetComponent<AvaterMain>().gameObject.name);
+                if (collision.GetComponentInParent<AvaterMain>() && !collision.CompareTag(tag) )//collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
                 {
                     var hit = collision.GetComponentInParent<AvaterMain>();
                     print(GetComponentInParent<AvaterMain>().gameObject.name + "'s " + gameObject.name + " OnMeleeHit " + hit.gameObject.name);
-                    //執行"被打中"
 
+                    //執行"被打中"
                     //var hitPoint2targetCenter = collision.ClosestPoint(transform.position)
 
                     var hitPoint2targetCenter = collision.ClosestPoint(transform.position) - collision.transform.position;
