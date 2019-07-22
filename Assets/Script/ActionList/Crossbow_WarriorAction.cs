@@ -12,23 +12,46 @@ namespace Assets.Script.ActionList
     {
         private float _timer;
 
-        public override bool move(ActionStatus actionStatus)
+        public override void Before_move(ActionStatus actionStatus)
         {
             var coverPos = takecover(Target.transform.position, 45f, .5f);
-
-            if (coverPos != Vector3.zero)
+            var hasPeople = Physics.CheckSphere(coverPos, 1f, LayerMask.GetMask("AI"));//檢查點上是否有人
+            if (coverPos != Vector3.zero && !hasPeople)
             {
                 Agent.SetDestination(coverPos);
             }
             else
                 Agent.SetDestination(Target.transform.position);
-
-            var hit = Targetinfo.ToTargetSight();
-            if (hit != null)
+        }
+        public override bool move(ActionStatus actionStatus)
+        {
+            //var coverPos = takecover(Target.transform.position, 45f, .5f);
+            /*
+            if (NowVecter != Vector3.zero)
             {
-                if (hit.CompareTag("Player"))
+                Agent.SetDestination(NowVecter);
+            }
+            else
+                Agent.SetDestination(Target.transform.position);
+            */
+
+
+            var hit = Targetinfo.TargetSightHit;
+            var hitrans = hit.transform.GetComponentInParent<Avater.AvaterMain>();
+            if (hitrans != null && hitrans.CompareTag("Player"))
+            {
+                return false;
+            }
+            else
+            {
+                if (Agent.velocity.sqrMagnitude == 0f || Agent.remainingDistance <= Agent.stoppingDistance)
                 {
                     return false;
+                    /*
+                    if (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f)
+                    {
+                    }
+                    */
                 }
             }
 
@@ -60,19 +83,21 @@ namespace Assets.Script.ActionList
                 //int layermask = ~LayerMask.GetMask("Ignore Raycast");
                 //Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
 
-                var hit = Targetinfo.ToTargetSight();
-
-                if (hit == null)
+                var hit = Targetinfo.TargetSightHit;
+                var hitrans = hit.transform.GetComponentInParent<Avater.AvaterMain>();
+                if (hitrans != null)
                 {
-                    return true;
+                    if (hitrans.CompareTag("Player"))
+                    {
+                        if (AvaterMain.anim_flag == 1)
+                        {
+                            Gun.NowWeapon[0].BulletInMag = 1;
+                            Gun.fire(0);
+                        }
+                    }
+                    else
+                        return false;
                 }
-                if (hit.CompareTag("Player"))
-                {
-                    Gun.NowWeapon[0].BulletInMag = 1;
-                    Gun.fire(0);
-                }
-                else
-                    return false;
             }
             else
             {
@@ -84,9 +109,9 @@ namespace Assets.Script.ActionList
         }
         public void After_shoot(ActionStatus actionStatus)
         {
-            var num = NavMesh.GetAreaFromName("walkable");
-            hotArea.nowHeat = num;
-            hotArea.IsOn = false;
+            //var num = NavMesh.GetAreaFromName("walkable");
+            //hotArea.nowHeat = num;
+            //hotArea.IsOn = false;
         }
         public void Before_SpreadOut(ActionStatus actionStatus)
         {
@@ -128,7 +153,7 @@ namespace Assets.Script.ActionList
             //RaycastHit hit;
             //int layermask = LayerMask.GetMask("Ignore Raycast");
             //layermask = ~layermask;
-            var hit = Targetinfo.ToTargetSight();
+            //var hit = Targetinfo.ToTargetSight();
 
             //Physics.SphereCast(MyPos, .2f, TargetPos - MyPos, out hit, 100f, -1, QueryTriggerInteraction.Ignore);
 

@@ -209,10 +209,11 @@ namespace Assets.Script.ActionControl
                 //在獲取目標到轉角的向量
                 Vector3 TargetToCorner = Target.transform.position - point1;
                 //如果兩向量夾角太小，距離太近，就不會過第二個轉角
-                if (Vector2.Angle(
+                var cornerAngle = Vector2.Angle(
                         new Vector2(ToLastCorner.x, ToLastCorner.z),
-                        new Vector2(TargetToCorner.x, TargetToCorner.z)) > maxConnerAngle
-                    && Vector3.Distance(point1, point2) > maxConnerDis)
+                        new Vector2(TargetToCorner.x, TargetToCorner.z));
+                var Dis = Vector3.Distance(point1, point2);
+                if ( cornerAngle > maxConnerAngle && Dis > maxConnerDis)
                 {
                     return point1;
                 }

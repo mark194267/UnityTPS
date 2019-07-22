@@ -22,9 +22,9 @@ namespace Assets.Script.weapon
         {
             if (IsBlocking)
             {
+                var hit = collision.GetComponentInParent<AvaterMain>();
                 if (collision.GetComponent<MeleeClass>() )//&& collision.GetComponent<MeleeClass>() != GetComponent<MeleeClass>())
                 {
-                    var hit = collision.GetComponentInParent<AvaterMain>();
                     hit.OnHit(0, 999, transform.rotation.eulerAngles);
                     collision.GetComponent<Collider>().enabled = false;
                     GetComponentInParent<Animator>().SetTrigger("weapon_parry");
@@ -34,19 +34,17 @@ namespace Assets.Script.weapon
             }
             else
             {
-                //print("OnTriggerEnter " + collision.name);
-                if (collision.GetComponent<AvaterMain>() && !collision.CompareTag(tag) )//collision.GetComponentInParent<AvaterMain>() != GetComponentInParent<AvaterMain>())
+                //print("OnTriggerEnter " + collision.tag + " hit tag " + transform.tag);
+                var main = collision.GetComponentInParent<AvaterMain>();
+                if (main && !main.CompareTag(tag) )
                 {
-                    var hit = collision.GetComponentInParent<AvaterMain>();
-                    print(GetComponentInParent<AvaterMain>().gameObject.name + "'s " + gameObject.name + " OnMeleeHit " + hit.gameObject.name);
-                    //執行"被打中"
-
-                    //var hitPoint2targetCenter = collision.ClosestPoint(transform.position)
-
-                    var hitPoint2targetCenter = collision.ClosestPoint(transform.position) - collision.transform.position;
-                    var h2tRot = Quaternion.Euler(hitPoint2targetCenter).eulerAngles;
-
-                    hit.OnHit(damage + motionDamage, stun + motionStun, transform.rotation.eulerAngles);
+                    var mymain = GetComponentInParent<AvaterMain>();
+                    if (mymain != main)
+                    {
+                        print(GetComponentInParent<AvaterMain>().gameObject.name + "'s " + gameObject.name + " OnMeleeHit " + main.gameObject.name);
+                        //執行"被打中"
+                        main.OnHit(damage + motionDamage, stun + motionStun, transform.rotation.eulerAngles);
+                    }
                 }
             }
         }        

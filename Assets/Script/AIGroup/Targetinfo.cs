@@ -13,6 +13,7 @@ namespace Assets.Script.AIGroup
         public float maxDistance = 100f;
         public float meSightHset = .5f;
         public float targetSightHset = .7f;
+        public float checkRadius = 0.05f;
 
         public GameObject Me { get; set; }
         public GameObject Target { get; set; }
@@ -56,7 +57,7 @@ namespace Assets.Script.AIGroup
             var TargetPos = Target.transform.position + Vector3.up * targetSightHset;
             //var TargetPos = Target.transform.position;
 
-            var AllHit = Physics.SphereCastAll(MyPos, .05f, TargetPos - MyPos, range, -1, QueryTriggerInteraction.Ignore);
+            var AllHit = Physics.SphereCastAll(MyPos, checkRadius, TargetPos - MyPos, range, -1, QueryTriggerInteraction.Ignore);
             System.Array.Sort(AllHit, (x, y) => x.distance.CompareTo(y.distance));
             foreach (var hit in AllHit)
             {
@@ -90,7 +91,7 @@ namespace Assets.Script.AIGroup
             //var range = Me.GetComponent<Animator>().GetBehaviour<StateMachine>().TargetDis;
             //var AllHit = Physics.RaycastAll(Me.transform.position, Target.transform.position - Me.transform.position, range,-1,QueryTriggerInteraction.Ignore);
             //Physics.BoxCast(MyPos,Vector3.one*.1f, TargetPos - MyPos, out hit,Me.transform.rotation, range, -1, QueryTriggerInteraction.Ignore);
-            var AllHit = Physics.SphereCastAll(MyPos, .05f, TargetPos - MyPos, 100f, -1, QueryTriggerInteraction.Ignore);
+            var AllHit = Physics.SphereCastAll(MyPos, checkRadius, TargetPos - MyPos, maxDistance, -1, QueryTriggerInteraction.Ignore);
             System.Array.Sort(AllHit, (x, y) => x.distance.CompareTo(y.distance));
 
             foreach (var hit in AllHit)
@@ -123,7 +124,7 @@ namespace Assets.Script.AIGroup
 
             var MyPos = Me.transform.position + Vector3.up * meSightHset;
             var TargetPos = Target.transform.position + Vector3.up * targetSightHset;
-            var AllHit = Physics.SphereCastAll(MyPos, .05f, TargetPos - MyPos, maxDistance, -1, QueryTriggerInteraction.Ignore);
+            var AllHit = Physics.SphereCastAll(MyPos, checkRadius, TargetPos - MyPos, maxDistance, -1, QueryTriggerInteraction.Ignore);
             System.Array.Sort(AllHit, (x, y) => x.distance.CompareTo(y.distance));
 
             foreach (var hit in AllHit)

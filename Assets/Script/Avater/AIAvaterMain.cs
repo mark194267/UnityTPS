@@ -15,7 +15,12 @@ namespace Assets.Script.Avater
         //public Vector3 formationPoint;
         public Collider HotThing { get; set; }
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
-        public bool IsDecided;
+
+        public float sightDis;
+        public float sightStartHoffset;
+        public float sightEndHoffset;
+        public float sightRadius;
+
         public bool IsAwake;
 
         public bool HasMotionStatus = false;
@@ -41,6 +46,10 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             if(HasMotionStatus)
                 motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
+            targetInfo.checkRadius = sightRadius;
+            targetInfo.maxDistance = sightDis;
+            targetInfo.targetSightHset = sightEndHoffset;
+            targetInfo.meSightHset = sightStartHoffset;
         }
 
         private void Update()
