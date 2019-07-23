@@ -63,7 +63,7 @@ namespace Assets.Script.Avater
 
         public virtual void OnHit(int atk, double stun,Vector3 hitRot)
         {
-            //print(gameObject.name + " say:i`m hit!");
+            print(gameObject.name + " say:i`m hit!");
 
             //先扣血
             Hp -= atk;

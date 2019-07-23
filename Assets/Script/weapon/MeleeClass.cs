@@ -20,6 +20,8 @@ namespace Assets.Script.weapon
         public float motionBlast { get; set; }        
         void OnTriggerEnter(Collider collision)
         {
+            //print("OnTriggerEnter " + collision.name);
+
             if (IsBlocking)
             {
                 var hit = collision.GetComponentInParent<AvaterMain>();

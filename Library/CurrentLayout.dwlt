@@ -511,14 +511,14 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
-    - e00: 1.0386922
+    - e00: 0.1742647
       e01: 0
       e02: 0
-      e03: -78.29964
+      e03: 96.90442
       e10: 0
-      e11: 1.0386922
+      e11: 0.1742647
       e12: 0
-      e13: -253.13062
+      e13: 166.77574
       e20: 0
       e21: 0
       e22: 1
@@ -1039,7 +1039,7 @@ MonoBehaviour:
   - Assets/Resources/Char/Warrior Pack Bundle 3 FREE/Crossbow Warrior Mecanim Animation
     Pack/Animations
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\Users\mark_shih\Documents\GitHub\WebApplication2
+  m_LastProjectPath: D:\GitHub\WebApplication2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
@@ -1249,7 +1249,7 @@ MonoBehaviour:
   m_ShowContextualTools: 0
   m_WindowGUID: 837a1fbe0f3516c4eaf0636969dcb030
   m_Gizmos: 1
-  m_SceneIsLit: 0
+  m_SceneIsLit: 1
   m_SceneLighting: 1
   m_2DMode: 0
   m_isRotationLocked: 0
@@ -1267,12 +1267,12 @@ MonoBehaviour:
   m_ValidateTrueMetals: 0
   m_DoValidateTrueMetals: 0
   m_SceneViewState:
-    showFog: 0
+    showFog: 1
     showMaterialUpdate: 0
-    showSkybox: 0
-    showFlares: 0
-    showImageEffects: 0
-    showParticleSystems: 0
+    showSkybox: 1
+    showFlares: 1
+    showImageEffects: 1
+    showParticleSystems: 1
   grid:
     xGrid:
       m_Target: 0
