@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -150,6 +151,10 @@ namespace Assets.Script.AIGroup
             }
             //TargetSightHit = TargetHit;
             return TargetHit;
+        }
+        private IEnumerator Ray(Ray ray)
+        {
+            yield return new WaitForSeconds(5);
         }
     }
 }

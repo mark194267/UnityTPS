@@ -14,7 +14,7 @@ namespace Assets.Script.ActionList
 
         public override void Before_move(ActionStatus actionStatus)
         {
-            var coverPos = takecover(Target.transform.position, 45f, .5f);
+            var coverPos = takecover(Target.transform.position, 45f, .3f);
             var hasPeople = Physics.CheckSphere(coverPos, 1f, LayerMask.GetMask("AI"));//檢查點上是否有人
             if (coverPos != Vector3.zero && !hasPeople)
             {
@@ -42,16 +42,15 @@ namespace Assets.Script.ActionList
             {
                 return false;
             }
-            else
+
+            if (!Agent.pathPending)
             {
-                if (Agent.velocity.sqrMagnitude == 0f || Agent.remainingDistance <= Agent.stoppingDistance)
+                if (Agent.remainingDistance <= Agent.stoppingDistance)
                 {
-                    return false;
-                    /*
                     if (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f)
                     {
+                        return false;
                     }
-                    */
                 }
             }
 
@@ -133,7 +132,7 @@ namespace Assets.Script.ActionList
                 hit.transform.GetComponentInParent<Avater.AvaterMain>().transform.position,
                 Random.Range(60f, 90f),
                 //Random.Range(1f * step + 1f, 1f * step + 5f)
-                Random.Range(17f,20f));
+                Random.Range(15f,30f));
 
 
             NavMeshHit navMeshHit;
