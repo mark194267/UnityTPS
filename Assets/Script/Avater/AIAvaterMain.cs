@@ -12,8 +12,13 @@ namespace Assets.Script.Avater
     {
         public AIBase AIBase { get; set; }
         public TargetInfo targetInfo { get; set; }
+        public RaycastHit hit { get; set; }
+        public GameObject hot { get; set; }
         //public Vector3 formationPoint;
-        public Collider HotThing { get; set; }
+        //public Collider HotThing { get; set; }
+        public AICommander Commander { get; set; }
+        public HotAreaManager HotAreaManager { get; set; }
+
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
 
         public float sightDis;
@@ -22,6 +27,8 @@ namespace Assets.Script.Avater
         public float sightRadius;
 
         public bool IsAwake;
+
+        public bool IsUpdateSight = false;
 
         public bool HasMotionStatus = false;
 
@@ -50,6 +57,8 @@ namespace Assets.Script.Avater
             targetInfo.maxDistance = sightDis;
             targetInfo.targetSightHset = sightEndHoffset;
             targetInfo.meSightHset = sightStartHoffset;
+
+            StartCoroutine(CheckSight(.1f));
         }
 
         private void Update()
@@ -57,10 +66,8 @@ namespace Assets.Script.Avater
             if (IsAwake)
             {
                 Animator.SetBool("AI_IsAwake",true);
-                StopCoroutine(CheckSight(5));
+                //StopCoroutine(CheckSight(5));
             }
-            else
-                StartCoroutine(CheckSight(5));
         }
         #region Update()
 
@@ -130,41 +137,44 @@ namespace Assets.Script.Avater
             base.OnHit(atk, stun, vector);
         }
 
-        private void OnTriggerEnter(Collider other) {
-            if(other.tag == "heat")
-            {
-                HotThing = other;
-                //ActionScript.ChangeHeat();
-            }
-        }
-
         public IEnumerator CheckSight(float time)
         {
-            //Debug.Log("Check");
-            //這裡用測距，之後會改良為觸發盒
-            if (targetInfo.TargetDis < 50)
+            while (true)
             {
-                //Debug.Log("<50");
-                if (targetInfo.TargetAngle < 120)
+                if (!IsAwake)
                 {
-                    ////var height = GetComponent<NavMeshAgent>().height*Vector3.up;
-                    //var Layer = ~LayerMask.GetMask("AI");
-                    //Debug.Log("Angle");
-                    //RaycastHit hits;
-                    //檢查是否看的到
-                    //if (Physics.Raycast(transform.position, targetInfo.Target.transform.position - transform.position, out hits, 50,Layer,QueryTriggerInteraction.Ignore))
-                    var hit = targetInfo.TargetSightHit;
-                    if (hit.transform != null)
+                    //Debug.Log("<50");
+                    if (targetInfo.TargetAngle < 120)
                     {
-                        if (hit.transform.CompareTag("Player"))
+                        //檢查是否看的到
+                        hit = targetInfo.TargetSightHit;
+                        if (hit.transform != null)
                         {
-                            IsAwake = true;
+                            if (hit.transform.CompareTag("Player"))
+                            {
+                                IsAwake = true;
+                                IsUpdateSight = true;
+                            }
                         }
                     }
                 }
-            }            
-            yield return new WaitForSeconds(time);
+
+                if (IsUpdateSight)
+                {
+                    hit = targetInfo.TargetSightHit;
+                    //帶加入戰鬥.閒置不同的timer
+                    //yield return new WaitForSeconds(time);
+                }
+
+                yield return new WaitForSeconds(time);
+            }
         }
+
+        public void AddHotArea()
+        {
+            Commander.AddHotArea(transform);
+        }
+
 
         //劃出路線-參考以下
         //https://answers.unity.com/questions/361810/draw-path-along-navmesh-agent-path.html

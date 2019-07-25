@@ -26,10 +26,9 @@ namespace Assets.Script.AIGroup
         public string DistanceBasicAI(float targetDis,float meleerange,float shootrange)
         {
             float distance = TargetInfo.TargetDis;
-            //Debug.Log(TargetInfo.TargetDis);
-
+            //Debug.Log(TargetInfo.TargetDis);             
             //TargetInfo.ToTargetSight();
-            var hit = TargetInfo.TargetSightHit;
+            var hit = TargetInfo.Me.GetComponent<Avater.AIAvaterMain>().hit;
             //Debug.Log(TargetInfo.TargetSightHit.transform.name);
             //如果在距離內，又看的到目標，衝刺攻擊也算遠距離攻擊。
             if (hit.rigidbody != null)

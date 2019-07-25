@@ -3,6 +3,9 @@ using UnityEngine.AI;
 
 public class HotArea : MonoBehaviour {
 
+    public Vector3 position { set { transform.position = value; } }
+    public Quaternion rot { set { transform.rotation = value; } }
+
     public bool IsOn
     {
         get { return Nv.enabled; }
@@ -11,7 +14,7 @@ public class HotArea : MonoBehaviour {
             Nv.enabled = value;
         }
     }
-    private int size = 5;
+    public int size = 4;
     public int nowHeat
     {
         get { return heat; }
@@ -27,7 +30,7 @@ public class HotArea : MonoBehaviour {
     private float existTime;
     public NavMeshModifierVolume Nv { get; set; }
 
-    private void Start() 
+    private void OnEnable() 
     {
         Nv = GetComponent<NavMeshModifierVolume>();
     }
@@ -37,7 +40,7 @@ public class HotArea : MonoBehaviour {
     /// <param name="heat"></param>
     public void ChangeTemperature(int tempheat)
     {
-        Debug.Log("NowHeat: "+heat);
+        //Debug.Log("NowHeat: "+heat);
         //檢查是否還能更熱
         if (heat + tempheat > 32)
         {
@@ -58,6 +61,7 @@ public class HotArea : MonoBehaviour {
     /// </summary>
     public void ApplyTemperature()
     {
+        Debug.Log(heat);
         Nv.area = heat;
         Nv.size = Vector3.one * size;
     }

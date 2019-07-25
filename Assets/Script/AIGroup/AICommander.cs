@@ -7,9 +7,10 @@ using UnityEngine.AI;
 
 namespace Assets.Script.AIGroup
 {
-    class AICommander:MonoBehaviour
+    public class AICommander:MonoBehaviour
     {
         private GameObject target;
+        public GameObject hot;
 
         public bool IsAwake;
         public NavGrid NavGrid = new NavGrid();
@@ -21,6 +22,7 @@ namespace Assets.Script.AIGroup
         private WeaponFactory weaponFactory = new WeaponFactory();
         private AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
         private AvaterStatus avaterStatus = new AvaterStatus();
+        private HotAreaManager HotAreaManager = new HotAreaManager();
 
         void Awake()
         {
@@ -51,6 +53,9 @@ namespace Assets.Script.AIGroup
                 //Debug.Log(aibase.TargetInfo.Target.name);
                 ai.targetInfo = aibase.TargetInfo;
                 //Debug.Log("7");
+                ai.hot = hot;
+                ai.HotAreaManager = HotAreaManager;
+                ai.Commander = this;
             }
             if (allMyNav.Length > 0)
             {
@@ -134,6 +139,17 @@ namespace Assets.Script.AIGroup
             NavMeshHit navHit;
             NavMesh.SamplePosition(randDirection, out navHit, radius, -1);
             return navHit.position;
+        }
+
+        public void AddHotArea(Transform trans)
+        {
+            if (HotAreaManager.hotAreas.Count > 1) return;//控管總數
+            GameObject hotobject = Instantiate(hot, transform);
+            var hotArea = hotobject.GetComponent<HotArea>();
+            hotArea.size = 4; hotArea.nowHeat = NavMesh.GetAreaFromName("H1");
+            hotArea.transform.position = trans.position;
+            hotArea.transform.rotation = trans.rotation;
+            HotAreaManager.AddArea(hotArea);
         }
     }
 }

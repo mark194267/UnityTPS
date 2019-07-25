@@ -152,9 +152,5 @@ namespace Assets.Script.AIGroup
             //TargetSightHit = TargetHit;
             return TargetHit;
         }
-        private IEnumerator Ray(Ray ray)
-        {
-            yield return new WaitForSeconds(5);
-        }
     }
 }

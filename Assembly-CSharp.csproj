@@ -279,6 +279,7 @@
     <Compile Include="Assets\Script\AIGroup\AICommander.cs" />
     <Compile Include="Assets\Script\AIGroup\AIPath.cs" />
     <Compile Include="Assets\Script\AIGroup\HotArea.cs" />
+    <Compile Include="Assets\Script\AIGroup\HotAreaManager.cs" />
     <Compile Include="Assets\Script\AIGroup\LocalNavMeshBuilder.cs" />
     <Compile Include="Assets\Script\AIGroup\NavGrid.cs" />
     <Compile Include="Assets\Script\AIGroup\NavMeshSourceTag.cs" />

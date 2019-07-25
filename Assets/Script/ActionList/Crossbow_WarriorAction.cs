@@ -10,8 +10,6 @@ namespace Assets.Script.ActionList
 {
     class Crossbow_WarriorAction : ActionScript
     {
-        private float _timer;
-
         public override void Before_move(ActionStatus actionStatus)
         {
             var coverPos = takecover(Target.transform.position, 45f, .3f);
@@ -34,14 +32,7 @@ namespace Assets.Script.ActionList
             else
                 Agent.SetDestination(Target.transform.position);
             */
-
-
-            var hit = Targetinfo.TargetSightHit;
-            var hitrans = hit.transform.GetComponentInParent<Avater.AvaterMain>();
-            if (hitrans != null && hitrans.CompareTag("Player"))
-            {
-                return false;
-            }
+            //UpdateWSAD_ToAnimator();
 
             if (!Agent.pathPending)
             {
@@ -53,6 +44,11 @@ namespace Assets.Script.ActionList
                     }
                 }
             }
+            var hit = AI.hit.transform;
+            if (hit != null)
+            {
+                if (hit.CompareTag("Player")) return false;
+            }
 
             return true;
         }
@@ -62,10 +58,10 @@ namespace Assets.Script.ActionList
             //Agent.SetDestination(Target.transform.position);
             Agent.ResetPath();
             Gun.ChangeWeapon("MG");
-            var num = NavMesh.GetAreaFromName("H1");
-            hotArea.nowHeat = num;
-            hotArea.IsOn = true;
-
+            //var num = NavMesh.GetAreaFromName("H1");
+            //hotArea.nowHeat = num;
+            //hotArea.IsOn = true;
+            AI.AddHotArea();
         }
 
         public override bool shoot(ActionStatus actionStatus)
@@ -76,17 +72,11 @@ namespace Assets.Script.ActionList
 
             if (angle < 10)
             {
-                //var MyPos = Me.transform.position + Vector3.up*.5f;
-                //var TargetPos = Target.transform.position + Vector3.up * .5f;
-                //RaycastHit hit;
-                //int layermask = ~LayerMask.GetMask("Ignore Raycast");
-                //Physics.SphereCast(MyPos, .1f, TargetPos - MyPos, out hit, 100f, layermask, QueryTriggerInteraction.Ignore);
-
-                var hit = Targetinfo.TargetSightHit;
-                var hitrans = hit.transform.GetComponentInParent<Avater.AvaterMain>();
-                if (hitrans != null)
+                var hit = AI.hit.transform;
+                if (hit != null)
                 {
-                    if (hitrans.CompareTag("Player"))
+
+                    if (hit.CompareTag("Player"))
                     {
                         if (AvaterMain.anim_flag == 1)
                         {
@@ -101,7 +91,6 @@ namespace Assets.Script.ActionList
             else
             {
                 Animator.SetFloat("AI_angle", 0);
-                _timer = 0;
             }
 
             return true;
@@ -114,35 +103,39 @@ namespace Assets.Script.ActionList
         }
         public void Before_SpreadOut(ActionStatus actionStatus)
         {
-            var num = NavMesh.GetAreaFromName("H1");
-            hotArea.nowHeat = num;
-            hotArea.IsOn = true;
+            //UpdateWSAD_ToAnimator();
 
-            NowVecter = Vector3.zero;
+            var num = NavMesh.GetAreaFromName("H1");
+            //hotArea.nowHeat = num;
+            //hotArea.IsOn = true;
+
+            //NowVecter = Vector3.zero;
             var MyPos = Me.transform.position;
             var TargetPos = Target.transform.position;
-            RaycastHit hit;
             //Physics.BoxCast(MyPos, Vector3.one * .1f, TargetPos - MyPos, out hit, Me.transform.rotation);
             //var step = hit.distance / Vector3.Distance(MyPos, TargetPos);
 
-            hit = Targetinfo.TargetSightHit;
+            var hit = AI.hit.transform;
             //Debug.Log(hit.transform.GetComponentInParent<Avater.AvaterMain>().name);
-            var randDirection =
-                SetSpreadOutPoint(TargetPos,
-                hit.transform.GetComponentInParent<Avater.AvaterMain>().transform.position,
-                Random.Range(60f, 90f),
-                //Random.Range(1f * step + 1f, 1f * step + 5f)
-                Random.Range(15f,30f));
-
-
-            NavMeshHit navMeshHit;
-            //檢查是否能移動到上面
-            if (NavMesh.SamplePosition(randDirection, out navMeshHit, 5f, -1))
+            if (hit)
             {
-                Agent.SetDestination(navMeshHit.position);
-                //用於檢查                
-                NowVecter = navMeshHit.position;
+                var randDirection =
+                SetSpreadOutPoint(TargetPos,
+                hit.position,
+                Random.Range(60f, 120f),
+                //Random.Range(1f * step + 1f, 1f * step + 5f)
+                Random.Range(5f, 5f));
+                NavMeshHit navMeshHit;
+                //檢查是否能移動到上面
+                if (NavMesh.SamplePosition(randDirection, out navMeshHit, 3f, -1))
+                {
+                    Agent.SetDestination(navMeshHit.position);
+                    //用於檢查                
+                    //NowVecter = navMeshHit.position;
+                }
+                else Agent.SetDestination(TargetPos);
             }
+            else Agent.SetDestination(TargetPos);
         }
         public bool SpreadOut(ActionStatus actionStatus)
         {
@@ -152,7 +145,6 @@ namespace Assets.Script.ActionList
             //RaycastHit hit;
             //int layermask = LayerMask.GetMask("Ignore Raycast");
             //layermask = ~layermask;
-            //var hit = Targetinfo.ToTargetSight();
 
             //Physics.SphereCast(MyPos, .2f, TargetPos - MyPos, out hit, 100f, -1, QueryTriggerInteraction.Ignore);
 
@@ -166,12 +158,13 @@ namespace Assets.Script.ActionList
                     }
                 }
             }
-            /*
-            if (hit.transform.CompareTag("Player") )
+
+            var hit = AI.hit.transform;
+            if (hit != null)
             {
-                return false;
+                if (hit.CompareTag("Player")) return false;
             }
-            */
+
             return true;
         }
         public void Before_kick(ActionStatus actionStatus)

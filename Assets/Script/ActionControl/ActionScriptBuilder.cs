@@ -37,9 +37,11 @@ namespace Assets.Script.ActionControl
         protected Vector3 velocity { get; set; }
         protected InputManager InputManager { get; set; }
         protected AvaterMain AvaterMain { get; set; }
+        protected AIAvaterMain AI { get; set; }
         protected Gun Gun { get; set; }
         public AIPath aiPathManager { get; set; }
         protected TargetInfo Targetinfo { get; set; }
+        public HotAreaManager HotAreaManager { get; set; }
 
         public HotArea hotArea { get; set; }
 
@@ -53,11 +55,13 @@ namespace Assets.Script.ActionControl
             this.Rig = Me.GetComponent<Rigidbody>();
             this.AvaterMain = Me.GetComponent<AvaterMain>();
             InputManager = Me.GetComponent<InputManager>();
-
-            if (Me.GetComponent<AIAvaterMain>())
+            var AItemp = Me.GetComponent<AIAvaterMain>();
+            if (AItemp)
             {
-                this.Targetinfo = Me.GetComponent<AIAvaterMain>().targetInfo;
-                this.Target = Me.GetComponent<AIAvaterMain>().targetInfo.Target;
+                AI = AItemp;
+                this.Targetinfo = AI.targetInfo;
+                this.Target = AI.targetInfo.Target;
+                this.HotAreaManager = AI.HotAreaManager;
             }
 
             if (Me.transform.Find("Camera"))
@@ -449,7 +453,7 @@ namespace Assets.Script.ActionControl
 //            fin = Quaternion.AngleAxis(AxisMultiper * -r, Vector3.up) * rot;
 
             //角度會和距離成反比
-            return Me.transform.position + fin.normalized * (StepLenght/bar2targetDis);    
+            return Me.transform.position + fin.normalized * (StepLenght *( me2target.magnitude/ bar2targetDis));    
         }
 
         #endregion
