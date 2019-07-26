@@ -36,7 +36,7 @@ namespace Assets.Script.Avater
 
         public AllAmmoType ammoType = new AllAmmoType();
 
-        void Start()
+        public virtual void Start()
         {
             WeaponFactory weaponFactory = new WeaponFactory();
             weaponFactory.Init();
@@ -61,7 +61,7 @@ namespace Assets.Script.Avater
             StartCoroutine(CheckSight(.1f));
         }
 
-        private void Update()
+        public virtual void Update()
         {
             if (IsAwake)
             {
@@ -143,7 +143,6 @@ namespace Assets.Script.Avater
             {
                 if (!IsAwake)
                 {
-                    //Debug.Log("<50");
                     if (targetInfo.TargetAngle < 120)
                     {
                         //檢查是否看的到
@@ -162,6 +161,7 @@ namespace Assets.Script.Avater
                 if (IsUpdateSight)
                 {
                     hit = targetInfo.TargetSightHit;
+                    //print(hit);
                     //帶加入戰鬥.閒置不同的timer
                     //yield return new WaitForSeconds(time);
                 }

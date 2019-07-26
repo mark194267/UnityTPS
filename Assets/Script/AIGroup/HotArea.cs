@@ -1,8 +1,10 @@
+using Assets.Script.AIGroup;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class HotArea : MonoBehaviour {
 
+    public HotAreaManager hotAreaManager { get; set; }
     public Vector3 position { set { transform.position = value; } }
     public Quaternion rot { set { transform.rotation = value; } }
 
@@ -16,6 +18,10 @@ public class HotArea : MonoBehaviour {
     }
     public int size = 4;
 
+    private int _maxhot = 13;
+    private int _normalhot = 10;
+    private int _minhot = 7;
+
     public int hot { get { return _hot; } }
 
     public int setHot { set { ChangeTemperature(value); } }
@@ -25,10 +31,30 @@ public class HotArea : MonoBehaviour {
     private float existTime;
     public NavMeshModifierVolume Nv { get; set; }
 
+    public float cooldown = 5f;
+    private float _timer;
+
     private void OnEnable() 
     {
         Nv = GetComponent<NavMeshModifierVolume>();
     }
+    private void Update()
+    {
+        //變冷
+        _timer += Time.deltaTime*1f;
+        if (_timer > cooldown)
+        {
+            Debug.Log(cooldown);
+            //時間到.降溫
+            if (hot > _normalhot) setHot = hot - 1;
+            else if (hot < _normalhot) setHot = hot + 1;
+            else
+            {
+                hotAreaManager.DeleteHotArea(this);
+            }
+        }
+    }
+
     /// <summary>
     /// *需套用ApplyTemperature才有效果，改變此物件的溫度
     /// </summary>
@@ -37,12 +63,13 @@ public class HotArea : MonoBehaviour {
     {
         //Debug.Log("NowHeat: "+heat);
         //檢查是否還能更熱
-        if (tempheat > 32)
+        if (tempheat > _maxhot)
         {
-            _hot = 32;
+            _hot = _maxhot;
         }
-        else if (tempheat < 3)
+        else if (tempheat < _minhot)
         {
+            _hot = _minhot;
             //沒有溫度
             //Destroy(this);
         }
@@ -57,9 +84,10 @@ public class HotArea : MonoBehaviour {
     /// </summary>
     private void ApplyTemperature()
     {
-        Debug.Log(_hot);
+        //Debug.Log(_hot);
         Nv.area = _hot;
         Nv.size = Vector3.one * size;
+        _timer = 0;
         //transform.sc = Nv.size;
     }
     public void DeleteMe()

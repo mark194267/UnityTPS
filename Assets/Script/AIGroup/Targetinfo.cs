@@ -127,11 +127,9 @@ namespace Assets.Script.AIGroup
             var TargetPos = Target.transform.position + Vector3.up * targetSightHset;
             var AllHit = Physics.SphereCastAll(MyPos, checkRadius, TargetPos - MyPos, maxDistance, -1, QueryTriggerInteraction.Ignore);
             System.Array.Sort(AllHit, (x, y) => x.distance.CompareTo(y.distance));
-
             foreach (var hit in AllHit)
             {
-                //Debug.Log("Founded! " + hit.transform.name);
-
+                //Debug.Log(hit.transform.name);
                 if (hit.transform.GetComponentInParent<Avater.AvaterMain>())
                 {
                     var avaterHit = hit.transform.GetComponentInParent<Avater.AvaterMain>();

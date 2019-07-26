@@ -15,6 +15,8 @@ public class LocalNavMeshBuilder : MonoBehaviour
     // The size of the build bounds
     public Vector3 m_Size = new Vector3(80.0f, 20.0f, 80.0f);
     public string[] maskList;
+    public string[] agentTypeNames;
+
     public float changeRate = 0.1f;
 
     NavMeshData m_NavMesh;
@@ -35,6 +37,16 @@ public class LocalNavMeshBuilder : MonoBehaviour
     {
         if (maskList.Length == 0)
             maskList[0] = "default";
+
+        var count = NavMesh.GetSettingsCount();
+        agentTypeNames = new string[count];
+        for (var i = 0; i < count; i++)
+        {
+            var id = NavMesh.GetSettingsByIndex(i).agentTypeID;
+            //var name = NavMesh.GetSettingsNameFromID(id);
+            agentTypeNames[i] = id.ToString();
+        }
+
         // Construct and add navmesh
         m_NavMesh = new NavMeshData();
         m_Instance = NavMesh.AddNavMeshData(m_NavMesh);

@@ -17,6 +17,7 @@ namespace Assets.Script.AIGroup
             if (hotAreas.Count > maxSize)
                 DeleteOldest();//檢查大小
             hotAreas.Add(hot);
+            hot.hotAreaManager = this;
         }
         public void DeleteOldest()
         {
@@ -24,6 +25,11 @@ namespace Assets.Script.AIGroup
             var hot = hotAreas.First();
             hot.DeleteMe();
             hotAreas.Remove(hot);
+        }
+        public void DeleteHotArea(HotArea hot)
+        {
+            hotAreas.Remove(hot);
+            hot.DeleteMe();
         }
     }
 }

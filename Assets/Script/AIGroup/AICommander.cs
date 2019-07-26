@@ -30,7 +30,6 @@ namespace Assets.Script.AIGroup
             path = new NavMeshPath();
             //GameObject[] allMyAi = GameObject.FindGameObjectsWithTag("AI");
             AIAvaterMain[] allMyAi = GetComponentsInChildren<AIAvaterMain>();
-            AIAvaterMainNavgator[] allMyNav = GetComponentsInChildren<AIAvaterMainNavgator>();
             target = GameObject.FindGameObjectWithTag("Player");
             weaponFactory.Init();
             avaterStatus = avaterDataLoader.LoadStatus("Imp");
@@ -56,28 +55,6 @@ namespace Assets.Script.AIGroup
                 ai.hot = hot;
                 ai.HotAreaManager = HotAreaManager;
                 ai.Commander = this;
-            }
-            if (allMyNav.Length > 0)
-            {
-                foreach (var ai in allMyNav)
-                {
-                    //Debug.Log("2");
-                    ai.avaterStatus = avaterStatus;
-                    //Debug.Log("3");
-                    ai.IsAwake = IsAwake;
-                    //Debug.Log("4");
-                    ai.AIBase = aiConstructer.GetAI(ai.gameObject, target);
-                    ai.targetInfo = ai.AIBase.TargetInfo;
-                    //Debug.Log("5");
-                    ai.Init_Avater();
-                    ai.stateMachine.AIBase = ai.AIBase;
-                    var aibase = ai.stateMachine.AIBase;
-                    //Debug.Log(aibase.TargetInfo.Me.name);
-                    //Debug.Log(aibase.TargetInfo.Target.name);
-                    ai.targetInfo = aibase.TargetInfo;
-                    //Debug.Log("7");
-                }
-
             }
 
             //是否有巡邏路線
@@ -143,7 +120,6 @@ namespace Assets.Script.AIGroup
 
         public void AddHotArea(Transform trans)
         {
-            //if (HotAreaManager.hotAreas.Count > 1) return;//控管總數
             RaycastHit hit;
             Physics.BoxCast(trans.position+Vector3.up*5f, new Vector3(2, 1, 2), Vector3.down,out hit, trans.rotation, 5f, LayerMask.GetMask("hot"), QueryTriggerInteraction.Collide);
 
@@ -152,8 +128,8 @@ namespace Assets.Script.AIGroup
                 var ht = hit.transform.GetComponent<HotArea>();
                 //ht.size += 1;
                 ht.transform.position = (ht.transform.position + trans.position) / 2;
-                ht.setHot = ht.hot;
-                Debug.Log("HotGround Founded");
+                ht.setHot = ht.hot + 1;
+                //Debug.Log("HotGround Founded");
             }
             else
             {

@@ -11,14 +11,28 @@ NavMeshProjectSettings:
     cost: 1
   - name: Jump
     cost: 2
+  - name: 
+    cost: 1
+  - name: 
+    cost: 1
+  - name: 
+    cost: 1
+  - name: 
+    cost: 1
+  - name: C3
+    cost: 1
+  - name: C2
+    cost: 1
+  - name: C1
+    cost: 1
+  - name: N
+    cost: 1
   - name: H1
-    cost: 10
+    cost: 3
   - name: H2
-    cost: 20
+    cost: 5
   - name: H3
-    cost: 30
-  - name: H4
-    cost: 40
+    cost: 7
   - name: 
     cost: 1
   - name: 
@@ -55,21 +69,7 @@ NavMeshProjectSettings:
     cost: 1
   - name: 
     cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
-  m_LastAgentTypeID: -1923039037
+  m_LastAgentTypeID: -902729914
   m_Settings:
   - serializedVersion: 2
     agentTypeID: 0
@@ -88,7 +88,7 @@ NavMeshProjectSettings:
     debug:
       m_Flags: 0
   - serializedVersion: 2
-    agentTypeID: -1923039037
+    agentTypeID: -902729914
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 60

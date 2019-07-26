@@ -37,7 +37,9 @@ namespace Assets.Script.ActionControl
         protected Vector3 velocity { get; set; }
         protected InputManager InputManager { get; set; }
         protected AvaterMain AvaterMain { get; set; }
+
         protected AIAvaterMain AI { get; set; }
+        protected AIAvaterMainNavgator AiNav { get; set; }
         protected Gun Gun { get; set; }
         public AIPath aiPathManager { get; set; }
         protected TargetInfo Targetinfo { get; set; }
@@ -49,12 +51,12 @@ namespace Assets.Script.ActionControl
         public void Init(GameObject Me)
         {
             this.Me = Me;
-            this.Agent = this.Me.GetComponent<NavMeshAgent>();
             this.Gun = Me.GetComponent<Gun>();
             this.Animator = Me.GetComponent<Animator>();
             this.Rig = Me.GetComponent<Rigidbody>();
             this.AvaterMain = Me.GetComponent<AvaterMain>();
             InputManager = Me.GetComponent<InputManager>();
+
             var AItemp = Me.GetComponent<AIAvaterMain>();
             if (AItemp)
             {
@@ -63,13 +65,21 @@ namespace Assets.Script.ActionControl
                 this.Target = AI.targetInfo.Target;
                 this.HotAreaManager = AI.HotAreaManager;
             }
+            
+            var AiNavTemp = Me.GetComponent<AIAvaterMainNavgator>();
+            if (AiNavTemp != null)
+            {
+                AiNav = AiNavTemp;
+                Agent = Me.GetComponentInChildren<NavMeshAgent>();
+            }
+            else
+                Agent = this.Me.GetComponent<NavMeshAgent>();
+
 
             if (Me.transform.Find("Camera"))
             {
                 Camera = Me.transform.Find("Camera").GetComponent<Camera>();
             }
-
-            //aiPathManager = GameObject.Find("Vulcan").GetComponent<AIPath>();
         }
 
         #region 自訂狀態機
@@ -466,9 +476,6 @@ namespace Assets.Script.ActionControl
             Animator.SetFloat("AI_speed", Max);
         }
         #endregion
-        public void AddCostArea()
-        {
-        }
     }
 
 
