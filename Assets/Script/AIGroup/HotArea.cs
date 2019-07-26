@@ -15,17 +15,12 @@ public class HotArea : MonoBehaviour {
         }
     }
     public int size = 4;
-    public int nowHeat
-    {
-        get { return heat; }
-        set
-        {
-            heat = value;
-            ApplyTemperature();
-        }
-    }
 
-    private int heat;
+    public int hot { get { return _hot; } }
+
+    public int setHot { set { ChangeTemperature(value); } }
+
+    private int _hot { get; set; }
 
     private float existTime;
     public NavMeshModifierVolume Nv { get; set; }
@@ -38,31 +33,37 @@ public class HotArea : MonoBehaviour {
     /// *需套用ApplyTemperature才有效果，改變此物件的溫度
     /// </summary>
     /// <param name="heat"></param>
-    public void ChangeTemperature(int tempheat)
+    private void ChangeTemperature(int tempheat)
     {
         //Debug.Log("NowHeat: "+heat);
         //檢查是否還能更熱
-        if (heat + tempheat > 32)
+        if (tempheat > 32)
         {
-            heat = 32;
+            _hot = 32;
         }
-        else if (heat + tempheat < 3)
+        else if (tempheat < 3)
         {
             //沒有溫度
             //Destroy(this);
         }
         else
         {
-            heat += tempheat;
+            _hot = tempheat;
         }
+        ApplyTemperature();
     }
     /// <summary>
     /// 更新此物件的溫度，影響大小
     /// </summary>
-    public void ApplyTemperature()
+    private void ApplyTemperature()
     {
-        Debug.Log(heat);
-        Nv.area = heat;
+        Debug.Log(_hot);
+        Nv.area = _hot;
         Nv.size = Vector3.one * size;
+        //transform.sc = Nv.size;
+    }
+    public void DeleteMe()
+    {
+        Destroy(this.gameObject);
     }
 }

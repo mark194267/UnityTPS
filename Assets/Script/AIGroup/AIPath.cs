@@ -50,22 +50,4 @@ public class AIPath : MonoBehaviour {
             //可能移除掉存在時間最短的事件區
         }
     }
-
-
-    /// <summary>
-    /// 檢查事件區域是否已有其他事件，並更新該事件
-    /// </summary>
-    private bool CheckCollsion(int hot,int areaSize,Vector3 pos)
-    {
-        RaycastHit hit;
-        if (Physics.BoxCast(pos, Vector3.one * areaSize, Vector3.forward,out hit,Quaternion.Euler(0,0,0),0,0, QueryTriggerInteraction.Collide/*Mask還沒寫入*/))
-        {
-            //如果碰到事件
-            var heat = hit.transform.gameObject.GetComponent<HotArea>();
-            heat.ChangeTemperature(hot);
-            //更新等到畫下一次路線前
-            return true;
-        }
-        return false;
-    }
 }

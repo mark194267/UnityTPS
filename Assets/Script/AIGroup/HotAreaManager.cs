@@ -9,16 +9,21 @@ namespace Assets.Script.AIGroup
 {
     public class HotAreaManager
     {
+        public int maxSize = 20;
         public List<HotArea> hotAreas = new List<HotArea>();
 
         public void AddArea(HotArea hot)
         {
-            if (hotAreas.Count > 10) return;//檢查大小
+            if (hotAreas.Count > maxSize)
+                DeleteOldest();//檢查大小
             hotAreas.Add(hot);
         }
-        public void CheckAndMerge()
+        public void DeleteOldest()
         {
-
+            Debug.Log("Try delete oldest");
+            var hot = hotAreas.First();
+            hot.DeleteMe();
+            hotAreas.Remove(hot);
         }
     }
 }

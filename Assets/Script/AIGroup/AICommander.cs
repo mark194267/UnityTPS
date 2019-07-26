@@ -143,13 +143,27 @@ namespace Assets.Script.AIGroup
 
         public void AddHotArea(Transform trans)
         {
-            if (HotAreaManager.hotAreas.Count > 1) return;//控管總數
-            GameObject hotobject = Instantiate(hot, transform);
-            var hotArea = hotobject.GetComponent<HotArea>();
-            hotArea.size = 4; hotArea.nowHeat = NavMesh.GetAreaFromName("H1");
-            hotArea.transform.position = trans.position;
-            hotArea.transform.rotation = trans.rotation;
-            HotAreaManager.AddArea(hotArea);
+            //if (HotAreaManager.hotAreas.Count > 1) return;//控管總數
+            RaycastHit hit;
+            Physics.BoxCast(trans.position+Vector3.up*5f, new Vector3(2, 1, 2), Vector3.down,out hit, trans.rotation, 5f, LayerMask.GetMask("hot"), QueryTriggerInteraction.Collide);
+
+            if (hit.transform != null)
+            {
+                var ht = hit.transform.GetComponent<HotArea>();
+                //ht.size += 1;
+                ht.transform.position = (ht.transform.position + trans.position) / 2;
+                ht.setHot = ht.hot;
+                Debug.Log("HotGround Founded");
+            }
+            else
+            {
+                GameObject hotobject = Instantiate(hot, transform);
+                var hotArea = hotobject.GetComponent<HotArea>();
+                hotArea.size = 4; hotArea.setHot = NavMesh.GetAreaFromName("H1");
+                hotArea.transform.position = trans.position;
+                hotArea.transform.rotation = trans.rotation;
+                HotAreaManager.AddArea(hotArea);
+            }
         }
     }
 }

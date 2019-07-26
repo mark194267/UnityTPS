@@ -68,13 +68,7 @@ namespace Assets.Script.ActionControl
             {
                 Camera = Me.transform.Find("Camera").GetComponent<Camera>();
             }
-            var vol = Me.GetComponent<NavMeshModifierVolume>();
-            if (vol != null)
-            {
-                hotArea = new HotArea();
-                hotArea.Nv = vol;
-                hotArea.nowHeat = 0;
-            }
+
             //aiPathManager = GameObject.Find("Vulcan").GetComponent<AIPath>();
         }
 
