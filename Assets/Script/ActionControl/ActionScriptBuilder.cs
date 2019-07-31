@@ -70,7 +70,7 @@ namespace Assets.Script.ActionControl
             if (AiNavTemp != null)
             {
                 AiNav = AiNavTemp;
-                Agent = Me.GetComponentInChildren<NavMeshAgent>();
+                Agent = AiNavTemp.Navgator.GetComponent<NavMeshAgent>();
             }
             else
                 Agent = this.Me.GetComponent<NavMeshAgent>();

@@ -17,6 +17,8 @@ public class LocalNavMeshBuilder : MonoBehaviour
     public string[] maskList;
     public string[] agentTypeNames;
 
+    public Dictionary<string, int> agentTypeDic;
+
     public float changeRate = 0.1f;
 
     NavMeshData m_NavMesh;
@@ -43,8 +45,10 @@ public class LocalNavMeshBuilder : MonoBehaviour
         for (var i = 0; i < count; i++)
         {
             var id = NavMesh.GetSettingsByIndex(i).agentTypeID;
-            //var name = NavMesh.GetSettingsNameFromID(id);
+            var name = NavMesh.GetSettingsNameFromID(id);
             agentTypeNames[i] = id.ToString();
+
+            //agentTypeDic.Add(name, id);
         }
 
         // Construct and add navmesh

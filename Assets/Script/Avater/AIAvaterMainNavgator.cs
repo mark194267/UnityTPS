@@ -10,19 +10,24 @@ namespace Assets.Script.Avater
 {
     public class AIAvaterMainNavgator : AIAvaterMain
     {
+        public bool IsLateApplyRot = false;
+
         public Transform Navgator;
         public override void Start()
         {
             base.Start();
-            //GetComponent<NavMeshAgent>().updateUpAxis = false;
-            Navgator =  GetComponentInChildren<NavMeshAgent>().transform;
+    
+            var Nav = Navgator.GetComponent<NavMeshAgent>();
         }
-
-        public override void Update()
+        public void LateUpdate()
         {
-            base.Update();
-            transform.position = Navgator.position;
-            transform.rotation = Navgator.rotation;
+            if (IsLateApplyRot == true)
+            {
+                var Nav = Navgator.GetComponent<NavMeshAgent>();
+                //transform.position = new Vector3(Nav.transform.position.x, 3, Nav.transform.position.z);
+                transform.LookAt(Nav.steeringTarget);
+                
+            }
         }
     }
 }
