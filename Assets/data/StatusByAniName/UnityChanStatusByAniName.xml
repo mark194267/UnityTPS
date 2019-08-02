@@ -13,6 +13,10 @@
   <action name="slash3" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
   <action name="dual" x="-10" y="20" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
   <action name="move_tree" x="10" y="-8" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="Flying Knee Punch Combo" x="0" y="5" z="7" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
+  <action name="Flying Knee Punch Combo" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
+  <action name="Front Twist Flip" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
+  <action name="Aerial Evade" x="0" y="0.2" z="0.5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
+  <action name="RISING_Pfire" x="0" y="0.2" z="0.2" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
+  <action name="Big Jump" x="0" y="0.35" z="0.4" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
 
 </motion>

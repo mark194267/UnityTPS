@@ -128,22 +128,29 @@ namespace Assets.Script.ActionList
             Gun.ChangeWeapon(g.ToString());
             Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
             AvaterMain.anim_flag = 0;
-            _timer = 0;
+            AvaterMain.moveflag = 0;
+
+            NowVecter = new Vector3(AvaterMain.MotionStatus.camX,
+    AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
         }
         public override bool slash(ActionStatus actionStatus)
         {
             Me.GetComponent<Animator>().applyRootMotion = true;
             //Me.GetComponent<PlayerAvater>().IsRotChestH = true;
             //Me.GetComponent<PlayerAvater>().IsRotChestV = true;
-
+            
             if (AvaterMain.moveflag > 0)
             {
-                Vector3 vector = new Vector3(AvaterMain.MotionStatus.camX,
-                    AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
-                Rig.AddRelativeForce(vector, ForceMode.VelocityChange);
-                AvaterMain.moveflag = 0;
+                Me.GetComponent<Animator>().applyRootMotion = false;
+
+                NowVecter = Vector3.Slerp(NowVecter, Vector3.zero,Time.deltaTime*2.5f);
+                if (NowVecter.sqrMagnitude > 0)
+                {
+                    Rig.AddRelativeForce(NowVecter, ForceMode.VelocityChange);
+                }
             }
-            
+
+
             /*
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
@@ -164,7 +171,7 @@ namespace Assets.Script.ActionList
             Me.GetComponent<PlayerAvater>().IsRotChestH = false;
             Me.GetComponent<PlayerAvater>().IsRotChestV = false;
             AvaterMain.anim_flag = 0;
-            _timer = 0;
+            AvaterMain.moveflag = 0;
         }
 
         #region idle
