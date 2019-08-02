@@ -133,9 +133,17 @@ namespace Assets.Script.ActionList
         public override bool slash(ActionStatus actionStatus)
         {
             Me.GetComponent<Animator>().applyRootMotion = true;
-            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
-            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
+            //Me.GetComponent<PlayerAvater>().IsRotChestH = true;
+            //Me.GetComponent<PlayerAvater>().IsRotChestV = true;
 
+            if (AvaterMain.moveflag > 0)
+            {
+                Vector3 vector = new Vector3(AvaterMain.MotionStatus.camX,
+                    AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
+                Rig.AddRelativeForce(vector, ForceMode.VelocityChange);
+                AvaterMain.moveflag = 0;
+            }
+            
             /*
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
@@ -177,8 +185,13 @@ namespace Assets.Script.ActionList
         public override void Before_move(ActionStatus actionStatus)
         {
             Animator.SetBool("avater_can_jump", true);
-            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
-            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
+
+            PlayerAvater PA = Me.GetComponent<PlayerAvater>();
+            var ms = PA.MotionStatus;
+            PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
+
+            PA.IsRotChestH = true;
+            PA.IsRotChestV = true;
         }
 
         public override bool move(ActionStatus actionStatus)
@@ -201,6 +214,13 @@ namespace Assets.Script.ActionList
         public void Before_strafe(ActionStatus actionStatus)
         {
             //Gun.ChangeWeapon("AK47");
+
+            PlayerAvater PA = Me.GetComponent<PlayerAvater>();
+            var ms = PA.MotionStatus;
+            PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
+
+            PA.IsRotChestH = true;
+            PA.IsRotChestV = true;
         }
 
         public bool strafe(ActionStatus actionStatus)

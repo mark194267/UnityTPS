@@ -95,6 +95,13 @@ namespace Assets.Script.Config
             }
             */
 
+            if (Input.GetButton("grenade"))
+            {
+                Animator.SetBool("input_grenade",true);
+            }
+            else
+                Animator.SetBool("input_grenade", false);
+
             if (Input.GetButtonDown("Fire2"))
             {
                 Animator.SetTrigger("input_melee");

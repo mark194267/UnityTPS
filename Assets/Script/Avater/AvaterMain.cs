@@ -23,6 +23,7 @@ namespace Assets.Script.Avater
         public float ActionElapsedTime;
         public bool IsEndNormal = true;
         public int anim_flag;
+        public int moveflag;
         public StateMachine stateMachine { get; set; }
 
         protected int Hp { get; set; }
@@ -112,6 +113,13 @@ namespace Assets.Script.Avater
         {
             //Animator.SetInteger("anim_flag", flag);
             anim_flag = flag;
+            //Debug.Log("hi");
+        }
+
+        public void MoveFlag(int flag)
+        {
+            //Animator.SetInteger("anim_flag", flag);
+            moveflag = flag;
             //Debug.Log("hi");
         }
 

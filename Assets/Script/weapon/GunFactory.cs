@@ -12,6 +12,7 @@ namespace Assets.Script.weapon
     {
         public Dictionary<string, WeaponBasic> AllWeaponDictionary;
         public Dictionary<string, WeaponBasic> RangeDictionary;
+        public Dictionary<string, WeaponBasic> ShotgunDictionary;
         public Dictionary<string, WeaponBasic> SidearmDictionary;
         public Dictionary<string, WeaponBasic> RocketDictionary;
         public Dictionary<string, WeaponBasic> CloseDictionary;
@@ -22,13 +23,14 @@ namespace Assets.Script.weapon
         public void Init()
         {
             RangeDictionary = Loadweapon("range", "rifle");
+            ShotgunDictionary = Loadweapon("range", "shotgun");
             SidearmDictionary = Loadweapon("range", "sidearm");
             RocketDictionary = Loadweapon("range", "rocket");
             CloseDictionary = Loadweapon("close", "sword");
             DualDictionary = Loadweapon("close", "dual");
             KickDictionary = Loadweapon("close","kick");
             AllWeaponDictionary = 
-                RangeDictionary.Concat(CloseDictionary).Concat(RocketDictionary).Concat(DualDictionary).Concat(KickDictionary).Concat(SidearmDictionary)
+                RangeDictionary.Concat(CloseDictionary).Concat(RocketDictionary).Concat(DualDictionary).Concat(KickDictionary).Concat(SidearmDictionary).Concat(ShotgunDictionary)
                 .GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
         }
 
@@ -36,11 +38,13 @@ namespace Assets.Script.weapon
         {
             SidearmDictionary = Loadweapon("range", "sidearm",ammo);
             RangeDictionary = Loadweapon("range", "rifle",ammo);
+            ShotgunDictionary = Loadweapon("range", "shotgun",ammo);
             RocketDictionary = Loadweapon("range", "rocket", ammo);
             CloseDictionary = Loadweapon("close", "sword", ammo);
             AllWeaponDictionary = RangeDictionary
                 .Concat(CloseDictionary)
                 .Concat(RocketDictionary)
+                .Concat(ShotgunDictionary)
                 .Concat(SidearmDictionary)
                 .GroupBy(d => d.Key)
                 .ToDictionary(d => d.Key, d => d.First().Value);
