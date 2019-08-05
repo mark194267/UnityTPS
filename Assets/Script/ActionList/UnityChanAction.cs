@@ -141,6 +141,8 @@ namespace Assets.Script.ActionList
             
             if (AvaterMain.moveflag > 0)
             {
+                var camPos = Camera.transform.TransformDirection(Vector3.forward);
+                RotateTowardSlerp(Me.transform.position + camPos, 7f);
                 Me.GetComponent<Animator>().applyRootMotion = false;
 
                 NowVecter = Vector3.Slerp(NowVecter, Vector3.zero,Time.deltaTime*2.5f);
