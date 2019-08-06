@@ -138,20 +138,18 @@ namespace Assets.Script.ActionList
             Me.GetComponent<Animator>().applyRootMotion = true;
             //Me.GetComponent<PlayerAvater>().IsRotChestH = true;
             //Me.GetComponent<PlayerAvater>().IsRotChestV = true;
-            
             if (AvaterMain.moveflag > 0)
             {
                 var camPos = Camera.transform.TransformDirection(Vector3.forward);
-                RotateTowardSlerp(Me.transform.position + camPos, 7f);
+                RotateTowardSlerp(Me.transform.position + camPos, 3f);
                 Me.GetComponent<Animator>().applyRootMotion = false;
 
-                NowVecter = Vector3.Slerp(NowVecter, Vector3.zero,Time.deltaTime*2.5f);
+                NowVecter = Vector3.Slerp(NowVecter, Vector3.zero, Time.deltaTime * 2.5f);
                 if (NowVecter.sqrMagnitude > 0)
                 {
                     Rig.AddRelativeForce(NowVecter, ForceMode.VelocityChange);
                 }
             }
-
 
             /*
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
