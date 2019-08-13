@@ -1,23 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <motion>
-  <action name="TwoHandSlideSlash" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String =""></action>
-  <action name="TwoHand3Combo" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String =""></action>
-  <action name="TwoHandMoveTree" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="3" String =""></action>
-  <action name="OneHandMoveTree" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="5" String =""></action>
-  <action name="OneHandFPSMoveTree" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="5" String =""></action>
-  <action name="unarmed equip underarm" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="Handgun"></action>
-  <action name="unarmed equip over shoulder" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="Wakizashi"></action>
-  <action name="unarmed equip over shoulder Rifle" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="AK-47"></action>
-  <action name="slash1" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="slash2" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="slash3" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="dual" x="-10" y="20" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="move_tree" x="10" y="-8" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="Flying Knee Punch Combo" x="0" y="0" z="0.8" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="Front Twist Flip" x="0" y="0" z="0.8" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="Aerial Evade" x="0" y="0.2" z="0.5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="RISING_Pfire" x="0" y="0.2" z="0.4" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="Big Jump" x="0" y="0.35" z="0.4" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
-  <action name="2Hand-Sword-Attack2" x="0" y="0.2" z="0.4" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0"></action>
+  <action name="TwoHandSlideSlash" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
+  <action name="TwoHand3Combo" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
+  <action name="TwoHandMoveTree" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="3" String ="" IsRotV="false" IsRotH="false"></action>
+  <action name="OneHandMoveTree" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="5" String ="" IsRotV="false" IsRotH="false"></action>
+  <action name="OneHandFPSMoveTree" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="5" String ="" IsRotV="false" IsRotH="false"></action>
+  <action name="unarmed equip underarm" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="Handgun" IsRotV="false" IsRotH="false"></action>
+  <action name="unarmed equip over shoulder" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="Wakizashi" IsRotV="false" IsRotH="false"></action>
+  <action name="unarmed equip over shoulder Rifle" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="AK-47" IsRotV="false" IsRotH="false"></action>
+  <action name="slash1" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="slash2" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="slash3" x="0" y="0" z="5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="dual" x="-10" y="20" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="move_tree" x="10" y="-8" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="Flying Knee Punch Combo" x="0" y="0" z="0.8" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="Front Twist Flip" x="0" y="100" z="0.5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="Aerial Evade" x="0" y="0.2" z="0.5" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="RISING_Pfire" x="0" y="0.2" z="0.4" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="Big Jump" x="0" y="0.35" z="0.4" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="2Hand-Sword-Attack2" x="0" y="0.2" z="0.3" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="true" IsRotH="false"></action>
+  <action name="HeavySlash" x="0" y="0.2" z="0.3" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="true"></action>
 
 </motion>

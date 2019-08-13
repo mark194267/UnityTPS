@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <motion>
-  <action name="Unarmed_Attack_Kick_R1" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="kick"></action>
-  <action name="Unarmed_Attack_L1" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="fist"></action>
-  <action name="Unarmed_Attack_R2" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="fist"></action>
+  <action name="Unarmed_Attack_Kick_R1" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="kick" IsRotV="false" IsRotH="false"></action>
+  <action name="Unarmed_Attack_L1" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="fist" IsRotV="false" IsRotH="false"></action>
+  <action name="Unarmed_Attack_R2" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="fist" IsRotV="false" IsRotH="false"></action>
 </motion>

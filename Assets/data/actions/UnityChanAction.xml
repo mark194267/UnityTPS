@@ -57,6 +57,14 @@
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "fall"/>
   </close>
+  <close name = "slashRoot">
+    <f1 value = "0.3"/>
+    <f2 value = "0.75"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "fall"/>
+  </close>
   <close name = "block">
     <f1 value = "0.3"/>
     <f2 value = "0.75"/>

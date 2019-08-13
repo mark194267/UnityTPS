@@ -27,6 +27,9 @@ namespace Assets.Script.ActionControl
                 ms.motionDef = Convert.ToInt16(node.Attributes["motionDef"].Value);
                 ms.motionSpd = Convert.ToInt16(node.Attributes["motionSpd"].Value);
                 ms.motionStun = Convert.ToInt16(node.Attributes["motionStun"].Value);
+                ms.IsRotH = Convert.ToBoolean(node.Attributes["IsRotH"].Value);
+                ms.IsRotV = Convert.ToBoolean(node.Attributes["IsRotV"].Value);
+
                 ms.String = node.Attributes["String"].Value;
 
                 msDictionary.Add(actname, ms);
@@ -45,5 +48,8 @@ namespace Assets.Script.ActionControl
         public int motionStun { get; set; }
         public int motionSpd { get; set; }
         public string String { get; set; }
+
+        public bool IsRotH { get; set; }
+        public bool IsRotV { get; set; }
     }
 }

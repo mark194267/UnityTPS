@@ -33,8 +33,6 @@ namespace Assets.Script.ActionControl
         protected Camera Camera { get; set; }
         protected Rigidbody Rig { get; set; }
         public NavMeshAgent Agent { get; set; }
-        protected Vector3 NowVecter { get; set; }
-        protected Vector3 velocity { get; set; }
         protected InputManager InputManager { get; set; }
         protected AvaterMain AvaterMain { get; set; }
 
@@ -44,9 +42,6 @@ namespace Assets.Script.ActionControl
         public AIPath aiPathManager { get; set; }
         protected TargetInfo Targetinfo { get; set; }
         public HotAreaManager HotAreaManager { get; set; }
-
-        public HotArea hotArea { get; set; }
-
 
         public void Init(GameObject Me)
         {

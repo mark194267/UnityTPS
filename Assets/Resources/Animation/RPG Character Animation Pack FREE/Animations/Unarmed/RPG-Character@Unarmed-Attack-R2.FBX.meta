@@ -411,19 +411,19 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.30447456
-        functionName: GetAnimationFlag
+      - time: 0.28950447
+        functionName: MoveFlag
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.49444443
-        functionName: GetAnimationFlag
+      - time: 0.427762
+        functionName: MoveFlag
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 5
+        intParameter: 0
         messageOptions: 0
       transformMask:
       - path: 

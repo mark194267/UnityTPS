@@ -86,7 +86,7 @@ namespace Assets.Script.ActionList
         public void Before_SpreadOut(ActionStatus actionStatus)
         {
             Agent.updateRotation = false;
-            NowVecter = Vector3.zero;
+            //NowVecter = Vector3.zero;
             var MyPos = Me.transform.position;
             var TargetPos = Target.transform.position;
             RaycastHit hit;
@@ -118,7 +118,7 @@ namespace Assets.Script.ActionList
             {
                 Agent.SetDestination(navMeshHit.position);
                 //用於檢查                
-                NowVecter = navMeshHit.position;
+                //NowVecter = navMeshHit.position;
             }
         }
         public bool SpreadOut(ActionStatus actionStatus)
