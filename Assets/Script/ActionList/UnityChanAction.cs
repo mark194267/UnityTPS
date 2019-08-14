@@ -47,18 +47,22 @@ namespace Assets.Script.ActionList
         }
         public void Before_Mstrafe(ActionStatus actionStatus)
         {
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("strafe");
+
             //Me.GetComponent<Animator>().applyRootMotion = true;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
             Me.GetComponent<PlayerAvater>().IsRotChestH = false;
         }
         public bool Mstrafe(ActionStatus actionStatus)
         {
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
             //var camPos = Camera.transform.TransformDirection(Vector3.forward);
             //Vector3 direction = (Me.transform.position + camPos - Me.transform.position).normalized;
             //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
 
             //Me.GetComponent<Animator>().rootRotation = lookRotation;
 
-             //Gun.Swing(AvaterMain.anim_flag, 10, 10);
+            //Gun.Swing(AvaterMain.anim_flag, 10, 10);
 
             if (!Me.GetComponent<PlayerAvater>().IsRotChestH)
             {
@@ -191,7 +195,7 @@ namespace Assets.Script.ActionList
         }
         public bool slashRoot(ActionStatus actionStatus)
         {
-            Me.GetComponent<Animator>().applyRootMotion = true;
+            //Me.GetComponent<Animator>().applyRootMotion = true;
 
             Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
@@ -226,8 +230,9 @@ namespace Assets.Script.ActionList
             Animator.SetBool("avater_can_jump", true);
 
             PlayerAvater PA = Me.GetComponent<PlayerAvater>();
-            var ms = PA.MotionStatus;
-            PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
+            //var ms = PA.MotionStatus;
+            //PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("idle");
 
             PA.IsRotChestH = true;
             PA.IsRotChestV = true;
@@ -500,18 +505,22 @@ namespace Assets.Script.ActionList
             
             var vec = Me.transform.TransformDirection(Vector3.forward);
             vec.y = 0;
-            Rig.AddForce(vec * 6f, ForceMode.VelocityChange);
+            Rig.AddForce(vec * .5f, ForceMode.VelocityChange);
             
-            AvaterMain.anim_flag = 0;
+            _velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD+Vector3.up*.1f)* actionStatus.f1;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = false;
+            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            AvaterMain.moveflag = 0;
         }
         public bool slide(ActionStatus actionStatus)
         {
-            if (AvaterMain.anim_flag == 1)
+            if (AvaterMain.moveflag == 1)
             {
-                var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-                RotateTowardSlerp(Me.transform.position - camPos, 5f);
-                var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
-                Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, 5f);
+                //var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+                //RotateTowardSlerp(Me.transform.position - camPos, 5f);
+
+                _velocity = Vector3.Lerp(_velocity, Vector3.zero, 1.125f*Time.deltaTime);
+                Rig.velocity = _velocity;
 
                 Gun.fire(0);
             }
