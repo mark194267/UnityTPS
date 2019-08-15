@@ -16,10 +16,7 @@ public class Grandcheck : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //print(other.gameObject.name);
-        if (other.gameObject.layer != LayerMask.GetMask("AI"))
-        {
-            animator.SetBool("avater_IsLanded", true);
-        }
+        animator.SetBool("avater_IsLanded", true);
         /*if(!other.GetComponentInParent<AvaterMain>())
             MyObject.parent = other.transform;
         */
