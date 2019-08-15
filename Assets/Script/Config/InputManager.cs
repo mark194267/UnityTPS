@@ -62,15 +62,20 @@ namespace Assets.Script.Config
                 Animator.SetBool("input_fire", false);
             }
 
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Animator.SetTrigger("input_Light");
+            }
+
             #region 蓄力
             if (Input.GetButtonUp("Fire1"))
             {
-                Animator.SetFloat("input_charge", charge);
-                charge = 0;
+                //Animator.SetFloat("input_charge", charge);
+                //charge = 0;
             }
             if (Input.GetButton("Fire1"))
             {
-                charge += Time.deltaTime;
+                //charge += Time.deltaTime;
             }
             #endregion
 
@@ -104,7 +109,7 @@ namespace Assets.Script.Config
 
             if (Input.GetButtonDown("Fire2"))
             {
-                Animator.SetTrigger("input_melee");
+                Animator.SetTrigger("input_Heavy");
                 //Animator.SetTrigger("avatermain_panicmelee");
                 var anifloat = Animator.GetFloat("input_meleelevel");
                 if (anifloat < 5)

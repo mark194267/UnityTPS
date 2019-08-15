@@ -4,6 +4,7 @@ using Assets.Script.ActionControl;
 using Assets.Script.weapon;
 using Assets.Script.StaticFunction;
 using Assets.Script.Config;
+using System.Collections.Generic;
 
 namespace Assets.Script.Avater
 {
@@ -28,6 +29,8 @@ namespace Assets.Script.Avater
 
         public bool IsRotChestV = false;
         public bool IsRotChestH = false;
+
+        private List<chestValue> _chestValues = new List<chestValue>();
 
         public Transform chestTransform;
         public Vector3 chestOffSet;
@@ -74,7 +77,13 @@ namespace Assets.Script.Avater
 
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
-            
+
+            chestValue chestIdle = new chestValue { name = "idle", maxDegress = 60, chestOffSet = new Vector3(10,-8,0) };
+            chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(0, 20, 0) };
+
+            _chestValues.Add(chestIdle);
+            _chestValues.Add(chestMStrafe);
+
             /// 未來可能在此增加射線管理員
         }
 
@@ -142,6 +151,14 @@ namespace Assets.Script.Avater
         }
         */
 
+        public void ChangeRotOffSet(string name)
+        {
+            chestValue chest = _chestValues.Find(x => x.name == name);
+
+            chestOffSet = chest.chestOffSet;
+            chestMaxRot = chest.maxDegress;
+        }
+
         public void ChangeWeapon(int slotNum)
         {
             if (WeaponSlotNumber != slotNum)
@@ -180,5 +197,12 @@ namespace Assets.Script.Avater
                 }
             }
         }
+    }
+
+    public struct chestValue
+    {
+        public string name { get; set; }
+        public Vector3 chestOffSet { get; set; }
+        public float maxDegress { get; set; }
     }
 }

@@ -1236,7 +1236,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.7665087
-        functionName: GetAnimationFlag
+        functionName: MoveFlag
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

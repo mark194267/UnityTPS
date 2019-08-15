@@ -34,12 +34,12 @@
 		<ignore list = "0"/>
 	</move>
   <move name = "slide">
-    <f1 value = "8"/>
+    <f1 value = "20"/>
     <f2 value = "0"/>
     <f3 value = "0"/>
     <f4 value = "0"/>
     <vector3 x="0" y="0" z="0"/>
-    <ignore list = "jump"/>
+    <ignore list = "jump,fall"/>
   </move>
   <close name = "Mstrafe">
     <f1 value = "0.3"/>
