@@ -508,7 +508,7 @@ namespace Assets.Script.ActionList
             Rig.AddForce(vec * .5f, ForceMode.VelocityChange);
             
             _velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD+Vector3.up*.1f)* actionStatus.f1;
-            Me.GetComponent<PlayerAvater>().IsRotChestV = false;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
             Me.GetComponent<PlayerAvater>().IsRotChestH = false;
             AvaterMain.moveflag = 0;
         }
