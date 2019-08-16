@@ -507,7 +507,7 @@ namespace Assets.Script.ActionList
             vec.y = 0;
             Rig.AddForce(vec * .5f, ForceMode.VelocityChange);
             
-            _velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD+Vector3.up*.1f)* actionStatus.f1;
+            _velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD)* actionStatus.f1;
             Me.GetComponent<PlayerAvater>().IsRotChestV = true;
             Me.GetComponent<PlayerAvater>().IsRotChestH = false;
             AvaterMain.moveflag = 0;
@@ -520,6 +520,35 @@ namespace Assets.Script.ActionList
                 //RotateTowardSlerp(Me.transform.position - camPos, 5f);
 
                 _velocity = Vector3.Lerp(_velocity, Vector3.zero, 1.125f*Time.deltaTime);
+                Rig.velocity = _velocity;
+
+                Gun.fire(0);
+            }
+            return true;
+        }
+        #endregion
+
+        #region Dash
+        public void Before_dash(ActionStatus actionStatus)
+        {
+
+            var vec = Me.transform.TransformDirection(Vector3.forward);
+            vec.y = 0;
+            Rig.AddForce(vec * .5f, ForceMode.VelocityChange);
+
+            _velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD + Vector3.up * .1f) * actionStatus.f1;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
+            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            AvaterMain.moveflag = 0;
+        }
+        public bool dash(ActionStatus actionStatus)
+        {
+            if (AvaterMain.moveflag == 1)
+            {
+                //var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+                //RotateTowardSlerp(Me.transform.position - camPos, 5f);
+
+                _velocity = Vector3.Lerp(_velocity, Vector3.zero, 1.125f * Time.deltaTime);
                 Rig.velocity = _velocity;
 
                 Gun.fire(0);
