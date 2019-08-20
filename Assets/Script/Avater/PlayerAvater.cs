@@ -79,11 +79,15 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
 
             chestValue chestIdle = new chestValue { name = "idle", maxDegress = 60, chestOffSet = new Vector3(10,-8,0) };
-            chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(0, 20, 0) };
+            chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(0, 30, 0) };
+            chestValue chestDash = new chestValue { name = "dash", maxDegress = 0, chestOffSet = new Vector3(0, 20, 0) };
+            chestValue chestDash4way = new chestValue { name = "dash4way", maxDegress = 0, chestOffSet = new Vector3(0, 40, 0) };
+
 
             _chestValues.Add(chestIdle);
             _chestValues.Add(chestMStrafe);
-
+            _chestValues.Add(chestDash);
+            _chestValues.Add(chestDash4way);
             /// 未來可能在此增加射線管理員
         }
 

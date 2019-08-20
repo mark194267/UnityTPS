@@ -529,6 +529,7 @@ namespace Assets.Script.ActionList
         #endregion
 
         #region Dash
+        /*
         public void Before_dash(ActionStatus actionStatus)
         {
 
@@ -537,6 +538,7 @@ namespace Assets.Script.ActionList
             Rig.AddForce(vec * .5f, ForceMode.VelocityChange);
 
             _velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD + Vector3.up * .1f) * actionStatus.f1;
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("dash");
             Me.GetComponent<PlayerAvater>().IsRotChestV = true;
             Me.GetComponent<PlayerAvater>().IsRotChestH = false;
             AvaterMain.moveflag = 0;
@@ -554,6 +556,52 @@ namespace Assets.Script.ActionList
                 Gun.fire(0);
             }
             return true;
+        }
+        */
+        public void Before_dash(ActionStatus actionStatus)
+        {
+
+            //_velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD + Vector3.up * .1f) * actionStatus.f1;
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("dash");
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
+            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            AvaterMain.moveflag = 0;
+        }
+        public bool dash(ActionStatus actionStatus)
+        {
+            FPSLikeRigMovement(100f, 15f, 10f);
+            return true;
+        }
+        #endregion
+
+        #region 4WayDash
+
+        public void Before_fourWayDash(ActionStatus actionStatus)
+        {
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("dash4way");
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
+            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+
+            _timer = .3f;
+        }
+
+        public bool fourWayDash(ActionStatus actionStatus)
+        {
+            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+            RotateTowardSlerp(Me.transform.position - camPos, 4f);
+            var fwd = Me.transform.TransformVector(Vector3.forward * 10f);
+
+            if (AvaterMain.anim_flag == 1)
+            {
+                _timer += Time.deltaTime;
+                Rig.velocity = (fwd / _timer * _timer);
+            }
+            return true;
+        }
+
+        public void After_fourWayDash(ActionStatus actionStatus)
+        {
+
         }
         #endregion
 

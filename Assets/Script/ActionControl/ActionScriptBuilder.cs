@@ -419,6 +419,7 @@ namespace Assets.Script.ActionControl
             var dir =
                 Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
             //Rig.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
+            dir.y = 0;
             Rig.velocity = Vector3.Lerp(Rig.velocity, dir.normalized * InputManager.maxWSAD * maxSpeed, baseSpeed);
 
 
