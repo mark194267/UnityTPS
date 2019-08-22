@@ -479,7 +479,7 @@ ModelImporter:
       name: Heavy Weapon Swing
       takeName: mixamo.com
       internalID: 7400000
-      firstFrame: 30
+      firstFrame: 65
       lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0

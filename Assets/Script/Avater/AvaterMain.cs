@@ -24,7 +24,7 @@ namespace Assets.Script.Avater
         public bool IsEndNormal = true;
         public int anim_flag;
         public int moveflag;
-        public StateMachine stateMachine { get; set; }
+        
 
         protected int Hp { get; set; }
         protected double Stun { get; set; }
@@ -42,11 +42,13 @@ namespace Assets.Script.Avater
             Hp = avaterStatus.Hp;
             Stun = 0;
             Atk = avaterStatus.Atk;
-
+            
+            /*
             stateMachine = Animator.GetBehaviour<StateMachine>();
             stateMachine.me = gameObject;
             stateMachine.action = ActionScript;
             stateMachine.AvaterMain = this;
+            */
 
             foreach (var animaterparameter in Animator.parameters)
             {

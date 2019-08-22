@@ -14,6 +14,7 @@ namespace Assets.Script.Avater
         public TargetInfo targetInfo { get; set; }
         public RaycastHit hit { get; set; }
         public GameObject hot { get; set; }
+        public StateMachine stateMachine { get; set; }
         //public Vector3 formationPoint;
         //public Collider HotThing { get; set; }
         public AICommander Commander { get; set; }
@@ -38,6 +39,15 @@ namespace Assets.Script.Avater
 
         public virtual void Start()
         {
+            stateMachine = Animator.GetBehaviour<StateMachine>();
+            stateMachine.me = gameObject;
+            stateMachine.action = ActionScript;
+            stateMachine.AvaterMain = this;
+            stateMachine.AIBase = AIBase;
+            var aibase = stateMachine.AIBase;
+
+            targetInfo = aibase.TargetInfo;
+
             WeaponFactory weaponFactory = new WeaponFactory();
             weaponFactory.Init();
             var GunDic = weaponFactory.AllWeaponDictionary;

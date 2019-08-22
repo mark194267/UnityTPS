@@ -41,7 +41,7 @@ namespace Assets.Script.ActionList
             }
             return true;
         }
-        public void After_eqip(ActionStatus AS)
+        public void After_equip(ActionStatus AS)
         {
             AvaterMain.anim_flag = 0;
         }
@@ -120,19 +120,11 @@ namespace Assets.Script.ActionList
         }
         public void After_block(ActionStatus AS)
         {
-            Me.GetComponent<Animator>().applyRootMotion = false;
-            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
-            Me.GetComponent<PlayerAvater>().IsRotChestV = false;
-            AvaterMain.anim_flag = 0;
-            _timer = 0;
         }
 
         public override void Before_slash(ActionStatus actionStatus)
         {
-            AvaterMain.anim_flag = 0;
-            AvaterMain.moveflag = 0;
-
-            Rig.velocity = Vector3.zero;
+            //Rig.velocity = Vector3.zero;
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
             var g = Me.GetComponent<PlayerAvater>().myguns;
             Gun.ChangeWeapon(g.ToString());
@@ -140,6 +132,7 @@ namespace Assets.Script.ActionList
 
             Me.GetComponent<Animator>().applyRootMotion = true;
 
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("slash");
             Me.GetComponent<PlayerAvater>().IsRotChestH = AvaterMain.MotionStatus.IsRotH;
             Me.GetComponent<PlayerAvater>().IsRotChestV = AvaterMain.MotionStatus.IsRotV;
 
@@ -155,10 +148,7 @@ namespace Assets.Script.ActionList
                 Me.GetComponent<Animator>().applyRootMotion = false;
 
                 _vecter = Vector3.Slerp(_vecter, Vector3.zero, Time.deltaTime * _vecter.magnitude*7f);
-                if (_vecter.sqrMagnitude > 0)
-                {
-                    Rig.AddRelativeForce(_vecter, ForceMode.VelocityChange);
-                }
+                Rig.AddRelativeForce(_vecter, ForceMode.VelocityChange);
             }
             Gun.Swing(AvaterMain.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
             return true;
@@ -166,19 +156,11 @@ namespace Assets.Script.ActionList
         public void After_slash(ActionStatus actionStatus)
         {
             //Me.GetComponent<Animator>().applyRootMotion = false;
-
-            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
-            Me.GetComponent<PlayerAvater>().IsRotChestV = false;
-            AvaterMain.anim_flag = 0;
-            AvaterMain.moveflag = 0;
         }
 
 
         public void Before_slashRoot(ActionStatus actionStatus)
         {
-            AvaterMain.anim_flag = 0;
-            AvaterMain.moveflag = 0;
-
             Rig.velocity = Vector3.zero;
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
             var g = Me.GetComponent<PlayerAvater>().myguns;
@@ -202,12 +184,7 @@ namespace Assets.Script.ActionList
         }
         public void After_slashRoot(ActionStatus actionStatus)
         {
-            Me.GetComponent<Animator>().applyRootMotion = false;
 
-            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
-            Me.GetComponent<PlayerAvater>().IsRotChestV = false;
-            AvaterMain.anim_flag = 0;
-            AvaterMain.moveflag = 0;
         }
 
         #region idle
@@ -659,7 +636,6 @@ namespace Assets.Script.ActionList
             var hit = Me.GetComponent<ParkourCollision>().hit;
             //Me.transform.position = new Vector3(Me.transform.position.x, hit.point.y, Me.transform.position.z);
             Me.transform.position = hit.point;
-            Me.GetComponent<Animator>().applyRootMotion = false;
             Me.GetComponent<Animator>().SetBool("avater_IsLanded", true);
             //Debug.Log(hit.point);
         }

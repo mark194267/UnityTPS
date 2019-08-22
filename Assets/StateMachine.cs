@@ -16,8 +16,8 @@ public class StateMachine : StateMachineBehaviour
     public AvaterMain AvaterMain { get; set; }
     public AIBase AIBase { get; set; }
 
-    private ActionStatus _actionStatus { get; set; }
-    private MotionStatus _motionStatus { get; set; }
+    protected ActionStatus _actionStatus { get; set; }
+    protected MotionStatus _motionStatus { get; set; }
 
     private string _latestCommand;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state

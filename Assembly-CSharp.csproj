@@ -262,6 +262,7 @@
     <Compile Include="Assets\Extended Script\VRM\UniGLTF\UniJSON\Scripts\SimpleJSON.cs" />
     <Compile Include="Assets\Extended Script\VRM\UniGLTF\UniJSON\Scripts\StringSegment.cs" />
     <Compile Include="Assets\Extended Script\VRM\UniGLTF\UniUnlit\Scripts\Utils.cs" />
+    <Compile Include="Assets\PlayerStateMachine.cs" />
     <Compile Include="Assets\Resources\Char\TAZO_3D_C\DemoScene\Action_Manage.cs" />
     <Compile Include="Assets\Resources\Char\TAZO_3D_C\DemoScene\demo.cs" />
     <Compile Include="Assets\Script\ActionControl\ActionScriptBuilder.cs" />

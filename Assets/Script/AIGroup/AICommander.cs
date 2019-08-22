@@ -46,11 +46,7 @@ namespace Assets.Script.AIGroup
                 ai.targetInfo = ai.AIBase.TargetInfo;
                 //Debug.Log("5");
                 ai.Init_Avater();
-                ai.stateMachine.AIBase = ai.AIBase;
-                var aibase = ai.stateMachine.AIBase;
-                //Debug.Log(aibase.TargetInfo.Me.name);
-                //Debug.Log(aibase.TargetInfo.Target.name);
-                ai.targetInfo = aibase.TargetInfo;
+
                 //Debug.Log("7");
                 ai.hot = hot;
                 ai.HotAreaManager = HotAreaManager;

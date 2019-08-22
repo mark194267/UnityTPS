@@ -15,7 +15,7 @@ namespace Assets.Script.Avater
     {
         //武器欄
         //public Dictionary<int,string> PlayerWeaponDictionary;
-
+        public PlayerStateMachine stateMachine { get; set; }
         public AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
         public GameObject GroundCheck;
@@ -47,8 +47,16 @@ namespace Assets.Script.Avater
         {
             camera = gameObject.transform.Find("Camera").gameObject;
             avaterStatus = avaterDataLoader.LoadStatus("UnityChan");
+            
             //暫時，初始化到時會交出去
             Init_Avater();
+
+            stateMachine = Animator.GetBehaviour<PlayerStateMachine>();
+            stateMachine.me = gameObject;
+            stateMachine.action = ActionScript;
+            stateMachine.AvaterMain = this;
+            stateMachine.PlayerAvater = this;
+
             //獲取腳色動作值
             motionStatusDir = statusBuilder.GetMotionList("UnityChan");
             //GetAnimaterParameter();
@@ -78,16 +86,20 @@ namespace Assets.Script.Avater
             gameObject.GetComponent<Gun>().CreateWeaponByList();
             gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
 
+            chestValue none = new chestValue { name = "none", maxDegress = 60, chestOffSet = new Vector3(0, 0, 0) };
+            chestValue chestSlash = new chestValue { name = "slash", maxDegress = 60, chestOffSet = new Vector3(0, 0, 0) };
             chestValue chestIdle = new chestValue { name = "idle", maxDegress = 60, chestOffSet = new Vector3(10,-8,0) };
             chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(0, 30, 0) };
             chestValue chestDash = new chestValue { name = "dash", maxDegress = 0, chestOffSet = new Vector3(0, 20, 0) };
             chestValue chestDash4way = new chestValue { name = "dash4way", maxDegress = 0, chestOffSet = new Vector3(0, 40, 0) };
 
-
+            _chestValues.Add(none);
             _chestValues.Add(chestIdle);
             _chestValues.Add(chestMStrafe);
             _chestValues.Add(chestDash);
             _chestValues.Add(chestDash4way);
+            _chestValues.Add(chestSlash);
+
             /// 未來可能在此增加射線管理員
         }
 
@@ -154,6 +166,16 @@ namespace Assets.Script.Avater
             return Num;
         }
         */
+
+        public void ChangeAniRoot(bool IsRoot)
+        {
+            if (moveflag > 0 || IsRoot)
+            {
+                Animator.applyRootMotion = true;
+            }
+            else
+                Animator.applyRootMotion = false;
+        }
 
         public void ChangeRotOffSet(string name)
         {
