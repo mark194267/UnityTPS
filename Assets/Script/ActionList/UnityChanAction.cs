@@ -255,6 +255,32 @@ namespace Assets.Script.ActionList
         }
         #endregion
 
+        #region Pistolstrafe
+        public void Before_Pistolstrafe(ActionStatus actionStatus)
+        {
+            //Gun.ChangeWeapon("AK47");
+
+            PlayerAvater PA = Me.GetComponent<PlayerAvater>();
+            var ms = PA.MotionStatus;
+
+            PA.ChangeRotOffSet("pistol");
+            //PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
+
+            PA.IsRotChestH = true;
+            PA.IsRotChestV = true;
+        }
+
+        public bool Pistolstrafe(ActionStatus actionStatus)
+        {
+            FPSLikeRigMovement(7f, 10f);
+            if (Input.GetButton("Fire1"))
+            {
+                return Gun.fire(0);
+            }
+            return true;
+        }
+        #endregion
+
         #region jump
         public void Before_jump(ActionStatus actionStatus)
         {
@@ -287,13 +313,26 @@ namespace Assets.Script.ActionList
         #region jumpout
         public void Before_jumpout(ActionStatus AS)
         {
+            Animator.applyRootMotion = true;
             //Me.GetComponent<Animator>().applyRootMotion = false;
             //Rig.AddRelativeForce(Vector3.up*5+Vector3.back * 5f, ForceMode.VelocityChange);
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("Pistolsilde");
+            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = true;
+
+            _velocity = Me.transform.TransformVector(Vector3.right*Animator.GetFloat("input_ad") * 10f);
         }
 
         public bool jumpout(ActionStatus AS)
         {
-            Rig.velocity = Rig.transform.TransformVector(Vector3.up*4+Vector3.back);
+            var pa = Me.GetComponent<PlayerAvater>();
+            if (pa.moveflag == 1)
+            {
+                Animator.applyRootMotion = false;
+                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+                Rig.velocity = _velocity;
+                //pa.moveflag = 0;
+            }
             return true;
         }
         public void After_jumpout(ActionStatus AS)
@@ -327,7 +366,7 @@ namespace Assets.Script.ActionList
         public void Before_wallrun(ActionStatus actionStatus)
         {
             Me.GetComponent<PlayerAvater>().IsRotChestH = true;
-
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("wallrun");
             float angle;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
             {
@@ -483,10 +522,10 @@ namespace Assets.Script.ActionList
             var vec = Me.transform.TransformDirection(Vector3.forward);
             vec.y = 0;
             Rig.AddForce(vec * .5f, ForceMode.VelocityChange);
-            
+
             _velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD)* actionStatus.f1;
             Me.GetComponent<PlayerAvater>().IsRotChestV = true;
-            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
             AvaterMain.moveflag = 0;
         }
         public bool slide(ActionStatus actionStatus)
