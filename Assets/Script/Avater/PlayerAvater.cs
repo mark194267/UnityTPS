@@ -27,11 +27,14 @@ namespace Assets.Script.Avater
         public AllAmmoType ammoType = new AllAmmoType();
         public GameObject camera { get; set; }
 
+        public bool IsRotChest = false;
         public bool IsRotChestV = false;
         public bool IsRotChestH = false;
 
         private List<chestValue> _chestValues = new List<chestValue>();
+        private List<camValue> _camValues = new List<camValue>();
 
+        public Transform Hip;
         public Transform chestTransform;
         public Vector3 chestOffSet;
         public float chestMaxRot;
@@ -91,10 +94,10 @@ namespace Assets.Script.Avater
             chestValue chestPistol = new chestValue { name = "pistol", maxDegress = 60, chestOffSet = new Vector3(-40, 0, 0) };
             chestValue chestWallrun = new chestValue { name = "wallrun", maxDegress = 120, chestOffSet = new Vector3(0, 0, 0) };
             chestValue chestIdle = new chestValue { name = "idle", maxDegress = 60, chestOffSet = new Vector3(10,-8,0) };
-            chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(0, 30, 0) };
-            chestValue chestDash = new chestValue { name = "dash", maxDegress = 0, chestOffSet = new Vector3(0, 20, 0) };
+            chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(20, 0, 0) };
+            chestValue chestDash = new chestValue { name = "dash", maxDegress = 0, chestOffSet = new Vector3(20, 0, 0) };
             chestValue chestDash4way = new chestValue { name = "dash4way", maxDegress = 0, chestOffSet = new Vector3(0, 40, 0) };
-            chestValue chestPistolsilde = new chestValue { name = "Pistolsilde", maxDegress = 60, chestOffSet = new Vector3(30, 0, 0) };
+            chestValue chestPistolsilde = new chestValue { name = "Pistolsilde", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
 
             _chestValues.Add(none);
             _chestValues.Add(chestIdle);
@@ -105,6 +108,12 @@ namespace Assets.Script.Avater
             _chestValues.Add(chestPistol);
             _chestValues.Add(chestWallrun);
             _chestValues.Add(chestPistolsilde);
+
+            camValue camNormal = new camValue { name = "none",IsLimitX = false, Max_x = 360, Min_x = -360, Max_y = 80, Min_y = -70 };
+            camValue camSidedodgeR = new camValue { name = "sidedodgeR",IsLimitX = true, Max_x = 30, Min_x = -70, Max_y = -10, Min_y = -50 };
+
+            _camValues.Add(camNormal);
+            _camValues.Add(camSidedodgeR);
 
             /// 未來可能在此增加射線管理員
         }
@@ -119,34 +128,38 @@ namespace Assets.Script.Avater
 
         private void LateUpdate()
         {
-            if (IsRotChestV||IsRotChestH)
+            if (IsRotChest|| IsRotChestH|| IsRotChestV)
             {
-                ChestLook(IsRotChestV,IsRotChestH);
+                ChestLook();
             }
         }
 
-        public void ChestLook(bool IsV,bool IsH)
+        public void ChestLook()
         {
             var cam = camera.GetComponent<MouseOrbitImproved>();
-            //var came = camera.GetComponent<Camera>();
-            //chestTransform.LookAt(came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2,100f)));
-            //chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(chestOffSet.x, Vector3.up);
-            //chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(chestOffSet.y, Vector3.right);
+            var came = camera.GetComponent<Camera>();
 
-            if (IsH)
+            //父節點的角度
+            var Rootrot = transform.rotation.eulerAngles;
+            var root = RotFunction.Clamp180(Rootrot.y);
+            var camY = RotFunction.Clamp180(cam.x);
+
+            //取得目標的本地角度
+            var TargetRot = RotFunction.Clamp180(camY - root);
+            Animator.SetFloat("avater_ChestAngleH", TargetRot);
+
+            if (IsRotChest)
             {
-                //父節點的角度
-                var Rootrot = transform.rotation.eulerAngles;
-                var root = RotFunction.Clamp180(Rootrot.y);
-                var camY = RotFunction.Clamp180(cam.x);
-
-                //取得目標的本地角度
-                var TargetRot = RotFunction.Clamp180(camY - root);
+                chestTransform.LookAt(came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2, 100f)), Hip.TransformDirection(Vector3.up));
+                chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(chestOffSet.x, Vector3.up);
+                chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(chestOffSet.y, Vector3.right);
+            }
+            if (IsRotChestH)
+            {
                 //子節點的角度
                 var ChestRot = chestTransform.rotation.eulerAngles;
                 var RotAngle = Mathf.Clamp(TargetRot, -chestMaxRot, chestMaxRot);
 
-                Animator.SetFloat("avater_ChestAngleH", TargetRot);
                 //目前SLerp不能接元轉向
                 //因為每一針開始轉向都會被歸位，因此要給的是轉向差
 
@@ -160,11 +173,10 @@ namespace Assets.Script.Avater
                 chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(RotAngle + chestOffSet.x, Vector3.up);
             }
 
-            if (IsV)
+            if (IsRotChestV)
             {
                 chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(cam.y + chestOffSet.y, Vector3.right);
             }
-
         }
         /*
         public float Clamp180(float Num)
@@ -197,6 +209,18 @@ namespace Assets.Script.Avater
 
             chestOffSet = chest.chestOffSet;
             chestMaxRot = chest.maxDegress;
+        }
+
+        public void ChangeCamLimit(string name)
+        {
+            camValue camv = _camValues.Find(x => x.name == name);
+
+            var cam = camera.GetComponent<MouseOrbitImproved>();
+            cam.IsLimitX = camv.IsLimitX;
+            cam.xMaxLimit = camv.Max_x;
+            cam.xMinLimit = camv.Min_x;
+            cam.yMaxLimit = camv.Max_y;
+            cam.yMinLimit = camv.Min_y;
         }
 
         public void ChangeWeapon(int slotNum)
@@ -244,5 +268,15 @@ namespace Assets.Script.Avater
         public string name { get; set; }
         public Vector3 chestOffSet { get; set; }
         public float maxDegress { get; set; }
+    }
+    public struct camValue
+    {
+        public string name { get; set; }
+
+        public bool IsLimitX;
+        public float Max_x;
+        public float Min_x;
+        public float Max_y;
+        public float Min_y;
     }
 }

@@ -21,5 +21,6 @@
   <action name="2Hand-Sword-Attack2" x="0" y="0.2" z="0.3" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="true" IsRotH="true"></action>
   <action name="HeavySlash" x="0" y="0.2" z="0.3" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="true"></action>
   <action name="MeleeMoveTreeV2" x="0" y="30" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="true"></action>
+  <action name="RifleBlendtree" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="0" IsRotV="false" IsRotH="true"></action>
 
 </motion>

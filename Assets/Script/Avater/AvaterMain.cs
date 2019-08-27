@@ -120,9 +120,7 @@ namespace Assets.Script.Avater
 
         public void MoveFlag(int flag)
         {
-            //Animator.SetInteger("anim_flag", flag);
             moveflag = flag;
-            //Debug.Log("hi");
         }
 
         public void GetAnimationIntMatrix(string intstring)

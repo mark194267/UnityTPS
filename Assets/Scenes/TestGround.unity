@@ -2001,6 +2001,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &455967719 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2281014836766754412, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+    type: 3}
+  m_PrefabInstance: {fileID: 2053095847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &512890331
 GameObject:
   m_ObjectHideFlags: 0
@@ -11722,6 +11728,11 @@ PrefabInstance:
       propertyPath: yMinLimit
       value: -70
       objectReference: {fileID: 0}
+    - target: {fileID: 2090582554752155296, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+        type: 3}
+      propertyPath: IsLimitX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2594459011546240315, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
       propertyPath: m_Radius
@@ -11737,6 +11748,11 @@ PrefabInstance:
       propertyPath: chestMaxRot
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2594459011546240288, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+        type: 3}
+      propertyPath: Hip
+      value: 
+      objectReference: {fileID: 455967719}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a199ede1e4bf74488ff0cabbc1a9a37, type: 3}
 --- !u!43 &2112117979

@@ -17,7 +17,7 @@ public class PlayerStateMachine : StateMachine
         {
             PlayerAvater.moveflag = 0;
             PlayerAvater.anim_flag = 0;
-
+            PlayerAvater.IsRotChest = false;
             PlayerAvater.IsRotChestH = false;
             PlayerAvater.IsRotChestV = false;
 
@@ -28,8 +28,8 @@ public class PlayerStateMachine : StateMachine
                 //Debug.Log(me.name);
                 foreach (var motionStatus in AvaterMain.motionStatusDir)
                 {
-                    //                    Debug.Log(motionStatus.Key);
-                    //                    Debug.Log(motionStatus.Value.String);
+                    //Debug.Log(motionStatus.Key);
+                    //Debug.Log(motionStatus.Value.String);
                     if (stateInfo.IsName(motionStatus.Key))
                     {
                         AvaterMain.MotionStatus = motionStatus.Value;
