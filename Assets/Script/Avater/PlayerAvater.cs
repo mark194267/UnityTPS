@@ -98,6 +98,7 @@ namespace Assets.Script.Avater
             chestValue chestDash = new chestValue { name = "dash", maxDegress = 0, chestOffSet = new Vector3(20, 0, 0) };
             chestValue chestDash4way = new chestValue { name = "dash4way", maxDegress = 0, chestOffSet = new Vector3(0, 40, 0) };
             chestValue chestPistolsilde = new chestValue { name = "Pistolsilde", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
+            chestValue chestPistolsildeL = new chestValue { name = "PistolsildeL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
 
             _chestValues.Add(none);
             _chestValues.Add(chestIdle);
@@ -108,12 +109,15 @@ namespace Assets.Script.Avater
             _chestValues.Add(chestPistol);
             _chestValues.Add(chestWallrun);
             _chestValues.Add(chestPistolsilde);
+            _chestValues.Add(chestPistolsildeL);
 
             camValue camNormal = new camValue { name = "none",IsLimitX = false, Max_x = 360, Min_x = -360, Max_y = 80, Min_y = -70 };
             camValue camSidedodgeR = new camValue { name = "sidedodgeR",IsLimitX = true, Max_x = 30, Min_x = -70, Max_y = -10, Min_y = -50 };
+            camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 70, Min_x = -30, Max_y = -10, Min_y = -50 };
 
             _camValues.Add(camNormal);
             _camValues.Add(camSidedodgeR);
+            _camValues.Add(camSidedodgeL);
 
             /// 未來可能在此增加射線管理員
         }

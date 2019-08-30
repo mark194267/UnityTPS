@@ -320,8 +320,6 @@ namespace Assets.Script.ActionList
 
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("Pistolsilde");
             Me.GetComponent<PlayerAvater>().IsRotChest = true;
-            //Me.GetComponent<PlayerAvater>().IsRotChestH = true;
-            //Me.GetComponent<PlayerAvater>().IsRotChestV = true;
             Me.GetComponent<PlayerAvater>().ChangeCamLimit("sidedodgeR");
 
             _velocity = Me.transform.TransformVector(Vector3.right*Animator.GetFloat("input_ad") * 10f);
@@ -336,15 +334,44 @@ namespace Assets.Script.ActionList
                 Animator.applyRootMotion = false;
                 _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
                 Rig.velocity = _velocity;
-                //pa.moveflag = 0;
             }
+            Gun.fire(0);
             return true;
         }
         public void After_jumpout(ActionStatus AS)
         {
             Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
-            //Me.GetComponent<Animator>().applyRootMotion = false;
         }
+
+        public void Before_jumpoutL(ActionStatus AS)
+        {
+            Animator.applyRootMotion = true;
+
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("PistolsildeL");
+            Me.GetComponent<PlayerAvater>().IsRotChest = true;
+            Me.GetComponent<PlayerAvater>().ChangeCamLimit("sidedodgeL");
+
+            _velocity = Me.transform.TransformVector(Vector3.right * Animator.GetFloat("input_ad") * 10f);
+
+        }
+
+        public bool jumpoutL(ActionStatus AS)
+        {
+            var pa = Me.GetComponent<PlayerAvater>();
+            if (pa.moveflag == 1)
+            {
+                Animator.applyRootMotion = false;
+                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+                Rig.velocity = _velocity;
+            }
+            Gun.fire(0);
+            return true;
+        }
+        public void After_jumpoutL(ActionStatus AS)
+        {
+            Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
+        }
+
 
         #endregion
 
