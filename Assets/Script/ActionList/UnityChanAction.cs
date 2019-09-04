@@ -14,6 +14,8 @@ namespace Assets.Script.ActionList
         private float _timer;
         private Vector3 _vecter;
         private Vector3 _velocity;
+        PlayerAvater PA;
+        int weaponindex;
 
         public void Before_equip(ActionStatus actionStatus)
         {
@@ -77,7 +79,8 @@ namespace Assets.Script.ActionList
         }
         public void Before_kick(ActionStatus actionStatus)
         {
-            //Gun.ChangeWeapon("kick");
+            Gun.ChangeWeapon("kick");
+            weaponindex = Convert.ToInt32(PA.MotionStatus.String);
             Me.GetComponent<Animator>().applyRootMotion = true;
         }
 
@@ -85,18 +88,14 @@ namespace Assets.Script.ActionList
         {
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
-
-            if (AvaterMain.anim_flag == 2)
-            {
-                Rig.velocity = _vecter;
-                Rig.velocity += Me.transform.TransformDirection(Vector3.forward * 2f);
-            }
+            Gun.SwingByIndex(weaponindex, 1, 1);
             //Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
         }
         public void After_kick(ActionStatus actionStatus)
         {
-            //Gun.ChangeWeapon("kick");
+            var g = Me.GetComponent<PlayerAvater>().myguns;
+            Gun.ChangeWeapon(g.ToString());
             //Me.GetComponent<Animator>().applyRootMotion = false;
 
         }
@@ -187,6 +186,15 @@ namespace Assets.Script.ActionList
         {
 
         }
+        public void Before_frontflip(ActionStatus AS)
+        {
+            //Rig.AddRelativeForce(Vector3.up*5+Vector3.back * 5f, ForceMode.VelocityChange);
+        }
+        public bool frontflip(ActionStatus AS)
+        {
+            Rig.velocity = Rig.transform.TransformVector(Vector3.up * 4 + Vector3.back);
+            return true;
+        }
 
         #region idle
         public override void Before_idle(ActionStatus actionStatus)
@@ -207,13 +215,13 @@ namespace Assets.Script.ActionList
         {
             Animator.SetBool("avater_can_jump", true);
 
-            PlayerAvater PA = Me.GetComponent<PlayerAvater>();
+            PA = Me.GetComponent<PlayerAvater>();
             //var ms = PA.MotionStatus;
             //PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("idle");
 
-            PA.IsRotChestH = true;
-            PA.IsRotChestV = true;
+            //PA.IsRotChestH = true;
+            //PA.IsRotChestV = true;
         }
 
         public override bool move(ActionStatus actionStatus)
@@ -335,7 +343,7 @@ namespace Assets.Script.ActionList
                 _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
                 Rig.velocity = _velocity;
             }
-            Gun.fire(0);
+            //Gun.fire(0);
             return true;
         }
         public void After_jumpout(ActionStatus AS)
@@ -364,7 +372,7 @@ namespace Assets.Script.ActionList
                 _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
                 Rig.velocity = _velocity;
             }
-            Gun.fire(0);
+            //Gun.fire(0);
             return true;
         }
         public void After_jumpoutL(ActionStatus AS)

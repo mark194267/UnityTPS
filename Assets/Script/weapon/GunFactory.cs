@@ -41,11 +41,13 @@ namespace Assets.Script.weapon
             ShotgunDictionary = Loadweapon("range", "shotgun",ammo);
             RocketDictionary = Loadweapon("range", "rocket", ammo);
             CloseDictionary = Loadweapon("close", "sword", ammo);
+            KickDictionary = Loadweapon("close", "kick",ammo);
             AllWeaponDictionary = RangeDictionary
                 .Concat(CloseDictionary)
                 .Concat(RocketDictionary)
                 .Concat(ShotgunDictionary)
                 .Concat(SidearmDictionary)
+                .Concat(KickDictionary)
                 .GroupBy(d => d.Key)
                 .ToDictionary(d => d.Key, d => d.First().Value);
         }

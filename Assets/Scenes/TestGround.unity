@@ -2001,12 +2001,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &455967719 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2281014836766754412, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-    type: 3}
-  m_PrefabInstance: {fileID: 2053095847}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &512890331
 GameObject:
   m_ObjectHideFlags: 0
@@ -6711,25 +6705,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1276401002 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2594459011546240314, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-    type: 3}
-  m_PrefabInstance: {fileID: 2053095847}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1276401019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276401002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67f6a66ba06af9e43afa3cccf1d3d21b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IngoreMesh: 0
 --- !u!4 &1318816432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5879999272610157779, guid: 786c7bdf10f770d438730f63a24ebee5,
@@ -9255,42 +9230,6 @@ Material:
     - _Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!4 &1720320079 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3433013691335563752, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-    type: 3}
-  m_PrefabInstance: {fileID: 2053095847}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1725368556
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1725368557}
-  m_Layer: 8
-  m_Name: shotgun
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1725368557
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1725368556}
-  m_LocalRotation: {x: 0.066612214, y: -0.52994716, z: -0.7938212, w: 0.29080364}
-  m_LocalPosition: {x: -0.261, y: 0.092, z: 0.152}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1720320079}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -53.381004, y: -43.95, z: -116.826004}
 --- !u!1 &1735071985 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 292771864561623263, guid: 786c7bdf10f770d438730f63a24ebee5,
@@ -11723,36 +11662,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2090582554752155296, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: yMinLimit
-      value: -70
-      objectReference: {fileID: 0}
-    - target: {fileID: 2090582554752155296, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: IsLimitX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2594459011546240315, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5973635835758463885, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 2eefb7bda80402c4594e7606dbaff600, type: 2}
-    - target: {fileID: 2594459011546240288, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: chestMaxRot
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2594459011546240288, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
-        type: 3}
-      propertyPath: Hip
-      value: 
-      objectReference: {fileID: 455967719}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a199ede1e4bf74488ff0cabbc1a9a37, type: 3}
 --- !u!43 &2112117979
