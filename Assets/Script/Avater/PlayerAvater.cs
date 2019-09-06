@@ -75,20 +75,29 @@ namespace Assets.Script.Avater
 
             var GunDic = weaponFactory.AllWeaponDictionary;
 
-            gameObject.GetComponent<Gun>().SetPlayerAvater(this);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["MG"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["SMAW"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Great_Sword"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Cross_Sword"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["AK47"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Handgun"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Shotgun"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["kick"]);
+            GetComponent<Gun>().SetPlayerAvater(this);
+            GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
+            GetComponent<Gun>().AddWeapon(GunDic["MG"]);
+            GetComponent<Gun>().AddWeapon(GunDic["SMAW"]);
+            GetComponent<Gun>().AddWeapon(GunDic["Great_Sword"]);
+            GetComponent<Gun>().AddWeapon(GunDic["Cross_Sword"]);
+            GetComponent<Gun>().AddWeapon(GunDic["AK47"]);
+            GetComponent<Gun>().AddWeapon(GunDic["Handgun"]);
+            GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
+            GetComponent<Gun>().AddWeapon(GunDic["Shotgun"]);
+            GetComponent<Gun>().AddWeapon(GunDic["kick"]);
 
-            gameObject.GetComponent<Gun>().CreateWeaponByList();
-            gameObject.GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
+            GetComponent<Gun>().CreateWeaponByList();
+            GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
+
+            GetComponent<Gun>().LoadSingleWeapon("kick");
+            GetComponent<Gun>().LoadSingleWeapon("AK47");
+            GetComponent<Gun>().LoadSingleWeapon("Handgun");
+            GetComponent<Gun>().LoadSingleWeapon("Shotgun");
+            GetComponent<Gun>().LoadSingleWeapon("Great_Sword");
+            GetComponent<Gun>().LoadSingleWeapon("SMAW");
+            GetComponent<Gun>().InactiveAllWeapon();
+            GetComponent<Gun>().ActiveWeapon("kick");
 
             chestValue none = new chestValue { name = "none", maxDegress = 60, chestOffSet = new Vector3(0, 0, 0) };
             chestValue chestSlash = new chestValue { name = "slash", maxDegress = 60, chestOffSet = new Vector3(0, 0, 0) };

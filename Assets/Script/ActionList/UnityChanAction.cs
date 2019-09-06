@@ -15,7 +15,8 @@ namespace Assets.Script.ActionList
         private Vector3 _vecter;
         private Vector3 _velocity;
         PlayerAvater PA;
-        int weaponindex;
+        PlayerAvater.Guns g;
+        string LastWeapon;
 
         public void Before_equip(ActionStatus actionStatus)
         {
@@ -37,9 +38,15 @@ namespace Assets.Script.ActionList
             {
                 //Debug.Log(AvaterMain.MotionStatus.String);
                 //Gun.ChangeWeapon(AvaterMain.MotionStatus.String);
-                var g = Me.GetComponent<PlayerAvater>().myguns;
+                if (!String.IsNullOrEmpty(LastWeapon))
+                {
+                    Gun.InactiveWeapon(LastWeapon);
+                }
+
+                LastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
                 //Debug.Log(g.ToString());
-                Gun.ChangeWeapon(g.ToString());
+                //Gun.ChangeWeapon(g.ToString());
+                Gun.ActiveWeapon(LastWeapon);
             }
             return true;
         }
@@ -55,6 +62,8 @@ namespace Assets.Script.ActionList
             Me.GetComponent<PlayerAvater>().IsRotChest = true;
             //Me.GetComponent<PlayerAvater>().IsRotChestV = true;
             //Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            Gun.SpecialWeaponBasic = Gun.ActiveWeapon("kick")[0];
+
         }
         public bool Mstrafe(ActionStatus actionStatus)
         {
@@ -67,10 +76,8 @@ namespace Assets.Script.ActionList
 
             //Gun.Swing(AvaterMain.anim_flag, 10, 10);
 
-            if (!Me.GetComponent<PlayerAvater>().IsRotChestH)
-            {
-                FPSLikeRigMovement(7f, 10f);
-            }
+            FPSLikeRigMovement(7f, 10f);
+
             return true;
         }
         public void After_Mstrafe(ActionStatus actionStatus)
@@ -79,23 +86,28 @@ namespace Assets.Script.ActionList
         }
         public void Before_kick(ActionStatus actionStatus)
         {
-            Gun.ChangeWeapon("kick");
-            weaponindex = Convert.ToInt32(PA.MotionStatus.String);
+            //Gun.ChangeWeapon("kick");
             Me.GetComponent<Animator>().applyRootMotion = true;
+            Gun.SpecialWeaponBasic = Gun.ActiveWeapon("kick")[0];
+
         }
 
         public bool kick(ActionStatus actionStatus)
         {
             var camPos = Camera.transform.TransformDirection(Vector3.forward);
             RotateTowardlerp(Me.transform.position + camPos, 7f);
-            Gun.SwingByIndex(weaponindex, 1, 1);
+            //Gun.SwingByIndex(weaponindex, 1, 1);
+            Gun.Swing(Gun.SpecialWeaponBasic);
+
             //Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
             return true;
         }
         public void After_kick(ActionStatus actionStatus)
         {
-            var g = Me.GetComponent<PlayerAvater>().myguns;
-            Gun.ChangeWeapon(g.ToString());
+            //Gun.tempWeaponBasic.weapon.SetActive(false);
+            //var g = Me.GetComponent<PlayerAvater>().myguns;
+            //Gun.InactiveWeapon("kick");
+            //Gun.ChangeWeapon(g.ToString());
             //Me.GetComponent<Animator>().applyRootMotion = false;
 
         }
@@ -126,8 +138,10 @@ namespace Assets.Script.ActionList
         {
             //Rig.velocity = Vector3.zero;
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
-            var g = Me.GetComponent<PlayerAvater>().myguns;
-            Gun.ChangeWeapon(g.ToString());
+            //var g = Me.GetComponent<PlayerAvater>().myguns;
+            //Gun.ChangeWeapon(g.ToString());
+            Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
+
             Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
 
             Me.GetComponent<Animator>().applyRootMotion = true;
@@ -150,7 +164,9 @@ namespace Assets.Script.ActionList
                 _vecter = Vector3.Slerp(_vecter, Vector3.zero, Time.deltaTime * _vecter.magnitude*7f);
                 Rig.AddRelativeForce(_vecter, ForceMode.VelocityChange);
             }
-            Gun.Swing(AvaterMain.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
+            //Gun.Swing(AvaterMain.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
+            Gun.Swing(Gun.MainWeaponBasic);
+
             return true;
         }
         public void After_slash(ActionStatus actionStatus)
@@ -163,9 +179,10 @@ namespace Assets.Script.ActionList
         {
             Rig.velocity = Vector3.zero;
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
-            var g = Me.GetComponent<PlayerAvater>().myguns;
-            Gun.ChangeWeapon(g.ToString());
+
+            //Gun.ChangeWeapon(g.ToString());
             Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
+            Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
 
             Me.GetComponent<Animator>().applyRootMotion = true;
 
@@ -179,7 +196,9 @@ namespace Assets.Script.ActionList
         {
             //Me.GetComponent<Animator>().applyRootMotion = true;
 
-            Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
+            //Gun.Swing(AvaterMain.anim_flag, (int)Convert.ToDouble(actionStatus.Vector3.x), actionStatus.Vector3.y);
+            Gun.Swing(Gun.MainWeaponBasic);
+
             return true;
         }
         public void After_slashRoot(ActionStatus actionStatus)
@@ -216,6 +235,7 @@ namespace Assets.Script.ActionList
             Animator.SetBool("avater_can_jump", true);
 
             PA = Me.GetComponent<PlayerAvater>();
+            g = Me.GetComponent<PlayerAvater>().myguns;
             //var ms = PA.MotionStatus;
             //PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("idle");
@@ -244,8 +264,8 @@ namespace Assets.Script.ActionList
         public void Before_strafe(ActionStatus actionStatus)
         {
             //Gun.ChangeWeapon("AK47");
+            Gun.MainWeaponBasic = Gun.ActiveWeapon(PA.myguns.ToString())[0];
 
-            PlayerAvater PA = Me.GetComponent<PlayerAvater>();
             var ms = PA.MotionStatus;
             PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
             //PA.ChangeRotOffSet("strafe");
@@ -260,7 +280,7 @@ namespace Assets.Script.ActionList
             FPSLikeRigMovement(7f,10f);
             if(Input.GetButton("Fire1"))
             {
-                return Gun.fire(0);
+                return Gun.fire(Gun.MainWeaponBasic);
             }
             return true;
         }
@@ -270,8 +290,7 @@ namespace Assets.Script.ActionList
         public void Before_Pistolstrafe(ActionStatus actionStatus)
         {
             //Gun.ChangeWeapon("AK47");
-
-            PlayerAvater PA = Me.GetComponent<PlayerAvater>();
+            Gun.MainWeaponBasic = Gun.ActiveWeapon(PA.myguns.ToString())[0];
             var ms = PA.MotionStatus;
 
             PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
@@ -286,7 +305,7 @@ namespace Assets.Script.ActionList
             FPSLikeRigMovement(7f, 10f);
             if (Input.GetButton("Fire1"))
             {
-                return Gun.fire(0);
+                return Gun.fire(Gun.MainWeaponBasic);
             }
             return true;
         }

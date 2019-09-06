@@ -167,28 +167,50 @@ namespace Assets.Script.weapon
 
     public class WeaponBasic
     {
-        public string name;
-        public string weapontype;
-        public Ammo ammotype;
+        public WeaponBasic()
+        {
+        }
+        public WeaponBasic(WeaponBasic weaponBasic)
+        {
+            name = weaponBasic.name;
+            weapontype = weaponBasic.weapontype;
+            ammotype = weaponBasic.ammotype;
+            Damage = weaponBasic.Damage;
+            MagSize = weaponBasic.MagSize;
+            BulletInMag = weaponBasic.BulletInMag;
+            BulletUsedPerShot = weaponBasic.BulletUsedPerShot;
+            multi = weaponBasic.multi;
+            charge = weaponBasic.charge;
+            acc = weaponBasic.acc;
+            rof = weaponBasic.rof;
+            dropoff = weaponBasic.dropoff;
+            speed = weaponBasic.speed;
+            recoil = weaponBasic.recoil;
+            blast = weaponBasic.blast;
+            stun = weaponBasic.stun;
+        }
+        public string name { get; set; }
+        public string weapontype { get; set; }
+        public Ammo ammotype { get; set; }
 
-        public int Damage;
-        public int MagSize;
-        public int BulletInMag;
-        public int BulletUsedPerShot;
-        public int multi;
+        public int Damage { get; set; }
+        public int MagSize { get; set; }
+        public int BulletInMag { get; set; }
+        public int BulletUsedPerShot { get; set; }
+        public int multi { get; set; }
 
-        public float charge;
-        public float acc;
-        public float rof;
-        public float dropoff;
-        public float speed;
-        public float recoil;
-        public float blast;
+        public float charge { get; set; }
+        public float acc { get; set; }
+        public float rof { get; set; }
+        public float dropoff { get; set; }
+        public float speed { get; set; }
+        public float recoil { get; set; }
+        public float blast { get; set; }
 
-        public double stun;
+        public double stun { get; set; }
 
-        public GameObject weapon;
-        public GameObject bullet;
+        public GameObject weapon { get; set; }
+        public GameObject bullet { get; set; }
     }
 
 }

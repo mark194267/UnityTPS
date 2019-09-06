@@ -44,7 +44,6 @@ public class HotArea : MonoBehaviour {
         _timer += Time.deltaTime*1f;
         if (_timer > cooldown)
         {
-            Debug.Log(cooldown);
             //時間到.降溫
             if (hot > _normalhot) setHot = hot - 1;
             else if (hot < _normalhot) setHot = hot + 1;

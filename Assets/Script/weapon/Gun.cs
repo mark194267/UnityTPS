@@ -1,4 +1,5 @@
 ﻿using Assets.Script.Avater;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,15 @@ namespace Assets.Script.weapon
     public class Gun : MonoBehaviour
     {
         public List<WeaponBasic> WeaponSlot = new List<WeaponBasic>();
-
         public List<WeaponBasic> EquipmentSlot = new List<WeaponBasic>();
-
-        public List<WeaponBasic> NowWeapon;
+        public List<WeaponBasic> NowWeapon = new List<WeaponBasic>();
         public WeaponBasic NowWeaponOrign;
+
+        public WeaponBasic MainWeaponBasic { get; set; }
+        public WeaponBasic DualWeaponBasic { get; set; }
+
+        public WeaponBasic SpecialWeaponBasic { get; set; }
+        public WeaponBasic SkillWeaponBasic { get; set; }
 
         public string weaponname;
 
@@ -101,6 +106,81 @@ namespace Assets.Script.weapon
             //獲得新武器
         }
 
+        public void LoadSingleWeapon(string weaponName)
+        {
+            var wpn = WeaponSlot.FindAll(x => x.name == weaponName);
+            foreach (var wpnSingle in wpn)
+            {
+                WeaponBasic wb = new WeaponBasic(wpnSingle);
+                wb.weapon = wpnSingle.weapon;
+                //先載入武器數值
+                LoadWeapon(wb);
+                //將預備欄的武器放入目前的武器欄
+                NowWeapon.Add(wb);
+            }
+        }
+
+        public void InactiveAllWeapon()
+        {
+            //關閉上個武器模組
+            if (NowWeapon != null)
+                foreach (var Weapon in NowWeapon) Weapon.weapon.SetActive(false);
+        }
+
+        public void InactiveAllWeapon(string[] except)
+        {
+            //關閉上個武器
+            if (NowWeapon != null)
+            {
+                foreach (var Weapon in NowWeapon)
+                {
+                    if(!except.ToString().Contains(Weapon.name))
+                        Weapon.weapon.SetActive(false);
+                }
+            }
+        }
+
+        public void InactiveWeapon(string weaponName)
+        {
+            var wpnList = NowWeapon.FindAll(x => x.name == weaponName);
+            foreach (var wpn in wpnList)
+            {
+                wpn.weapon.SetActive(false);
+            }
+        }
+
+        public List<WeaponBasic> ActiveWeapon(string weaponName)
+        {
+            var wpnList = NowWeapon.FindAll(x => x.name == weaponName);
+            //開啟武器
+            foreach (var wpn in wpnList)
+            {
+                //print(wpn.name);
+                wpn.weapon.SetActive(true);
+            }
+            return wpnList;
+        }
+
+        public void LoadWeapon(WeaponBasic Weapon)
+        {
+            //射擊武器
+            if (Weapon.acc > 0)
+            {
+                Weapon.bullet = Resources.Load("Prefabs/" + Weapon.ammotype.Type) as GameObject;
+                var bullet = Weapon.bullet.GetComponent<BulletClass>();
+                bullet.damage = Weapon.Damage;
+                bullet.stun = Weapon.stun;
+            }
+            //肉搏武器
+            else
+            {
+                //print(Weapon.weapon.name);
+                var melee = Weapon.weapon.GetComponent<MeleeClass>();
+                melee.damage = Weapon.Damage;
+                melee.stun = Weapon.stun;
+            }
+        }
+
         public void ChangeWeapon(string weaponName)
         {
             //關閉上個武器模組
@@ -118,23 +198,7 @@ namespace Assets.Script.weapon
 
             foreach (var Weapon in NowWeapon)
             {
-                //射擊武器
-                if (Weapon.acc > 0)
-                {
-                    //Debug.Log(Weapon.name +" "+ Weapon.ammotype.Type);
-
-                    Weapon.bullet = Resources.Load("Prefabs/" + Weapon.ammotype.Type) as GameObject;
-                    var bullet = Weapon.bullet.GetComponent<BulletClass>();
-                    bullet.damage = Weapon.Damage;
-                    bullet.stun = Weapon.stun;
-                }
-                //肉搏武器
-                else
-                {
-                    var melee = Weapon.weapon.GetComponent<MeleeClass>();
-                    melee.damage = Weapon.Damage;
-                    melee.stun = Weapon.stun;
-                }
+                LoadWeapon(Weapon);
             }
         }
         public virtual bool fire(int BarrelIndex)
@@ -161,6 +225,54 @@ namespace Assets.Script.weapon
                 return false;
             }
         }
+        public virtual bool fire(string WeaponName,int LR)
+        {
+            //Debug.Log(NowWeapon[BarrelIndex].BulletInMag + " - " + NowWeapon[BarrelIndex].BulletUsedPerShot);
+            var gun = NowWeapon.FindAll(x => x.name == WeaponName);
+            if (gun[LR].BulletInMag - gun[LR].BulletUsedPerShot >= 0)
+            {
+                if (canshoot)
+                {
+                    //發射一發
+                    StartCoroutine(ShootShotGunBullet(LR));
+                    //後座力區塊
+                    //cam.Rotate(Random.RandomRange(-100f,100f),Random.RandomRange(0,100f),0f,Space.Self);<<轉為攝影機統一控管
+                    //如果現在後座力為 < 目標後座力
+                    //前三發後坐力
+                    //如果現在後座力 > 目標後座力
+                    //後N發後坐力
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public virtual bool fire(WeaponBasic wb)
+        {
+            //Debug.Log(NowWeapon[BarrelIndex].BulletInMag + " - " + NowWeapon[BarrelIndex].BulletUsedPerShot);
+            if (wb.BulletInMag - wb.BulletUsedPerShot >= 0)
+            {
+                if (canshoot)
+                {
+                    //發射一發
+                    StartCoroutine(ShootShotGunBullet(wb));
+                    //後座力區塊
+                    //cam.Rotate(Random.RandomRange(-100f,100f),Random.RandomRange(0,100f),0f,Space.Self);<<轉為攝影機統一控管
+                    //如果現在後座力為 < 目標後座力
+                    //前三發後坐力
+                    //如果現在後座力 > 目標後座力
+                    //後N發後坐力
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// 換彈，請在"完成換彈"後使用
         /// </summary>
@@ -248,6 +360,12 @@ namespace Assets.Script.weapon
             else
                 foreach (var weapon in NowWeapon) weapon.weapon.GetComponentInChildren<Collider>().enabled = true;
         }
+        public void Swing(WeaponBasic weaponBasic)
+        {
+            var timeflag = GetComponent<AvaterMain>().anim_flag;
+            if (timeflag == 1) weaponBasic.weapon.GetComponentInChildren<Collider>().enabled = true;
+            else weaponBasic.weapon.GetComponentInChildren<Collider>().enabled = false;
+        }
         /// <summary>
         /// 開啟肉搏判定的HITBOX,
         /// 請在動作動畫內加入 AnimationEvent 輸入至 GetAnimationFlag
@@ -329,7 +447,7 @@ namespace Assets.Script.weapon
             if (gameObject.CompareTag("Player"))
             {
                 cam.Vrecoil += 3f;
-                cam.Hrecoil = Random.Range(-.5f, .5f);
+                cam.Hrecoil = UnityEngine.Random.Range(-.5f, .5f);
                 cam.FireTime = 1f;
             }
             
@@ -338,5 +456,59 @@ namespace Assets.Script.weapon
             yield return new WaitForSeconds(NowWeapon[BarrelIndex].rof);
             canshoot = true;
         }
+        IEnumerator ShootShotGunBullet(WeaponBasic wb)
+        {
+            if (wb.BulletInMag - wb.BulletUsedPerShot < 0) yield break;
+            canshoot = false;
+
+            //得到攝影機的正中央
+            Quaternion Qua;
+            if (transform.CompareTag("Player"))
+            {
+                var MainCam = GetComponentInChildren<Camera>();
+                var MainCamPos = MainCam.ScreenToWorldPoint(
+                    new Vector3(MainCam.pixelWidth / 2, MainCam.pixelHeight / 2, MainCam.nearClipPlane * 100)
+                    );
+                Qua = Quaternion.LookRotation(MainCamPos - transform.position);
+            }
+            else
+                Qua = wb.weapon.transform.rotation;
+
+            //找到目前"槍口"的方向
+            for (int i = 0; i < wb.multi/*散彈數*/; i++)
+            {
+                var bullet = Instantiate(wb.bullet,
+                wb.weapon.transform.position, Qua);
+
+                Quaternion q = UnityEngine.Random.rotationUniform;
+                var qv = bullet.transform.TransformVector(Vector3.forward) +
+                bullet.transform.TransformDirection(q.eulerAngles * .00001f/* 擴散係數 */);
+                bullet.transform.rotation = Quaternion.LookRotation(qv);
+
+                //tag來找尋子彈的"陣營"
+                bullet.tag = gameObject.tag;
+                var b = bullet.GetComponent<BulletClass>();
+                //初始化子彈的數值--待改進
+                b.damage = wb.Damage;
+                b.blast = wb.blast;
+                b.speed = wb.speed;
+                //三秒之後移除
+                Destroy(bullet, 3f);
+            }
+            //後座力
+
+            if (gameObject.CompareTag("Player"))
+            {
+                cam.Vrecoil += 3f;
+                cam.Hrecoil = UnityEngine.Random.Range(-.5f, .5f);
+                cam.FireTime = 1f;
+            }
+
+            //可能是雙管之類的
+            wb.BulletInMag = wb.BulletInMag - wb.BulletUsedPerShot;
+            yield return new WaitForSeconds(wb.rof);
+            canshoot = true;
+        }
+
     }
 }
