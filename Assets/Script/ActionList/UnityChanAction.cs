@@ -46,7 +46,7 @@ namespace Assets.Script.ActionList
                 LastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
                 //Debug.Log(g.ToString());
                 //Gun.ChangeWeapon(g.ToString());
-                Gun.ActiveWeapon(LastWeapon);
+                Gun.MainWeaponBasic = Gun.ActiveWeapon(LastWeapon)[0];
             }
             return true;
         }
@@ -84,6 +84,27 @@ namespace Assets.Script.ActionList
         {
             //Me.GetComponent<Animator>().applyRootMotion = false;
         }
+
+        public void Before_Block(ActionStatus actionStatus)
+        {
+            //Me.GetComponent<PlayerAvater>().ChangeRotOffSet("strafe");
+            //Me.GetComponent<PlayerAvater>().IsRotChest = true;
+            Gun.MainWeaponBasic.weapon.GetComponent<MeleeClass>().IsBlocking = true;
+            Gun.MainWeaponBasic.weapon.GetComponent<Collider>().enabled = true;
+        }
+        public bool Block(ActionStatus actionStatus)
+        {
+            FPSLikeRigMovement(7f, 10f);
+
+            return true;
+        }
+        public void After_Block(ActionStatus actionStatus)
+        {
+            //Me.GetComponent<Animator>().applyRootMotion = false;
+            Gun.MainWeaponBasic.weapon.GetComponent<MeleeClass>().IsBlocking = false;
+            Gun.MainWeaponBasic.weapon.GetComponent<Collider>().enabled = false;
+        }
+
         public void Before_kick(ActionStatus actionStatus)
         {
             //Gun.ChangeWeapon("kick");
@@ -247,7 +268,7 @@ namespace Assets.Script.ActionList
         public override bool move(ActionStatus actionStatus)
         {
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-            RotateTowardSlerp(Me.transform.position - camPos, 9f);
+            RotateTowardSlerp(Me.transform.position - camPos, PA.MotionStatus.motionSpd);
             var endspeed = Me.transform.TransformDirection(Vector3.forward*InputManager.maxWSAD).normalized * actionStatus.f1;
             Rig.velocity = Vector3.Lerp(Rig.velocity,endspeed,.1f);
             _vecter = Rig.velocity;
@@ -255,8 +276,8 @@ namespace Assets.Script.ActionList
         }
         public override void After_move(ActionStatus actionStatus)
         {
-            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
-            Me.GetComponent<PlayerAvater>().IsRotChestV = false;
+            //Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            //Me.GetComponent<PlayerAvater>().IsRotChestV = false;
         }
         #endregion
 
@@ -289,6 +310,7 @@ namespace Assets.Script.ActionList
         #region Pistolstrafe
         public void Before_Pistolstrafe(ActionStatus actionStatus)
         {
+            Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
             //Gun.ChangeWeapon("AK47");
             Gun.MainWeaponBasic = Gun.ActiveWeapon(PA.myguns.ToString())[0];
             var ms = PA.MotionStatus;
@@ -367,7 +389,7 @@ namespace Assets.Script.ActionList
         }
         public void After_jumpout(ActionStatus AS)
         {
-            Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
+            //Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
         }
 
         public void Before_jumpoutL(ActionStatus AS)

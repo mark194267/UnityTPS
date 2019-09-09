@@ -63,7 +63,7 @@
     <f3 value = "0"/>
     <f4 value = "0"/>
     <vector3 x="0" y="0" z="0"/>
-    <ignore list = "jump,fall"/>
+    <ignore list = "fall"/>
   </move>
   <move name = "fourWayDash">
     <f1 value = "20"/>
@@ -79,7 +79,7 @@
     <f3 value = "6"/>
     <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "0"/>
+    <ignore list = "jump"/>
   </close>
   <close name = "slash">
     <f1 value = "0.3"/>
@@ -97,13 +97,13 @@
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "fall"/>
   </close>
-  <close name = "block">
-    <f1 value = "0.3"/>
-    <f2 value = "0.75"/>
-    <f3 value = "6"/>
-    <f4 value = "10"/>
+  <close name = "Block">
+    <f1 value = "0"/>
+    <f2 value = "0"/>
+    <f3 value = "0"/>
+    <f4 value = "0"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "fall"/>
+    <ignore list = "0"/>
   </close>
 	<long name = "jump">
 		<f1 value = "10"/>

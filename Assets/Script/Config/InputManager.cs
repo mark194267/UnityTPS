@@ -79,7 +79,7 @@ namespace Assets.Script.Config
             }
             #endregion
 
-            if (Input.GetButton("dodge"))
+            if (Input.GetButton("Sprint"))
             {
                 Animator.SetBool("input_dodge",true);
             }
@@ -88,10 +88,20 @@ namespace Assets.Script.Config
                 Animator.SetBool("input_dodge", false);
             }
 
+            if (Input.GetButton("Defend"))
+            {
+                Animator.SetBool("input_defend", true);
+            }
+            else
+            {
+                Animator.SetBool("input_defend", false);
+            }
+            /*
             if (Input.GetButtonDown("holster"))
             {
                 GetComponent<PlayerAvater>().ChangeWeapon(0);
             }
+            */
             /*
             if(Input.GetButton("Fire2"))
             {
@@ -100,7 +110,7 @@ namespace Assets.Script.Config
             }
             */
 
-            if (Input.GetButton("grenade"))
+            if (Input.GetButton("Grenade"))
             {
                 Animator.SetBool("input_grenade",true);
             }
