@@ -305,6 +305,35 @@ namespace Assets.Script.weapon
             }
             return false;
         }
+
+        public virtual bool reload(WeaponBasic weaponBasic)
+        {
+            //如果彈夾內的子彈 < 彈夾大小，或是剩下彈藥大於 0
+            if (weaponBasic.BulletInMag <= weaponBasic.MagSize && PlayerAvater.NowAmmo > 0)
+            {
+                //如果現在彈量 >= 彈夾容量
+                if (PlayerAvater.NowAmmo >= weaponBasic.MagSize)
+                {
+                    //總彈藥 += 彈夾殘彈
+                    PlayerAvater.NowAmmo += weaponBasic.BulletInMag;
+                    //現在彈量 -= 彈夾容量
+                    PlayerAvater.NowAmmo -= weaponBasic.MagSize;
+                    //彈夾殘彈 = 彈夾容量
+                    weaponBasic.BulletInMag = weaponBasic.MagSize;
+                }
+                //如果持有彈量 < 彈夾容量
+                if (PlayerAvater.NowAmmo <= weaponBasic.MagSize)
+                {
+                    //彈夾殘彈 = 彈夾容量
+                    weaponBasic.BulletInMag = PlayerAvater.NowAmmo;
+                    //持有彈量歸零
+                    PlayerAvater.NowAmmo = 0;
+                }
+                return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// 防禦，在timeflag期間碰撞到的對象的coillder關閉
         /// </summary>

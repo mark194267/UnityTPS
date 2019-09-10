@@ -365,26 +365,22 @@ namespace Assets.Script.ActionList
         #region jumpout
         public void Before_jumpout(ActionStatus AS)
         {
-            Animator.applyRootMotion = true;
+            //Animator.applyRootMotion = true;
 
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("Pistolsilde");
             Me.GetComponent<PlayerAvater>().IsRotChest = true;
             Me.GetComponent<PlayerAvater>().ChangeCamLimit("sidedodgeR");
 
-            _velocity = Me.transform.TransformVector(Vector3.right*Animator.GetFloat("input_ad") * 10f);
+            _velocity = Me.transform.TransformVector(Vector3.right * 20f);
             
         }
 
         public bool jumpout(ActionStatus AS)
         {
-            var pa = Me.GetComponent<PlayerAvater>();
-            if (pa.moveflag == 1)
-            {
-                Animator.applyRootMotion = false;
-                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
-                Rig.velocity = _velocity;
-            }
-            //Gun.fire(0);
+            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+            Rig.velocity = _velocity;
+            if (Input.GetButton("Fire1"))
+                Gun.fire(Gun.MainWeaponBasic);
             return true;
         }
         public void After_jumpout(ActionStatus AS)
@@ -394,33 +390,45 @@ namespace Assets.Script.ActionList
 
         public void Before_jumpoutL(ActionStatus AS)
         {
-            Animator.applyRootMotion = true;
+            //Animator.applyRootMotion = true;
 
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("PistolsildeL");
             Me.GetComponent<PlayerAvater>().IsRotChest = true;
             Me.GetComponent<PlayerAvater>().ChangeCamLimit("sidedodgeL");
 
-            _velocity = Me.transform.TransformVector(Vector3.right * Animator.GetFloat("input_ad") * 10f);
+            _velocity = Me.transform.TransformVector(Vector3.right * Animator.GetFloat("input_ad") * 20f);
 
         }
 
         public bool jumpoutL(ActionStatus AS)
         {
-            var pa = Me.GetComponent<PlayerAvater>();
-            if (pa.moveflag == 1)
-            {
-                Animator.applyRootMotion = false;
-                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
-                Rig.velocity = _velocity;
-            }
-            //Gun.fire(0);
+            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+            Rig.velocity = _velocity;
+            if(Input.GetButton("Fire1"))
+                Gun.fire(Gun.MainWeaponBasic);
             return true;
         }
         public void After_jumpoutL(ActionStatus AS)
         {
-            Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
+            //Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
         }
 
+        public void Before_jumpoutF(ActionStatus AS)
+        {
+            _velocity = Me.transform.TransformVector(Vector3.forward* Animator.GetFloat("input_ws") * 20f);
+        }
+
+        public bool jumpoutF(ActionStatus AS)
+        {
+            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+            Rig.velocity = _velocity;
+            if (PA.anim_flag  == 0)
+            {
+                if (Input.GetButton("Fire1"))
+                    Gun.fire(Gun.MainWeaponBasic);
+            }
+            return true;
+        }
 
         #endregion
 
@@ -631,14 +639,17 @@ namespace Assets.Script.ActionList
         public void Before_dash(ActionStatus actionStatus)
         {
 
-            //_velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD + Vector3.up * .1f) * actionStatus.f1;
+            _velocity = Me.transform.TransformVector(Vector3.forward * Animator.GetFloat("input_ws") * 20f+ Vector3.right * Animator.GetFloat("input_ad") * 20f);
+            _velocity = Vector3.ClampMagnitude(_velocity, 20f);
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("dash");
             Me.GetComponent<PlayerAvater>().IsRotChest = true;
             AvaterMain.moveflag = 0;
         }
         public bool dash(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(100f, 15f, 10f);
+            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+            Rig.velocity = _velocity;
+            //FPSLikeRigMovement(100f, 15f, 10f);
             return true;
         }
         #endregion
@@ -685,7 +696,7 @@ namespace Assets.Script.ActionList
         }
         public void After_reload(ActionStatus actionStatus)
         {
-            Gun.reload(0);
+            Gun.reload(Gun.MainWeaponBasic);
         }
         #endregion
 
