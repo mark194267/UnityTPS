@@ -371,6 +371,8 @@ namespace Assets.Script.ActionControl
             var dir =
                 Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
             //Agent.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, moveSpeed);
+            dir = Vector3.ProjectOnPlane(dir, Vector3.up);
+
             Agent.velocity = Vector3.Lerp(Agent.velocity, dir.normalized * moveSpeed, 1f);
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
@@ -387,6 +389,7 @@ namespace Assets.Script.ActionControl
 
             var dir =
                 Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
+            dir = Vector3.ProjectOnPlane(dir, Vector3.up);
             Agent.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
@@ -401,7 +404,7 @@ namespace Assets.Script.ActionControl
         {
             var dir =
                 Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
-            dir.y = 0;
+            dir = Vector3.ProjectOnPlane(dir, Vector3.up);
             //Rig.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, maxSpeed);
             Rig.velocity = Vector3.Lerp(Rig.velocity, dir.normalized * InputManager.maxWSAD * maxSpeed, 1f);
 
@@ -419,7 +422,7 @@ namespace Assets.Script.ActionControl
             var dir =
                 Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
             //Rig.velocity = Vector3.ClampMagnitude(dir.normalized * baseSpeed, maxSpeed);
-            dir.y = 0;
+            dir = Vector3.ProjectOnPlane(dir, Vector3.up);
             Rig.velocity = Vector3.Lerp(Rig.velocity, dir.normalized * InputManager.maxWSAD * maxSpeed, baseSpeed);
 
 

@@ -171,19 +171,29 @@ namespace Assets.Script.ActionList
             Me.GetComponent<PlayerAvater>().IsRotChestH = AvaterMain.MotionStatus.IsRotH;
             Me.GetComponent<PlayerAvater>().IsRotChestV = AvaterMain.MotionStatus.IsRotV;
 
-            _vecter = new Vector3(AvaterMain.MotionStatus.camX,
+            _velocity = Me.transform.TransformVector(AvaterMain.MotionStatus.camX,
             AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
+            _velocity = Vector3.ClampMagnitude(_velocity, 20f);
+
+            //_vecter = new Vector3(AvaterMain.MotionStatus.camX,AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
         }
         public override bool slash(ActionStatus actionStatus)
         {
             if (AvaterMain.moveflag > 0)
             {
+                Animator.SetBool("avater_can_dodge", false);
+
                 var camPos = Camera.transform.TransformDirection(Vector3.forward);
                 RotateTowardSlerp(Me.transform.position + camPos, 3f);
                 Me.GetComponent<Animator>().applyRootMotion = false;
 
-                _vecter = Vector3.Slerp(_vecter, Vector3.zero, Time.deltaTime * _vecter.magnitude*7f);
-                Rig.AddRelativeForce(_vecter, ForceMode.VelocityChange);
+                _vecter = Vector3.Slerp(_vecter, Vector3.zero, Time.deltaTime);
+                //Rig.AddRelativeForce(_vecter, ForceMode.VelocityChange);
+                Rig.velocity = _velocity;
+            }
+            else
+            {
+                Animator.SetBool("avater_can_dodge", true);
             }
             //Gun.Swing(AvaterMain.anim_flag,(int)Convert.ToDouble(actionStatus.Vector3.x),actionStatus.Vector3.y);
             Gun.Swing(Gun.MainWeaponBasic);
@@ -616,7 +626,6 @@ namespace Assets.Script.ActionList
             _velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD)* actionStatus.f1;
             Me.GetComponent<PlayerAvater>().IsRotChestH = true;
             Me.GetComponent<PlayerAvater>().IsRotChestV = true;
-            AvaterMain.moveflag = 0;
         }
         public bool slide(ActionStatus actionStatus)
         {
@@ -639,11 +648,13 @@ namespace Assets.Script.ActionList
         public void Before_dash(ActionStatus actionStatus)
         {
 
-            _velocity = Me.transform.TransformVector(Vector3.forward * Animator.GetFloat("input_ws") * 20f+ Vector3.right * Animator.GetFloat("input_ad") * 20f);
-            _velocity = Vector3.ClampMagnitude(_velocity, 20f);
+            _velocity = Camera.transform.TransformDirection(Vector3.forward * Animator.GetFloat("input_ws") + Vector3.right * Animator.GetFloat("input_ad"));
+            //得到攝影機的Z軸轉動，並轉動向量
+            _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
+            //Debug.Log(" DashVector =  "+_velocity);
+            _velocity = Vector3.ClampMagnitude(_velocity * 20, 20f);
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("dash");
             Me.GetComponent<PlayerAvater>().IsRotChest = true;
-            AvaterMain.moveflag = 0;
         }
         public bool dash(ActionStatus actionStatus)
         {

@@ -109,6 +109,18 @@ namespace Assets.Script.Config
                 //Animator.SetTrigger("avatermain_panicmelee");
             }
             */
+            if (Input.GetButtonDown("SlowMo"))
+            {
+                if (Time.timeScale == 1.0f)
+                    Time.timeScale = 0.5f;
+                else
+                    Time.timeScale = 1.0f;
+                // Adjust fixed delta time according to timescale
+                // The fixed delta time will now be 0.02 frames per real-time second
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            }
+            else
+
 
             if (Input.GetButton("Grenade"))
             {
