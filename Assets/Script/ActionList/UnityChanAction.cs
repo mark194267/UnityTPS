@@ -560,20 +560,25 @@ namespace Assets.Script.ActionList
         #region falling
         public void Before_falling(ActionStatus actionStatus)
         {
-            //Rig.velocity = _vecter;
+            //PA.IsRotChestH = true;
+            //PA.IsRotChestV = true;
         }
         public bool falling(ActionStatus actionStatus)
         {
-            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-            if (Input.anyKey)
-            {
-                RotateTowardSlerp(Me.transform.position - camPos, .2f);
-                Rig.AddRelativeForce(Vector3.forward * 2f);
-            }
+            //var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+            //if (Input.anyKey)
+            //{
+            //    RotateTowardSlerp(Me.transform.position - camPos, 10f);
+            //    Rig.AddRelativeForce(Vector3.forward * 2f);
+            //}
+
+            var camPos = Camera.transform.TransformDirection(Vector3.back);
+            RotateTowardSlerp(Me.transform.position - camPos, 15f);
+            Rig.AddRelativeForce(Vector3.forward * 2f);
 
             if (Input.GetButton("Fire1"))
             {
-                return Gun.fire(0);
+                return Gun.fire(Gun.MainWeaponBasic);
             }
 
             return true;
