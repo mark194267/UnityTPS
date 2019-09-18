@@ -26,5 +26,14 @@
   <action name="meleerush" x="10" y="-8" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="2" String ="0" IsRotV="false" IsRotH="false"></action>
   <action name="move_tree" x="10" y="-8" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="9" String ="0" IsRotV="false" IsRotH="false"></action>
   <action name="Rifle_Run" x="10" y="-8" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="2" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="Pistol_run" x="10" y="-8" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="2" String ="0" IsRotV="false" IsRotH="false"></action>
+  <action name="jumpOutStartR" x="1" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="sidedodgeR" IsRotV="false" IsRotH="false"></action>
+  <action name="jumpOutStartL" x="-1" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="sidedodgeL" IsRotV="false" IsRotH="false"></action>
+  <action name="jumpOutF" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
+  <action name="jumpOutStartB" x="0" y="0" z="-1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
+  <action name="jumpOutMidR" x="1" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="sidedodgeR" IsRotV="false" IsRotH="false"></action>
+  <action name="jumpOutMidL" x="-1" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="sidedodgeL" IsRotV="false" IsRotH="false"></action>
+  <action name="Pistolcrouch" x="40" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
+  <action name="Pistolstrafe" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
 
 </motion>

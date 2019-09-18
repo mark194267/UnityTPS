@@ -109,8 +109,8 @@ namespace Assets.Script.Avater
             chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(20, 0, 0) };
             chestValue chestDash = new chestValue { name = "dash", maxDegress = 0, chestOffSet = new Vector3(20, 0, 0) };
             chestValue chestDash4way = new chestValue { name = "dash4way", maxDegress = 0, chestOffSet = new Vector3(0, 40, 0) };
-            chestValue chestPistolsilde = new chestValue { name = "Pistolsilde", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
-            chestValue chestPistolsildeL = new chestValue { name = "PistolsildeL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
+            chestValue chestPistolsilde = new chestValue { name = "sidedodgeR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
+            chestValue chestPistolsildeL = new chestValue { name = "sidedodgeL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
 
             _chestValues.Add(none);
             _chestValues.Add(chestIdle);

@@ -280,7 +280,7 @@ namespace Assets.Script.ActionList
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, PA.MotionStatus.motionSpd);
             var endspeed = Me.transform.TransformDirection(Vector3.forward*InputManager.maxWSAD).normalized * actionStatus.f1;
-            Rig.velocity = Vector3.Lerp(Rig.velocity,endspeed,.1f);
+            Rig.velocity = Vector3.Slerp(Rig.velocity,endspeed,1f);
             _vecter = Rig.velocity;
             return true;
         }
@@ -334,7 +334,7 @@ namespace Assets.Script.ActionList
 
         public bool Pistolstrafe(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(7f, 10f);
+            FPSLikeRigMovement(9f, 14f);
             if (Input.GetButton("Fire1"))
             {
                 return Gun.fire(Gun.MainWeaponBasic);
@@ -376,13 +376,27 @@ namespace Assets.Script.ActionList
         public void Before_jumpout(ActionStatus AS)
         {
             //Animator.applyRootMotion = true;
+            //轉動玩家面向
+            //var camPos = Camera.transform.TransformDirection(Vector3.back);
+            //RotateTowardSlerp(Me.transform.position - Camera.transform.TransformDirection(Vector3.back), 60f);
 
-            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("Pistolsilde");
-            Me.GetComponent<PlayerAvater>().IsRotChest = true;
-            Me.GetComponent<PlayerAvater>().ChangeCamLimit("sidedodgeR");
+            _velocity = Camera.transform.TransformDirection(Vector3.right * PA.MotionStatus.camX + Vector3.forward * PA.MotionStatus.camZ);
+            //得到攝影機的Z軸轉動，並轉動向量
+            _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
+            Debug.Log(_velocity);
+            _velocity = Vector3.ClampMagnitude(_velocity * 20, 20f);
+            //保持人物轉動放在計算動量之後
+            Vector3 direction = (Camera.transform.TransformDirection(Vector3.forward));
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            Me.transform.rotation = lookRotation;
 
-            _velocity = Me.transform.TransformVector(Vector3.right * 20f);
-            
+
+            if (!String.IsNullOrEmpty( PA.MotionStatus.String ))
+            {
+                Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
+                Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
+                Me.GetComponent<PlayerAvater>().IsRotChest = true;
+            }
         }
 
         public bool jumpout(ActionStatus AS)
@@ -393,50 +407,21 @@ namespace Assets.Script.ActionList
                 Gun.fire(Gun.MainWeaponBasic);
             return true;
         }
-        public void After_jumpout(ActionStatus AS)
+
+        public void Before_leanGround(ActionStatus AS)
         {
-            //Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
-        }
-
-        public void Before_jumpoutL(ActionStatus AS)
-        {
-            //Animator.applyRootMotion = true;
-
-            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("PistolsildeL");
-            Me.GetComponent<PlayerAvater>().IsRotChest = true;
-            Me.GetComponent<PlayerAvater>().ChangeCamLimit("sidedodgeL");
-
-            _velocity = Me.transform.TransformVector(Vector3.right * Animator.GetFloat("input_ad") * 20f);
-
-        }
-
-        public bool jumpoutL(ActionStatus AS)
-        {
-            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
-            Rig.velocity = _velocity;
-            if(Input.GetButton("Fire1"))
-                Gun.fire(Gun.MainWeaponBasic);
-            return true;
-        }
-        public void After_jumpoutL(ActionStatus AS)
-        {
-            //Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
-        }
-
-        public void Before_jumpoutF(ActionStatus AS)
-        {
-            _velocity = Me.transform.TransformVector(Vector3.forward* Animator.GetFloat("input_ws") * 20f);
-        }
-
-        public bool jumpoutF(ActionStatus AS)
-        {
-            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
-            Rig.velocity = _velocity;
-            if (PA.anim_flag  == 0)
+            if (!String.IsNullOrEmpty(PA.MotionStatus.String))
             {
-                if (Input.GetButton("Fire1"))
-                    Gun.fire(Gun.MainWeaponBasic);
+                Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
+                Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
+                Me.GetComponent<PlayerAvater>().IsRotChest = true;
             }
+        }
+
+        public bool leanGround(ActionStatus AS)
+        {
+            if (Input.GetButton("Fire1"))
+                Gun.fire(Gun.MainWeaponBasic);
             return true;
         }
 
@@ -641,8 +626,6 @@ namespace Assets.Script.ActionList
 
                 _velocity = Vector3.Lerp(_velocity, Vector3.zero, 1.125f*Time.deltaTime);
                 Rig.velocity = _velocity;
-
-                Gun.fire(0);
             }
             return true;
         }

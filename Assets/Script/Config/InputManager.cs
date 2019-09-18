@@ -47,6 +47,7 @@ namespace Assets.Script.Config
             if (Input.GetButtonDown("Jump"))
             {
                 Animator.SetBool("input_jump",true);
+                ResetToggle();
             }
             else
             {
@@ -82,6 +83,7 @@ namespace Assets.Script.Config
             if (Input.GetButton("Sprint"))
             {
                 Animator.SetBool("input_dodge",true);
+                ResetToggle();
             }
             else
             {
@@ -91,6 +93,7 @@ namespace Assets.Script.Config
             if (Input.GetButton("Defend"))
             {
                 Animator.SetBool("input_defend", true);
+                ResetToggle();
             }
             else
             {
@@ -141,6 +144,19 @@ namespace Assets.Script.Config
                 else Animator.SetFloat("input_meleelevel", 0);
             }
 
+            if (Input.GetButtonDown("Crouch"))
+            {
+                if (Animator.GetBool("input_crouch"))
+                {
+                    Animator.SetBool("input_crouch", false);
+                }
+                else
+                {
+                    Animator.SetBool("input_crouch", true);
+                }
+            }
+
+
             if (Input.GetKeyDown("1"))
             {
                 GetComponent<PlayerAvater>().ChangeWeapon(1);
@@ -161,6 +177,11 @@ namespace Assets.Script.Config
             {
                 GetComponent<PlayerAvater>().ChangeWeapon(5);
             }
+        }
+        void ResetToggle()
+        {
+            Animator.SetBool("input_crouch", false);
+
         }
     }
 }
