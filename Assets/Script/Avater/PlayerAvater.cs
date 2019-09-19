@@ -27,6 +27,7 @@ namespace Assets.Script.Avater
         public AllAmmoType ammoType = new AllAmmoType();
         public GameObject camera { get; set; }
 
+        public bool IsRotGunHand = false;
         public bool IsRotChest = false;
         public bool IsRotChestV = false;
         public bool IsRotChestH = false;
@@ -38,6 +39,9 @@ namespace Assets.Script.Avater
         public Transform chestTransform;
         public Vector3 chestOffSet;
         public float chestMaxRot;
+
+        public Transform GunHandRoot;
+        public Transform GunHand;
 
         public RaycastHit hit { get; set; }
 
@@ -111,6 +115,7 @@ namespace Assets.Script.Avater
             chestValue chestDash4way = new chestValue { name = "dash4way", maxDegress = 0, chestOffSet = new Vector3(0, 40, 0) };
             chestValue chestPistolsilde = new chestValue { name = "sidedodgeR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
             chestValue chestPistolsildeL = new chestValue { name = "sidedodgeL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
+            chestValue chestjumpout = new chestValue { name = "jumpOutF", maxDegress = 60, chestOffSet = new Vector3(30, 0, 0) };
 
             _chestValues.Add(none);
             _chestValues.Add(chestIdle);
@@ -122,14 +127,17 @@ namespace Assets.Script.Avater
             _chestValues.Add(chestWallrun);
             _chestValues.Add(chestPistolsilde);
             _chestValues.Add(chestPistolsildeL);
+            _chestValues.Add(chestjumpout);
 
             camValue camNormal = new camValue { name = "none",IsLimitX = false, Max_x = 360, Min_x = -360, Max_y = 80, Min_y = -70 };
             camValue camSidedodgeR = new camValue { name = "sidedodgeR",IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = -10, Min_y = -50 };
             camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 100, Min_x = -10, Max_y = -10, Min_y = -50 };
+            camValue camJumpoutF = new camValue { name = "jumpOutF", IsLimitX = true, Max_x = 30, Min_x = -30, Max_y = 30, Min_y = -30 };
 
             _camValues.Add(camNormal);
             _camValues.Add(camSidedodgeR);
             _camValues.Add(camSidedodgeL);
+            _camValues.Add(camJumpoutF);
 
             /// 未來可能在此增加射線管理員
         }
@@ -147,6 +155,10 @@ namespace Assets.Script.Avater
             if (IsRotChest|| IsRotChestH|| IsRotChestV)
             {
                 ChestLook();
+            }
+            if (IsRotGunHand)
+            {
+                GunHandAim();
             }
         }
 
@@ -194,20 +206,16 @@ namespace Assets.Script.Avater
                 chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(cam.y + chestOffSet.y, Vector3.right);
             }
         }
-        /*
-        public float Clamp180(float Num)
+        public void GunHandAim()
         {
-            if (Num < -180)
-            {
-                Num += 360;
-            }
-            if (Num > 180)
-            {
-                Num -= 360;
-            }
-            return Num;
+            var came = camera.GetComponent<Camera>();
+
+            //先得到面相攝影機中間的向量
+            Vector3 lookat = came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2, 100f));
+            GunHand.LookAt(lookat, Hip.TransformDirection(Vector3.up));
+            //將手部面向回傳的向量
+
         }
-        */
 
         public void ChangeAniRoot(bool IsRoot)
         {
@@ -277,9 +285,15 @@ namespace Assets.Script.Avater
                 }
             }
         }
-        public void StartSlowMo()
+        public void SlowMo()
         {
-            
+            if (Time.timeScale == 1.0f)
+                Time.timeScale = 0.5f;
+            else
+                Time.timeScale = 1.0f;
+            // Adjust fixed delta time according to timescale
+            // The fixed delta time will now be 0.02 frames per real-time second
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
 
     }

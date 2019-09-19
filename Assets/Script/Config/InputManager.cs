@@ -114,15 +114,8 @@ namespace Assets.Script.Config
             */
             if (Input.GetButtonDown("SlowMo"))
             {
-                if (Time.timeScale == 1.0f)
-                    Time.timeScale = 0.5f;
-                else
-                    Time.timeScale = 1.0f;
-                // Adjust fixed delta time according to timescale
-                // The fixed delta time will now be 0.02 frames per real-time second
-                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+                GetComponent<PlayerAvater>().SlowMo();
             }
-            else
 
 
             if (Input.GetButton("Grenade"))

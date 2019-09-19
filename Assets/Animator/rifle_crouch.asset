@@ -9,7 +9,7 @@ BlendTree:
   m_Name: rifle_crouch
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 3a8ace900ffa69d4eb56234e04c994e4,
+    m_Motion: {fileID: -203655887218126122, guid: b447e8d381b999243bdf5f0cb0a47f31,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}

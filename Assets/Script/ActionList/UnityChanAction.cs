@@ -383,29 +383,38 @@ namespace Assets.Script.ActionList
             _velocity = Camera.transform.TransformDirection(Vector3.right * PA.MotionStatus.camX + Vector3.forward * PA.MotionStatus.camZ);
             //得到攝影機的Z軸轉動，並轉動向量
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
-            Debug.Log(_velocity);
-            _velocity = Vector3.ClampMagnitude(_velocity * 20, 20f);
+            _velocity = Vector3.ClampMagnitude(_velocity * 100, 20f);
             //保持人物轉動放在計算動量之後
             Vector3 direction = (Camera.transform.TransformDirection(Vector3.forward));
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
             Me.transform.rotation = lookRotation;
 
-
-            if (!String.IsNullOrEmpty( PA.MotionStatus.String ))
+            if (!String.IsNullOrEmpty(PA.MotionStatus.String))
             {
                 Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().IsRotChest = true;
             }
+
+            PA.SlowMo();
         }
 
         public bool jumpout(ActionStatus AS)
         {
             _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
             Rig.velocity = _velocity;
-            if (Input.GetButton("Fire1"))
-                Gun.fire(Gun.MainWeaponBasic);
+            //只有前跳在翻滾時不能射擊.其他動作沒有旗標
+            if (PA.anim_flag == 0)
+            {
+                if (Input.GetButton("Fire1"))
+                    Gun.fire(Gun.MainWeaponBasic);
+            }
             return true;
+        }
+
+        public void After_jumpout(ActionStatus AS)
+        {
+            PA.SlowMo();
         }
 
         public void Before_leanGround(ActionStatus AS)
@@ -611,7 +620,7 @@ namespace Assets.Script.ActionList
             
             var vec = Me.transform.TransformDirection(Vector3.forward);
             vec.y = 0;
-            Rig.AddForce(vec * .5f, ForceMode.VelocityChange);
+            Rig.AddForce(vec * 7f, ForceMode.VelocityChange);
 
             _velocity = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD)* actionStatus.f1;
             Me.GetComponent<PlayerAvater>().IsRotChestH = true;
@@ -628,6 +637,10 @@ namespace Assets.Script.ActionList
                 Rig.velocity = _velocity;
             }
             return true;
+        }
+        public void After_slide(ActionStatus actionStatus)
+        {
+            Animator.SetBool("input_crouch", true);
         }
         #endregion
 

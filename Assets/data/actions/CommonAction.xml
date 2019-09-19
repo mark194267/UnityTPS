@@ -47,7 +47,7 @@
     <f3 value = "0"/>
     <f4 value = "0"/>
     <vector3 x="0" y="0" z="0"/>
-    <ignore list = "0"/>
+    <ignore list = "jumpout"/>
   </close>
   <close name = "dead">
     <f1 value = "0"/>
