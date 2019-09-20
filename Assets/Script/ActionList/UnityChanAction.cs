@@ -321,7 +321,6 @@ namespace Assets.Script.ActionList
         public void Before_Pistolstrafe(ActionStatus actionStatus)
         {
             Me.GetComponent<PlayerAvater>().ChangeCamLimit("none");
-            //Gun.ChangeWeapon("AK47");
             Gun.MainWeaponBasic = Gun.ActiveWeapon(PA.myguns.ToString())[0];
             var ms = PA.MotionStatus;
 
@@ -419,7 +418,13 @@ namespace Assets.Script.ActionList
 
         public void Before_leanGround(ActionStatus AS)
         {
-            if (!String.IsNullOrEmpty(PA.MotionStatus.String))
+            if (PA.MotionStatus.String.StartsWith("GunHand"))
+            {
+                Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
+                //Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
+                Me.GetComponent<PlayerAvater>().IsRotGunHand = true;
+            }
+            else if (!String.IsNullOrEmpty(PA.MotionStatus.String))
             {
                 Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
@@ -432,6 +437,11 @@ namespace Assets.Script.ActionList
             if (Input.GetButton("Fire1"))
                 Gun.fire(Gun.MainWeaponBasic);
             return true;
+        }
+
+        public void After_leanGround(ActionStatus AS)
+        {
+            Me.GetComponent<PlayerAvater>().IsRotGunHand = false;
         }
 
         #endregion

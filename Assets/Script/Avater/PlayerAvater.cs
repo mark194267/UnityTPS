@@ -115,7 +115,7 @@ namespace Assets.Script.Avater
             chestValue chestDash4way = new chestValue { name = "dash4way", maxDegress = 0, chestOffSet = new Vector3(0, 40, 0) };
             chestValue chestPistolsilde = new chestValue { name = "sidedodgeR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
             chestValue chestPistolsildeL = new chestValue { name = "sidedodgeL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
-            chestValue chestjumpout = new chestValue { name = "jumpOutF", maxDegress = 60, chestOffSet = new Vector3(30, 0, 0) };
+            chestValue chestjumpout = new chestValue { name = "GunHandjumpOutF", maxDegress = 60, chestOffSet = new Vector3(30, 0, 0) };
 
             _chestValues.Add(none);
             _chestValues.Add(chestIdle);
@@ -132,12 +132,16 @@ namespace Assets.Script.Avater
             camValue camNormal = new camValue { name = "none",IsLimitX = false, Max_x = 360, Min_x = -360, Max_y = 80, Min_y = -70 };
             camValue camSidedodgeR = new camValue { name = "sidedodgeR",IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = -10, Min_y = -50 };
             camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 100, Min_x = -10, Max_y = -10, Min_y = -50 };
-            camValue camJumpoutF = new camValue { name = "jumpOutF", IsLimitX = true, Max_x = 30, Min_x = -30, Max_y = 30, Min_y = -30 };
+            camValue camjumpOutMidF = new camValue { name = "GunHandjumpOutMidF", IsLimitX = true, Max_x = 15, Min_x = -15, Max_y = 15, Min_y = -15 };
+            camValue camAerial_Evade = new camValue { name = "GunHandAerial_Evade", IsLimitX = true, Max_x = 30, Min_x = -15, Max_y = 45, Min_y = -15 };
+            camValue camjumpOutStartB = new camValue { name = "jumpOutStartB", IsLimitX = true, Max_x = 15, Min_x = -15, Max_y = 15, Min_y = -15 };
 
             _camValues.Add(camNormal);
             _camValues.Add(camSidedodgeR);
             _camValues.Add(camSidedodgeL);
-            _camValues.Add(camJumpoutF);
+            _camValues.Add(camjumpOutMidF);
+            _camValues.Add(camjumpOutStartB);
+            _camValues.Add(camAerial_Evade);
 
             /// 未來可能在此增加射線管理員
         }
@@ -213,6 +217,9 @@ namespace Assets.Script.Avater
             //先得到面相攝影機中間的向量
             Vector3 lookat = came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2, 100f));
             GunHand.LookAt(lookat, Hip.TransformDirection(Vector3.up));
+            GunHand.rotation = GunHand.rotation * Quaternion.AngleAxis(-40, Vector3.up);
+            GunHand.rotation = GunHand.rotation * Quaternion.AngleAxis(-15, Vector3.right);
+
             //將手部面向回傳的向量
 
         }

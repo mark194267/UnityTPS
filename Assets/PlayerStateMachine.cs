@@ -20,7 +20,7 @@ public class PlayerStateMachine : StateMachine
             PlayerAvater.IsRotChest = false;
             PlayerAvater.IsRotChestH = false;
             PlayerAvater.IsRotChestV = false;
-
+            PlayerAvater.ChangeCamLimit("none");
             Animator.applyRootMotion = false;
 
             if (AvaterMain.motionStatusDir != null)
