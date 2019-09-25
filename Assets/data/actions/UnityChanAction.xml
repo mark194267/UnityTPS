@@ -136,7 +136,7 @@
     <f3 value = "6"/>
     <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "fall"/>
+    <ignore list = "fall,dash"/>
   </long>
 	<long name = "shoot">
 		<f1 value = "0"/>
@@ -176,7 +176,7 @@
 		<f3 value = "6"/>
 		<f4 value = "10"/>
 		<vector3 x="0" y="0" z="1"/>
-		<ignore list = "0"/>
+		<ignore list = "dash"/>
 	</long>
   <long name = "hardland">
     <f1 value = "6"/>

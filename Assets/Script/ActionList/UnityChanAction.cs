@@ -157,10 +157,15 @@ namespace Assets.Script.ActionList
 
         public override void Before_slash(ActionStatus actionStatus)
         {
+            Gun.InactiveWeapon(LastWeapon);
             //Rig.velocity = Vector3.zero;
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
             //var g = Me.GetComponent<PlayerAvater>().myguns;
             //Gun.ChangeWeapon(g.ToString());
+
+            //紀錄上個武器確保能被換掉
+            LastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
+
             Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
 
             Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
@@ -208,13 +213,16 @@ namespace Assets.Script.ActionList
 
         public void Before_slashRoot(ActionStatus actionStatus)
         {
-            Rig.velocity = Vector3.zero;
-            Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
+            Gun.InactiveWeapon(LastWeapon);
 
+            Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
+            //紀錄上個武器確保能被換掉
+            LastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
             //Gun.ChangeWeapon(g.ToString());
             Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
             Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
 
+            Rig.velocity = Vector3.zero;
             Me.GetComponent<Animator>().applyRootMotion = true;
 
             Me.GetComponent<PlayerAvater>().IsRotChestH = AvaterMain.MotionStatus.IsRotH;
@@ -418,6 +426,7 @@ namespace Assets.Script.ActionList
 
         public void Before_leanGround(ActionStatus AS)
         {
+            Debug.Log(Animator.GetFloat("avater_yspeed"));
             if (PA.MotionStatus.String.StartsWith("GunHand"))
             {
                 Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
@@ -430,6 +439,9 @@ namespace Assets.Script.ActionList
                 Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().IsRotChest = true;
             }
+            //Vector3 direction = (Camera.transform.TransformDirection(Vector3.forward));
+            //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            //Me.transform.rotation = lookRotation;
         }
 
         public bool leanGround(ActionStatus AS)
@@ -441,7 +453,6 @@ namespace Assets.Script.ActionList
 
         public void After_leanGround(ActionStatus AS)
         {
-            Me.GetComponent<PlayerAvater>().IsRotGunHand = false;
         }
 
         #endregion
@@ -662,16 +673,28 @@ namespace Assets.Script.ActionList
             _velocity = Camera.transform.TransformDirection(Vector3.forward * Animator.GetFloat("input_ws") + Vector3.right * Animator.GetFloat("input_ad"));
             //得到攝影機的Z軸轉動，並轉動向量
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
-            //Debug.Log(" DashVector =  "+_velocity);
             _velocity = Vector3.ClampMagnitude(_velocity * 20, 20f);
-            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("dash");
-            Me.GetComponent<PlayerAvater>().IsRotChest = true;
+            //保持人物轉動放在計算動量之後
+            Vector3 direction = _velocity;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            Me.transform.rotation = lookRotation;
+
+            //_velocity = Camera.transform.TransformDirection(Vector3.forward * Animator.GetFloat("input_ws") + Vector3.right * Animator.GetFloat("input_ad"));
+            ////得到攝影機的Z軸轉動，並轉動向量
+            //_velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
+            ////Debug.Log(" DashVector =  "+_velocity);
+            //_velocity = Vector3.ClampMagnitude(_velocity * 20, 20f);
+            //Me.GetComponent<PlayerAvater>().ChangeRotOffSet("dash");
+            //Me.GetComponent<PlayerAvater>().IsRotChest = true;
         }
         public bool dash(ActionStatus actionStatus)
         {
-            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
-            Rig.velocity = _velocity;
-            //FPSLikeRigMovement(100f, 15f, 10f);
+            if (PA.moveflag == 1)
+            {
+                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+                Rig.velocity = _velocity;
+                //FPSLikeRigMovement(100f, 15f, 10f);
+            }
             return true;
         }
         #endregion

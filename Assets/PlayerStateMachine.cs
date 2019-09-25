@@ -9,6 +9,7 @@ using UnityEngine.AI;
 public class PlayerStateMachine : StateMachine
 {
     public PlayerAvater PlayerAvater { get; set; }
+    public string stateName;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator Animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,6 +21,7 @@ public class PlayerStateMachine : StateMachine
             PlayerAvater.IsRotChest = false;
             PlayerAvater.IsRotChestH = false;
             PlayerAvater.IsRotChestV = false;
+            PlayerAvater.IsRotGunHand = false;
             PlayerAvater.ChangeCamLimit("none");
             Animator.applyRootMotion = false;
 
@@ -43,6 +45,7 @@ public class PlayerStateMachine : StateMachine
                 {
                     action.BeforeCustomAction(actionStatuse.Value);
                     _actionStatus = actionStatuse.Value;
+                    stateName = actionStatuse.Key;
                 }
             }
 

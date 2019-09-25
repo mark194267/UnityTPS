@@ -116,6 +116,9 @@ namespace Assets.Script.Avater
             chestValue chestPistolsilde = new chestValue { name = "sidedodgeR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
             chestValue chestPistolsildeL = new chestValue { name = "sidedodgeL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
             chestValue chestjumpout = new chestValue { name = "GunHandjumpOutF", maxDegress = 60, chestOffSet = new Vector3(30, 0, 0) };
+            chestValue chestDualPistolSilde = new chestValue { name = "dualSideDodgeR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
+            chestValue chestDualPistolSildeL = new chestValue { name = "dualSideDodgeL", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
+            chestValue chestDualPistolSildeF = new chestValue { name = "dualSideDodgeF", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
 
             _chestValues.Add(none);
             _chestValues.Add(chestIdle);
@@ -128,13 +131,24 @@ namespace Assets.Script.Avater
             _chestValues.Add(chestPistolsilde);
             _chestValues.Add(chestPistolsildeL);
             _chestValues.Add(chestjumpout);
+            _chestValues.Add(chestDualPistolSilde);
+            _chestValues.Add(chestDualPistolSildeL);
+            _chestValues.Add(chestDualPistolSildeF);
 
             camValue camNormal = new camValue { name = "none",IsLimitX = false, Max_x = 360, Min_x = -360, Max_y = 80, Min_y = -70 };
-            camValue camSidedodgeR = new camValue { name = "sidedodgeR",IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = -10, Min_y = -50 };
-            camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 100, Min_x = -10, Max_y = -10, Min_y = -50 };
-            camValue camjumpOutMidF = new camValue { name = "GunHandjumpOutMidF", IsLimitX = true, Max_x = 15, Min_x = -15, Max_y = 15, Min_y = -15 };
+            //camValue camSidedodgeR = new camValue { name = "sidedodgeR",IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = 60, Min_y = -50 };
+            camValue camSidedodgeR = new camValue { name = "sidedodgeR", IsLimitX = true, Max_x = 30, Min_x = -91, Max_y = 60, Min_y = -50 };
+            camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 91, Min_x = -30, Max_y = 60, Min_y = -50 };
+            //camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 50, Min_x = -90, Max_y = 60, Min_y = -50 };
+
+            camValue camjumpOutMidF = new camValue { name = "GunHandjumpOutMidF", IsLimitX = true, Max_x = 51, Min_x = -61, Max_y = 15, Min_y = -15 };
             camValue camAerial_Evade = new camValue { name = "GunHandAerial_Evade", IsLimitX = true, Max_x = 30, Min_x = -15, Max_y = 45, Min_y = -15 };
             camValue camjumpOutStartB = new camValue { name = "jumpOutStartB", IsLimitX = true, Max_x = 15, Min_x = -15, Max_y = 15, Min_y = -15 };
+            camValue camDualSidedodgeR = new camValue { name = "dualSideDodgeR", IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = -10, Min_y = -50 };
+            //camValue camDualSidedodgeR = new camValue { name = "dualSideDodgeR", IsLimitX = true, Max_x = 360, Min_x = -360, Max_y = 80, Min_y = -70 };
+
+            camValue camDualSidedodgeL = new camValue { name = "dualSideDodgeL", IsLimitX = true, Max_x = 100, Min_x = -10, Max_y = -10, Min_y = -50 };
+            camValue camDualSidedodgeF = new camValue { name = "dualSideDodgeF", IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = -10, Min_y = -50 };
 
             _camValues.Add(camNormal);
             _camValues.Add(camSidedodgeR);
@@ -142,6 +156,9 @@ namespace Assets.Script.Avater
             _camValues.Add(camjumpOutMidF);
             _camValues.Add(camjumpOutStartB);
             _camValues.Add(camAerial_Evade);
+            _camValues.Add(camDualSidedodgeR);
+            _camValues.Add(camDualSidedodgeL);
+            _camValues.Add(camDualSidedodgeF);
 
             /// 未來可能在此增加射線管理員
         }
@@ -179,6 +196,7 @@ namespace Assets.Script.Avater
             //取得目標的本地角度
             var TargetRot = RotFunction.Clamp180(camY - root);
             Animator.SetFloat("avater_ChestAngleH", TargetRot);
+            Animator.SetFloat("avater_ChestAngleV", cam.y);
 
             if (IsRotChest)
             {
@@ -213,6 +231,17 @@ namespace Assets.Script.Avater
         public void GunHandAim()
         {
             var came = camera.GetComponent<Camera>();
+            var cam = camera.GetComponent<MouseOrbitImproved>();
+
+            var Rootrot = transform.rotation.eulerAngles;
+            var root = RotFunction.Clamp180(Rootrot.y);
+            var camY = RotFunction.Clamp180(cam.x);
+
+            //取得目標的本地角度
+            var TargetRot = RotFunction.Clamp180(camY - root);
+
+            Animator.SetFloat("avater_ChestAngleH", TargetRot);
+            Animator.SetFloat("avater_ChestAngleV", cam.y);
 
             //先得到面相攝影機中間的向量
             Vector3 lookat = came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2, 100f));
