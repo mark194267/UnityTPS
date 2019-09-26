@@ -136,12 +136,13 @@ namespace Assets.Script.Avater
             _chestValues.Add(chestDualPistolSildeF);
 
             camValue camNormal = new camValue { name = "none",IsLimitX = false, Max_x = 360, Min_x = -360, Max_y = 80, Min_y = -70 };
-            //camValue camSidedodgeR = new camValue { name = "sidedodgeR",IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = 60, Min_y = -50 };
             camValue camSidedodgeR = new camValue { name = "sidedodgeR", IsLimitX = true, Max_x = 30, Min_x = -91, Max_y = 60, Min_y = -50 };
             camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 91, Min_x = -30, Max_y = 60, Min_y = -50 };
-            //camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 50, Min_x = -90, Max_y = 60, Min_y = -50 };
+            //camValue camSidedodgeR = new camValue { name = "sidedodgeR", IsLimitX = true, Max_x = 30, Min_x = -180, Max_y = 60, Min_y = -50 };
+            //camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 180, Min_x = -30, Max_y = 60, Min_y = -50 };
 
-            camValue camjumpOutMidF = new camValue { name = "GunHandjumpOutMidF", IsLimitX = true, Max_x = 51, Min_x = -61, Max_y = 15, Min_y = -15 };
+
+            camValue camjumpOutMidF = new camValue { name = "GunHandjumpOutMidF", IsLimitX = true, Max_x = 11, Min_x = -61, Max_y = 15, Min_y = -15 };
             camValue camAerial_Evade = new camValue { name = "GunHandAerial_Evade", IsLimitX = true, Max_x = 30, Min_x = -15, Max_y = 45, Min_y = -15 };
             camValue camjumpOutStartB = new camValue { name = "jumpOutStartB", IsLimitX = true, Max_x = 15, Min_x = -15, Max_y = 15, Min_y = -15 };
             camValue camDualSidedodgeR = new camValue { name = "dualSideDodgeR", IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = -10, Min_y = -50 };

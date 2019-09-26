@@ -16,7 +16,8 @@ namespace Assets.Script.ActionList
         private Vector3 _velocity;
         PlayerAvater PA;
         PlayerAvater.Guns g;
-        string LastWeapon;
+        string lastWeapon;
+        string lastAction;
 
         public void Before_equip(ActionStatus actionStatus)
         {
@@ -38,15 +39,15 @@ namespace Assets.Script.ActionList
             {
                 //Debug.Log(AvaterMain.MotionStatus.String);
                 //Gun.ChangeWeapon(AvaterMain.MotionStatus.String);
-                if (!String.IsNullOrEmpty(LastWeapon))
+                if (!String.IsNullOrEmpty(lastWeapon))
                 {
-                    Gun.InactiveWeapon(LastWeapon);
+                    Gun.InactiveWeapon(lastWeapon);
                 }
 
-                LastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
+                lastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
                 //Debug.Log(g.ToString());
                 //Gun.ChangeWeapon(g.ToString());
-                Gun.MainWeaponBasic = Gun.ActiveWeapon(LastWeapon)[0];
+                Gun.MainWeaponBasic = Gun.ActiveWeapon(lastWeapon)[0];
             }
             return true;
         }
@@ -157,14 +158,14 @@ namespace Assets.Script.ActionList
 
         public override void Before_slash(ActionStatus actionStatus)
         {
-            Gun.InactiveWeapon(LastWeapon);
+            Gun.InactiveWeapon(lastWeapon);
             //Rig.velocity = Vector3.zero;
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
             //var g = Me.GetComponent<PlayerAvater>().myguns;
             //Gun.ChangeWeapon(g.ToString());
 
             //紀錄上個武器確保能被換掉
-            LastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
+            lastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
 
             Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
 
@@ -213,11 +214,11 @@ namespace Assets.Script.ActionList
 
         public void Before_slashRoot(ActionStatus actionStatus)
         {
-            Gun.InactiveWeapon(LastWeapon);
+            Gun.InactiveWeapon(lastWeapon);
 
             Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
             //紀錄上個武器確保能被換掉
-            LastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
+            lastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
             //Gun.ChangeWeapon(g.ToString());
             Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
             Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
@@ -426,7 +427,7 @@ namespace Assets.Script.ActionList
 
         public void Before_leanGround(ActionStatus AS)
         {
-            Debug.Log(Animator.GetFloat("avater_yspeed"));
+            //Debug.Log(Animator.GetFloat("avater_yspeed"));
             if (PA.MotionStatus.String.StartsWith("GunHand"))
             {
                 Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
@@ -439,9 +440,14 @@ namespace Assets.Script.ActionList
                 Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().IsRotChest = true;
             }
-            //Vector3 direction = (Camera.transform.TransformDirection(Vector3.forward));
-            //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            //Me.transform.rotation = lookRotation;
+            //if (Animator.GetBool("avater_IsLanded"))
+            //{
+            //    Debug.Log("FlagHit");
+            //    Vector3 direction = (Camera.transform.TransformDirection(Vector3.forward));
+            //    Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            //    //lookRotation = lookRotation * Quaternion.AngleAxis(90, Vector3.up);
+            //    Me.transform.rotation = lookRotation;
+            //}
         }
 
         public bool leanGround(ActionStatus AS)

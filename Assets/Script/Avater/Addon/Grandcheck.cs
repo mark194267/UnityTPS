@@ -18,7 +18,7 @@ public class Grandcheck : MonoBehaviour
         if (other.gameObject.layer != LayerMask.GetMask("AI"))
         {
             animator.SetBool("avater_IsLanded", true);
-            print(other.gameObject.name);
+            //print(other.gameObject.name);
         }
         /*if(!other.GetComponentInParent<AvaterMain>())
             MyObject.parent = other.transform;

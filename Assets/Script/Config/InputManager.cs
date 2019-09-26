@@ -14,6 +14,9 @@ namespace Assets.Script.Config
         public float maxWSAD;
         public float charge;//蓄力
 
+        public int WNumber;
+        public float W2RunTimer;
+
         public int weaponslot;//武器欄
 
         public Animator Animator;
@@ -32,6 +35,36 @@ namespace Assets.Script.Config
             Animator.SetFloat("input_wsad", maxWSAD);
             Animator.SetFloat("input_ws", ws);
             Animator.SetFloat("input_ad", ad);
+
+            #region Run
+            if (Input.GetKeyDown("w"))
+            {
+                WNumber++;
+                if (WNumber > 1)
+                {
+                    Animator.SetBool("input_run",true);
+                }
+            }
+
+            if (WNumber == 1)
+            {
+                W2RunTimer += Time.deltaTime;
+                if (W2RunTimer > 0.5)//連按的最大秒數
+                {
+                    WNumber = 0;
+                    W2RunTimer = 0;
+                }
+            }
+            if (Animator.GetBool("input_run"))
+            {
+                if (Input.GetKeyUp("w"))
+                {
+                    Animator.SetBool("input_run", false);
+                    WNumber = 0;
+                    W2RunTimer = 0;
+                }
+            }
+            #endregion
 
             /*
             if (ws*ws+ad*ad != 0)
