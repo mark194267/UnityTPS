@@ -42,4 +42,6 @@
   <action name="dualSideDodgeL" x="10" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="dualSideDodgeL" IsRotV="false" IsRotH="false"></action>
   <action name="dualSideDodgeR" x="10" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="dualSideDodgeR" IsRotV="false" IsRotH="false"></action>
   <action name="dodgeJumpOutMidF" x="10" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="dualSideDodgeF" IsRotV="false" IsRotH="false"></action>
+  <action name="dualPistolcrouch" x="10" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="dualPistolcrouch" IsRotV="false" IsRotH="false"></action>
+
 </motion>

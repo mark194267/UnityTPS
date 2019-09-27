@@ -2678,6 +2678,7 @@ MonoBehaviour:
   NowAmmo: 0
   MaxAmmo: 0
   WeaponSlotNumber: 0
+  IsRotGunHand: 0
   IsRotChest: 0
   IsRotChestV: 0
   IsRotChestH: 0
@@ -2685,7 +2686,11 @@ MonoBehaviour:
   chestTransform: {fileID: 3802884910264646149}
   chestOffSet: {x: 10, y: -8, z: 0}
   chestMaxRot: 0
+  GunHandRoot: {fileID: 0}
+  GunHand: {fileID: 5157399451649388431}
   myguns: 0
+  slowMoDur: 0
+  slowMoCool: 0
   timer: 0
 --- !u!114 &2594459011546240319
 MonoBehaviour:
@@ -2703,7 +2708,8 @@ MonoBehaviour:
   ad: 0
   maxWSAD: 0
   charge: 0
-  weaponslot: 0
+  WNumber: 0
+  W2RunTimer: 0
   Animator: {fileID: 0}
 --- !u!114 &2594459011546240318
 MonoBehaviour:
@@ -2753,7 +2759,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.4
-  m_Center: {x: 0, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 1, z: 0.4}
 --- !u!136 &2594459011546240315
 CapsuleCollider:
   m_ObjectHideFlags: 0

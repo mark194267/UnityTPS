@@ -116,9 +116,11 @@ namespace Assets.Script.Avater
             chestValue chestPistolsilde = new chestValue { name = "sidedodgeR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
             chestValue chestPistolsildeL = new chestValue { name = "sidedodgeL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
             chestValue chestjumpout = new chestValue { name = "GunHandjumpOutF", maxDegress = 60, chestOffSet = new Vector3(30, 0, 0) };
-            chestValue chestDualPistolSilde = new chestValue { name = "dualSideDodgeR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
+            chestValue chestDualPistolSilde = new chestValue { name = "dualSideDodgeR", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
             chestValue chestDualPistolSildeL = new chestValue { name = "dualSideDodgeL", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
             chestValue chestDualPistolSildeF = new chestValue { name = "dualSideDodgeF", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
+            chestValue chestDualslide = new chestValue { name = "dualslide", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
+            chestValue chestDualPistolcrouch = new chestValue { name = "dualPistolcrouch", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
 
             _chestValues.Add(none);
             _chestValues.Add(chestIdle);
@@ -134,6 +136,8 @@ namespace Assets.Script.Avater
             _chestValues.Add(chestDualPistolSilde);
             _chestValues.Add(chestDualPistolSildeL);
             _chestValues.Add(chestDualPistolSildeF);
+            _chestValues.Add(chestDualslide);
+            _chestValues.Add(chestDualPistolcrouch);
 
             camValue camNormal = new camValue { name = "none",IsLimitX = false, Max_x = 360, Min_x = -360, Max_y = 80, Min_y = -70 };
             camValue camSidedodgeR = new camValue { name = "sidedodgeR", IsLimitX = true, Max_x = 30, Min_x = -91, Max_y = 60, Min_y = -50 };
@@ -284,11 +288,17 @@ namespace Assets.Script.Avater
             cam.yMinLimit = camv.Min_y;
         }
 
-        public void ChangeWeapon(int slotNum)
+        public void CheckCanChangeWeapon(int slotNum)
         {
+            //如果武器欄位不同才換
             if (WeaponSlotNumber != slotNum)
             {
-                bool canchange = true;
+                //WeaponSlotNumber = slotNum;
+                Animator.SetTrigger("avater_changeweapon");
+            }
+        }
+        public void ChangeWeapon(int slotNum)
+        {
                 //依照得到的slotNum切換武器參照
                 switch (slotNum)
                 {
@@ -310,17 +320,12 @@ namespace Assets.Script.Avater
                     case 5:
                         myguns = Guns.SMAW;
                         break;
+
                     default:
-                        canchange = false;
                         break;
                 }
-                if (canchange)
-                {
-                    WeaponSlotNumber = slotNum;
-                    Animator.SetInteger("avater_weaponslot", slotNum);
-                    Animator.SetTrigger("avater_changeweapon");
-                }
-            }
+            WeaponSlotNumber = slotNum;
+            Animator.SetInteger("avater_weaponslot", slotNum);
         }
         public void SlowMo()
         {

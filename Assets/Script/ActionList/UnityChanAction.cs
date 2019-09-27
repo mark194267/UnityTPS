@@ -33,17 +33,19 @@ namespace Assets.Script.ActionList
             Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, .3f);
             _vecter = Rig.velocity;
             */
-            FPSLikeRigMovement(3f, 10f);
+            if(Animator.GetBool("avater_IsLanded"))
+                FPSLikeRigMovement(3f, 10f);
 
             if (AvaterMain.anim_flag == 1)
             {
                 //Debug.Log(AvaterMain.MotionStatus.String);
                 //Gun.ChangeWeapon(AvaterMain.MotionStatus.String);
+                PA.ChangeWeapon(InputManager.weaponSlot);
+
                 if (!String.IsNullOrEmpty(lastWeapon))
                 {
                     Gun.InactiveWeapon(lastWeapon);
                 }
-
                 lastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
                 //Debug.Log(g.ToString());
                 //Gun.ChangeWeapon(g.ToString());
@@ -228,9 +230,6 @@ namespace Assets.Script.ActionList
 
             Me.GetComponent<PlayerAvater>().IsRotChestH = AvaterMain.MotionStatus.IsRotH;
             Me.GetComponent<PlayerAvater>().IsRotChestV = AvaterMain.MotionStatus.IsRotV;
-
-            _vecter = new Vector3(AvaterMain.MotionStatus.camX,
-            AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
         }
         public bool slashRoot(ActionStatus actionStatus)
         {
@@ -367,7 +366,7 @@ namespace Assets.Script.ActionList
             if (AvaterMain.anim_flag == 1)
             {
                 _timer += Time.deltaTime;
-                Rig.velocity  = (Vector3.up* 1.6f/(_timer*_timer)+fwd/_timer*_timer);
+                Rig.velocity  = (Vector3.up* 1f/(_timer*_timer)+fwd/_timer*_timer);
             }
             else
                 Rig.velocity = fwd/_timer*_timer;

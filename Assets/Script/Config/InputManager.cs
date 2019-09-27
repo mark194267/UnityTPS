@@ -17,7 +17,7 @@ namespace Assets.Script.Config
         public int WNumber;
         public float W2RunTimer;
 
-        public int weaponslot;//武器欄
+        public int weaponSlot { get; set; }//武器欄
 
         public Animator Animator;
 
@@ -185,23 +185,28 @@ namespace Assets.Script.Config
 
             if (Input.GetKeyDown("1"))
             {
-                GetComponent<PlayerAvater>().ChangeWeapon(1);
+                weaponSlot = 1;
+                GetComponent<PlayerAvater>().CheckCanChangeWeapon(weaponSlot);
             }
             if (Input.GetKeyDown("2"))
             {
-                GetComponent<PlayerAvater>().ChangeWeapon(2);
+                weaponSlot = 2;
+                GetComponent<PlayerAvater>().CheckCanChangeWeapon(weaponSlot);
             }
             if (Input.GetKeyDown("3"))
             {
-                GetComponent<PlayerAvater>().ChangeWeapon(3);
+                weaponSlot = 3;
+                GetComponent<PlayerAvater>().CheckCanChangeWeapon(weaponSlot);
             }
             if (Input.GetKeyDown("4"))
             {
-                GetComponent<PlayerAvater>().ChangeWeapon(4);
+                weaponSlot = 4;
+                GetComponent<PlayerAvater>().CheckCanChangeWeapon(weaponSlot);
             }
             if (Input.GetKeyDown("5"))
             {
-                GetComponent<PlayerAvater>().ChangeWeapon(5);
+                weaponSlot = 5;
+                GetComponent<PlayerAvater>().CheckCanChangeWeapon(weaponSlot);
             }
         }
         void ResetToggle()
