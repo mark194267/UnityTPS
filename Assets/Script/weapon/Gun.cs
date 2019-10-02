@@ -448,9 +448,11 @@ namespace Assets.Script.weapon
                 Qua = Quaternion.LookRotation(MainCamPos - transform.position);
             }
             else
-                Qua = NowWeapon[BarrelIndex].weapon.transform.rotation;
+                //Qua = NowWeapon[BarrelIndex].weapon.transform.rotation;
+                Qua = Quaternion.LookRotation(target.transform.position - transform.position);
 
-                //找到目前"槍口"的方向
+
+            //找到目前"槍口"的方向
             for (int i = 0;i< NowWeapon[BarrelIndex].multi/*散彈數*/;i++)
             {
                 var bullet = Instantiate(NowWeapon[BarrelIndex].bullet,
@@ -501,7 +503,7 @@ namespace Assets.Script.weapon
                 Qua = Quaternion.LookRotation(MainCamPos - transform.position);
             }
             else
-                Qua = wb.weapon.transform.rotation;
+                Qua = Quaternion.LookRotation(target.transform.position - wb.weapon.transform.position);
 
             //找到目前"槍口"的方向
             for (int i = 0; i < wb.multi/*散彈數*/; i++)

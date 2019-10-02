@@ -250,7 +250,7 @@ namespace Assets.Script.ActionList
         }
         public bool frontflip(ActionStatus AS)
         {
-            Rig.velocity = Rig.transform.TransformVector(Vector3.up * 4 + Vector3.back);
+            Rig.velocity = Rig.transform.TransformVector(Vector3.up * 4 + Vector3.back*.2f);
             return true;
         }
 
@@ -316,7 +316,7 @@ namespace Assets.Script.ActionList
 
         public bool strafe(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(7f,10f);
+            FPSLikeRigMovement(10f,10f);
             if(Input.GetButton("Fire1"))
             {
                 return Gun.fire(Gun.MainWeaponBasic);
@@ -666,7 +666,7 @@ namespace Assets.Script.ActionList
         }
         public void After_slide(ActionStatus actionStatus)
         {
-            Animator.SetBool("input_crouch", true);
+            Animator.SetBool("input_crouch", false);
         }
         #endregion
 

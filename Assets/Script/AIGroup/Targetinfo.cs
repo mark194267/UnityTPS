@@ -12,9 +12,9 @@ namespace Assets.Script.AIGroup
     public class TargetInfo
     {
         public float maxDistance = 100f;
-        public float meSightHset = .5f;
-        public float targetSightHset = .7f;
-        public float checkRadius = 0.05f;
+        public float meSightHset = 10f;
+        public float targetSightHset = 10f;
+        public float checkRadius = 0.001f;
 
         public GameObject Me { get; set; }
         public GameObject Target { get; set; }
@@ -123,9 +123,12 @@ namespace Assets.Script.AIGroup
         {
             RaycastHit TargetHit = new RaycastHit();
 
-            var MyPos = Me.transform.position + Vector3.up * meSightHset;
-            var TargetPos = Target.transform.position + Vector3.up * targetSightHset;
+            var MyPos = Me.transform.TransformPoint(Vector3.forward * .5f) + Vector3.up * 1.5f;
+            var TargetPos = Target.transform.position + Vector3.up * 1.3f;
             var AllHit = Physics.SphereCastAll(MyPos, checkRadius, TargetPos - MyPos, maxDistance, -1, QueryTriggerInteraction.Ignore);
+            //開啟射線觀看
+            Debug.DrawRay(MyPos, TargetPos - MyPos);
+
             System.Array.Sort(AllHit, (x, y) => x.distance.CompareTo(y.distance));
             foreach (var hit in AllHit)
             {
@@ -133,12 +136,14 @@ namespace Assets.Script.AIGroup
                 if (hit.transform.GetComponentInParent<Avater.AvaterMain>())
                 {
                     var avaterHit = hit.transform.GetComponentInParent<Avater.AvaterMain>();
-                    if (avaterHit != Me.GetComponent<Avater.AvaterMain>())//以防打到自己
+                    if (!GameObject.ReferenceEquals(avaterHit, Me.GetComponent<Avater.AvaterMain>()))//如果不是看到自己
                     {
                         TargetHit = hit;
                         //Debug.Log("Founded! " + TargetHit.transform.name);
                         break;
                     }
+                    else //看到的是自己
+                        continue;
                 }
                 else
                 {

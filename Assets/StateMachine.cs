@@ -25,6 +25,9 @@ public class StateMachine : StateMachineBehaviour
     {
         if (layerIndex == 0)
         {
+            AvaterMain.anim_flag = 0;
+            Animator.applyRootMotion = false;
+
             if (AvaterMain.motionStatusDir != null)
             {
                 //Debug.Log(me.name);

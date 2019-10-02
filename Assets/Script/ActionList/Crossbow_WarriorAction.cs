@@ -19,7 +19,22 @@ namespace Assets.Script.ActionList
                 Agent.SetDestination(coverPos);
             }
             else
-                Agent.SetDestination(Target.transform.position);
+            {
+                //檢查到玩家的路徑是否存在
+                NavMeshPath path = new NavMeshPath();
+                Agent.CalculatePath(Target.transform.position, path);
+                //不存在的話就找最近的掩體
+                if (path.status == NavMeshPathStatus.PathPartial)
+                {
+                    NavMeshHit hit;
+                    if (Agent.FindClosestEdge(out hit))
+                    {
+                        Agent.SetDestination(hit.position);
+                    }
+                }
+                else
+                    Agent.SetPath(path);
+            }
         }
         public override bool move(ActionStatus actionStatus)
         {
@@ -32,7 +47,7 @@ namespace Assets.Script.ActionList
             else
                 Agent.SetDestination(Target.transform.position);
             */
-            //UpdateWSAD_ToAnimator();
+            UpdateWSAD_ToAnimator();
 
             if (!Agent.pathPending)
             {
@@ -48,7 +63,7 @@ namespace Assets.Script.ActionList
             if (hit != null)
             {
                 if (hit.CompareTag("Player")) return false;
-            }
+            }            
 
             return true;
         }
@@ -56,8 +71,9 @@ namespace Assets.Script.ActionList
         public void Before_shoot(ActionStatus actionStatus)
         {
             //Agent.SetDestination(Target.transform.position);
+            Gun.MainWeaponBasic = Gun.ActiveWeapon("Crossbow_test")[0];
             Agent.ResetPath();
-            Gun.ChangeWeapon("MG");
+            //Gun.ChangeWeapon("MG");
             //var num = NavMesh.GetAreaFromName("H1");
             //hotArea.nowHeat = num;
             //hotArea.IsOn = true;
@@ -69,29 +85,31 @@ namespace Assets.Script.ActionList
             RotateTowardSlerp(Target.transform.position, 3f);
             var angle = Vector3.Angle(Me.transform.TransformDirection(Vector3.forward),
                     Target.transform.position - Me.transform.position);
-
-            if (angle < 10)
+            var hit = AI.hit.transform;
+            if (hit != null)
             {
-                var hit = AI.hit.transform;
-                if (hit != null)
+
+                if (hit.CompareTag("Player"))
                 {
-
-                    if (hit.CompareTag("Player"))
+                    if (AvaterMain.anim_flag == 1)
                     {
-                        if (AvaterMain.anim_flag == 1)
-                        {
-                            Gun.NowWeapon[0].BulletInMag = 1;
-                            Gun.fire(0);
-                        }
+                        Gun.target = Target;
+                        Gun.NowWeapon[0].BulletInMag = 1;
+                        Gun.fire(Gun.MainWeaponBasic);
+                        AvaterMain.anim_flag = 0;
                     }
-                    else
-                        return false;
                 }
+                else
+                    return false;
             }
-            else
-            {
-                Animator.SetFloat("AI_angle", 0);
-            }
+            //if (angle < 10)
+            //{
+
+            //}
+            //else
+            //{
+            //    Animator.SetFloat("AI_angle", 0);
+            //}
 
             return true;
         }

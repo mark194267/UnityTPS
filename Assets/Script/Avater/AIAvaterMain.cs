@@ -54,14 +54,19 @@ namespace Assets.Script.Avater
             
             //簡單的初始化，等待改寫
 
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
+            //gameObject.GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["fist"]);
-            gameObject.GetComponent<Gun>().AddWeapon(GunDic["MG"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Crossbow"]);
+            gameObject.GetComponent<Gun>().AddWeapon(GunDic["Crossbow_test"]);
+
             //gameObject.GetComponent<Gun>().AddWeapon(GunDic["katana"]);
             gameObject.GetComponent<Gun>().AddWeapon(GunDic["kick"]);
-
             gameObject.GetComponent<Gun>().CreateWeaponByList();
-            if(HasMotionStatus)
+
+            //GetComponent<Gun>().LoadSingleWeapon("Crossbow");
+            GetComponent<Gun>().LoadSingleWeapon("Crossbow_test");
+
+            if (HasMotionStatus)
                 motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
             targetInfo.checkRadius = sightRadius;
             targetInfo.maxDistance = sightDis;

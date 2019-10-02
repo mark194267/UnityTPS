@@ -1632,6 +1632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxShootRange: 50
   maxMeleeRange: 3
+  stateName: 
 --- !u!1101 &-7396744477332327381
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -8755,7 +8756,7 @@ AnimatorStateMachine:
     m_Position: {x: 400, y: 1570, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102390829705918630}
-    m_Position: {x: 160, y: 790, z: 0}
+    m_Position: {x: 170, y: 820, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102563313459083276}
     m_Position: {x: 910, y: 820, z: 0}

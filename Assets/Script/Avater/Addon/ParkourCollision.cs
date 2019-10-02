@@ -46,7 +46,8 @@ namespace Assets.Script.Avater.Addon
                 RaycastHit temphit;
                 int layermask = LayerMask.GetMask("Parkour");
                 //layermask = ~layermask;
-                if (Physics.Raycast(transform.position + Vector3.up * 1f, transform.TransformVector(Vector3.forward), out temphit, .6f, layermask, QueryTriggerInteraction.Ignore))
+                //Debug.DrawRay(transform.position + Vector3.up * 1f, transform.TransformVector(Vector3.forward));
+                if (Physics.Raycast(transform.position + Vector3.up * 1f, transform.TransformVector(Vector3.forward), out temphit, 1f, layermask, QueryTriggerInteraction.Ignore))
                 {
                     //取得法線
                     hit = temphit;
