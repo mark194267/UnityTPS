@@ -368,6 +368,7 @@
     <None Include="Assets\data\weapon\weapon.xml" />
     <None Include="Assets\data\avater\ImpStatus.xml" />
     <None Include="Assets\Resources\Char\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_hada_blend.shader" />
+    <None Include="Assets\data\StatusByAniName\UnityChanStatusByAniName1003_BAK.xml" />
     <None Include="Assets\Extended Script\ProCore\ProBuilder\Shader\pb_NormalPreview.shader" />
     <None Include="Assets\Resources\Weapon\Weapons Pack(LOW POLY)\Weapons Pack info.txt" />
     <None Include="Assets\data\StatusByAniName\Karate_WarriorStatusByAniName.xml" />

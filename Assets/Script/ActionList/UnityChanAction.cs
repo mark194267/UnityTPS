@@ -179,7 +179,7 @@ namespace Assets.Script.ActionList
             Me.GetComponent<PlayerAvater>().IsRotChestH = AvaterMain.MotionStatus.IsRotH;
             Me.GetComponent<PlayerAvater>().IsRotChestV = AvaterMain.MotionStatus.IsRotV;
 
-            _velocity = Me.transform.TransformVector(AvaterMain.MotionStatus.camX,
+            _velocity = Camera.transform.TransformVector(AvaterMain.MotionStatus.camX,
             AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
             _velocity = Vector3.ClampMagnitude(_velocity, 20f);
 
@@ -288,7 +288,7 @@ namespace Assets.Script.ActionList
             var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
             RotateTowardSlerp(Me.transform.position - camPos, PA.MotionStatus.motionSpd);
             var endspeed = Me.transform.TransformDirection(Vector3.forward*InputManager.maxWSAD).normalized * actionStatus.f1;
-            Rig.velocity = Vector3.Slerp(Rig.velocity,endspeed,1f);
+            Rig.velocity = Vector3.Slerp(Rig.velocity,endspeed,10f*Time.deltaTime);
             _vecter = Rig.velocity;
             return true;
         }
@@ -532,7 +532,6 @@ namespace Assets.Script.ActionList
         public bool After_wallrun(ActionStatus actionStatus)
         {
             Me.GetComponent<PlayerAvater>().IsRotChestH = false;
-
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
             {
@@ -543,7 +542,7 @@ namespace Assets.Script.ActionList
                 pos = -1;
             }
 
-            Rig.AddRelativeForce(Me.transform.TransformVector(Vector3.right*pos)*2,ForceMode.VelocityChange);
+            Rig.AddRelativeForce(Me.transform.TransformVector(Vector3.right*pos)*3,ForceMode.VelocityChange);
             //Animator.SetBool("action_can_parkour", false);
             return true;
         }
