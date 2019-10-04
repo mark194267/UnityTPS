@@ -485,8 +485,13 @@ namespace Assets.Script.ActionList
         /// <returns></returns>
         public void Before_wallrun(ActionStatus actionStatus)
         {
-            Me.GetComponent<PlayerAvater>().IsRotChestH = true;
-            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("wallrun");
+            if (!String.IsNullOrEmpty(PA.MotionStatus.String))
+            {
+                Me.GetComponent<PlayerAvater>().IsRotChestH = true;
+                Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
+                Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
+            }
+
             float angle;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
             {

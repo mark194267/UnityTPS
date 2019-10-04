@@ -54,6 +54,7 @@ namespace Assets.Script.Avater
 
         void Start()
         {
+            #region 暫時初始化
             camera = gameObject.transform.Find("Camera").gameObject;
             avaterStatus = avaterDataLoader.LoadStatus("UnityChan");
             
@@ -104,6 +105,15 @@ namespace Assets.Script.Avater
             GetComponent<Gun>().LoadSingleWeapon("SMAW");
             GetComponent<Gun>().InactiveAllWeapon();
             GetComponent<Gun>().ActiveWeapon("kick");
+            #endregion
+
+#region 上半身轉動，攝影機限制
+            /// 新增上半身轉動方法:
+            /// 1.先在StatusByAniName新增該動畫名稱，並填入String該動畫名
+            /// 2.新增ChestValue類別，並加入列表
+            /// 3.(選擇性)新增CamValue類別，並加入列表
+            /// 4.如果以上失效...記得檢查ActionList的Before_Action是否呼叫ChestLookByName
+            /// 5.如果 name 相同或是MotionStatus相同參數也會錯誤
 
             chestValue none = new chestValue { name = "none", maxDegress = 60, chestOffSet = new Vector3(0, 0, 0) };
             chestValue chestSlash = new chestValue { name = "slash", maxDegress = 60, chestOffSet = new Vector3(0, 0, 0) };
@@ -113,14 +123,21 @@ namespace Assets.Script.Avater
             chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(20, 0, 0) };
             chestValue chestDash = new chestValue { name = "dash", maxDegress = 0, chestOffSet = new Vector3(20, 0, 0) };
             chestValue chestDash4way = new chestValue { name = "dash4way", maxDegress = 0, chestOffSet = new Vector3(0, 40, 0) };
-            chestValue chestPistolsilde = new chestValue { name = "sidedodgeR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
-            chestValue chestPistolsildeL = new chestValue { name = "sidedodgeL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
+
+            chestValue chestPistolsilde = new chestValue { name = "jumpOutMidR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
+            chestValue chestPistolsildeL = new chestValue { name = "jumpOutMidL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
             chestValue chestjumpout = new chestValue { name = "GunHandjumpOutF", maxDegress = 60, chestOffSet = new Vector3(30, 0, 0) };
             chestValue chestDualPistolSilde = new chestValue { name = "dualSideDodgeR", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
             chestValue chestDualPistolSildeL = new chestValue { name = "dualSideDodgeL", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
             chestValue chestDualPistolSildeF = new chestValue { name = "dualSideDodgeF", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
             chestValue chestDualslide = new chestValue { name = "dualslide", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
-            chestValue chestDualPistolcrouch = new chestValue { name = "dualPistolcrouch", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
+            chestValue chestjumpOutMidR_AR = new chestValue { name = "jumpOutMidR_AR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
+            chestValue chestjumpOutMidL_AR = new chestValue { name = "jumpOutMidL_AR", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
+
+            chestValue chestwallrunR = new chestValue { name = "wallrunR_P", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
+            chestValue chestwallrunL = new chestValue { name = "wallrunL_P", maxDegress = 60, chestOffSet = new Vector3(-40, 0, 0) };
+            chestValue chestwallrunR_AR = new chestValue { name = "wallrunR_AR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
+            chestValue chestwallrunL_AR = new chestValue { name = "wallrunL_AR", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
 
             _chestValues.Add(none);
             _chestValues.Add(chestIdle);
@@ -137,14 +154,20 @@ namespace Assets.Script.Avater
             _chestValues.Add(chestDualPistolSildeL);
             _chestValues.Add(chestDualPistolSildeF);
             _chestValues.Add(chestDualslide);
-            _chestValues.Add(chestDualPistolcrouch);
+            _chestValues.Add(chestwallrunR);
+            _chestValues.Add(chestwallrunL);
+            _chestValues.Add(chestwallrunR_AR);
+            _chestValues.Add(chestwallrunL_AR);
+            _chestValues.Add(chestjumpOutMidR_AR);
+            _chestValues.Add(chestjumpOutMidL_AR);
+
+            #region 攝影機限制
 
             camValue camNormal = new camValue { name = "none",IsLimitX = false, Max_x = 360, Min_x = -360, Max_y = 80, Min_y = -70 };
-            camValue camSidedodgeR = new camValue { name = "sidedodgeR", IsLimitX = true, Max_x = 30, Min_x = -91, Max_y = 60, Min_y = -50 };
-            camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 91, Min_x = -30, Max_y = 60, Min_y = -50 };
+            camValue camSidedodgeR = new camValue { name = "jumpOutMidR", IsLimitX = true, Max_x = 30, Min_x = -91, Max_y = 60, Min_y = -50 };
+            camValue camSidedodgeL = new camValue { name = "jumpOutMidL", IsLimitX = true, Max_x = 91, Min_x = -30, Max_y = 60, Min_y = -50 };
             //camValue camSidedodgeR = new camValue { name = "sidedodgeR", IsLimitX = true, Max_x = 30, Min_x = -180, Max_y = 60, Min_y = -50 };
             //camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 180, Min_x = -30, Max_y = 60, Min_y = -50 };
-
 
             camValue camjumpOutMidF = new camValue { name = "GunHandjumpOutMidF", IsLimitX = true, Max_x = 11, Min_x = -61, Max_y = 15, Min_y = -15 };
             camValue camAerial_Evade = new camValue { name = "GunHandAerial_Evade", IsLimitX = true, Max_x = 30, Min_x = -15, Max_y = 45, Min_y = -15 };
@@ -154,6 +177,12 @@ namespace Assets.Script.Avater
 
             camValue camDualSidedodgeL = new camValue { name = "dualSideDodgeL", IsLimitX = true, Max_x = 100, Min_x = -10, Max_y = -10, Min_y = -50 };
             camValue camDualSidedodgeF = new camValue { name = "dualSideDodgeF", IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = -10, Min_y = -50 };
+            camValue camWallrunR = new camValue { name = "wallrunR_P", IsLimitX = true, Max_x = 100, Min_x = -10, Max_y = -10, Min_y = -50 };
+            camValue camWallrunL = new camValue { name = "wallrunL_P", IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = -10, Min_y = -50 };
+            camValue camWallrunR_AR = new camValue { name = "wallrunR_AR", IsLimitX = true, Max_x = 100, Min_x = -10, Max_y = -10, Min_y = -50 };
+            camValue camWallrunL_AR = new camValue { name = "wallrunL_AR", IsLimitX = true, Max_x = 10, Min_x = -100, Max_y = -10, Min_y = -50 };
+            camValue camjumpOutMidR_AR = new camValue { name = "jumpOutMidR_AR", IsLimitX = true, Max_x = 30, Min_x = -91, Max_y = 60, Min_y = -50 };
+            camValue camjumpOutMidL_AR = new camValue { name = "jumpOutMidL_AR", IsLimitX = true, Max_x = 91, Min_x = -30, Max_y = 60, Min_y = -50 };
 
             _camValues.Add(camNormal);
             _camValues.Add(camSidedodgeR);
@@ -164,6 +193,16 @@ namespace Assets.Script.Avater
             _camValues.Add(camDualSidedodgeR);
             _camValues.Add(camDualSidedodgeL);
             _camValues.Add(camDualSidedodgeF);
+            _camValues.Add(camWallrunR);
+            _camValues.Add(camWallrunL);
+            _camValues.Add(camWallrunR_AR);
+            _camValues.Add(camWallrunL_AR);
+            _camValues.Add(camjumpOutMidR_AR);
+            _camValues.Add(camjumpOutMidL_AR);
+
+            #endregion
+
+            #endregion
 
             /// 未來可能在此增加射線管理員
         }
@@ -337,7 +376,6 @@ namespace Assets.Script.Avater
             // The fixed delta time will now be 0.02 frames per real-time second
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
         }
-
     }
 
     public struct chestValue
