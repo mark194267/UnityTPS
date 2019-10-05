@@ -25,6 +25,7 @@
 
   <action name="jumpOutF" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
   <action name="jumpOutMidF" x="-1" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="GunHandjumpOutMidF" IsRotV="false" IsRotH="false"></action>
+  <action name="jumpOutAir" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="jumpOutAir" IsRotV="false" IsRotH="false"></action>
 
   <action name="jumpOutStartB" x="0" y="0" z="-1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="jumpOutStartB" IsRotV="false" IsRotH="false"></action>
 

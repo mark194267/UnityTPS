@@ -133,6 +133,7 @@ namespace Assets.Script.Avater
             chestValue chestDualslide = new chestValue { name = "dualslide", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
             chestValue chestjumpOutMidR_AR = new chestValue { name = "jumpOutMidR_AR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
             chestValue chestjumpOutMidL_AR = new chestValue { name = "jumpOutMidL_AR", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
+            chestValue chestjumpOutAir = new chestValue { name = "jumpOutAir", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
 
             chestValue chestwallrunR = new chestValue { name = "wallrunR_P", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
             chestValue chestwallrunL = new chestValue { name = "wallrunL_P", maxDegress = 60, chestOffSet = new Vector3(-40, 0, 0) };
@@ -160,6 +161,7 @@ namespace Assets.Script.Avater
             _chestValues.Add(chestwallrunL_AR);
             _chestValues.Add(chestjumpOutMidR_AR);
             _chestValues.Add(chestjumpOutMidL_AR);
+            _chestValues.Add(chestjumpOutAir);
 
             #region 攝影機限制
 
@@ -168,6 +170,8 @@ namespace Assets.Script.Avater
             camValue camSidedodgeL = new camValue { name = "jumpOutMidL", IsLimitX = true, Max_x = 91, Min_x = -30, Max_y = 60, Min_y = -50 };
             //camValue camSidedodgeR = new camValue { name = "sidedodgeR", IsLimitX = true, Max_x = 30, Min_x = -180, Max_y = 60, Min_y = -50 };
             //camValue camSidedodgeL = new camValue { name = "sidedodgeL", IsLimitX = true, Max_x = 180, Min_x = -30, Max_y = 60, Min_y = -50 };
+
+            camValue camjumpOutAir = new camValue { name = "jumpOutAir", IsLimitX = true, Max_x = 30, Min_x = -30, Max_y = 15, Min_y = -15 };
 
             camValue camjumpOutMidF = new camValue { name = "GunHandjumpOutMidF", IsLimitX = true, Max_x = 11, Min_x = -61, Max_y = 15, Min_y = -15 };
             camValue camAerial_Evade = new camValue { name = "GunHandAerial_Evade", IsLimitX = true, Max_x = 30, Min_x = -15, Max_y = 45, Min_y = -15 };
@@ -199,6 +203,7 @@ namespace Assets.Script.Avater
             _camValues.Add(camWallrunL_AR);
             _camValues.Add(camjumpOutMidR_AR);
             _camValues.Add(camjumpOutMidL_AR);
+            _camValues.Add(camjumpOutAir);
 
             #endregion
 
@@ -209,10 +214,7 @@ namespace Assets.Script.Avater
 
         void Update()
         {
-            if (GetComponent<Rigidbody>().velocity.y != 0)
-            {
-                Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y*-1f);
-            }
+
         }
 
         private void LateUpdate()
@@ -224,6 +226,10 @@ namespace Assets.Script.Avater
             if (IsRotGunHand)
             {
                 GunHandAim();
+            }
+            if (GetComponent<Rigidbody>().velocity.y != 0)
+            {
+                Animator.SetFloat("avater_yspeed", GetComponent<Rigidbody>().velocity.y * -1f);
             }
         }
 

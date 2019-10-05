@@ -76,7 +76,7 @@ namespace Assets.Script.Avater
             if (Hp < 1)
             {
                 //print("i`m Dead!");
-                Animator.SetBool("avatermain_stun",true);
+                Animator.SetTrigger("avatermain_stun");
                 Animator.SetTrigger("avatermain_dead");
                 GetComponent<Gun>().NowWeapon[0].weapon.SetActive(false);
                 //死了
