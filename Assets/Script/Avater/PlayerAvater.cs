@@ -250,7 +250,33 @@ namespace Assets.Script.Avater
 
             if (IsRotChest)
             {
-                chestTransform.LookAt(came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2, 100f)), Hip.TransformDirection(Vector3.up));
+                Vector3 toScreenCenterPos = came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2, 100f));
+                float toScreenAngle = Quaternion.Angle(Quaternion.LookRotation(toScreenCenterPos - transform.position,Hip.up), transform.rotation);
+                print(toScreenAngle);
+                //取得目前夾角
+                //在夾角內就能自由轉動...夾角外的話就在極限角。
+                //最大軸度數
+                Vector3 toScreenVector = toScreenCenterPos - transform.position;
+                Quaternion toScreenQua = Quaternion.LookRotation(toScreenVector, Hip.up);
+                Debug.DrawRay(transform.position + Vector3.up * 1.2f, toScreenCenterPos - transform.position, Color.green);
+                if (toScreenAngle < chestMaxRot)//最大角度
+                {
+                    //chestTransform.LookAt(toScreenCenterPos, Hip.TransformDirection(Vector3.up));//UP軸為轉動的Y軸
+                    chestTransform.rotation = toScreenQua;
+                }
+                else
+                {
+                    //目標:得到一向量為向著攝影機面對的方向轉動至最大角度
+
+                    //得到該方向的垂直轉軸--重要--
+                    Vector3 vertical2Screen = Vector3.Cross(Hip.forward, toScreenVector);
+                    //
+                    var QuaForMaxAngle = Quaternion.AngleAxis(chestMaxRot/*以最大角度取代*/, vertical2Screen)* Hip.rotation;
+
+                    chestTransform.rotation = QuaForMaxAngle;
+
+                    //加入"超出角度不能射擊.準心變紅"
+                }
                 chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(chestOffSet.x, Vector3.up);
                 chestTransform.rotation = chestTransform.rotation * Quaternion.AngleAxis(chestOffSet.y, Vector3.right);
             }

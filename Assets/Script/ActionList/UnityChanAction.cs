@@ -438,7 +438,7 @@ namespace Assets.Script.ActionList
             }
             else if (!String.IsNullOrEmpty(PA.MotionStatus.String))
             {
-                Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
+                //Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().IsRotChest = true;
             }
@@ -490,9 +490,9 @@ namespace Assets.Script.ActionList
         {
             if (!String.IsNullOrEmpty(PA.MotionStatus.String))
             {
-                Me.GetComponent<PlayerAvater>().IsRotChestH = true;
+                Me.GetComponent<PlayerAvater>().IsRotChest = true;
                 Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
-                Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
+                //Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
             }
 
             float angle;
