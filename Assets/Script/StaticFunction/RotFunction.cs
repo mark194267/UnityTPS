@@ -20,5 +20,17 @@ namespace Assets.Script.StaticFunction
             }
             return Num;
         }
+        public static float Clamp360(float Num)
+        {
+            if (Num < -360)
+            {
+                Num += 360;
+            }
+            if (Num > 360)
+            {
+                Num -= 360;
+            }
+            return Num;
+        }
     }
 }

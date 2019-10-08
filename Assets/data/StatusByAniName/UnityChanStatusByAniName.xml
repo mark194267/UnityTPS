@@ -30,7 +30,7 @@
   <action name="jumpOutStartB" x="0" y="0" z="-1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="jumpOutStartB" IsRotV="false" IsRotH="false"></action>
 
   <action name="Pistolcrouch" x="40" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
-  <action name="Pistolstrafe" x="0" y="20" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
+  <action name="Pistolstrafe" x="20" y="20" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
   <action name="Aerial_Evade" x="0" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="GunHandAerial_Evade" IsRotV="false" IsRotH="false"></action>
   <action name="jumpout_Air" x="0" y="0" z="1" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>
   <action name="DualMain" x="10" y="0" z="0" motionAtk="0" motionDef="0" motionStun="0" motionSpd="0" String ="" IsRotV="false" IsRotH="false"></action>

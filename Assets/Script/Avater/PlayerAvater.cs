@@ -120,12 +120,12 @@ namespace Assets.Script.Avater
             chestValue chestPistol = new chestValue { name = "pistol", maxDegress = 60, chestOffSet = new Vector3(-40, 0, 0) };
             chestValue chestWallrun = new chestValue { name = "wallrun", maxDegress = 120, chestOffSet = new Vector3(0, 0, 0) };
             chestValue chestIdle = new chestValue { name = "idle", maxDegress = 60, chestOffSet = new Vector3(10,-8,0) };
-            chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(20, 0, 0) };
+            chestValue chestMStrafe = new chestValue { name = "strafe", maxDegress = 0, chestOffSet = new Vector3(10, 50, 0) };
             chestValue chestDash = new chestValue { name = "dash", maxDegress = 0, chestOffSet = new Vector3(20, 0, 0) };
             chestValue chestDash4way = new chestValue { name = "dash4way", maxDegress = 0, chestOffSet = new Vector3(0, 40, 0) };
 
-            chestValue chestPistolsilde = new chestValue { name = "jumpOutMidR", maxDegress = 60, chestOffSet = new Vector3(40, 0, 0) };
-            chestValue chestPistolsildeL = new chestValue { name = "jumpOutMidL", maxDegress = 60, chestOffSet = new Vector3(-30, 0, 0) };
+            chestValue chestPistolsilde = new chestValue { name = "jumpOutMidR", maxDegress = 75, chestOffSet = new Vector3(40, 0, 0) };
+            chestValue chestPistolsildeL = new chestValue { name = "jumpOutMidL", maxDegress = 75, chestOffSet = new Vector3(-30, 0, 0) };
             chestValue chestjumpout = new chestValue { name = "GunHandjumpOutF", maxDegress = 60, chestOffSet = new Vector3(30, 0, 0) };
             chestValue chestDualPistolSilde = new chestValue { name = "dualSideDodgeR", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
             chestValue chestDualPistolSildeL = new chestValue { name = "dualSideDodgeL", maxDegress = 60, chestOffSet = new Vector3(10, 0, 0) };
@@ -246,23 +246,29 @@ namespace Assets.Script.Avater
             //取得目標的本地角度
             var TargetRot = RotFunction.Clamp180(camY - root);
             Animator.SetFloat("avater_ChestAngleH", TargetRot);
+            //var TargetRot = RotFunction.Clamp360(camY-root);
+            //Animator.SetFloat("avater_ChestAngleH", TargetRot);
             Animator.SetFloat("avater_ChestAngleV", cam.y);
 
             if (IsRotChest)
             {
                 Vector3 toScreenCenterPos = came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2, 100f));
-                float toScreenAngle = Quaternion.Angle(Quaternion.LookRotation(toScreenCenterPos - transform.position,Hip.up), transform.rotation);
-                print(toScreenAngle);
                 //取得目前夾角
                 //在夾角內就能自由轉動...夾角外的話就在極限角。
                 //最大軸度數
                 Vector3 toScreenVector = toScreenCenterPos - transform.position;
-                Quaternion toScreenQua = Quaternion.LookRotation(toScreenVector, Hip.up);
-                Debug.DrawRay(transform.position + Vector3.up * 1.2f, toScreenCenterPos - transform.position, Color.green);
+                float toScreenAngle = Quaternion.Angle(Quaternion.LookRotation(toScreenVector, Hip.up), Hip.rotation);
+                //print(toScreenAngle);
+
+                Debug.DrawRay(transform.position + Vector3.up * 1.6f, toScreenVector, Color.green);
+
                 if (toScreenAngle < chestMaxRot)//最大角度
                 {
                     //chestTransform.LookAt(toScreenCenterPos, Hip.TransformDirection(Vector3.up));//UP軸為轉動的Y軸
+                    Quaternion toScreenQua = Quaternion.LookRotation(toScreenVector, Hip.up);
                     chestTransform.rotation = toScreenQua;
+
+                    //Debug.DrawRay(transform.position + Vector3.up * 1.6f, toScreenQua * chestTransform.forward, Color.blue);
                 }
                 else
                 {
@@ -272,8 +278,9 @@ namespace Assets.Script.Avater
                     Vector3 vertical2Screen = Vector3.Cross(Hip.forward, toScreenVector);
                     //
                     var QuaForMaxAngle = Quaternion.AngleAxis(chestMaxRot/*以最大角度取代*/, vertical2Screen)* Hip.rotation;
-
                     chestTransform.rotation = QuaForMaxAngle;
+
+                    Debug.DrawRay(transform.position + Vector3.up * 1.6f, chestTransform.forward, Color.red);
 
                     //加入"超出角度不能射擊.準心變紅"
                 }

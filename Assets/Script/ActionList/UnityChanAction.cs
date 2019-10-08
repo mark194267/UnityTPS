@@ -398,7 +398,7 @@ namespace Assets.Script.ActionList
 
             if (!String.IsNullOrEmpty(PA.MotionStatus.String))
             {
-                Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
+                //Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().IsRotChest = true;
             }
@@ -447,7 +447,7 @@ namespace Assets.Script.ActionList
             //    Debug.Log("FlagHit");
             //    Vector3 direction = (Camera.transform.TransformDirection(Vector3.forward));
             //    Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            //    //lookRotation = lookRotation * Quaternion.AngleAxis(90, Vector3.up);
+            //    lookRotation = lookRotation * Quaternion.AngleAxis(90, Vector3.up);
             //    Me.transform.rotation = lookRotation;
             //}
         }
@@ -488,6 +488,8 @@ namespace Assets.Script.ActionList
         /// <returns></returns>
         public void Before_wallrun(ActionStatus actionStatus)
         {
+            PA.SlowMo();
+
             if (!String.IsNullOrEmpty(PA.MotionStatus.String))
             {
                 Me.GetComponent<PlayerAvater>().IsRotChest = true;
@@ -539,6 +541,8 @@ namespace Assets.Script.ActionList
         
         public bool After_wallrun(ActionStatus actionStatus)
         {
+            PA.SlowMo();
+
             Me.GetComponent<PlayerAvater>().IsRotChestH = false;
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
@@ -685,7 +689,8 @@ namespace Assets.Script.ActionList
             _velocity = Camera.transform.TransformDirection(Vector3.forward * Animator.GetFloat("input_ws") + Vector3.right * Animator.GetFloat("input_ad"));
             //得到攝影機的Z軸轉動，並轉動向量
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
-            _velocity = Vector3.ClampMagnitude(_velocity * 20, 20f);
+            _velocity = _velocity + Vector3.up;
+            _velocity = Vector3.ClampMagnitude(_velocity * 20, 10f);
             //保持人物轉動放在計算動量之後
             Vector3 direction = _velocity;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3

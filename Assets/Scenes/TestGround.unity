@@ -12123,6 +12123,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3557608}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1324033218 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8563761772783569011, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+    type: 3}
+  m_PrefabInstance: {fileID: 2053095847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1542213182
 Mesh:
   m_ObjectHideFlags: 0
@@ -14089,6 +14095,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1689890778 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3802884910264646149, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+    type: 3}
+  m_PrefabInstance: {fileID: 2053095847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!21 &1695352773
 Material:
   serializedVersion: 6
@@ -16597,7 +16609,7 @@ PrefabInstance:
     - target: {fileID: 3976901600478402888, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -46.7
+      value: -45.99
       objectReference: {fileID: 0}
     - target: {fileID: 3976901600478402888, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
@@ -16607,7 +16619,7 @@ PrefabInstance:
     - target: {fileID: 3976901600478402888, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -22.3
+      value: -17.58
       objectReference: {fileID: 0}
     - target: {fileID: 3976901600478402888, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
@@ -16653,7 +16665,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 42459653fe01da24ab8b13c75d4a5226, type: 2}
+      objectReference: {fileID: 9100000, guid: 7924a4d9d3322404bbc1f2907cf1e578, type: 2}
     - target: {fileID: 2594459011546240316, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
       propertyPath: m_Center.z
@@ -16721,6 +16733,16 @@ PrefabInstance:
       propertyPath: IsRotChest
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2594459011546240288, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+        type: 3}
+      propertyPath: chestTransform
+      value: 
+      objectReference: {fileID: 1324033218}
+    - target: {fileID: 2594459011546240288, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+        type: 3}
+      propertyPath: Hip
+      value: 
+      objectReference: {fileID: 1689890778}
     - target: {fileID: 2594459011546240317, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
       propertyPath: m_Mass
