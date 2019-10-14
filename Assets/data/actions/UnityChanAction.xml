@@ -113,14 +113,21 @@
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "fall"/>
 	</long>
-
+  <long name = "shooterJump">
+    <f1 value = "5"/>
+    <f2 value = "5"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "fall"/>
+  </long>
   <long name = "jumpout">
     <f1 value = "10"/>
     <f2 value = "5"/>
     <f3 value = "6"/>
     <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "jump,fall,jumpout"/>
+    <ignore list = "jump,fall,jumpout,parkour"/>
   </long>
   <long name = "leanGround">
     <f1 value = "10"/>
@@ -128,7 +135,7 @@
     <f3 value = "6"/>
     <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "jump,fall,jumpout"/>
+    <ignore list = "jump,fall,jumpout,parkour"/>
   </long>
   <long name = "offwall">
     <f1 value = "10"/>
@@ -187,6 +194,14 @@
     <ignore list = "0"/>
   </long>
   <long name = "kick">
+    <f1 value = "6"/>
+    <f2 value = "0"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "fall"/>
+  </long>
+  <long name = "strafeFalling">
     <f1 value = "6"/>
     <f2 value = "0"/>
     <f3 value = "6"/>

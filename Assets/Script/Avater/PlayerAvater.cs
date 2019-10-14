@@ -47,10 +47,10 @@ namespace Assets.Script.Avater
 
         public enum Guns { Great_Sword,Cross_Sword, Handgun ,Shotgun ,AK47 , SMAW }
         public Guns myguns;
-
+        //慢動作
         public float slowMoDur;
         public float slowMoCool;
-        public float timer = 0; 
+        public float timer = 0;
 
         void Start()
         {

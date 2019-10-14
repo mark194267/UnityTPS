@@ -400,16 +400,22 @@ namespace Assets.Script.ActionControl
         /// </summary>
         /// <param name="maxSpeed"></param>
         /// <param name="rotSpeed"></param>
-        public void FPSLikeRigMovement(float maxSpeed, float rotSpeed)
+        public Vector3 FPSLikeRigMovement(float maxSpeed, float rotSpeed)
         {
             var dir =
                 Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
             dir = Vector3.ProjectOnPlane(dir, Vector3.up);
             //Rig.velocity = Vector3.ClampMagnitude(dir.normalized * 7f, maxSpeed);
-            Rig.velocity = Vector3.Lerp(Rig.velocity, dir.normalized * InputManager.maxWSAD * maxSpeed, 1f);
+
+            //將XYZ拆開
+            Vector3 topSpeed = dir.normalized * InputManager.maxWSAD * maxSpeed;
+            float ySpeed = Rig.velocity.y;
+            Rig.velocity = Vector3.Lerp(Rig.velocity, topSpeed+Vector3.up* ySpeed, Time.deltaTime * 5f);
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
             RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
+
+            return Rig.velocity;
         }
         /// <summary>
         /// 第一人稱式移動，自訂速度
@@ -417,7 +423,7 @@ namespace Assets.Script.ActionControl
         /// <param name="baseSpeed"></param>
         /// <param name="maxSpeed"></param>
         /// <param name="rotSpeed"></param>
-        public void FPSLikeRigMovement(float baseSpeed, float maxSpeed, float rotSpeed)
+        public Vector3 FPSLikeRigMovement(float baseSpeed, float maxSpeed, float rotSpeed)
         {
             var dir =
                 Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
@@ -425,9 +431,10 @@ namespace Assets.Script.ActionControl
             dir = Vector3.ProjectOnPlane(dir, Vector3.up);
             Rig.velocity = Vector3.Lerp(Rig.velocity, dir.normalized * InputManager.maxWSAD * maxSpeed, baseSpeed);
 
-
             var camPos = Camera.transform.TransformDirection(Vector3.back);
             RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
+
+            return Rig.velocity;
         }
         #endregion
 

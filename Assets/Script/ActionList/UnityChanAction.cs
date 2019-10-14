@@ -12,7 +12,6 @@ namespace Assets.Script.ActionList
     class UnityChanAction : ActionScript
     {
         private float _timer;
-        private Vector3 _vecter;
         private Vector3 _velocity;
         PlayerAvater PA;
         PlayerAvater.Guns g;
@@ -195,7 +194,7 @@ namespace Assets.Script.ActionList
                 RotateTowardSlerp(Me.transform.position + camPos, 3f);
                 Me.GetComponent<Animator>().applyRootMotion = false;
 
-                _vecter = Vector3.Slerp(_vecter, Vector3.zero, Time.deltaTime);
+                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
                 //Rig.AddRelativeForce(_vecter, ForceMode.VelocityChange);
                 Rig.velocity = _velocity;
             }
@@ -285,11 +284,27 @@ namespace Assets.Script.ActionList
 
         public override bool move(ActionStatus actionStatus)
         {
-            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-            RotateTowardSlerp(Me.transform.position - camPos, PA.MotionStatus.motionSpd);
-            var endspeed = Me.transform.TransformDirection(Vector3.forward*InputManager.maxWSAD).normalized * actionStatus.f1;
-            Rig.velocity = Vector3.Slerp(Rig.velocity,endspeed,10f*Time.deltaTime);
-            _vecter = Rig.velocity;
+            Vector3 dir = Camera.transform.TransformDirection(Vector3.forward * InputManager.ws * 3 + Vector3.right * InputManager.ad * 3);
+            Vector3 afterProject = Vector3.ProjectOnPlane(dir, Vector3.up).normalized;
+            _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
+            if (InputManager.maxWSAD > 0)
+            {
+                Vector3 afterLerp = Vector3.Slerp(Me.transform.forward, afterProject, Time.deltaTime*7f);
+                Me.transform.rotation = Quaternion.LookRotation(afterLerp, Vector3.up);
+
+                if (_velocity.magnitude < 6f)//最小速度
+                    _velocity = afterProject * 6f;//拿的是地面的投影
+                else
+                    _velocity = Vector3.Lerp(_velocity, afterProject * 10f, Time.deltaTime*2.5f/*加速度*/);//最大速度
+
+                Rig.velocity = _velocity;
+            }
+            else
+            {
+                Rig.velocity = Vector3.zero;
+                _timer = 0;
+            }
+
             return true;
         }
         public override void After_move(ActionStatus actionStatus)
@@ -299,6 +314,34 @@ namespace Assets.Script.ActionList
         }
         #endregion
 
+        #region jump
+        public void Before_jump(ActionStatus actionStatus)
+        {
+            _timer = .3f;
+        }
+        public bool jump(ActionStatus actionStatus)
+        {
+            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+            RotateTowardSlerp(Me.transform.position - camPos, 4f);
+            var fwd = Me.transform.TransformVector(Vector3.forward * 5f);
+
+            if (AvaterMain.anim_flag == 1)
+            {
+                _timer += Time.deltaTime;
+                Rig.velocity = (Vector3.up * 1f / (_timer * _timer) + fwd / _timer * _timer);
+            }
+            else
+                Rig.velocity = fwd / _timer * _timer;
+            return true;
+        }
+        public void After_jump(ActionStatus actionStatus)
+        {
+            //_vecter = Rig.velocity;
+            //Animator.SetBool("action_can_fall", true);
+        }
+        #endregion
+
+        
         #region strafe
         public void Before_strafe(ActionStatus actionStatus)
         {
@@ -316,7 +359,7 @@ namespace Assets.Script.ActionList
 
         public bool strafe(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(10f,10f);
+            _velocity =  FPSLikeRigMovement(10f,10f);
             if(Input.GetButton("Fire1"))
             {
                 return Gun.fire(Gun.MainWeaponBasic);
@@ -350,34 +393,7 @@ namespace Assets.Script.ActionList
         }
         #endregion
 
-        #region jump
-        public void Before_jump(ActionStatus actionStatus)
-        {
-            //Animator.SetBool("avater_can_jump",false);
-            //Animator.SetBool("action_can_fall", false);
-            _timer = .3f;
-        }
-        public bool jump(ActionStatus actionStatus)
-        {
-            var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
-            RotateTowardSlerp(Me.transform.position - camPos, 4f);
-            var fwd = Me.transform.TransformVector(Vector3.forward*5f);
-            
-            if (AvaterMain.anim_flag == 1)
-            {
-                _timer += Time.deltaTime;
-                Rig.velocity  = (Vector3.up* 1f/(_timer*_timer)+fwd/_timer*_timer);
-            }
-            else
-                Rig.velocity = fwd/_timer*_timer;
-            return true;
-        }
-        public void After_jump(ActionStatus actionStatus)
-        {
-            //_vecter = Rig.velocity;
-            //Animator.SetBool("action_can_fall", true);
-        }
-        #endregion
+        
 
         #region jumpout
         public void Before_jumpout(ActionStatus AS)
@@ -403,7 +419,6 @@ namespace Assets.Script.ActionList
                 Me.GetComponent<PlayerAvater>().IsRotChest = true;
             }
 
-            PA.SlowMo();
         }
 
         public bool jumpout(ActionStatus AS)
@@ -424,7 +439,6 @@ namespace Assets.Script.ActionList
 
         public void After_jumpout(ActionStatus AS)
         {
-            PA.SlowMo();
         }
 
         public void Before_leanGround(ActionStatus AS)
@@ -465,6 +479,41 @@ namespace Assets.Script.ActionList
 
         #endregion
 
+        #region shooterJump
+        public void Before_shooterJump(ActionStatus actionStatus)
+        {
+            //_velocity = Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
+            //得到攝影機的Z軸轉動，並轉動向量
+            _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
+            _velocity = Vector3.ClampMagnitude(_velocity + Vector3.up * 7, 30f);
+            //_timer = .3f;
+        }
+        public bool shooterJump(ActionStatus actionStatus)
+        {
+            //var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+            //RotateTowardSlerp(Me.transform.position - camPos, 4f);
+            FPSLikeRigMovement(10f, 10f);
+            //var fwd = Me.transform.TransformVector(Vector3.right * InputManager.ad*5f + Vector3.forward * InputManager.ws * 5f);
+
+            if (AvaterMain.anim_flag == 1)
+            {
+                //_timer += Time.deltaTime;
+                //Rig.velocity = ( _velocity / _timer * _timer);
+                Rig.velocity = Vector3.Slerp(_velocity, Vector3.zero, 1 / (120 * Time.deltaTime));
+            }
+            /*
+            else
+                Rig.velocity = _velocity / _timer * _timer;
+            */
+            return true;
+        }
+        public void After_shooterJump(ActionStatus actionStatus)
+        {
+            //_vecter = Rig.velocity;
+            //Animator.SetBool("action_can_fall", true);
+        }
+        #endregion
+
         #region offwall
 
         public bool offwall(ActionStatus AS)
@@ -488,7 +537,6 @@ namespace Assets.Script.ActionList
         /// <returns></returns>
         public void Before_wallrun(ActionStatus actionStatus)
         {
-            PA.SlowMo();
 
             if (!String.IsNullOrEmpty(PA.MotionStatus.String))
             {
@@ -511,15 +559,15 @@ namespace Assets.Script.ActionList
             //轉為世界向量
             var rot = hit.normal;
             //沿著Y軸轉90度    
-            _vecter = Quaternion.AngleAxis(angle,Vector3.up)*rot;
+            _velocity = Quaternion.AngleAxis(angle,Vector3.up)*rot;
 
-            Me.transform.rotation = Quaternion.LookRotation(_vecter);
+            Me.transform.rotation = Quaternion.LookRotation(_velocity);
         }
 
         public bool wallrun(ActionStatus actionStatus)
         {
             //給定速度
-            Rig.velocity = _vecter.normalized*9+Vector3.up*2;//NowVector已經是正規化的向量了
+            Rig.velocity = _velocity.normalized*9+Vector3.up*2;//NowVector已經是正規化的向量了
             //轉過去
             float pos;
             if(Animator.GetFloat("avater_AngleBetweenWall") > 90)
@@ -541,7 +589,6 @@ namespace Assets.Script.ActionList
         
         public bool After_wallrun(ActionStatus actionStatus)
         {
-            PA.SlowMo();
 
             Me.GetComponent<PlayerAvater>().IsRotChestH = false;
             float pos;
@@ -569,7 +616,7 @@ namespace Assets.Script.ActionList
             var hit = Me.GetComponent<ParkourCollision>().hit;
             var q = Quaternion.AngleAxis(180,Vector3.up)*hit.normal;
             //轉為世界向量
-            _vecter = q;
+            _velocity = q;
             //沿著Y軸轉90度    
             //Rig.velocity = _vecter*2+Vector3.up*10;//NowVector已經是正規化的向量了 
         }
@@ -603,15 +650,19 @@ namespace Assets.Script.ActionList
             //    Rig.AddRelativeForce(Vector3.forward * 2f);
             //}
 
-            var camPos = Camera.transform.TransformDirection(Vector3.back);
-            RotateTowardSlerp(Me.transform.position - camPos, 15f);
-            Rig.AddRelativeForce(Vector3.forward * 2f);
-
-            if (Input.GetButton("Fire1"))
+            if (InputManager.maxWSAD > 0)
             {
-                return Gun.fire(Gun.MainWeaponBasic);
-            }
+                Vector3 dir = Camera.transform.TransformDirection(Vector3.forward * InputManager.ws*3 + Vector3.right * InputManager.ad*3);
+                Vector3 afterProject = Vector3.ProjectOnPlane(dir, Vector3.up).normalized;
+                Vector3 afterLerp = Vector3.Slerp(Me.transform.forward, afterProject, Time.deltaTime * 7f);
+                Me.transform.rotation = Quaternion.LookRotation(afterLerp, Vector3.up);
 
+                Rig.AddRelativeForce(Vector3.forward * 2f);
+            }
+            else
+            {
+                _timer = 0;
+            }
             return true;
         }
         public void After_falling(ActionStatus actionStatus)
@@ -619,21 +670,37 @@ namespace Assets.Script.ActionList
         }
         #endregion
 
+        #region falling
+        public void Before_strafeFalling(ActionStatus actionStatus)
+        {
+            //PA.IsRotChestH = true;
+            //PA.IsRotChestV = true;
+        }
+        public bool strafeFalling(ActionStatus actionStatus)
+        {
+            //var camPos = Camera.transform.TransformDirection(Vector3.back * InputManager.ws + Vector3.left * InputManager.ad);
+            //if (Input.anyKey)
+            //{
+            //    RotateTowardSlerp(Me.transform.position - camPos, 10f);
+            //    Rig.AddRelativeForce(Vector3.forward * 2f);
+            //}
+            FPSLikeRigMovement(5f, 7f);
+
+            return true;
+        }
+        public void After_strafeFalling(ActionStatus actionStatus)
+        {
+        }
+        #endregion
+
         #region land
         public void Before_softland(ActionStatus actionStatus)
         {
-            AvaterMain.anim_flag = 0;
-            //Rig.AddRelativeForce(Vector3.forward * 7, ForceMode.VelocityChange);
+            Animator.applyRootMotion = true;
         }
 
         public bool softland(ActionStatus actionStatus)
         {
-            if (AvaterMain.anim_flag == 2)
-            {
-                Rig.velocity = Me.transform.TransformVector(Vector3.forward * .7f);
-            }            
-            else if (AvaterMain.anim_flag == 1)
-                Rig.velocity = Me.transform.TransformVector(Vector3.forward * 5);
             return true;
         }
 
@@ -686,11 +753,11 @@ namespace Assets.Script.ActionList
         public void Before_dash(ActionStatus actionStatus)
         {
 
-            _velocity = Camera.transform.TransformDirection(Vector3.forward * Animator.GetFloat("input_ws") + Vector3.right * Animator.GetFloat("input_ad"));
+            //_velocity = Camera.transform.TransformDirection(Vector3.forward * Animator.GetFloat("input_ws") + Vector3.right * Animator.GetFloat("input_ad"));
             //得到攝影機的Z軸轉動，並轉動向量
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
-            _velocity = _velocity + Vector3.up;
-            _velocity = Vector3.ClampMagnitude(_velocity * 20, 10f);
+            _velocity = _velocity + Vector3.up*_velocity.magnitude/2;
+            _velocity = Vector3.ClampMagnitude(_velocity, 20f);
             //保持人物轉動放在計算動量之後
             Vector3 direction = _velocity;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
