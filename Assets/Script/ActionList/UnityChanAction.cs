@@ -13,6 +13,7 @@ namespace Assets.Script.ActionList
     {
         private float _timer;
         private Vector3 _velocity;
+        private Vector3 _climbVector;
         PlayerAvater PA;
         PlayerAvater.Guns g;
         string lastWeapon;
@@ -431,7 +432,7 @@ namespace Assets.Script.ActionList
                 if (Input.GetButton("Fire1"))
                     Gun.fire(Gun.MainWeaponBasic);
                 */
-                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime*.5f);
                 Rig.velocity = _velocity;
             }
             return true;
@@ -456,14 +457,6 @@ namespace Assets.Script.ActionList
                 Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().IsRotChest = true;
             }
-            //if (Animator.GetBool("avater_IsLanded"))
-            //{
-            //    Debug.Log("FlagHit");
-            //    Vector3 direction = (Camera.transform.TransformDirection(Vector3.forward));
-            //    Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            //    lookRotation = lookRotation * Quaternion.AngleAxis(90, Vector3.up);
-            //    Me.transform.rotation = lookRotation;
-            //}
         }
 
         public bool leanGround(ActionStatus AS)
@@ -578,8 +571,13 @@ namespace Assets.Script.ActionList
             {
                 pos = 1;
             }
-            
-            if(!Physics.CheckSphere(Me.transform.TransformPoint(.3f*pos,1,0),.7f,LayerMask.GetMask("Parkour"),QueryTriggerInteraction.Ignore))
+
+            if (Input.GetButton("Fire1"))
+            {
+                Gun.fire(Gun.MainWeaponBasic);
+            }
+
+            if (!Physics.CheckSphere(Me.transform.TransformPoint(.3f*pos,1,0),.7f,LayerMask.GetMask("Parkour"),QueryTriggerInteraction.Ignore))
             {
                 //Me.GetComponent<Animator>().applyRootMotion = false;
                 return false;
@@ -684,7 +682,12 @@ namespace Assets.Script.ActionList
             //    RotateTowardSlerp(Me.transform.position - camPos, 10f);
             //    Rig.AddRelativeForce(Vector3.forward * 2f);
             //}
-            FPSLikeRigMovement(5f, 7f);
+            FPSLikeRigMovement(3f, 5f);
+
+            if (Input.GetButton("Fire1"))
+            {
+                Gun.fire(Gun.MainWeaponBasic);
+            }
 
             return true;
         }
@@ -838,9 +841,9 @@ namespace Assets.Script.ActionList
             var hit = Me.GetComponent<ParkourCollision>().hit;
             var toPoint = Me.transform.TransformVector(hit.point).normalized;
             var EdgeOffSet = Rig.position + toPoint * .3f;
-            EdgeOffSet.y = hit.point.y;
+            EdgeOffSet.y = hit.point.y - .3f;
             //Debug.Log("hitPos: " + hit.point + " toPoint: " + toPoint + " EdgeOffSet " + EdgeOffSet);
-            _velocity = EdgeOffSet;
+            _climbVector = EdgeOffSet;
             Rig.rotation = Quaternion.LookRotation(EdgeOffSet, Vector3.up);
 
             /*
@@ -852,13 +855,8 @@ namespace Assets.Script.ActionList
         }
         public bool climb(ActionStatus AS)
         {
-            var hit = Me.GetComponent<ParkourCollision>().hit;
-            var toPoint = Me.transform.position - hit.point;
-            
-            //Me.transform.position = Vector3.Lerp(Me.transform.position, hit.point, 10f*Time.deltaTime);
-            //Me.transform.position = Vector3.Lerp(Me.transform.position, hit.point-toPoint*2f, 10f * Time.deltaTime);
-
-            Me.transform.position = Vector3.Lerp(Me.transform.position, _velocity, 5f * Time.deltaTime);
+            //var hit = Me.GetComponent<ParkourCollision>().hit;
+            //Me.transform.position = Vector3.Lerp(Me.transform.position, _climbVector, 5f * Time.deltaTime);
 
             return true;
         }
@@ -867,7 +865,7 @@ namespace Assets.Script.ActionList
             var hit = Me.GetComponent<ParkourCollision>().hit;
             //Me.transform.position = new Vector3(Me.transform.position.x, hit.point.y, Me.transform.position.z);
             Me.transform.position = hit.point;
-            Me.GetComponent<Animator>().SetBool("avater_IsLanded", true);
+            //Me.GetComponent<Animator>().SetBool("avater_IsLanded", true);
             //Debug.Log(hit.point);
         }
 
