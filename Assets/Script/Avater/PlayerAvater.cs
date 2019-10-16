@@ -43,6 +43,10 @@ namespace Assets.Script.Avater
         public Transform GunHandRoot;
         public Transform GunHand;
 
+        public float maxSpd = 10;
+        public float minSpd = 0;
+        public float animSpd = 0;
+
         public RaycastHit hit { get; set; }
 
         public enum Guns { Great_Sword,Cross_Sword, Handgun ,Shotgun ,AK47 , SMAW }
@@ -214,7 +218,8 @@ namespace Assets.Script.Avater
 
         void Update()
         {
-
+            animSpd = GetComponent<Rigidbody>().velocity.magnitude/(maxSpd - minSpd);
+            Animator.SetFloat("avater_spdPara", animSpd);
         }
 
         private void LateUpdate()
@@ -314,25 +319,40 @@ namespace Assets.Script.Avater
         public void GunHandAim()
         {
             var came = camera.GetComponent<Camera>();
-            var cam = camera.GetComponent<MouseOrbitImproved>();
+            Vector3 toScreenCenterPos = came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2, 100f));
+            //取得目前夾角
+            //在夾角內就能自由轉動...夾角外的話就在極限角。
+            //最大軸度數
+            Vector3 toScreenVector = toScreenCenterPos - transform.position;
+            float toScreenAngle = Quaternion.Angle(Quaternion.LookRotation(toScreenVector, GunHandRoot.up), GunHandRoot.rotation);
+            //print(toScreenAngle);
 
-            var Rootrot = transform.rotation.eulerAngles;
-            var root = RotFunction.Clamp180(Rootrot.y);
-            var camY = RotFunction.Clamp180(cam.x);
+            Debug.DrawRay(transform.position + Vector3.up * 1.6f, toScreenVector, Color.green);
 
-            //取得目標的本地角度
-            var TargetRot = RotFunction.Clamp180(camY - root);
+            if (toScreenAngle < chestMaxRot)//最大角度
+            {
+                //chestTransform.LookAt(toScreenCenterPos, Hip.TransformDirection(Vector3.up));//UP軸為轉動的Y軸
+                Quaternion toScreenQua = Quaternion.LookRotation(toScreenVector, GunHandRoot.up);
+                GunHand.rotation = toScreenQua;
 
-            Animator.SetFloat("avater_ChestAngleH", TargetRot);
-            Animator.SetFloat("avater_ChestAngleV", cam.y);
+                //Debug.DrawRay(transform.position + Vector3.up * 1.6f, toScreenQua * chestTransform.forward, Color.blue);
+            }
+            else
+            {
+                //目標:得到一向量為向著攝影機面對的方向轉動至最大角度
 
-            //先得到面相攝影機中間的向量
-            Vector3 lookat = came.ScreenToWorldPoint(new Vector3(came.scaledPixelWidth / 2, came.scaledPixelHeight / 2, 100f));
-            GunHand.LookAt(lookat, Hip.TransformDirection(Vector3.up));
-            GunHand.rotation = GunHand.rotation * Quaternion.AngleAxis(-40, Vector3.up);
-            GunHand.rotation = GunHand.rotation * Quaternion.AngleAxis(-15, Vector3.right);
+                //得到該方向的垂直轉軸--重要--
+                Vector3 vertical2Screen = Vector3.Cross(Hip.forward, toScreenVector);
+                //
+                var QuaForMaxAngle = Quaternion.AngleAxis(chestMaxRot/*以最大角度取代*/, vertical2Screen) * GunHandRoot.rotation;
+                GunHand.rotation = QuaForMaxAngle;
 
-            //將手部面向回傳的向量
+                //Debug.DrawRay(transform.position + Vector3.up * 1.6f, GunHand.forward, Color.red);
+
+                //加入"超出角度不能射擊.準心變紅"
+            }
+            GunHand.rotation = GunHand.rotation * Quaternion.AngleAxis(chestOffSet.x, Vector3.up);
+            GunHand.rotation = GunHand.rotation * Quaternion.AngleAxis(chestOffSet.y, Vector3.right);
 
         }
 

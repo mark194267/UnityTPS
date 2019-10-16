@@ -1612,7 +1612,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121069078}
-  m_Material: {fileID: 13400000, guid: a0b8f621371b5254a9634ae301723bbc, type: 2}
+  m_Material: {fileID: 13400000, guid: 1b3f533ea8315b44b94ebf32ec70fea7, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -9071,6 +9071,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937583475}
   m_Mesh: {fileID: 360919838}
+--- !u!4 &938061309 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2166748008084942901, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+    type: 3}
+  m_PrefabInstance: {fileID: 2053095847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1026979799
 GameObject:
   m_ObjectHideFlags: 0
@@ -16600,6 +16606,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &2019467181 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5157399451649388431, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+    type: 3}
+  m_PrefabInstance: {fileID: 2053095847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2033648263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17121,6 +17133,16 @@ PrefabInstance:
       propertyPath: Hip
       value: 
       objectReference: {fileID: 1689890778}
+    - target: {fileID: 2594459011546240288, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+        type: 3}
+      propertyPath: GunHand
+      value: 
+      objectReference: {fileID: 938061309}
+    - target: {fileID: 2594459011546240288, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
+        type: 3}
+      propertyPath: GunHandRoot
+      value: 
+      objectReference: {fileID: 2019467181}
     - target: {fileID: 2594459011546240317, guid: 2a199ede1e4bf74488ff0cabbc1a9a37,
         type: 3}
       propertyPath: m_Mass

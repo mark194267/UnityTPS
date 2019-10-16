@@ -87,18 +87,23 @@ namespace Assets.Script.Config
                 Animator.SetBool("input_jump", false);
             }
 
-            if (Input.GetButton("Fire1"))
+            if (Animator.GetInteger("avater_weaponslot") != 1)
             {
-                Animator.SetBool("input_fire", true);
+                if (Input.GetButton("Fire1"))
+                {
+                    Animator.SetBool("input_fire", true);
+                }
+                else
+                {
+                    Animator.SetBool("input_fire", false);
+                }
             }
             else
             {
-                Animator.SetBool("input_fire", false);
-            }
-
-            if (Input.GetButtonDown("Fire1"))
-            {
-                Animator.SetTrigger("input_Light");
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Animator.SetTrigger("input_Light");
+                }
             }
 
             #region 蓄力

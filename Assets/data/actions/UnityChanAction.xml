@@ -87,9 +87,25 @@
     <f3 value = "6"/>
     <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "fall"/>
+    <ignore list = "0"/>
   </close>
   <close name = "slashRoot">
+    <f1 value = "0.3"/>
+    <f2 value = "0.75"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "0"/>
+  </close>
+  <close name = "slashAir">
+    <f1 value = "0.3"/>
+    <f2 value = "0.75"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "fall"/>
+  </close>
+  <close name = "slashRootAir">
     <f1 value = "0.3"/>
     <f2 value = "0.75"/>
     <f3 value = "6"/>
@@ -113,6 +129,14 @@
 		<vector3 x="0" y="0" z="1"/>
 		<ignore list = "fall"/>
 	</long>
+  <long name = "backJump">
+    <f1 value = "5"/>
+    <f2 value = "5"/>
+    <f3 value = "6"/>
+    <f4 value = "10"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "fall"/>
+  </long>
   <long name = "shooterJump">
     <f1 value = "5"/>
     <f2 value = "5"/>

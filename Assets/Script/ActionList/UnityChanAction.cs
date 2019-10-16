@@ -66,7 +66,8 @@ namespace Assets.Script.ActionList
             //Me.GetComponent<PlayerAvater>().IsRotChestV = true;
             //Me.GetComponent<PlayerAvater>().IsRotChestH = false;
             Gun.SpecialWeaponBasic = Gun.ActiveWeapon("kick")[0];
-
+            PA.maxSpd = 10f;
+            PA.minSpd = 0;
         }
         public bool Mstrafe(ActionStatus actionStatus)
         {
@@ -79,7 +80,7 @@ namespace Assets.Script.ActionList
 
             //Gun.Swing(AvaterMain.anim_flag, 10, 10);
 
-            FPSLikeRigMovement(7f, 10f);
+            FPSLikeRigMovement(13f, 10f);
 
             return true;
         }
@@ -158,6 +159,7 @@ namespace Assets.Script.ActionList
         {
         }
 
+        #region slash
         public override void Before_slash(ActionStatus actionStatus)
         {
             Gun.InactiveWeapon(lastWeapon);
@@ -172,7 +174,7 @@ namespace Assets.Script.ActionList
             Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
 
             Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
-
+            Animator.SetInteger("avater_weaponslot", 1);
             Me.GetComponent<Animator>().applyRootMotion = true;
 
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("slash");
@@ -224,6 +226,7 @@ namespace Assets.Script.ActionList
             //Gun.ChangeWeapon(g.ToString());
             Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
             Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
+            Animator.SetInteger("avater_weaponslot", 1);
 
             Rig.velocity = Vector3.zero;
             Me.GetComponent<Animator>().applyRootMotion = true;
@@ -243,6 +246,104 @@ namespace Assets.Script.ActionList
         public void After_slashRoot(ActionStatus actionStatus)
         {
 
+        }
+
+        public void Before_slashAir(ActionStatus actionStatus)
+        {
+            Gun.InactiveWeapon(lastWeapon);
+            Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
+
+            //紀錄上個武器確保能被換掉
+            lastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
+
+            Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
+
+            Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
+            Animator.SetInteger("avater_weaponslot", 1);
+            Me.GetComponent<Animator>().applyRootMotion = true;
+
+            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("slash");
+            Me.GetComponent<PlayerAvater>().IsRotChestH = AvaterMain.MotionStatus.IsRotH;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = AvaterMain.MotionStatus.IsRotV;
+
+            _velocity = Camera.transform.TransformVector(AvaterMain.MotionStatus.camX,
+            AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
+            _velocity = Vector3.ClampMagnitude(_velocity, 20f);
+        }
+        public bool slashAir(ActionStatus actionStatus)
+        {
+            if (AvaterMain.moveflag > 0)
+            {
+                Animator.SetBool("avater_can_dodge", false);
+
+                var camPos = Camera.transform.TransformDirection(Vector3.forward);
+                RotateTowardSlerp(Me.transform.position + camPos, 3f);
+                Me.GetComponent<Animator>().applyRootMotion = false;
+
+                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+                Rig.velocity = _velocity;
+            }
+            else
+            {
+                Animator.SetBool("avater_can_dodge", true);
+            }
+            Gun.Swing(Gun.MainWeaponBasic);
+            return true;
+        }
+
+        public void Before_slashRootAir(ActionStatus actionStatus)
+        {
+            Gun.InactiveWeapon(lastWeapon);
+
+            Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Great_Sword;
+            //紀錄上個武器確保能被換掉
+            lastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
+            Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
+            Gun.MainWeaponBasic = Gun.ActiveWeapon("Great_Sword")[0];
+            Animator.SetInteger("avater_weaponslot", 1);
+
+            Rig.velocity = Vector3.zero;
+            Me.GetComponent<Animator>().applyRootMotion = true;
+
+            Me.GetComponent<PlayerAvater>().IsRotChestH = AvaterMain.MotionStatus.IsRotH;
+            Me.GetComponent<PlayerAvater>().IsRotChestV = AvaterMain.MotionStatus.IsRotV;
+        }
+        public bool slashRootAir(ActionStatus actionStatus)
+        {
+            Gun.Swing(Gun.MainWeaponBasic);
+            return true;
+        }
+        #endregion
+
+        public void Before_backJump(ActionStatus AS)
+        {
+            Gun.InactiveWeapon(lastWeapon);
+
+            Me.GetComponent<PlayerAvater>().myguns = PlayerAvater.Guns.Handgun;
+            //紀錄上個武器確保能被換掉
+            lastWeapon = Me.GetComponent<PlayerAvater>().myguns.ToString();
+            //Gun.ChangeWeapon(g.ToString());
+            Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 2;
+            Gun.MainWeaponBasic = Gun.ActiveWeapon("Handgun")[0];
+            Animator.SetInteger("avater_weaponslot", 2);
+
+            //得到攝影機的Z軸轉動，並轉動向量
+            _velocity = Vector3.ProjectOnPlane(Me.transform.TransformVector(Vector3.back), Vector3.up).normalized*20f;
+            //保持人物轉動放在計算動量之後
+            Vector3 direction = _velocity;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(-direction.x, 0, -direction.z));    // flattens the vector3
+            Me.transform.rotation = lookRotation;
+
+            //換手槍
+        }
+        public bool backJump(ActionStatus AS)
+        {
+            if (PA.moveflag == 1)
+            {
+                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+                Rig.velocity = _velocity;
+            }
+            return true;
         }
         public void Before_frontflip(ActionStatus AS)
         {
@@ -278,7 +379,8 @@ namespace Assets.Script.ActionList
             //var ms = PA.MotionStatus;
             //PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("idle");
-
+            PA.maxSpd = 10f;
+            PA.minSpd = 0f;
             //PA.IsRotChestH = true;
             //PA.IsRotChestV = true;
         }
@@ -329,10 +431,11 @@ namespace Assets.Script.ActionList
             if (AvaterMain.anim_flag == 1)
             {
                 _timer += Time.deltaTime;
-                Rig.velocity = (Vector3.up * 1f / (_timer * _timer) + fwd / _timer * _timer);
+                _velocity = (Vector3.up * 1f / (_timer * _timer) + fwd / _timer * _timer);
             }
             else
-                Rig.velocity = fwd / _timer * _timer;
+                _velocity = fwd / _timer * _timer;
+            Rig.velocity = _velocity;
             return true;
         }
         public void After_jump(ActionStatus actionStatus)
@@ -352,7 +455,8 @@ namespace Assets.Script.ActionList
             var ms = PA.MotionStatus;
             PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
             //PA.ChangeRotOffSet("strafe");
-
+            PA.maxSpd = 10f;
+            PA.minSpd = 0f;
             //PA.IsRotChest = true;
             PA.IsRotChestH = true;
             PA.IsRotChestV = true;
@@ -377,15 +481,17 @@ namespace Assets.Script.ActionList
             var ms = PA.MotionStatus;
 
             PA.chestOffSet = new Vector3(ms.camX, ms.camY, ms.camZ);
-
+            PA.chestMaxRot = 60f;
             PA.IsRotChest = true;
+            PA.maxSpd = 10f;
+            PA.minSpd = 0f;
             //PA.IsRotChestH = true;
             //PA.IsRotChestV = true;
         }
 
         public bool Pistolstrafe(ActionStatus actionStatus)
         {
-            FPSLikeRigMovement(9f, 14f);
+            FPSLikeRigMovement(10f, 14f);
             if (Input.GetButton("Fire1"))
             {
                 return Gun.fire(Gun.MainWeaponBasic);
@@ -407,7 +513,7 @@ namespace Assets.Script.ActionList
             _velocity = Camera.transform.TransformDirection(Vector3.right * PA.MotionStatus.camX + Vector3.forward * PA.MotionStatus.camZ);
             //得到攝影機的Z軸轉動，並轉動向量
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
-            _velocity = Vector3.ClampMagnitude(_velocity * 20, 20f);
+            _velocity = Vector3.ClampMagnitude(_velocity * 13, 13f);
             //保持人物轉動放在計算動量之後
             Vector3 direction = (Camera.transform.TransformDirection(Vector3.forward));
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
@@ -447,7 +553,7 @@ namespace Assets.Script.ActionList
             //Debug.Log(Animator.GetFloat("avater_yspeed"));
             if (PA.MotionStatus.String.StartsWith("GunHand"))
             {
-                Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
+                //Me.GetComponent<PlayerAvater>().ChangeCamLimit(PA.MotionStatus.String);
                 //Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().IsRotGunHand = true;
             }
@@ -661,6 +767,7 @@ namespace Assets.Script.ActionList
             {
                 _timer = 0;
             }
+            _velocity = Rig.velocity;
             return true;
         }
         public void After_falling(ActionStatus actionStatus)
@@ -688,7 +795,7 @@ namespace Assets.Script.ActionList
             {
                 Gun.fire(Gun.MainWeaponBasic);
             }
-
+            _velocity = Rig.velocity;
             return true;
         }
         public void After_strafeFalling(ActionStatus actionStatus)
@@ -759,7 +866,14 @@ namespace Assets.Script.ActionList
             //_velocity = Camera.transform.TransformDirection(Vector3.forward * Animator.GetFloat("input_ws") + Vector3.right * Animator.GetFloat("input_ad"));
             //得到攝影機的Z軸轉動，並轉動向量
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
+            //避免向量過小
+            if (_velocity.magnitude < 5f)
+            {
+                Vector3 minSpd = Me.transform.forward * InputManager.ws + Me.transform.right* InputManager.ad;
+                _velocity = Vector3.ProjectOnPlane(minSpd.normalized * 6f, Vector3.up);
+            }
             _velocity = _velocity + Vector3.up*_velocity.magnitude/2;
+            //避免向量過大
             _velocity = Vector3.ClampMagnitude(_velocity, 20f);
             //保持人物轉動放在計算動量之後
             Vector3 direction = _velocity;
