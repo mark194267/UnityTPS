@@ -512,8 +512,8 @@ namespace Assets.Script.ActionList
 
             _velocity = Camera.transform.TransformDirection(Vector3.right * PA.MotionStatus.camX + Vector3.forward * PA.MotionStatus.camZ);
             //得到攝影機的Z軸轉動，並轉動向量
-            _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
-            _velocity = Vector3.ClampMagnitude(_velocity * 13, 13f);
+            _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up).normalized;
+            _velocity = Vector3.ClampMagnitude(_velocity * 40, 50f);
             //保持人物轉動放在計算動量之後
             Vector3 direction = (Camera.transform.TransformDirection(Vector3.forward));
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
@@ -538,7 +538,7 @@ namespace Assets.Script.ActionList
                 if (Input.GetButton("Fire1"))
                     Gun.fire(Gun.MainWeaponBasic);
                 */
-                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime*.5f);
+                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime*2f);
                 Rig.velocity = _velocity;
             }
             return true;
@@ -563,12 +563,18 @@ namespace Assets.Script.ActionList
                 Me.GetComponent<PlayerAvater>().ChangeRotOffSet(PA.MotionStatus.String);
                 Me.GetComponent<PlayerAvater>().IsRotChest = true;
             }
+            _velocity.y = Rig.velocity.y;
         }
 
         public bool leanGround(ActionStatus AS)
         {
             if (Input.GetButton("Fire1"))
                 Gun.fire(Gun.MainWeaponBasic);
+            if (Animator.GetBool("avater_IsLanded"))
+                FPSLikeRigMovement(0, 0);
+            else
+                FPSLikeRigMovement(3, 0);
+            _velocity = Rig.velocity;
             return true;
         }
 
@@ -816,14 +822,35 @@ namespace Assets.Script.ActionList
 
         public void Before_hardland(ActionStatus actionStatus)
         {
-            _timer = 0.15f;
+            //得到攝影機的Z軸轉動，並轉動向量
+            _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
+            //避免向量過小
+            if (_velocity.magnitude < 5f)
+            {
+                Vector3 minSpd = Me.transform.forward * InputManager.ws + Me.transform.right * InputManager.ad;
+                _velocity = Vector3.ProjectOnPlane(minSpd.normalized * 6f, Vector3.up);
+            }
+            //避免向量過大
+            _velocity = Vector3.ClampMagnitude(_velocity, 20f);
+            //保持人物轉動放在計算動量之後
+            Vector3 direction = _velocity;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            Me.transform.rotation = lookRotation;
+            //目標 ->避免腳色山羊腿
+            //問題 ->定速率時可以避免物理問題(摩擦力等)，但卻忽略斜坡速率問題
+            //方針 ->投影至目標斜率.並加入最高.低斜率
         }
 
         public bool hardland(ActionStatus actionStatus)
         {
-            _timer +=Time.deltaTime;
-            var fwd = Me.transform.TransformVector(Vector3.forward)/(_timer*_timer);
-            Rig.velocity = fwd;
+            float ySpeed = Rig.velocity.y;
+
+            if (PA.moveflag == 1)
+            {
+                _velocity = Vector3.Slerp(_velocity,Vector3.up * ySpeed, Time.deltaTime);
+                Rig.velocity = _velocity;
+                //FPSLikeRigMovement(100f, 15f, 10f);
+            }
             return true;
         }
         #endregion

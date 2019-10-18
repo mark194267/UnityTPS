@@ -26,7 +26,20 @@ public class Grandcheck : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        animator.SetBool("avater_IsLanded", false);
-        
+        animator.SetBool("avater_IsLanded", false);        
+    }
+    IEnumerator CheckSteep()
+    {
+        RaycastHit hit;
+        Physics.Raycast(transform.position, Vector3.down, out hit, 1f, ~LayerMask.GetMask("Player", "AI"), QueryTriggerInteraction.Ignore);
+        var angle2wall = Vector3.Angle(transform.up, Vector3.ProjectOnPlane(hit.normal, transform.right));
+        Debug.Log(angle2wall);
+        /*
+        if (60 > angle2wall && angle2wall > -60)
+        {
+            animator.SetBool("avater_IsLanded", true);
+        }
+        */
+        yield return new WaitForSeconds(0.01f);
     }
 }

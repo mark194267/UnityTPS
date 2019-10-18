@@ -159,7 +159,7 @@
     <f3 value = "6"/>
     <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "jump,fall,jumpout,parkour"/>
+    <ignore list = "jump,fall,jumpout"/>
   </long>
   <long name = "offwall">
     <f1 value = "10"/>
