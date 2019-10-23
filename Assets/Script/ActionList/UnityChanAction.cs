@@ -81,6 +81,7 @@ namespace Assets.Script.ActionList
             //Gun.Swing(AvaterMain.anim_flag, 10, 10);
 
             FPSLikeRigMovement(13f, 10f);
+            _velocity = Rig.velocity;
 
             return true;
         }
@@ -500,8 +501,20 @@ namespace Assets.Script.ActionList
         }
         #endregion
 
-        
-
+        public void Before_dodge(ActionStatus AS)
+        {
+            var dir =
+             Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
+            _velocity = Vector3.ProjectOnPlane(dir, Vector3.up);
+            //獲得要迴避的方向
+            _velocity = _velocity * 30f + Vector3.up*1f;
+        }
+        public bool dodge(ActionStatus AS)
+        {
+            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime*2f);
+            Rig.velocity = _velocity;
+            return true;
+        }
         #region jumpout
         public void Before_jumpout(ActionStatus AS)
         {
@@ -571,9 +584,12 @@ namespace Assets.Script.ActionList
             if (Input.GetButton("Fire1"))
                 Gun.fire(Gun.MainWeaponBasic);
             if (Animator.GetBool("avater_IsLanded"))
-                FPSLikeRigMovement(0, 0);
+                Rig.velocity = Vector3.Slerp(_velocity, Vector3.zero + Vector3.up * Rig.velocity.y, Time.deltaTime);
             else
-                FPSLikeRigMovement(3, 0);
+            {
+                //FPSLikeRigMovement(3, 0);
+                Rig.velocity = Vector3.Slerp(_velocity,Vector3.zero + Vector3.up*Rig.velocity.y,Time.deltaTime*.5f);
+            }
             _velocity = Rig.velocity;
             return true;
         }
@@ -824,14 +840,14 @@ namespace Assets.Script.ActionList
         {
             //得到攝影機的Z軸轉動，並轉動向量
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
-            //避免向量過小
-            if (_velocity.magnitude < 5f)
-            {
-                Vector3 minSpd = Me.transform.forward * InputManager.ws + Me.transform.right * InputManager.ad;
-                _velocity = Vector3.ProjectOnPlane(minSpd.normalized * 6f, Vector3.up);
-            }
+            //防止輸入過小.
+            var dir = Me.transform.forward * InputManager.ws + Me.transform.right * InputManager.ad;
+            if (dir.magnitude < 1)
+                dir = Me.transform.forward;
+            _velocity = Vector3.ProjectOnPlane(dir.normalized * 15f, Vector3.up);
+
             //避免向量過大
-            _velocity = Vector3.ClampMagnitude(_velocity, 20f);
+            //_velocity = Vector3.ClampMagnitude(_velocity, 20f);
             //保持人物轉動放在計算動量之後
             Vector3 direction = _velocity;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
@@ -847,10 +863,11 @@ namespace Assets.Script.ActionList
 
             if (PA.moveflag == 1)
             {
-                _velocity = Vector3.Slerp(_velocity,Vector3.up * ySpeed, Time.deltaTime);
-                Rig.velocity = _velocity;
+
                 //FPSLikeRigMovement(100f, 15f, 10f);
             }
+            _velocity = Vector3.Slerp(_velocity, Vector3.up * ySpeed, Time.deltaTime);
+            Rig.velocity = _velocity;
             return true;
         }
         #endregion
@@ -931,8 +948,8 @@ namespace Assets.Script.ActionList
 
         public void Before_fourWayDash(ActionStatus actionStatus)
         {
-            Me.GetComponent<PlayerAvater>().ChangeRotOffSet("dash4way");
-            Me.GetComponent<PlayerAvater>().IsRotChestH = false;
+            //Me.GetComponent<PlayerAvater>().ChangeRotOffSet("dash4way");
+            //Me.GetComponent<PlayerAvater>().IsRotChestH = false;
 
             _timer = .3f;
         }
