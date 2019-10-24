@@ -80,7 +80,7 @@ namespace Assets.Script.ActionList
 
             //Gun.Swing(AvaterMain.anim_flag, 10, 10);
 
-            FPSLikeRigMovement(13f, 10f);
+            FPSLikeRigMovement(10f, 10f);
             _velocity = Rig.velocity;
 
             return true;
@@ -267,13 +267,14 @@ namespace Assets.Script.ActionList
             Me.GetComponent<PlayerAvater>().IsRotChestH = AvaterMain.MotionStatus.IsRotH;
             Me.GetComponent<PlayerAvater>().IsRotChestV = AvaterMain.MotionStatus.IsRotV;
 
-            _velocity = Camera.transform.TransformVector(AvaterMain.MotionStatus.camX,
-            AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
-            _velocity = Vector3.ClampMagnitude(_velocity, 20f);
+            _velocity = Rig.velocity.magnitude * Me.transform.forward;
+            //_velocity = Camera.transform.TransformVector(AvaterMain.MotionStatus.camX,
+            //AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
+            //_velocity = Vector3.ClampMagnitude(_velocity, 20f);
         }
         public bool slashAir(ActionStatus actionStatus)
         {
-            if (AvaterMain.moveflag > 0)
+            if (AvaterMain.anim_flag > 0)
             {
                 Animator.SetBool("avater_can_dodge", false);
 
@@ -282,12 +283,15 @@ namespace Assets.Script.ActionList
                 Me.GetComponent<Animator>().applyRootMotion = false;
 
                 _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
-                Rig.velocity = _velocity;
+                Rig.velocity = _velocity + Rig.velocity.y * Vector3.up;
+
             }
             else
             {
                 Animator.SetBool("avater_can_dodge", true);
             }
+
+
             Gun.Swing(Gun.MainWeaponBasic);
             return true;
         }
@@ -583,14 +587,9 @@ namespace Assets.Script.ActionList
         {
             if (Input.GetButton("Fire1"))
                 Gun.fire(Gun.MainWeaponBasic);
-            if (Animator.GetBool("avater_IsLanded"))
-                Rig.velocity = Vector3.Slerp(_velocity, Vector3.zero + Vector3.up * Rig.velocity.y, Time.deltaTime);
-            else
-            {
-                //FPSLikeRigMovement(3, 0);
-                Rig.velocity = Vector3.Slerp(_velocity,Vector3.zero + Vector3.up*Rig.velocity.y,Time.deltaTime*.5f);
-            }
-            _velocity = Rig.velocity;
+            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+
+            Rig.velocity = _velocity+Rig.velocity.y*Vector3.up;
             return true;
         }
 
@@ -838,16 +837,20 @@ namespace Assets.Script.ActionList
 
         public void Before_hardland(ActionStatus actionStatus)
         {
-            //得到攝影機的Z軸轉動，並轉動向量
+            //得到向量長度
+            var spd = _velocity.magnitude;
+            if (spd < 5f)
+                spd = 5f;
+
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
             //防止輸入過小.
             var dir = Me.transform.forward * InputManager.ws + Me.transform.right * InputManager.ad;
             if (dir.magnitude < 1)
                 dir = Me.transform.forward;
-            _velocity = Vector3.ProjectOnPlane(dir.normalized * 15f, Vector3.up);
+            _velocity = Vector3.ProjectOnPlane(dir.normalized * spd, Vector3.up);
 
             //避免向量過大
-            //_velocity = Vector3.ClampMagnitude(_velocity, 20f);
+            _velocity = Vector3.ClampMagnitude(_velocity, 15f);
             //保持人物轉動放在計算動量之後
             Vector3 direction = _velocity;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3

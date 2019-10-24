@@ -80,16 +80,9 @@ namespace Assets.Script.Avater.Addon
                 RaycastHit temphit;
                 if (Physics.Raycast(_climbChecker.transform.position, Vector3.down, out temphit, climbHeight, ~LayerMask.GetMask("Player","AI"),QueryTriggerInteraction.Ignore))
                 {
-                    /*
-                    if (Physics.Raycast(new Vector3(transform.position.x, temphit.point.y, transform.position.z), transform.TransformVector( Vector3.forward), out temphit, 1f, ~LayerMask.GetMask("Player","AI"), QueryTriggerInteraction.Ignore))
-                    {
-
-
-                    }
-                    */
                     var angle2wall = Vector3.Angle(transform.up, Vector3.ProjectOnPlane(temphit.normal, transform.right));
-
-                    if (10> angle2wall && angle2wall > -1)
+                    //Debug.Log(angle2wall);
+                    if (1> angle2wall && angle2wall > -1)
                     {
                         Animator.SetBool("action_climb", true);
                         hit = temphit;

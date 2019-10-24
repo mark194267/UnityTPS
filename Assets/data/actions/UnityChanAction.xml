@@ -103,7 +103,7 @@
     <f3 value = "6"/>
     <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "fall"/>
+    <ignore list = "fall,lightATK"/>
   </close>
   <close name = "slashRootAir">
     <f1 value = "0.3"/>
@@ -111,7 +111,7 @@
     <f3 value = "6"/>
     <f4 value = "10"/>
     <vector3 x="0" y="0" z="1"/>
-    <ignore list = "fall"/>
+    <ignore list = "fall,lightATK"/>
   </close>
   <close name = "Block">
     <f1 value = "0"/>

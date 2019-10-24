@@ -94,7 +94,7 @@ namespace Assets.Script.ActionList
                     if (AvaterMain.anim_flag == 1)
                     {
                         Gun.target = Target;
-                        Gun.NowWeapon[0].BulletInMag = 1;
+                        Gun.NowWeapon[0].BulletInMag = 3;
                         Gun.fire(Gun.MainWeaponBasic);
                         AvaterMain.anim_flag = 0;
                     }

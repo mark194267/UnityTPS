@@ -7,8 +7,8 @@
       <basicgun name ="basicgun" type ="bullet" damage = "10" magsize = "2" bulletusedpershot = "1" multi="1" rof = "0.3" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "0" blast = "1" charge = "0"/>
       <MG name ="MG" type ="bullet" damage = "10" magsize = "200" bulletusedpershot = "1" multi="1" rof = "0.3" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
       <AK-47 name ="AK47" type ="bullet" damage = "7" magsize = "999" bulletusedpershot = "1" multi="1" rof = "0.1" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
-      <Crossbow name ="Crossbow" type ="bullet" damage = "10" magsize = "200" bulletusedpershot = "1" multi="1" rof = "1" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
-      <Crossbow_test name ="Crossbow_test" type ="bullet" damage = "10" magsize = "200" bulletusedpershot = "1" multi="1" rof = "1" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
+      <Crossbow name ="Crossbow" type ="bullet" damage = "10" magsize = "999" bulletusedpershot = "1" multi="1" rof = "0.1" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
+      <Crossbow_test name ="Crossbow_test" type ="bullet" damage = "10" magsize = "999" bulletusedpershot = "1" multi="1" rof = "0.1" dropoff = "1" speed = "30" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
     </rifle>
     <shotgun>
       <Shotgun name ="Shotgun" type ="bullet" damage = "10" magsize = "8" bulletusedpershot = "1" multi="12" rof = "0.3" dropoff = "1" speed = "20" recoil = "1" acc = "90" stun = "10" blast = "1" charge = "0"/>
