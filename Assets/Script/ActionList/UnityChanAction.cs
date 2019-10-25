@@ -261,13 +261,22 @@ namespace Assets.Script.ActionList
 
             Me.GetComponent<PlayerAvater>().WeaponSlotNumber = 1;
             Animator.SetInteger("avater_weaponslot", 1);
-            Me.GetComponent<Animator>().applyRootMotion = true;
+            //Me.GetComponent<Animator>().applyRootMotion = true;
 
             Me.GetComponent<PlayerAvater>().ChangeRotOffSet("slash");
             Me.GetComponent<PlayerAvater>().IsRotChestH = AvaterMain.MotionStatus.IsRotH;
             Me.GetComponent<PlayerAvater>().IsRotChestV = AvaterMain.MotionStatus.IsRotV;
 
             _velocity = Rig.velocity.magnitude * Me.transform.forward;
+
+            //抓字串判斷是否無敵
+            if (PA.MotionStatus.String.Contains("God"))
+            {
+                var cols = Me.GetComponents<Collider>();
+                foreach (var col in cols) col.enabled = false;
+                _velocity = _velocity + Vector3.up * .15f;
+            }
+
             //_velocity = Camera.transform.TransformVector(AvaterMain.MotionStatus.camX,
             //AvaterMain.MotionStatus.camY, AvaterMain.MotionStatus.camZ);
             //_velocity = Vector3.ClampMagnitude(_velocity, 20f);
@@ -280,20 +289,29 @@ namespace Assets.Script.ActionList
 
                 var camPos = Camera.transform.TransformDirection(Vector3.forward);
                 RotateTowardSlerp(Me.transform.position + camPos, 3f);
-                Me.GetComponent<Animator>().applyRootMotion = false;
-
-                _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
-                Rig.velocity = _velocity + Rig.velocity.y * Vector3.up;
+                //Me.GetComponent<Animator>().applyRootMotion = false;
 
             }
             else
             {
-                Animator.SetBool("avater_can_dodge", true);
+                //Animator.SetBool("avater_can_dodge", true);
             }
-
+            _velocity = Vector3.Slerp(_velocity, Vector3.zero, Time.deltaTime);
+            Rig.velocity = _velocity + Rig.velocity.y * Vector3.up;
 
             Gun.Swing(Gun.MainWeaponBasic);
             return true;
+        }
+        public void After_slashAir(ActionStatus AS)
+        {
+            if (PA.MotionStatus.String.Contains("God"))
+            {
+                var cols = Me.GetComponents<Collider>();
+                foreach (var col in cols)
+                {                    
+                    col.enabled = true;
+                } 
+            }
         }
 
         public void Before_slashRootAir(ActionStatus actionStatus)
@@ -377,8 +395,6 @@ namespace Assets.Script.ActionList
         #region move
         public override void Before_move(ActionStatus actionStatus)
         {
-            Animator.SetBool("avater_can_jump", true);
-
             PA = Me.GetComponent<PlayerAvater>();
             g = Me.GetComponent<PlayerAvater>().myguns;
             //var ms = PA.MotionStatus;
@@ -436,7 +452,7 @@ namespace Assets.Script.ActionList
             if (AvaterMain.anim_flag == 1)
             {
                 _timer += Time.deltaTime;
-                _velocity = (Vector3.up * 1f / (_timer * _timer) + fwd / _timer * _timer);
+                _velocity = (Vector3.up * 3f / (_timer * _timer) + fwd / _timer * _timer);
             }
             else
                 _velocity = fwd / _timer * _timer;
@@ -605,7 +621,7 @@ namespace Assets.Script.ActionList
             //_velocity = Camera.transform.TransformDirection(Vector3.right * InputManager.ad + Vector3.forward * InputManager.ws);
             //得到攝影機的Z軸轉動，並轉動向量
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
-            _velocity = Vector3.ClampMagnitude(_velocity + Vector3.up * 7, 30f);
+            _velocity = Vector3.ClampMagnitude(_velocity + Vector3.up * 10, 30f);
             //_timer = .3f;
         }
         public bool shooterJump(ActionStatus actionStatus)
@@ -838,9 +854,10 @@ namespace Assets.Script.ActionList
         public void Before_hardland(ActionStatus actionStatus)
         {
             //得到向量長度
-            var spd = _velocity.magnitude;
-            if (spd < 5f)
-                spd = 5f;
+            var spd = Rig.velocity.magnitude*2f;
+            Debug.Log(spd);
+            if (spd < 7f)
+                spd = 7f;
 
             _velocity = Vector3.ProjectOnPlane(_velocity, Vector3.up);
             //防止輸入過小.
@@ -850,7 +867,7 @@ namespace Assets.Script.ActionList
             _velocity = Vector3.ProjectOnPlane(dir.normalized * spd, Vector3.up);
 
             //避免向量過大
-            _velocity = Vector3.ClampMagnitude(_velocity, 15f);
+            _velocity = Vector3.ClampMagnitude(_velocity, 20f);
             //保持人物轉動放在計算動量之後
             Vector3 direction = _velocity;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
@@ -1025,7 +1042,7 @@ namespace Assets.Script.ActionList
         {
             var hit = Me.GetComponent<ParkourCollision>().hit;
             //Me.transform.position = new Vector3(Me.transform.position.x, hit.point.y, Me.transform.position.z);
-            Me.transform.position = hit.point;
+            //Me.transform.position = hit.point;
             //Me.GetComponent<Animator>().SetBool("avater_IsLanded", true);
             //Debug.Log(hit.point);
         }
