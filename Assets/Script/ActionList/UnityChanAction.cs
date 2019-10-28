@@ -452,7 +452,7 @@ namespace Assets.Script.ActionList
             if (AvaterMain.anim_flag == 1)
             {
                 _timer += Time.deltaTime;
-                _velocity = (Vector3.up * 3f / (_timer * _timer) + fwd / _timer * _timer);
+                _velocity = (Vector3.up * 1f / (_timer * _timer) + fwd / _timer * _timer);
             }
             else
                 _velocity = fwd / _timer * _timer;
@@ -855,7 +855,7 @@ namespace Assets.Script.ActionList
         {
             //得到向量長度
             var spd = Rig.velocity.magnitude*2f;
-            Debug.Log(spd);
+            //Debug.Log(spd);
             if (spd < 7f)
                 spd = 7f;
 
@@ -865,6 +865,7 @@ namespace Assets.Script.ActionList
             if (dir.magnitude < 1)
                 dir = Me.transform.forward;
             _velocity = Vector3.ProjectOnPlane(dir.normalized * spd, Vector3.up);
+            //Debug.Log(dir.normalized * spd);
 
             //避免向量過大
             _velocity = Vector3.ClampMagnitude(_velocity, 20f);

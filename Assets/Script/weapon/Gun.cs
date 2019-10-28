@@ -503,7 +503,7 @@ namespace Assets.Script.weapon
                 Qua = Quaternion.LookRotation(MainCamPos - transform.position);
             }
             else
-                Qua = Quaternion.LookRotation(target.transform.position - wb.weapon.transform.position);
+                Qua = Quaternion.LookRotation(target.transform.position+Vector3.up*1.5f/*目標高度*/ - wb.weapon.transform.position);
 
             //找到目前"槍口"的方向
             for (int i = 0; i < wb.multi/*散彈數*/; i++)

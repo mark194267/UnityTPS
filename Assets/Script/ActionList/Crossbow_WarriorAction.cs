@@ -26,11 +26,16 @@ namespace Assets.Script.ActionList
                 //不存在的話就找最近的掩體
                 if (path.status == NavMeshPathStatus.PathPartial)
                 {
-                    NavMeshHit hit;
+                    //NavMeshHit hit;
+                    var cor =  path.corners[path.corners.Length-1];
+                    //Debug.Log(cor);
+                    Agent.SetDestination(cor);
+                    /*
                     if (Agent.FindClosestEdge(out hit))
                     {
                         Agent.SetDestination(hit.position);
                     }
+                    */
                 }
                 else
                     Agent.SetPath(path);
@@ -96,7 +101,7 @@ namespace Assets.Script.ActionList
                         Gun.target = Target;
                         Gun.NowWeapon[0].BulletInMag = 3;
                         Gun.fire(Gun.MainWeaponBasic);
-                        AvaterMain.anim_flag = 0;
+                        //AvaterMain.anim_flag = 0;
                     }
                 }
                 else
@@ -187,12 +192,13 @@ namespace Assets.Script.ActionList
         }
         public void Before_kick(ActionStatus actionStatus)
         {
-            Gun.ChangeWeapon("kick");
+            Gun.MainWeaponBasic = Gun.ActiveWeapon("kick")[0];
         }
         public bool kick(ActionStatus actionStatus)
         {
             RotateTowardlerp(Target.transform);
-            Gun.Swing(AvaterMain.anim_flag, 1, 1);
+            //Gun.Swing(AvaterMain.anim_flag, 1, 1);
+            Gun.Swing(Gun.MainWeaponBasic);
             return true;
         }
     }

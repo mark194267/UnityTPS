@@ -65,6 +65,7 @@ namespace Assets.Script.Avater
 
             //GetComponent<Gun>().LoadSingleWeapon("Crossbow");
             GetComponent<Gun>().LoadSingleWeapon("Crossbow_test");
+            GetComponent<Gun>().LoadSingleWeapon("kick");
 
             if (HasMotionStatus)
                 motionStatusDir = statusBuilder.GetMotionList(gameObject.name);
