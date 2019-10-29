@@ -39,6 +39,9 @@ namespace Assets.Script.Avater
 
         public virtual void Start()
         {
+            var AS = (AIActionScript)ActionScript;
+            AS.Init();
+
             stateMachine = Animator.GetBehaviour<StateMachine>();
             stateMachine.me = gameObject;
             stateMachine.action = ActionScript;

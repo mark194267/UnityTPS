@@ -64,6 +64,8 @@ namespace Assets.Script.Avater
             
             //暫時，初始化到時會交出去
             Init_Avater();
+            var AS = (PlayerActionScript)ActionScript;
+            AS.Init();
 
             stateMachine = Animator.GetBehaviour<PlayerStateMachine>();
             stateMachine.me = gameObject;

@@ -9,7 +9,7 @@ using UnityEngine.AI;
 
 namespace Assets.Script.ActionList
 {
-    class UnityChanAction : ActionScript
+    class UnityChanAction : PlayerActionScript
     {
         private float _timer;
         private Vector3 _velocity;

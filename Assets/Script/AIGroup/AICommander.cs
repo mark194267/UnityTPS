@@ -37,6 +37,7 @@ namespace Assets.Script.AIGroup
 
             foreach (var ai in allMyAi)
             {
+
                 //Debug.Log("2");
                 ai.avaterStatus = avaterStatus;
                 //Debug.Log("3");

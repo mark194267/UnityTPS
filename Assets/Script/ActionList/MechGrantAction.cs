@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.ActionList
 {
-    class MechGrantAction :ActionScript
+    class MechGrantAction :AIActionScript
     {
         private float _timer;
         public override void Before_move(ActionStatus actionStatus)

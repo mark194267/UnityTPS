@@ -21,7 +21,7 @@ namespace Assets.Script.AIGroup
         }
         public void DeleteOldest()
         {
-            Debug.Log("Try delete oldest");
+            //Debug.Log("Try delete oldest");
             var hot = hotAreas.First();
             hot.DeleteMe();
             hotAreas.Remove(hot);

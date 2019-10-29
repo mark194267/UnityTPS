@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.ActionList
 {
-    class Sorceress_WarriorAction : ActionScript
+    class Sorceress_WarriorAction : AIActionScript
     {
         public float offsetHeight = 5f;
         public Vector3 destination;

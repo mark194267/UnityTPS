@@ -50,31 +50,6 @@ namespace Assets.Script.ActionControl
             this.Animator = Me.GetComponent<Animator>();
             this.Rig = Me.GetComponent<Rigidbody>();
             this.AvaterMain = Me.GetComponent<AvaterMain>();
-            InputManager = Me.GetComponent<InputManager>();
-
-            var AItemp = Me.GetComponent<AIAvaterMain>();
-            if (AItemp)
-            {
-                AI = AItemp;
-                this.Targetinfo = AI.targetInfo;
-                this.Target = AI.targetInfo.Target;
-                this.HotAreaManager = AI.HotAreaManager;
-            }
-            
-            var AiNavTemp = Me.GetComponent<AIAvaterMainNavgator>();
-            if (AiNavTemp != null)
-            {
-                AiNav = AiNavTemp;
-                Agent = AiNavTemp.Navgator.GetComponent<NavMeshAgent>();
-            }
-            else
-                Agent = this.Me.GetComponent<NavMeshAgent>();
-
-
-            if (Me.transform.Find("Camera"))
-            {
-                Camera = Me.transform.Find("Camera").GetComponent<Camera>();
-            }
         }
 
         #region 自訂狀態機
@@ -120,124 +95,6 @@ namespace Assets.Script.ActionControl
         }
 
         #endregion
-
-        #region 多型緩和迴轉
-
-        /// <summary>
-        /// 緩和旋轉，預設速度為 1.7f*deltatime
-        /// </summary>
-        /// <param name="Target">轉向目標，方法為lookRotation</param>
-        protected void RotateTowardSlerp(Transform Target)
-        {
-            Vector3 direction = (Target.position - Me.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
-        }
-
-        /// <summary>
-        /// 緩和旋轉，預設速度為 1.7f*deltatime
-        /// </summary>
-        /// <param name="Target">轉向目標，方法為lookRotation</param>
-        protected void RotateTowardSlerp(Vector3 Target)
-        {
-            Vector3 direction = (Target - Me.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
-        }
-
-        /// <summary>
-        /// 緩和旋轉，自訂速度
-        /// </summary>
-        /// <param name="Target">轉向目標，方法為lookRotation</param>
-        /// <param name="speed">轉向速度</param>
-        protected void RotateTowardSlerp(Vector3 Target, float speed)
-        {
-            Vector3 direction = (Target - Me.transform.position).normalized;
-            var dir = new Vector3(direction.x, 0, direction.z);
-            if (dir != Vector3.zero)
-            {
-                Quaternion lookRotation = Quaternion.LookRotation(dir);    // flattens the vector3
-                Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
-            }
-        }
-        /// <summary>
-        /// 緩和旋轉，大多可用SLerp取代，預設速度為 1.7f*deltatime
-        /// </summary>
-        /// <param name="Target">轉向目標，方法為lookRotation</param>
-        protected void RotateTowardlerp(Transform Target)
-        {
-            Vector3 direction = (Target.position - Me.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            Me.transform.rotation = Quaternion.Lerp(Me.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
-        }
-
-        /// <summary>
-        /// 緩和旋轉，大多可用SLerp取代，預設速度為 1.7f*deltatime
-        /// </summary>
-        /// <param name="Target">轉向目標，方法為lookRotation</param>
-        /// 
-        protected void RotateTowardlerp(Vector3 Target)
-        {
-            Vector3 direction = (Target - Me.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            Me.transform.rotation = Quaternion.Lerp(Me.transform.rotation, lookRotation, Time.deltaTime * 3f/*rotationSpeed*/);
-        }
-
-        protected void RotateTowardlerp(Vector3 Target, float speed)
-        {
-            Vector3 direction = (Target - Me.transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
-            Me.transform.rotation = Quaternion.Lerp(Me.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
-        }
-        #endregion
-
-        #region 轉角檢測+路線
-        /// <summary>
-        /// 只做轉角檢測的進攻路線
-        /// </summary>
-        /// <returns></returns>
-        protected Vector3 takecover( Vector3 targetPos,float maxConnerAngle,float maxConnerDis)
-        {
-            NavMeshPath path = new NavMeshPath();
-            Agent.CalculatePath(targetPos, path);
-
-            int i = path.corners.Length;
-            while (i - 3 > 0)
-            {
-                //得到倒數2個轉角的位置
-                Vector3 point1 = path.corners[i - 2];
-                Vector3 point2 = path.corners[i - 3];
-                //得到最後一條往轉角的路徑
-                Vector3 ToLastCorner = point1 - point2;
-                //在獲取目標到轉角的向量
-                Vector3 TargetToCorner = Target.transform.position - point1;
-                //如果兩向量夾角太小，距離太近，就不會過第二個轉角
-                var cornerAngle = Vector2.Angle(
-                        new Vector2(ToLastCorner.x, ToLastCorner.z),
-                        new Vector2(TargetToCorner.x, TargetToCorner.z));
-                var Dis = Vector3.Distance(point1, point2);
-                if ( cornerAngle > maxConnerAngle && Dis > maxConnerDis)
-                {
-                    return point1;
-                }
-                else
-                {
-                    i--;
-                }
-            }
-            return Vector3.zero;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// AI通用的切換目標，保持用此函式來切換目標
-        /// </summary>
-        /// <param name="targetGameObject"></param>
-        public void ChangeTarget(GameObject targetGameObject)
-        {
-            this.Target = targetGameObject;
-        }
 
         #region 基礎，通用動作
 
@@ -358,6 +215,203 @@ namespace Assets.Script.ActionControl
 
         #endregion
 
+        #region 多型緩和迴轉
+
+        /// <summary>
+        /// 緩和旋轉，預設速度為 1.7f*deltatime
+        /// </summary>
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
+        protected void RotateTowardSlerp(Transform Target)
+        {
+            Vector3 direction = (Target.position - Me.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
+        }
+
+        /// <summary>
+        /// 緩和旋轉，預設速度為 1.7f*deltatime
+        /// </summary>
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
+        protected void RotateTowardSlerp(Vector3 Target)
+        {
+            Vector3 direction = (Target - Me.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
+        }
+
+        /// <summary>
+        /// 緩和旋轉，自訂速度
+        /// </summary>
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
+        /// <param name="speed">轉向速度</param>
+        protected void RotateTowardSlerp(Vector3 Target, float speed)
+        {
+            Vector3 direction = (Target - Me.transform.position).normalized;
+            var dir = new Vector3(direction.x, 0, direction.z);
+            if (dir != Vector3.zero)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(dir);    // flattens the vector3
+                Me.transform.rotation = Quaternion.Slerp(Me.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
+            }
+        }
+        /// <summary>
+        /// 緩和旋轉，大多可用SLerp取代，預設速度為 1.7f*deltatime
+        /// </summary>
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
+        protected void RotateTowardlerp(Transform Target)
+        {
+            Vector3 direction = (Target.position - Me.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            Me.transform.rotation = Quaternion.Lerp(Me.transform.rotation, lookRotation, Time.deltaTime * 1.7f/*rotationSpeed*/);
+        }
+
+        /// <summary>
+        /// 緩和旋轉，大多可用SLerp取代，預設速度為 1.7f*deltatime
+        /// </summary>
+        /// <param name="Target">轉向目標，方法為lookRotation</param>
+        /// 
+        protected void RotateTowardlerp(Vector3 Target)
+        {
+            Vector3 direction = (Target - Me.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            Me.transform.rotation = Quaternion.Lerp(Me.transform.rotation, lookRotation, Time.deltaTime * 3f/*rotationSpeed*/);
+        }
+
+        protected void RotateTowardlerp(Vector3 Target, float speed)
+        {
+            Vector3 direction = (Target - Me.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));    // flattens the vector3
+            Me.transform.rotation = Quaternion.Lerp(Me.transform.rotation, lookRotation, Time.deltaTime * speed/*rotationSpeed*/);
+        }
+        #endregion            
+    }
+    public class AIActionScript : ActionScript
+    {
+        public void Init()
+        {
+            var AItemp = Me.GetComponent<AIAvaterMain>();
+            if (AItemp)
+            {
+                AI = AItemp;
+                this.Targetinfo = AI.targetInfo;
+                this.Target = AI.targetInfo.Target;
+                this.HotAreaManager = AI.HotAreaManager;
+            }
+
+            var AiNavTemp = Me.GetComponent<AIAvaterMainNavgator>();
+            if (AiNavTemp != null)
+            {
+                AiNav = AiNavTemp;
+                Agent = AiNavTemp.Navgator.GetComponent<NavMeshAgent>();
+            }
+            else
+                Agent = this.Me.GetComponent<NavMeshAgent>();
+        }
+
+        #region 轉角檢測+路線
+        /// <summary>
+        /// 只做轉角檢測的進攻路線
+        /// </summary>
+        /// <returns></returns>
+        protected Vector3 takecover(Vector3 targetPos, float maxConnerAngle, float maxConnerDis)
+        {
+            NavMeshPath path = new NavMeshPath();
+            Agent.CalculatePath(targetPos, path);
+
+            int i = path.corners.Length;
+            while (i - 3 > 0)
+            {
+                //得到倒數2個轉角的位置
+                Vector3 point1 = path.corners[i - 2];
+                Vector3 point2 = path.corners[i - 3];
+                //得到最後一條往轉角的路徑
+                Vector3 ToLastCorner = point1 - point2;
+                //在獲取目標到轉角的向量
+                Vector3 TargetToCorner = Target.transform.position - point1;
+                //如果兩向量夾角太小，距離太近，就不會過第二個轉角
+                var cornerAngle = Vector2.Angle(
+                        new Vector2(ToLastCorner.x, ToLastCorner.z),
+                        new Vector2(TargetToCorner.x, TargetToCorner.z));
+                var Dis = Vector3.Distance(point1, point2);
+                if (cornerAngle > maxConnerAngle && Dis > maxConnerDis)
+                {
+                    return point1;
+                }
+                else
+                {
+                    i--;
+                }
+            }
+            return Vector3.zero;
+        }
+
+        #endregion
+
+        #region 散開腳本
+        /// <summary>
+        /// 散開，面對某個方向
+        /// </summary>
+        /// <param name="TargetPos"></param>
+        /// <param name="barrier"></param>
+        /// <param name="AxisMultiper"></param>
+        /// <param name="StepLenght"></param>
+        /// <returns></returns>
+        public Vector3 SetSpreadOutPoint(Vector3 TargetPos, Vector3 barrier, float angle, float StepLenght)
+        {
+            var me2target = TargetPos - Me.transform.position;
+            var bar2target = barrier - Target.transform.position;
+            var bar2targetDis = bar2target.magnitude;
+            //得到障礙和自身的夾角
+            var r = Vector3.SignedAngle(me2target, bar2target, Vector3.up);
+            var rot = Me.transform.TransformDirection(Vector3.forward);
+            Vector3 fin;
+            if (r > 0)
+                fin = Quaternion.AngleAxis(-angle, Vector3.up) * me2target;
+            else
+                fin = Quaternion.AngleAxis(angle, Vector3.up) * me2target;
+            //            fin = Quaternion.AngleAxis(AxisMultiper * -r, Vector3.up) * rot;
+
+            //角度會和距離成反比
+            return Me.transform.position + fin.normalized * (StepLenght * (me2target.magnitude / bar2targetDis));
+        }
+
+        #endregion
+
+        #region 更新人物的移動狀態
+        /// <summary>
+        /// 更新人物的移動狀態，請先於Animator加入AI_ws, AI_ad, AI_speed
+        /// </summary>
+        public void UpdateWSAD_ToAnimator()
+        {
+            var dir = Me.transform.InverseTransformDirection(Agent.velocity.normalized);
+            Animator.SetFloat("AI_ws", dir.z);
+            Animator.SetFloat("AI_ad", dir.x);
+
+            var Max = Mathf.Max(Mathf.Abs(dir.z), Mathf.Abs(dir.x));
+            Animator.SetFloat("AI_speed", Max);
+        }
+        #endregion
+
+        #region 切換目標
+        /// <summary>
+        /// AI通用的切換目標，保持用此函式來切換目標
+        /// </summary>
+        /// <param name="targetGameObject"></param>
+        public void ChangeTarget(GameObject targetGameObject)
+        {
+            this.Target = targetGameObject;
+        }
+        #endregion
+    }
+
+    public class PlayerActionScript : ActionScript
+    {
+        public void Init()
+        {
+            Camera = Me.transform.Find("Camera").GetComponent<Camera>();
+            InputManager = Me.GetComponent<InputManager>();
+        }
+
         #region 第一/第三人稱式移動
 
         /// <summary>
@@ -410,7 +464,7 @@ namespace Assets.Script.ActionControl
             //將XYZ拆開
             Vector3 topSpeed = dir.normalized * InputManager.maxWSAD * maxSpeed;
             float ySpeed = Rig.velocity.y;
-            Rig.velocity = Vector3.Lerp(Rig.velocity, topSpeed+Vector3.up* ySpeed, Time.deltaTime * 5f);
+            Rig.velocity = Vector3.Lerp(Rig.velocity, topSpeed + Vector3.up * ySpeed, Time.deltaTime * 5f);
 
             var camPos = Camera.transform.TransformDirection(Vector3.back);
             RotateTowardSlerp(Me.transform.position - camPos, rotSpeed);
@@ -436,53 +490,6 @@ namespace Assets.Script.ActionControl
 
             return Rig.velocity;
         }
-        #endregion
-
-        #region 散開腳本
-        /// <summary>
-        /// 散開，面對某個方向
-        /// </summary>
-        /// <param name="TargetPos"></param>
-        /// <param name="barrier"></param>
-        /// <param name="AxisMultiper"></param>
-        /// <param name="StepLenght"></param>
-        /// <returns></returns>
-        public Vector3 SetSpreadOutPoint(Vector3 TargetPos,Vector3 barrier,float angle,float StepLenght)
-        {
-            var me2target = TargetPos - Me.transform.position;
-            var bar2target = barrier - Target.transform.position;
-            var bar2targetDis = bar2target.magnitude;
-            //得到障礙和自身的夾角
-            var r = Vector3.SignedAngle(me2target, bar2target, Vector3.up);
-            var rot = Me.transform.TransformDirection(Vector3.forward);
-            Vector3 fin;
-            if(r > 0)
-                fin = Quaternion.AngleAxis(-angle, Vector3.up) * me2target;
-            else
-                fin = Quaternion.AngleAxis(angle, Vector3.up) * me2target;
-//            fin = Quaternion.AngleAxis(AxisMultiper * -r, Vector3.up) * rot;
-
-            //角度會和距離成反比
-            return Me.transform.position + fin.normalized * (StepLenght *( me2target.magnitude/ bar2targetDis));    
-        }
-
-        #endregion
-
-        #region 更新人物的移動狀態
-        /// <summary>
-        /// 更新人物的移動狀態，請先於Animator加入AI_ws, AI_ad, AI_speed
-        /// </summary>
-        public void UpdateWSAD_ToAnimator()
-        {
-            var dir = Me.transform.InverseTransformDirection(Agent.velocity.normalized);
-            Animator.SetFloat("AI_ws", dir.z);
-            Animator.SetFloat("AI_ad", dir.x);
-
-            var Max = Mathf.Max(Mathf.Abs(dir.z), Mathf.Abs(dir.x));
-            Animator.SetFloat("AI_speed", Max);
-        }
-        #endregion
+        #endregion        
     }
-
-
 }

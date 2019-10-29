@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Script.ActionList
 {
-    class Crossbow_WarriorAction : ActionScript
+    class Crossbow_WarriorAction : AIActionScript
     {
         public override void Before_move(ActionStatus actionStatus)
         {

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Script.ActionList
 {
-    class Karate_WarriorAction:ActionScript
+    class Karate_WarriorAction : AIActionScript
     {
         public override void Before_slash(ActionStatus actionStatus)
         {
