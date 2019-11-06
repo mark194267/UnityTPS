@@ -93,6 +93,57 @@ namespace Assets.Script.weapon
             }
             */
         }
+        public void CreateWeaponByDic(ref Dictionary<int,WeaponBasic> weaponDic)
+        {
+            foreach (var item in gameObject.GetComponentsInChildren(typeof(Transform), true))
+            {
+                foreach (var weaponBasic in weaponDic)
+                {
+                    //找到放武器的位置.生成武器在指定位置
+                    var weapon = weaponBasic.Value;
+                    if (item.name == weapon.weapontype)
+                    {
+                        weapon.weapon = Instantiate(weapon.weapon, item.transform);
+                        weapon.weapon.SetActive(false);
+                        /*
+                        WeaponBasic weapon = new WeaponBasic()
+                        {
+                            name = weaponV.name,
+                            weapontype = weaponV.weapontype,
+                            ammotype = weaponV.ammotype,
+                            Damage = weaponV.Damage,
+                            MagSize = weaponV.MagSize,
+                            BulletInMag = weaponV.BulletInMag,
+                            BulletUsedPerShot = weaponV.BulletUsedPerShot,
+                            multi = weaponV.multi,
+                            charge = weaponV.charge,
+                            acc = weaponV.acc,
+                            rof = weaponV.rof,
+                            dropoff = weaponV.dropoff,
+                            speed = weaponV.speed,
+                            recoil = weaponV.recoil,
+                            blast = weaponV.blast,
+                            stun = weaponV.stun,
+                            weapon = Instantiate(weaponV.weapon, item.transform),
+                        };
+                        
+                        weapon.weapon.tag = gameObject.tag;
+                        weapon.weapon.SetActive(false);
+                        */
+                        //print(weaponBasic.name + " " + weaponBasic.weapon.name);
+                        //WeaponSlot.Add(weapon);
+                    }
+                }
+                //var weaponPosition = gameObject.transform.Find(weaponBasic.type);
+            }
+            /*
+            foreach(var gun in WeaponSlot)
+            {
+                 print(gun.name);
+                 print(gun.name+" "+gun.weapon.name);
+            }
+            */
+        }
 
 
         public void ExchangeNewWeapon(WeaponBasic weapon)

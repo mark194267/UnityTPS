@@ -5,6 +5,7 @@ using Assets.Script.weapon;
 using Assets.Script.StaticFunction;
 using Assets.Script.Config;
 using System.Collections.Generic;
+using Assets.Script.UI;
 
 namespace Assets.Script.Avater
 {
@@ -18,6 +19,7 @@ namespace Assets.Script.Avater
         public PlayerStateMachine stateMachine { get; set; }
         public AvaterDataLoader avaterDataLoader = new AvaterDataLoader();
         private MotionStatusBuilder statusBuilder = new MotionStatusBuilder();
+        public HUD HUD;
         public GameObject GroundCheck;
         public float CheckRadius;
         public string Type;
@@ -51,6 +53,15 @@ namespace Assets.Script.Avater
 
         public enum Guns { Great_Sword,Cross_Sword, Handgun ,Shotgun ,AK47 , SMAW }
         public Guns myguns;
+
+        public Dictionary<int, WeaponBasic> weaponSlotList = new Dictionary<int, WeaponBasic>();
+        public int slotNum;
+        public int slotNumPrevious;
+
+        public WeaponBasic DualWeaponBasic { get; set; }
+        public WeaponBasic SpecialWeaponBasic { get; set; }
+        public WeaponBasic SkillWeaponBasic { get; set; }
+
         //慢動作
         public float slowMoDur;
         public float slowMoCool;
@@ -58,7 +69,6 @@ namespace Assets.Script.Avater
 
         void Start()
         {
-            #region 暫時初始化
             camera = gameObject.transform.Find("Camera").gameObject;
             avaterStatus = avaterDataLoader.LoadStatus("UnityChan");
             
@@ -66,6 +76,7 @@ namespace Assets.Script.Avater
             Init_Avater();
             var AS = (PlayerActionScript)ActionScript;
             AS.Init();
+            HUD.Setup(Hp,Hp);
 
             stateMachine = Animator.GetBehaviour<PlayerStateMachine>();
             stateMachine.me = gameObject;
@@ -76,6 +87,7 @@ namespace Assets.Script.Avater
             //獲取腳色動作值
             motionStatusDir = statusBuilder.GetMotionList("UnityChan");
             //GetAnimaterParameter();
+            #region 武器初始化
 
             //ActionScript.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
             WeaponFactory weaponFactory = new WeaponFactory();
@@ -88,32 +100,46 @@ namespace Assets.Script.Avater
 
             var GunDic = weaponFactory.AllWeaponDictionary;
 
-            GetComponent<Gun>().SetPlayerAvater(this);
-            GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
-            GetComponent<Gun>().AddWeapon(GunDic["MG"]);
-            GetComponent<Gun>().AddWeapon(GunDic["SMAW"]);
-            GetComponent<Gun>().AddWeapon(GunDic["Great_Sword"]);
-            GetComponent<Gun>().AddWeapon(GunDic["Cross_Sword"]);
-            GetComponent<Gun>().AddWeapon(GunDic["AK47"]);
-            GetComponent<Gun>().AddWeapon(GunDic["Handgun"]);
-            GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
-            GetComponent<Gun>().AddWeapon(GunDic["Shotgun"]);
-            GetComponent<Gun>().AddWeapon(GunDic["kick"]);
+            weaponSlotList.Add(1, GunDic["Great_Sword"]);
+            weaponSlotList.Add(2, GunDic["Handgun"]);
+            weaponSlotList.Add(3, GunDic["Shotgun"]);
+            weaponSlotList.Add(4, GunDic["AK47"]);
+            weaponSlotList.Add(5, GunDic["SMAW"]);
 
-            GetComponent<Gun>().CreateWeaponByList();
+            weaponSlotList.Add(100, GunDic["kick"]);
+
+            //Debug.Log(weaponSlotList[1].weapon.name);
+
+            GetComponent<Gun>().CreateWeaponByDic(ref weaponSlotList);
+
+            //GetComponent<Gun>().SetPlayerAvater(this);
+            //GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
+            //GetComponent<Gun>().AddWeapon(GunDic["MG"]);
+            //GetComponent<Gun>().AddWeapon(GunDic["SMAW"]);
+            //GetComponent<Gun>().AddWeapon(GunDic["Great_Sword"]);
+            //GetComponent<Gun>().AddWeapon(GunDic["Cross_Sword"]);
+            //GetComponent<Gun>().AddWeapon(GunDic["AK47"]);
+            //GetComponent<Gun>().AddWeapon(GunDic["Handgun"]);
+            //GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
+            //GetComponent<Gun>().AddWeapon(GunDic["Shotgun"]);
+            //GetComponent<Gun>().AddWeapon(GunDic["kick"]);
+
+            //GetComponent<Gun>().CreateWeaponByList();
+
+            //GetComponent<Gun>().LoadSingleWeapon("kick");
+            //GetComponent<Gun>().LoadSingleWeapon("AK47");
+            //GetComponent<Gun>().LoadSingleWeapon("Handgun");
+            //GetComponent<Gun>().LoadSingleWeapon("Shotgun");
+            //GetComponent<Gun>().LoadSingleWeapon("Great_Sword");
+            //GetComponent<Gun>().LoadSingleWeapon("SMAW");
+            //GetComponent<Gun>().InactiveAllWeapon();
+            //GetComponent<Gun>().ActiveWeapon("kick");
+
             GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
 
-            GetComponent<Gun>().LoadSingleWeapon("kick");
-            GetComponent<Gun>().LoadSingleWeapon("AK47");
-            GetComponent<Gun>().LoadSingleWeapon("Handgun");
-            GetComponent<Gun>().LoadSingleWeapon("Shotgun");
-            GetComponent<Gun>().LoadSingleWeapon("Great_Sword");
-            GetComponent<Gun>().LoadSingleWeapon("SMAW");
-            GetComponent<Gun>().InactiveAllWeapon();
-            GetComponent<Gun>().ActiveWeapon("kick");
             #endregion
 
-#region 上半身轉動，攝影機限制
+            #region 上半身轉動，攝影機限制
             /// 新增上半身轉動方法:
             /// 1.先在StatusByAniName新增該動畫名稱，並填入String該動畫名
             /// 2.新增ChestValue類別，並加入列表
@@ -388,15 +414,7 @@ namespace Assets.Script.Avater
             cam.yMinLimit = camv.Min_y;
         }
 
-        public void CheckCanChangeWeapon(int slotNum)
-        {
-            //如果武器欄位不同才換
-            if (WeaponSlotNumber != slotNum)
-            {
-                //WeaponSlotNumber = slotNum;
-                Animator.SetTrigger("avater_changeweapon");
-            }
-        }
+        /*
         public void ChangeWeapon(int slotNum)
         {
                 //依照得到的slotNum切換武器參照
@@ -427,6 +445,26 @@ namespace Assets.Script.Avater
             WeaponSlotNumber = slotNum;
             Animator.SetInteger("avater_weaponslot", slotNum);
         }
+        */
+        public void CheckCanChangeWeapon(int slot)
+        {
+            if (slotNum != slot)
+            {
+                Animator.SetTrigger("avater_changeweapon");
+                slotNum = slot;
+            }
+        }
+        public void ChangeWeapon(int slot)
+        {
+            //檢查是否換過武器
+            if (slotNumPrevious > 0)
+                weaponSlotList[slotNumPrevious].weapon.SetActive(false);
+            weaponSlotList[slot].weapon.SetActive(true);
+            //記錄這個武器為"上個武器"
+            slotNumPrevious = slot;
+            Animator.SetInteger("avater_weaponslot", slot);
+        }
+
         public void SlowMo()
         {
             if (Time.timeScale == 1.0f)
@@ -436,6 +474,49 @@ namespace Assets.Script.Avater
             // Adjust fixed delta time according to timescale
             // The fixed delta time will now be 0.02 frames per real-time second
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        }
+
+        public override void OnHit(int atk, double stun, Vector3 hitRot)
+        {
+            //print(gameObject.name + " say:i`m hit!");
+
+            //先扣血
+            Hp -= atk;
+            //增加頓值
+            Stun += stun;
+
+            HUD.ChangeHealth(Hp);
+
+            if (Hp < 1)
+            {
+                //print("i`m Dead!");
+                Animator.SetTrigger("avatermain_stun");
+                Animator.SetTrigger("avatermain_dead");
+                GetComponent<Gun>().NowWeapon[0].weapon.SetActive(false);
+                //死了
+                Destroy(gameObject, 30f);
+            }
+            //如果頓值大於可以承受的頓值
+            else if (Stun >= avaterStatus.Stun /* and 倒下時不會加頓值 */)
+            {
+                //倒下並且重置頓值
+                //重置路徑禁止行動
+                //print("i`m stun!");
+                /*
+                if(GetComponent<NavMeshAgent>() != null)
+                    GetComponent<NavMeshAgent>().ResetPath();
+                */
+                Animator.SetBool("avatermain_stun", true);
+                var Dir = transform.rotation.eulerAngles;
+                var rotdir = StaticFunction.RotFunction.Clamp180((hitRot.y - Dir.y));
+                //Debug.Log("meDir: "+ Dir.y +" hitVec: "+ hitRot.y+" res: "+ rotdir);
+                Animator.SetInteger("AI_Dice", Random.Range(0, 100));
+                Animator.SetFloat("avatermain_hitAngle", rotdir);
+
+                //Animator.enabled = false;
+                Stun = 0;
+            }
+            //print(avaterStatus.Hp);
         }
     }
 

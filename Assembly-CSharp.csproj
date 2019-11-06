@@ -303,6 +303,7 @@
     <Compile Include="Assets\Script\StaticFunction\RotFunction.cs" />
     <Compile Include="Assets\Script\Test\TestControl.cs" />
     <Compile Include="Assets\Script\Test\TestRandom.cs" />
+    <Compile Include="Assets\Script\UI\HUD.cs" />
     <Compile Include="Assets\Script\weapon\AmmoType.cs" />
     <Compile Include="Assets\Script\weapon\ArtyClass.cs" />
     <Compile Include="Assets\Script\weapon\BulletClass.cs" />
