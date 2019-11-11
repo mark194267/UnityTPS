@@ -31,7 +31,7 @@ namespace Assets.Script.weapon
         public GameObject Bullet;
         public GameObject target;
 
-        PlayerAvater PlayerAvater;
+        public PlayerAvater PlayerAvater { get; set; }
 
         public MouseOrbitImproved cam;
 
@@ -105,6 +105,7 @@ namespace Assets.Script.weapon
                     {
                         weapon.weapon = Instantiate(weapon.weapon, item.transform);
                         weapon.weapon.SetActive(false);
+                        LoadWeapon(weapon);
                         /*
                         WeaponBasic weapon = new WeaponBasic()
                         {
@@ -360,7 +361,8 @@ namespace Assets.Script.weapon
         public virtual bool reload(WeaponBasic weaponBasic)
         {
             //如果彈夾內的子彈 < 彈夾大小，或是剩下彈藥大於 0
-            if (weaponBasic.BulletInMag <= weaponBasic.MagSize && PlayerAvater.NowAmmo > 0)
+            if (weaponBasic.BulletInMag <= weaponBasic.MagSize 
+                && PlayerAvater.NowAmmo > 0)
             {
                 //如果現在彈量 >= 彈夾容量
                 if (PlayerAvater.NowAmmo >= weaponBasic.MagSize)

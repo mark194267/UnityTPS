@@ -25,7 +25,20 @@ namespace Assets.Script.Avater
         public string Type;
         public int NowAmmo;
         public int MaxAmmo;
-        public int WeaponSlotNumber;
+        public int _weaponSlotNum { get; set; }
+        public int weaponSlotNumber
+        {
+            get {
+                return _weaponSlotNum;
+            }
+            set
+            {
+                _weaponSlotNum = value;
+                MainWeapon = weaponSlotList[value];
+            }
+        }
+
+        //public int weaponSlotNumber { get; set; }
         public AllAmmoType ammoType = new AllAmmoType();
         public GameObject camera { get; set; }
 
@@ -55,12 +68,10 @@ namespace Assets.Script.Avater
         public Guns myguns;
 
         public Dictionary<int, WeaponBasic> weaponSlotList = new Dictionary<int, WeaponBasic>();
-        public int slotNum;
-        public int slotNumPrevious;
 
-        public WeaponBasic DualWeaponBasic { get; set; }
-        public WeaponBasic SpecialWeaponBasic { get; set; }
-        public WeaponBasic SkillWeaponBasic { get; set; }
+        public WeaponBasic DualWeapon { get; set; }
+        public WeaponBasic SpecialWeapon { get; set; }
+        public WeaponBasic SkillWeapon { get; set; }
 
         //慢動作
         public float slowMoDur;
@@ -112,7 +123,7 @@ namespace Assets.Script.Avater
 
             GetComponent<Gun>().CreateWeaponByDic(ref weaponSlotList);
 
-            //GetComponent<Gun>().SetPlayerAvater(this);
+            GetComponent<Gun>().PlayerAvater = this;
             //GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
             //GetComponent<Gun>().AddWeapon(GunDic["MG"]);
             //GetComponent<Gun>().AddWeapon(GunDic["SMAW"]);
@@ -448,21 +459,24 @@ namespace Assets.Script.Avater
         */
         public void CheckCanChangeWeapon(int slot)
         {
-            if (slotNum != slot)
+            if (weaponSlotNumber != slot)
             {
                 Animator.SetTrigger("avater_changeweapon");
-                slotNum = slot;
+                //weaponSlotNumber = slot;
             }
         }
         public void ChangeWeapon(int slot)
         {
             //檢查是否換過武器
-            if (slotNumPrevious > 0)
-                weaponSlotList[slotNumPrevious].weapon.SetActive(false);
+            if (weaponSlotNumber > 0)
+                //MainWeapon.weapon.SetActive(false);
+                weaponSlotList[weaponSlotNumber].weapon.SetActive(false);
+            //MainWeapon = weaponSlotList[slot];
             weaponSlotList[slot].weapon.SetActive(true);
             //記錄這個武器為"上個武器"
-            slotNumPrevious = slot;
+            weaponSlotNumber = slot;
             Animator.SetInteger("avater_weaponslot", slot);
+            //MainWeapon = weaponSlotList[slot];
         }
 
         public void SlowMo()

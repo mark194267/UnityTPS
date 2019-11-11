@@ -30,17 +30,7 @@ namespace Assets.Script.Avater
         protected double Stun { get; set; }
         protected int Atk { get; set; }
 
-        public virtual WeaponBasic MainWeaponBasic
-        {
-            get
-            {
-                return MainWeaponBasic;
-            }
-            set
-            {
-                MainWeaponBasic = value;
-            }
-        }
+        public virtual WeaponBasic MainWeapon { get; set; }
 
         protected string[] AnimationString { get; set; }
 
