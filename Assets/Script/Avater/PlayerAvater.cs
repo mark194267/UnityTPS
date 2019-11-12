@@ -98,6 +98,7 @@ namespace Assets.Script.Avater
             //獲取腳色動作值
             motionStatusDir = statusBuilder.GetMotionList("UnityChan");
             //GetAnimaterParameter();
+
             #region 武器初始化
 
             //ActionScript.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
@@ -119,33 +120,8 @@ namespace Assets.Script.Avater
 
             weaponSlotList.Add(100, GunDic["kick"]);
 
-            //Debug.Log(weaponSlotList[1].weapon.name);
-
             GetComponent<Gun>().CreateWeaponByDic(ref weaponSlotList);
-
             GetComponent<Gun>().PlayerAvater = this;
-            //GetComponent<Gun>().AddWeapon(GunDic["basicgun"]);
-            //GetComponent<Gun>().AddWeapon(GunDic["MG"]);
-            //GetComponent<Gun>().AddWeapon(GunDic["SMAW"]);
-            //GetComponent<Gun>().AddWeapon(GunDic["Great_Sword"]);
-            //GetComponent<Gun>().AddWeapon(GunDic["Cross_Sword"]);
-            //GetComponent<Gun>().AddWeapon(GunDic["AK47"]);
-            //GetComponent<Gun>().AddWeapon(GunDic["Handgun"]);
-            //GetComponent<Gun>().AddWeapon(GunDic["Wakizashi"]);
-            //GetComponent<Gun>().AddWeapon(GunDic["Shotgun"]);
-            //GetComponent<Gun>().AddWeapon(GunDic["kick"]);
-
-            //GetComponent<Gun>().CreateWeaponByList();
-
-            //GetComponent<Gun>().LoadSingleWeapon("kick");
-            //GetComponent<Gun>().LoadSingleWeapon("AK47");
-            //GetComponent<Gun>().LoadSingleWeapon("Handgun");
-            //GetComponent<Gun>().LoadSingleWeapon("Shotgun");
-            //GetComponent<Gun>().LoadSingleWeapon("Great_Sword");
-            //GetComponent<Gun>().LoadSingleWeapon("SMAW");
-            //GetComponent<Gun>().InactiveAllWeapon();
-            //GetComponent<Gun>().ActiveWeapon("kick");
-
             GetComponent<Gun>().cam = gameObject.transform.Find("Camera").GetComponent<MouseOrbitImproved>();
 
             #endregion
@@ -259,6 +235,8 @@ namespace Assets.Script.Avater
         {
             animSpd = GetComponent<Rigidbody>().velocity.magnitude/(maxSpd - minSpd);
             Animator.SetFloat("avater_spdPara", animSpd);
+            if(weaponSlotNumber > 0)
+                HUD.SetWpnStatus(weaponSlotList[weaponSlotNumber], NowAmmo);
         }
 
         private void LateUpdate()
@@ -469,14 +447,12 @@ namespace Assets.Script.Avater
         {
             //檢查是否換過武器
             if (weaponSlotNumber > 0)
-                //MainWeapon.weapon.SetActive(false);
                 weaponSlotList[weaponSlotNumber].weapon.SetActive(false);
-            //MainWeapon = weaponSlotList[slot];
             weaponSlotList[slot].weapon.SetActive(true);
             //記錄這個武器為"上個武器"
             weaponSlotNumber = slot;
-            Animator.SetInteger("avater_weaponslot", slot);
-            //MainWeapon = weaponSlotList[slot];
+            HUD.SetSlotWeapon(slot);
+            Animator.SetInteger("avater_weaponslot", slot);            
         }
 
         public void SlowMo()

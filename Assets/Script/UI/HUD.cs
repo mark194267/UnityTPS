@@ -14,6 +14,9 @@ namespace Assets.Script.UI
         public Button Weapon3;
         public Button Weapon4;
 
+        public Text WpnName;
+        public Text WpnMag;
+        public Text WpnTotalAmmo;
 
         public void Setup(int MaxHealth,int hp)
         {
@@ -24,7 +27,7 @@ namespace Assets.Script.UI
         {
             HealthBar.value = hp;
         }
-        public void ChangeWeapon(int weaponNum)
+        public void SetSlotWeapon(int weaponNum)
         {
             switch (weaponNum)
             {
@@ -53,6 +56,12 @@ namespace Assets.Script.UI
                     Weapon4.image.color = Color.red;
                     break;
             }
+        }
+        public void SetWpnStatus(weapon.WeaponBasic wpn, int ammo)
+        {
+            WpnName.text = wpn.name;
+            WpnMag.text = wpn.BulletInMag.ToString();
+            WpnTotalAmmo.text = ammo.ToString();
         }
     }
 }

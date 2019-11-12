@@ -106,44 +106,9 @@ namespace Assets.Script.weapon
                         weapon.weapon = Instantiate(weapon.weapon, item.transform);
                         weapon.weapon.SetActive(false);
                         LoadWeapon(weapon);
-                        /*
-                        WeaponBasic weapon = new WeaponBasic()
-                        {
-                            name = weaponV.name,
-                            weapontype = weaponV.weapontype,
-                            ammotype = weaponV.ammotype,
-                            Damage = weaponV.Damage,
-                            MagSize = weaponV.MagSize,
-                            BulletInMag = weaponV.BulletInMag,
-                            BulletUsedPerShot = weaponV.BulletUsedPerShot,
-                            multi = weaponV.multi,
-                            charge = weaponV.charge,
-                            acc = weaponV.acc,
-                            rof = weaponV.rof,
-                            dropoff = weaponV.dropoff,
-                            speed = weaponV.speed,
-                            recoil = weaponV.recoil,
-                            blast = weaponV.blast,
-                            stun = weaponV.stun,
-                            weapon = Instantiate(weaponV.weapon, item.transform),
-                        };
-                        
-                        weapon.weapon.tag = gameObject.tag;
-                        weapon.weapon.SetActive(false);
-                        */
-                        //print(weaponBasic.name + " " + weaponBasic.weapon.name);
-                        //WeaponSlot.Add(weapon);
                     }
                 }
-                //var weaponPosition = gameObject.transform.Find(weaponBasic.type);
             }
-            /*
-            foreach(var gun in WeaponSlot)
-            {
-                 print(gun.name);
-                 print(gun.name+" "+gun.weapon.name);
-            }
-            */
         }
 
 
@@ -219,9 +184,12 @@ namespace Assets.Script.weapon
             if (Weapon.acc > 0)
             {
                 Weapon.bullet = Resources.Load("Prefabs/" + Weapon.ammotype.Type) as GameObject;
+                Weapon.BulletInMag = Weapon.MagSize;
+
                 var bullet = Weapon.bullet.GetComponent<BulletClass>();
                 bullet.damage = Weapon.Damage;
                 bullet.stun = Weapon.stun;
+
             }
             //肉搏武器
             else
@@ -386,7 +354,23 @@ namespace Assets.Script.weapon
             }
             return false;
         }
-
+        public bool reload_shotgun(WeaponBasic weaponBasic)
+        {
+            //如果彈夾內的子彈 < 彈夾大小，或是剩下彈藥大於 0
+            if (PlayerAvater.NowAmmo > 0 && weaponBasic.BulletInMag < weaponBasic.MagSize)
+            {
+                //如果現在彈量 >= 彈夾容量
+                if (PlayerAvater.NowAmmo >= weaponBasic.MagSize)
+                {
+                    //現在彈量 -= 彈夾容量
+                    PlayerAvater.NowAmmo -= 1;
+                    //彈夾殘彈 = 彈夾容量
+                    weaponBasic.BulletInMag += 1;
+                }
+                return true;
+            }
+            return false;
+        }
         /// <summary>
         /// 防禦，在timeflag期間碰撞到的對象的coillder關閉
         /// </summary>

@@ -1009,7 +1009,10 @@ namespace Assets.Script.ActionList
         }
         public void After_reload(ActionStatus actionStatus)
         {
-            Gun.reload(PA.weaponSlotList[PA.weaponSlotNumber]);
+            if (PA.weaponSlotNumber == 3)            
+                Gun.reload_shotgun(PA.weaponSlotList[PA.weaponSlotNumber]);            
+            else
+                Gun.reload(PA.weaponSlotList[PA.weaponSlotNumber]);
         }
         #endregion
 
