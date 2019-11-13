@@ -1005,14 +1005,28 @@ namespace Assets.Script.ActionList
             var endspeed = Me.transform.TransformDirection(Vector3.forward * InputManager.maxWSAD).normalized * actionStatus.f1;
             Rig.velocity = Vector3.Lerp(Rig.velocity, endspeed, .1f);
 
-            return true;
+            if (PA.anim_flag == 1)
+            {
+                var wpn = PA.weaponSlotList[PA.weaponSlotNumber];
+                if (wpn.reloadtype == "single")
+                {
+                    Gun.reload_shotgun(wpn);
+                    PA.anim_flag = 0;
+                    //如果子彈還沒滿就繼續換
+                    if (wpn.BulletInMag < wpn.MagSize && PA.NowAmmo != 0)
+                        return false;
+                    return true;
+                }
+                else
+                {
+                    Gun.reload(PA.weaponSlotList[PA.weaponSlotNumber]);
+                }
+                return true;
+            }
+            return false;
         }
         public void After_reload(ActionStatus actionStatus)
         {
-            if (PA.weaponSlotNumber == 3)            
-                Gun.reload_shotgun(PA.weaponSlotList[PA.weaponSlotNumber]);            
-            else
-                Gun.reload(PA.weaponSlotList[PA.weaponSlotNumber]);
         }
         #endregion
 

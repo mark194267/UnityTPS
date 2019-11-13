@@ -65,6 +65,7 @@ namespace Assets.Script.weapon
             {
                 string name = node.Attributes["name"].Value;
                 string ammotype = node.Attributes["type"].Value;
+                string reloadtype = node.Attributes["reload"].Value;
 
                 int damage = Convert.ToInt32(node.Attributes["damage"].Value);
                 int magsize = Convert.ToInt32(node.Attributes["magsize"].Value);
@@ -87,6 +88,7 @@ namespace Assets.Script.weapon
                 {
                     name = name,
                     weapontype = weapontype,
+                    reloadtype = reloadtype,
                     ammotype = new Ammo { Type = ammotype },
                     Damage = damage,
                     MagSize = magsize,
@@ -119,6 +121,8 @@ namespace Assets.Script.weapon
             {
                 string name = node.Attributes["name"].Value;
                 string ammotype = node.Attributes["type"].Value;
+                string reloadtype = node.Attributes["reload"].Value;
+
                 int damage = Convert.ToInt32(node.Attributes["damage"].Value);
                 int magsize = Convert.ToInt32(node.Attributes["magsize"].Value);
                 int bulletusedpershot = Convert.ToInt32(node.Attributes["bulletusedpershot"].Value);
@@ -141,15 +145,14 @@ namespace Assets.Script.weapon
                     weapontype = weapontype,
                     Damage = damage,
                     MagSize = magsize,
+                    reloadtype = reloadtype,
                     BulletUsedPerShot = bulletusedpershot,
-                    multi = multi
-                    ,
+                    multi = multi,
                     acc = acc,
                     dropoff = dropoff,
                     speed = speed,
                     recoil = recoil,
-                    rof = rof
-                    ,
+                    rof = rof,
                     stun = stun,
                     charge = charge,
                     blast = blast,
@@ -175,6 +178,7 @@ namespace Assets.Script.weapon
             name = weaponBasic.name;
             weapontype = weaponBasic.weapontype;
             ammotype = weaponBasic.ammotype;
+            reloadtype = weaponBasic.reloadtype;
             Damage = weaponBasic.Damage;
             MagSize = weaponBasic.MagSize;
             BulletInMag = weaponBasic.BulletInMag;
@@ -191,6 +195,8 @@ namespace Assets.Script.weapon
         }
         public string name { get; set; }
         public string weapontype { get; set; }
+        public string reloadtype { get; set; }
+
         public Ammo ammotype { get; set; }
 
         public int Damage { get; set; }
@@ -212,5 +218,4 @@ namespace Assets.Script.weapon
         public GameObject weapon { get; set; }
         public GameObject bullet { get; set; }
     }
-
 }
