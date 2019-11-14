@@ -15,9 +15,9 @@ namespace Assets.Script.weapon
         public List<Ammo> GetAmmoType()
         {
             List<Ammo> list = new List<Ammo>();
-            Ammo ammo1 = new Ammo { Type = "bullet", MaxAmmo = 99999, NowAmmo = 99999 };
+            Ammo ammo1 = new Ammo { Type = "bullet", MaxAmmo = 300, NowAmmo = 300 };
             list.Add(ammo1);
-            Ammo ammo2 = new Ammo { Type = "rocket", MaxAmmo = 99999, NowAmmo = 99999 };
+            Ammo ammo2 = new Ammo { Type = "rocket", MaxAmmo = 25, NowAmmo = 25 };
             list.Add(ammo2);
             Ammo ammo3 = new Ammo { Type = "sword", MaxAmmo = 999, NowAmmo = 99999 };
             list.Add(ammo3);

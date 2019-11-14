@@ -330,25 +330,25 @@ namespace Assets.Script.weapon
         {
             //如果彈夾內的子彈 < 彈夾大小，或是剩下彈藥大於 0
             if (weaponBasic.BulletInMag <= weaponBasic.MagSize 
-                && PlayerAvater.NowAmmo > 0)
+                && weaponBasic.ammotype.NowAmmo > 0)
             {
                 //如果現在彈量 >= 彈夾容量
-                if (PlayerAvater.NowAmmo >= weaponBasic.MagSize)
+                if (weaponBasic.ammotype.NowAmmo >= weaponBasic.MagSize)
                 {
                     //總彈藥 += 彈夾殘彈
-                    PlayerAvater.NowAmmo += weaponBasic.BulletInMag;
+                    weaponBasic.ammotype.NowAmmo += weaponBasic.BulletInMag;
                     //現在彈量 -= 彈夾容量
-                    PlayerAvater.NowAmmo -= weaponBasic.MagSize;
+                    weaponBasic.ammotype.NowAmmo -= weaponBasic.MagSize;
                     //彈夾殘彈 = 彈夾容量
                     weaponBasic.BulletInMag = weaponBasic.MagSize;
                 }
                 //如果持有彈量 < 彈夾容量
-                if (PlayerAvater.NowAmmo <= weaponBasic.MagSize)
+                if (weaponBasic.ammotype.NowAmmo <= weaponBasic.MagSize)
                 {
                     //彈夾殘彈 = 彈夾容量
-                    weaponBasic.BulletInMag = PlayerAvater.NowAmmo;
+                    weaponBasic.BulletInMag = weaponBasic.ammotype.NowAmmo;
                     //持有彈量歸零
-                    PlayerAvater.NowAmmo = 0;
+                    weaponBasic.ammotype.NowAmmo = 0;
                 }
                 return true;
             }
@@ -357,13 +357,13 @@ namespace Assets.Script.weapon
         public bool reload_shotgun(WeaponBasic weaponBasic)
         {
             //如果彈夾內的子彈 < 彈夾大小，或是剩下彈藥大於 0
-            if (PlayerAvater.NowAmmo > 0 && weaponBasic.BulletInMag < weaponBasic.MagSize)
+            if (weaponBasic.ammotype.NowAmmo > 0 && weaponBasic.BulletInMag < weaponBasic.MagSize)
             {
                 //如果現在彈量 >= 彈夾容量
-                if (PlayerAvater.NowAmmo >= weaponBasic.MagSize)
+                if (weaponBasic.ammotype.NowAmmo >= weaponBasic.MagSize)
                 {
                     //現在彈量 -= 彈夾容量
-                    PlayerAvater.NowAmmo -= 1;
+                    weaponBasic.ammotype.NowAmmo -= 1;
                     //彈夾殘彈 = 彈夾容量
                     weaponBasic.BulletInMag += 1;
                 }

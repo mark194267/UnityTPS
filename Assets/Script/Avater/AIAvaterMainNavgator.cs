@@ -29,5 +29,10 @@ namespace Assets.Script.Avater
                 
             }
         }
+        public IEnumerator SetHeight()
+        {
+
+            yield return new WaitForSeconds(1f);
+        }
     }
 }

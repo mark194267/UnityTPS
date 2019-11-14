@@ -34,14 +34,14 @@ namespace Assets.Script.weapon
                 .GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
         }
 
-        public void Init(List<Ammo> ammo)
+        public void Init(Dictionary<string,Ammo> ammo)
         {
-            SidearmDictionary = Loadweapon("range", "sidearm",ammo);
-            RangeDictionary = Loadweapon("range", "rifle",ammo);
-            ShotgunDictionary = Loadweapon("range", "shotgun",ammo);
-            RocketDictionary = Loadweapon("range", "rocket", ammo);
-            CloseDictionary = Loadweapon("close", "sword", ammo);
-            KickDictionary = Loadweapon("close", "kick",ammo);
+            SidearmDictionary = Loadweapon("range", "sidearm","pistol",ammo);
+            RangeDictionary = Loadweapon("range", "rifle","rifle",ammo);
+            ShotgunDictionary = Loadweapon("range", "shotgun","shotgun",ammo);
+            RocketDictionary = Loadweapon("range", "rocket","rocket",ammo);
+            CloseDictionary = Loadweapon("close", "sword");
+            KickDictionary = Loadweapon("close", "kick");
             AllWeaponDictionary = RangeDictionary
                 .Concat(CloseDictionary)
                 .Concat(RocketDictionary)
@@ -110,7 +110,7 @@ namespace Assets.Script.weapon
             }
             return weapondictionary;
         }
-        public Dictionary<string, WeaponBasic> Loadweapon(string close_or_range, string weapontype,List<Ammo> ammo)
+        public Dictionary<string, WeaponBasic> Loadweapon(string close_or_range, string weapontype,string ammotype,Dictionary<string,Ammo> ammo)
         {
             Dictionary<string, WeaponBasic> weapondictionary = new Dictionary<string, WeaponBasic>();
             XmlDocument doc = new XmlDocument();
@@ -120,7 +120,7 @@ namespace Assets.Script.weapon
             foreach (XmlNode node in nodeList)
             {
                 string name = node.Attributes["name"].Value;
-                string ammotype = node.Attributes["type"].Value;
+                string _ammotype = node.Attributes["type"].Value;
                 string reloadtype = node.Attributes["reload"].Value;
 
                 int damage = Convert.ToInt32(node.Attributes["damage"].Value);
@@ -158,7 +158,7 @@ namespace Assets.Script.weapon
                     blast = blast,
                     weapon = weaponGameObject
                 };
-                weapon.ammotype = ammo.Find(x => x.Type == ammotype);
+                weapon.ammotype = ammo[ammotype];
                 //Debug.Log(weapon.weapon.name + weapon.ammotype);
                 weapondictionary.Add(name, weapon);
             }

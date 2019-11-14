@@ -1013,7 +1013,7 @@ namespace Assets.Script.ActionList
                     Gun.reload_shotgun(wpn);
                     PA.anim_flag = 0;
                     //如果子彈還沒滿就繼續換
-                    if (wpn.BulletInMag < wpn.MagSize && PA.NowAmmo != 0)
+                    if (wpn.BulletInMag < wpn.MagSize && wpn.ammotype.NowAmmo != 0)
                         return false;
                     return true;
                 }
@@ -1025,8 +1025,29 @@ namespace Assets.Script.ActionList
             }
             return false;
         }
-        public void After_reload(ActionStatus actionStatus)
+
+        public bool reload_strafe(ActionStatus actionStatus)
         {
+            FPSLikeRigMovement(12f, 15f);
+            if (PA.anim_flag == 1)
+            {
+                var wpn = PA.weaponSlotList[PA.weaponSlotNumber];
+                if (wpn.reloadtype == "single")
+                {
+                    Gun.reload_shotgun(wpn);
+                    PA.anim_flag = 0;
+                    //如果子彈還沒滿就繼續換
+                    if (wpn.BulletInMag < wpn.MagSize && wpn.ammotype.NowAmmo != 0)
+                        return false;
+                    return true;
+                }
+                else
+                {
+                    Gun.reload(PA.weaponSlotList[PA.weaponSlotNumber]);
+                }
+                return true;
+            }
+            return false;
         }
         #endregion
 

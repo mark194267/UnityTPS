@@ -25,6 +25,14 @@
     <vector3 x="0" y="0" z="1"/>
     <ignore list = "0"/>
   </move>
+  <move name = "reload_strafe">
+    <f1 value = "10"/>
+    <f2 value = "0"/>
+    <f3 value = "0"/>
+    <f4 value = "0"/>
+    <vector3 x="0" y="0" z="1"/>
+    <ignore list = "0"/>
+  </move>
 	<move name = "strafe">
 		<f1 value = "0.3"/>
 		<f2 value = "0.75"/>

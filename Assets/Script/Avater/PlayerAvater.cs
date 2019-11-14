@@ -68,6 +68,7 @@ namespace Assets.Script.Avater
         public Guns myguns;
 
         public Dictionary<int, WeaponBasic> weaponSlotList = new Dictionary<int, WeaponBasic>();
+        public Dictionary<string, Ammo> AmmoDic = new Dictionary<string, Ammo>();
 
         public WeaponBasic DualWeapon { get; set; }
         public WeaponBasic SpecialWeapon { get; set; }
@@ -99,12 +100,26 @@ namespace Assets.Script.Avater
             motionStatusDir = statusBuilder.GetMotionList("UnityChan");
             //GetAnimaterParameter();
 
+            #region 彈藥初始化
+
+            Ammo PistolAmmo = new Ammo() { Type = "pistol",NowAmmo = 300,MaxAmmo = 300};
+            Ammo RifleAmmo = new Ammo() { Type = "rifle", NowAmmo = 300, MaxAmmo = 300 };
+            Ammo ShotgunAmmo = new Ammo() { Type = "shotgun", NowAmmo = 50, MaxAmmo = 50 };
+            Ammo RocketAmmo = new Ammo() { Type = "rocket", NowAmmo = 50, MaxAmmo = 50 };
+
+            AmmoDic.Add("pistol", PistolAmmo);
+            AmmoDic.Add("rifle", RifleAmmo);
+            AmmoDic.Add("shotgun", ShotgunAmmo);
+            AmmoDic.Add("rocket", RocketAmmo);
+
+            #endregion
+
             #region 武器初始化
 
             //ActionScript.ChangeTarget(GameObject.Find("CommandCube").transform.Find("Imp").gameObject);
             WeaponFactory weaponFactory = new WeaponFactory();
-            var ammo = ammoType.GetAmmoType();
-            weaponFactory.Init(ammo);
+            //var ammo = ammoType.GetAmmoType();
+            weaponFactory.Init(AmmoDic);
 
             Type = ammoType.Type;
             NowAmmo = ammoType.NowAmmo;
@@ -236,7 +251,7 @@ namespace Assets.Script.Avater
             animSpd = GetComponent<Rigidbody>().velocity.magnitude/(maxSpd - minSpd);
             Animator.SetFloat("avater_spdPara", animSpd);
             if(weaponSlotNumber > 0)
-                HUD.SetWpnStatus(weaponSlotList[weaponSlotNumber], NowAmmo);
+                HUD.SetWpnStatus(weaponSlotList[weaponSlotNumber], weaponSlotList[weaponSlotNumber].ammotype.NowAmmo);
         }
 
         private void LateUpdate()
@@ -452,7 +467,7 @@ namespace Assets.Script.Avater
             //記錄這個武器為"上個武器"
             weaponSlotNumber = slot;
             HUD.SetSlotWeapon(slot);
-            Animator.SetInteger("avater_weaponslot", slot);            
+            Animator.SetInteger("avater_weaponslot", slot);
         }
 
         public void SlowMo()

@@ -76,6 +76,10 @@ namespace Assets.Script.Config
                 Animator.SetBool("input_move", false);
             }
             */
+            if (Input.GetButtonDown("Reload"))
+            {
+                Animator.SetTrigger("input_reload");
+            }
 
             if (Input.GetButtonDown("Jump"))
             {
