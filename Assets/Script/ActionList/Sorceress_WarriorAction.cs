@@ -11,9 +11,9 @@ namespace Assets.Script.ActionList
     class Sorceress_WarriorAction : AIActionScript
     {
         public float offsetHeight = 5f;
+        public Vector3 _velocity;
         public Vector3 destination;
-        NavMeshPath _path = new NavMeshPath();
-
+        NavMeshPath _path = new NavMeshPath();        
 
         public bool IsAgentInPos()
         {
@@ -33,7 +33,7 @@ namespace Assets.Script.ActionList
         public Vector3 GetCanFlyNode(NavMeshPath _path)
         {
             Vector3 canFlyNode = Vector3.zero;
-            Vector3 myPos = new Vector3( Me.transform.position.x, offsetHeight, Me.transform.position.z);
+            Vector3 myPos = new Vector3( Me.transform.position.x, AiNav.flyHeight, Me.transform.position.z);
 
             //找到可以直線前進的目標位置，到了之後再重畫路徑
             if (_path.corners.Length > 1)
@@ -41,7 +41,7 @@ namespace Assets.Script.ActionList
                 for (int i = 2; i < _path.corners.Length; i++)
                 {
                     //Debug.Log(_path.corners[i]);
-                    Vector3 airPath = new Vector3(_path.corners[i].x, offsetHeight, _path.corners[i].z);
+                    Vector3 airPath = new Vector3(_path.corners[i].x, AiNav.flyHeight, _path.corners[i].z);
                     RaycastHit hit;
                     Physics.Linecast(myPos, airPath, out hit, LayerMask.GetMask("Default", "Parkour"));
                     var point = hit.transform;
@@ -61,6 +61,7 @@ namespace Assets.Script.ActionList
         public override void Before_move(ActionStatus actionStatus)
         {
             Agent.ResetPath();
+
             NavMeshHit meshHit;
             if (NavMesh.SamplePosition(Target.transform.position,out meshHit,3f,-1))
             {
@@ -74,14 +75,20 @@ namespace Assets.Script.ActionList
         }
         public override bool move(ActionStatus actionStatus)
         {
-            Vector3 myPos = new Vector3(Me.transform.position.x, offsetHeight, Me.transform.position.z);
-            Vector3 tarPos = new Vector3(Target.transform.position.x, offsetHeight, Target.transform.position.z);
-
+            Vector3 myPos = Me.transform.position;
+            //Vector3 tarPos = new Vector3(Target.transform.position.x, AiNav.flyHeight, Target.transform.position.z);
+            
             if (destination == Vector3.zero)//如果有路徑正在執行中，就先追隨路徑
             {
+                //送入下一禎時的位置
+
                 Debug.Log("Agent");
                 Agent.SetDestination(_path.corners[1]);
-                Rig.transform.position = new Vector3(Agent.transform.position.x,offsetHeight, Agent.transform.position.z);
+                var endPoint = new Vector3(Agent.transform.position.x, AiNav.flyHeight, Agent.transform.position.z);
+                Rig.transform.position = Vector3.Slerp(Rig.transform.position, endPoint, Time.deltaTime * 1.5f);
+
+                var nextPos = Vector3.Lerp(Me.transform.position, Targetinfo.Target.transform.position, Time.deltaTime * 1.5f);
+                AiNav.nextStepPos = nextPos;
 
                 if (IsAgentInPos())
                 {
@@ -93,7 +100,9 @@ namespace Assets.Script.ActionList
                 Debug.Log("destination : "+ destination);
                 Vector3 toDes = destination - myPos;
                 var afterLerp = Vector3.Slerp(Rig.velocity, toDes.normalized * 5f, Time.deltaTime*1.5f);
-                afterLerp.y = 0;
+                //用高度差乘上係數得到上升或下降速度
+                var upSpd = (Target.transform.position + Vector3.up * 7f - Me.transform.position).y;
+                afterLerp.y = upSpd;
                 Rig.velocity = afterLerp;
                 
                 //Me.transform.position = Vector3.Slerp(Me.transform.position, destination, Time.deltaTime * .7f);
@@ -105,7 +114,11 @@ namespace Assets.Script.ActionList
                 {
                     Agent.Warp(warphit.position);
                 }
-                
+
+                //送入下一禎時的位置
+                var nextPos = Vector3.Lerp(Me.transform.position, destination, Time.deltaTime * 1.5f);
+                AiNav.nextStepPos = nextPos;
+                //到達位置
                 if (Vector3.Distance(myPos, destination) < 2.5f)
                 {
                     return false;
@@ -113,25 +126,6 @@ namespace Assets.Script.ActionList
                 
             }
             RotateTowardSlerp(Target.transform.position,2f);
-
-            /*
-            if (IsAgentInPos())
-            {
-                return false;
-            }
-            */
-            //Rig.transform.position = Vector3.Lerp(Me.transform.position, destination, Time.deltaTime * 1f);
-            /*
-            var hit = AI.hit.transform;
-            if (hit != null)
-            {
-                if (hit.CompareTag("Player")) return false;
-            }
-            else
-            {
-                return true;
-            }
-            */
             return true;
         }
         public override void After_move(ActionStatus AS)
@@ -141,21 +135,33 @@ namespace Assets.Script.ActionList
         public void Before_shoot(ActionStatus actionStatus)
         {
             Agent.ResetPath();
+            if(destination == Vector3.zero)
+                destination = Me.transform.position;
             //Gun.ChangeWeapon("MG");
-
+            AiNav.GetHeight(destination);
             //AI.AddHotArea();
         }
 
         public override bool shoot(ActionStatus actionStatus)
         {
-            Vector3 meVec = new Vector3(Me.transform.position.x, offsetHeight, Me.transform.position.z);
-            Vector3 tarVec = new Vector3(Target.transform.position.x, offsetHeight, Target.transform.position.z);
-            
-            Vector3 toDes = tarVec - meVec;
-            //toDes.y = 0;
-            var afterLerp = Vector3.Lerp(Rig.velocity, toDes.normalized * 10f, Time.deltaTime * 1.5f);
-            Rig.velocity = afterLerp;
+            //取得目標點的高度
 
+            //取得方向.移動
+            Vector3 meVec = Me.transform.position;
+            Vector3 tarVec = new Vector3(Target.transform.position.x, AiNav.flyHeight, Target.transform.position.z);
+            Vector3 toTarget = Vector3.Slerp(meVec, tarVec, Time.deltaTime * 1.5f);
+            AiNav.nextStepPos = toTarget;
+            
+            //速度
+            var afterLerp = Vector3.Slerp(Rig.velocity, (tarVec-meVec).normalized * 10f, Time.deltaTime * 1.5f);
+            var upSpd = (Target.transform.position + Vector3.up * 7f - Me.transform.position).y;
+            
+            //高度重算
+            afterLerp.y = upSpd;
+            Rig.velocity = afterLerp;
+            RotateTowardSlerp(Target.transform.position, 3f);
+
+            //使導航器追蹤腳色
             var warp2Pos = new Vector3(Me.transform.position.x, 0, Me.transform.position.z);
             NavMeshHit warphit;
             if (NavMesh.SamplePosition(warp2Pos, out warphit, 5f, -1))
@@ -163,12 +169,7 @@ namespace Assets.Script.ActionList
                 Agent.Warp(warphit.position);
             }
 
-            //Rig.transform.position = tarVec;
-            //Agent.SetDestination(Target.transform.position);
-
-            //Rig.transform.position = Vector3.Lerp(meVec, tarVec, Time.deltaTime*1f);
-            RotateTowardSlerp(Target.transform.position, 3f);
-
+            //射線檢查
             var hit = AI.hit.transform;
             if (hit != null)
             {
@@ -187,13 +188,6 @@ namespace Assets.Script.ActionList
         }
         public void Before_SpreadOut(ActionStatus actionStatus)
         {
-            //UpdateWSAD_ToAnimator();
-
-            var num = NavMesh.GetAreaFromName("H1");
-            //hotArea.nowHeat = num;
-            //hotArea.IsOn = true;
-
-            //NowVecter = Vector3.zero;
             var MyPos = Me.transform.position;
             var TargetPos = Target.transform.position;
             //Physics.BoxCast(MyPos, Vector3.one * .1f, TargetPos - MyPos, out hit, Me.transform.rotation);
