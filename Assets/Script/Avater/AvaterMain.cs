@@ -80,6 +80,8 @@ namespace Assets.Script.Avater
                 //print("i`m Dead!");
                 Animator.SetTrigger("avatermain_stun");
                 Animator.SetTrigger("avatermain_dead");
+                GetComponent<Rigidbody>().isKinematic = false;
+                GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Gun>().NowWeapon[0].weapon.SetActive(false);
                 //死了
                 Destroy(gameObject, 30f);

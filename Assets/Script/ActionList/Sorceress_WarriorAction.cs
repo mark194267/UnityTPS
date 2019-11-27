@@ -71,45 +71,46 @@ namespace Assets.Script.ActionList
                 }
             }
             else
-                Debug.Log("Pathing fail");
+                Debug.Log("Pathing fail");//目標現在的位置無法前往
         }
         public override bool move(ActionStatus actionStatus)
         {
             Vector3 myPos = Me.transform.position;
             //Vector3 tarPos = new Vector3(Target.transform.position.x, AiNav.flyHeight, Target.transform.position.z);
             
-            if (destination == Vector3.zero)//如果有路徑正在執行中，就先追隨路徑
+            if (destination == Vector3.zero)//沒有可抄的近路的話，就往下個轉角走
             {
-                //送入下一禎時的位置
-
-                Debug.Log("Agent");
-                Agent.SetDestination(_path.corners[1]);
+                Debug.Log("NextCorner");
+                //導向下個轉角
+                Agent.SetDestination(_path.corners[1]);                
+                //跟著導航器走
                 var endPoint = new Vector3(Agent.transform.position.x, AiNav.flyHeight, Agent.transform.position.z);
                 Rig.transform.position = Vector3.Slerp(Rig.transform.position, endPoint, Time.deltaTime * 1.5f);
-
+                //送入下一禎時的位置
                 var nextPos = Vector3.Lerp(Me.transform.position, Targetinfo.Target.transform.position, Time.deltaTime * 1.5f);
                 AiNav.nextStepPos = nextPos;
-
+                //如果到達地點就離開
                 if (IsAgentInPos())
                 {
                     return false;
                 }
             }
-            else
+            else //空中切西瓜
             {                
                 Debug.Log("destination : "+ destination);
+                //得到往目標點的方向
                 Vector3 toDes = destination - myPos;
-                var afterLerp = Vector3.Slerp(Rig.velocity, toDes.normalized * 5f, Time.deltaTime*1.5f);
+                //改變現有速度朝著目標向量
+                var afterLerp = Vector3.Slerp(Rig.velocity, toDes.normalized * 5f, Time.deltaTime*1.5f);                
                 //用高度差乘上係數得到上升或下降速度
                 var upSpd = (Target.transform.position + Vector3.up * 7f - Me.transform.position).y;
                 afterLerp.y = upSpd;
+                //確認現在速率
                 Rig.velocity = afterLerp;
                 
-                //Me.transform.position = Vector3.Slerp(Me.transform.position, destination, Time.deltaTime * .7f);
-
+                //將導航器傳送到現在位置(不會貼著路面走)
                 var warp2Pos = new Vector3(Me.transform.position.x,0, Me.transform.position.z);
                 NavMeshHit warphit;
-
                 if (NavMesh.SamplePosition(warp2Pos,out warphit, 5f, -1))
                 {
                     Agent.Warp(warphit.position);
@@ -118,12 +119,17 @@ namespace Assets.Script.ActionList
                 //送入下一禎時的位置
                 var nextPos = Vector3.Lerp(Me.transform.position, destination, Time.deltaTime * 1.5f);
                 AiNav.nextStepPos = nextPos;
-                //到達位置
-                if (Vector3.Distance(myPos, destination) < 2.5f)
+                //到達位置--目前並不可靠
+                //myPos.y = destination.y;
+                //if (Vector3.Distance(myPos, destination) < 2.5f)
+                //{
+                //    return false;
+                //}
+                var hit = AiNav.hit.transform;
+                if (hit != null)
                 {
-                    return false;
+                    if (hit.CompareTag("Player")) return false;
                 }
-                
             }
             RotateTowardSlerp(Target.transform.position,2f);
             return true;
@@ -140,6 +146,7 @@ namespace Assets.Script.ActionList
             //Gun.ChangeWeapon("MG");
             AiNav.GetHeight(destination);
             //AI.AddHotArea();
+            Gun.MainWeaponBasic = Gun.ActiveWeapon("Crossbow_test")[0];
         }
 
         public override bool shoot(ActionStatus actionStatus)
@@ -153,13 +160,13 @@ namespace Assets.Script.ActionList
             AiNav.nextStepPos = toTarget;
             
             //速度
-            var afterLerp = Vector3.Slerp(Rig.velocity, (tarVec-meVec).normalized * 10f, Time.deltaTime * 1.5f);
+            var afterLerp = Vector3.Slerp(Rig.velocity, (tarVec-meVec).normalized * 6f, Time.deltaTime * .5f);
             var upSpd = (Target.transform.position + Vector3.up * 7f - Me.transform.position).y;
             
             //高度重算
             afterLerp.y = upSpd;
             Rig.velocity = afterLerp;
-            RotateTowardSlerp(Target.transform.position, 3f);
+            RotateTowardSlerp(Target.transform.position, 5f);
 
             //使導航器追蹤腳色
             var warp2Pos = new Vector3(Me.transform.position.x, 0, Me.transform.position.z);
@@ -170,14 +177,21 @@ namespace Assets.Script.ActionList
             }
 
             //射線檢查
-            var hit = AI.hit.transform;
+            var hit = AiNav.hit.transform;
             if (hit != null)
             {
-                if (hit.CompareTag("Player")) return true;
+                if (hit.CompareTag("Player"))
+                {
+                    Gun.target = Target;
+                    Gun.NowWeapon[0].BulletInMag = 3;
+                    Gun.fire(Gun.MainWeaponBasic);
+                    //AvaterMain.anim_flag = 0;
+                }
+                else
+                    return false;
             }
             else
                 return false;
-
             return true;
         }
         public void After_shoot(ActionStatus actionStatus)

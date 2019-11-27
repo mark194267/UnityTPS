@@ -25153,5 +25153,15 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
+    - target: {fileID: 6822026825417559366, guid: 9173f8565ad33604983f1cddb9b2c032,
+        type: 3}
+      propertyPath: IsAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822026825417559366, guid: 9173f8565ad33604983f1cddb9b2c032,
+        type: 3}
+      propertyPath: IsUpdateSight
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9173f8565ad33604983f1cddb9b2c032, type: 3}
