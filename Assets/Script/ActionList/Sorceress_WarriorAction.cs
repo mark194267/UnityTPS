@@ -28,22 +28,25 @@ namespace Assets.Script.ActionList
                 }
             }
             return false;
-        } 
+        }
 
+        //找到可以直線前進的目標位置，到了之後再重畫路徑
         public Vector3 GetCanFlyNode(NavMeshPath _path)
         {
             Vector3 canFlyNode = Vector3.zero;
             Vector3 myPos = new Vector3( Me.transform.position.x, AiNav.flyHeight, Me.transform.position.z);
-
-            //找到可以直線前進的目標位置，到了之後再重畫路徑
+            //傳入路徑陣列._path.corner[1] 為自己的位置+1節點
+            //，也就是直線故不會切西瓜
             if (_path.corners.Length > 1)
             {
                 for (int i = 2; i < _path.corners.Length; i++)
                 {
-                    //Debug.Log(_path.corners[i]);
+                    //檢查自己到現在的導航點在空中是否可以連成一直線
+                    //無論如何檢查到最後一個點.最後只會返回最遠的點(切最直的路徑)
                     Vector3 airPath = new Vector3(_path.corners[i].x, AiNav.flyHeight, _path.corners[i].z);
                     RaycastHit hit;
                     Physics.Linecast(myPos, airPath, out hit, LayerMask.GetMask("Default", "Parkour"));
+                    //射線沒打到代表路徑是通的
                     var point = hit.transform;
                     if (point == null)
                     {
@@ -51,8 +54,8 @@ namespace Assets.Script.ActionList
                     }
                 }
             }
-
             //Debug.Log("Choose Point: "+canFlyNode);
+            //回傳最終點.沒找到點就是空值
             return canFlyNode;
         }
 
@@ -61,12 +64,13 @@ namespace Assets.Script.ActionList
         public override void Before_move(ActionStatus actionStatus)
         {
             Agent.ResetPath();
-
+            //找尋往目標(玩家)的路徑
             NavMeshHit meshHit;
             if (NavMesh.SamplePosition(Target.transform.position,out meshHit,3f,-1))
             {
                 if (Agent.CalculatePath(meshHit.position, _path))
                 {
+                    //把目標點存起來
                     destination = GetCanFlyNode(_path);
                 }
             }
@@ -78,18 +82,20 @@ namespace Assets.Script.ActionList
             Vector3 myPos = Me.transform.position;
             //Vector3 tarPos = new Vector3(Target.transform.position.x, AiNav.flyHeight, Target.transform.position.z);
             
-            if (destination == Vector3.zero)//沒有可抄的近路的話，就往下個轉角走
+            if (destination == Vector3.zero)//找不到可以切西瓜的導航點，走向下個轉角
             {
                 Debug.Log("NextCorner");
                 //導向下個轉角
                 Agent.SetDestination(_path.corners[1]);                
                 //跟著導航器走
                 var endPoint = new Vector3(Agent.transform.position.x, AiNav.flyHeight, Agent.transform.position.z);
-                Rig.transform.position = Vector3.Slerp(Rig.transform.position, endPoint, Time.deltaTime * 1.5f);
-                //送入下一禎時的位置
-                var nextPos = Vector3.Lerp(Me.transform.position, Targetinfo.Target.transform.position, Time.deltaTime * 1.5f);
+                Rig.transform.position = Vector3.Slerp(Rig.transform.position, endPoint, Time.deltaTime * .5f);
+                // 2019-11-28 傳入的點並不能判斷正確位置的高度
+                //送入下一禎時的位置 
+                var nextPos = Vector3.Lerp(Agent.transform.position, Targetinfo.Target.transform.position, Time.deltaTime * 1f);
                 AiNav.nextStepPos = nextPos;
-                //如果到達地點就離開
+                //如果到達地點就重新呼叫狀態(或是離開) 
+                //11-28 Agent和腳色到達目標點的時間不一致.而跟隨的腳色不一定會先到
                 if (IsAgentInPos())
                 {
                     return false;
@@ -101,13 +107,14 @@ namespace Assets.Script.ActionList
                 //得到往目標點的方向
                 Vector3 toDes = destination - myPos;
                 //改變現有速度朝著目標向量
-                var afterLerp = Vector3.Slerp(Rig.velocity, toDes.normalized * 5f, Time.deltaTime*1.5f);                
+                var afterLerp = Vector3.Slerp(Rig.velocity, toDes.normalized * 5f, Time.deltaTime*1.5f);
                 //用高度差乘上係數得到上升或下降速度
-                var upSpd = (Target.transform.position + Vector3.up * 7f - Me.transform.position).y;
-                afterLerp.y = upSpd;
+                afterLerp.y = 0f;
                 //確認現在速率
+                float _height = Mathf.Lerp(Rig.transform.position.y, AiNav.flyHeight, Time.deltaTime);
+
+                Rig.transform.position =new Vector3(Rig.transform.position.x, _height, Rig.transform.position.z);
                 Rig.velocity = afterLerp;
-                
                 //將導航器傳送到現在位置(不會貼著路面走)
                 var warp2Pos = new Vector3(Me.transform.position.x,0, Me.transform.position.z);
                 NavMeshHit warphit;
