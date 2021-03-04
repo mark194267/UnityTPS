@@ -516,7 +516,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.6343822, y: -0.00033459868, z: -0.00000008646438}
+  m_ConnectedAnchor: {x: -0.6343822, y: -0.00033340658, z: 0.00000039037658}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -784,7 +784,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.5061733, y: -0.00023209144, z: -0.33689144}
+  m_ConnectedAnchor: {x: -0.5061733, y: -0.00023209142, z: -0.33689204}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -893,7 +893,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.37960747, y: 0.000000886619, z: -0.00000035762798}
+  m_ConnectedAnchor: {x: -0.3796073, y: -0.0000002980232, z: 0.00000023841866}
   serializedVersion: 2
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -1559,7 +1559,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.15105605, y: 1.3066298, z: 0.0033086538}
+  m_ConnectedAnchor: {x: -0.15105546, y: 1.3066298, z: 0.0033074617}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1668,7 +1668,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.559505, y: -0.0000007060007, z: -0.00000004218677}
+  m_ConnectedAnchor: {x: -0.5595051, y: 0.000000480155, z: 0.00000055384976}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1838,7 +1838,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.15105605, y: 1.3066298, z: 0.0033086538}
+  m_ConnectedAnchor: {x: 0.15105665, y: 1.3066298, z: 0.0033086538}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1947,7 +1947,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.559505, y: -0.00000073193223, z: -0.00000016424383}
+  m_ConnectedAnchor: {x: -0.5595051, y: 0.00000045419438, z: 0.00000043180682}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -2087,7 +2087,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.50617325, y: -0.00023210628, z: 0.33689144}
+  m_ConnectedAnchor: {x: -0.506173, y: -0.0002321061, z: 0.33689073}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -2196,7 +2196,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 1.4353156, z: 0.0031369925}
+  m_ConnectedAnchor: {x: -0.00000059604645, y: 1.4353156, z: 0.0031369925}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -2400,7 +2400,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.37960717, y: -0.00000040233144, z: 0.00000020861619}
+  m_ConnectedAnchor: {x: -0.37960723, y: -0.00000040233144, z: 0.0000008046624}
   serializedVersion: 2
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -2915,8 +2915,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3985999349272201701, guid: 322735e6b0e474e4bb02f74f2ae842bf, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 322735e6b0e474e4bb02f74f2ae842bf, type: 3}
 --- !u!4 &2727683160932563628 stripped
 Transform:

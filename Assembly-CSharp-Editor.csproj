@@ -160,6 +160,8 @@
     <Compile Include="Assets\Extended Script\VRM\UniGLTF\UniJSON\Editor\Tests\SerializerTests.cs" />
     <Compile Include="Assets\Extended Script\VRM\UniGLTF\UniJSON\Editor\Tests\ValidatorTests.cs" />
     <Compile Include="Assets\Extended Script\VRM\UniGLTF\UniUnlit\Editor\UniUnlitEditor.cs" />
+    <Compile Include="Assets\LimbHacker-master\Editor\ChildOfHackableEditor.cs" />
+    <Compile Include="Assets\LimbHacker-master\Editor\HackableEditor.cs" />
     <Compile Include="Assets\Script\Editor\build_n_Do.cs" />
     <Compile Include="Assets\Script\Editor\Factory.cs" />
     <Compile Include="Assets\Script\Editor\Tools\TestUtils.cs" />

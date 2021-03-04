@@ -92,10 +92,11 @@ namespace Assets.Script.ActionList
                 Rig.transform.position = Vector3.Slerp(Rig.transform.position, endPoint, Time.deltaTime * .5f);
                 // 2019-11-28 傳入的點並不能判斷正確位置的高度
                 //送入下一禎時的位置 
-                var nextPos = Vector3.Lerp(Agent.transform.position, Targetinfo.Target.transform.position, Time.deltaTime * 1f);
+                var nextPos = Vector3.Lerp(Agent.transform.position, Agent.nextPosition, Time.deltaTime * 1f);
                 AiNav.nextStepPos = nextPos;
                 //如果到達地點就重新呼叫狀態(或是離開) 
                 //11-28 Agent和腳色到達目標點的時間不一致.而跟隨的腳色不一定會先到
+                //2019-12-02 改大目標半徑來加快結束
                 if (IsAgentInPos())
                 {
                     return false;
@@ -115,7 +116,7 @@ namespace Assets.Script.ActionList
 
                 Rig.transform.position =new Vector3(Rig.transform.position.x, _height, Rig.transform.position.z);
                 Rig.velocity = afterLerp;
-                //將導航器傳送到現在位置(不會貼著路面走)
+                //將導航器傳送到現在位置(不被高低差卡住)
                 var warp2Pos = new Vector3(Me.transform.position.x,0, Me.transform.position.z);
                 NavMeshHit warphit;
                 if (NavMesh.SamplePosition(warp2Pos,out warphit, 5f, -1))

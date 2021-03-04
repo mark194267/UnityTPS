@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/TestGround.unity
+- path: Assets/LimbHacker-master/Example/Sword Demo.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
